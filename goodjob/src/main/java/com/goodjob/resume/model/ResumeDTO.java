@@ -23,6 +23,7 @@ public class ResumeDTO {
 	private String h_pay_category;
 	private String content;
 	private String status;
+	private int check;
 	
 	public ResumeDTO() {
 		super();
@@ -31,7 +32,7 @@ public class ResumeDTO {
 	public ResumeDTO(int idx, int normal_idx, String name, String gender, int age, String addr, String deltai_addr,
 			String email, String tel, String subject, String grade, String h_local1, String h_local2, String h_job,
 			String h_period, String h_workday, String h_worktime, String h_pay, String h_pay_category, String content,
-			String status) {
+			String status, int check) {
 		super();
 		this.idx = idx;
 		this.normal_idx = normal_idx;
@@ -54,6 +55,7 @@ public class ResumeDTO {
 		this.h_pay_category = h_pay_category;
 		this.content = content;
 		this.status = status;
+		this.check = check;
 	}
 
 	public int getIdx() {
@@ -224,6 +226,14 @@ public class ResumeDTO {
 		this.status = status;
 	}
 
+	public int getCheck() {
+		return check;
+	}
+
+	public void setCheck(int check) {
+		this.check = check;
+	}
+
 	@Override
 	public String toString() {
 		return "ResumeDTO [idx=" + idx + ", normal_idx=" + normal_idx + ", name=" + name + ", gender=" + gender
@@ -231,7 +241,7 @@ public class ResumeDTO {
 				+ tel + ", subject=" + subject + ", grade=" + grade + ", h_local1=" + h_local1 + ", h_local2="
 				+ h_local2 + ", h_job=" + h_job + ", h_period=" + h_period + ", h_workday=" + h_workday
 				+ ", h_worktime=" + h_worktime + ", h_pay=" + h_pay + ", h_pay_category=" + h_pay_category
-				+ ", content=" + content + ", status=" + status + "]";
+				+ ", content=" + content + ", status=" + status + ", check=" + check + "]";
 	}
 	
 	
