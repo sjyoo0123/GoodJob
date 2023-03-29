@@ -4,5 +4,6 @@
   "https://mybatis.org/dtd/mybatis-3-config.dtd">
   <configuration>
   	<mappers>
+  		<mapper resource="sqlMap/reviewSQL.xml"/>
   	</mappers>
   </configuration>
