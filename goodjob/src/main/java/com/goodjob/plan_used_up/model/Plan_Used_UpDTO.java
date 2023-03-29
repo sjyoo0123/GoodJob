@@ -10,16 +10,16 @@ public class Plan_Used_UpDTO {
 	private Date plan_start;
 	private String plan_type;
 	private String status;
-	private int up_idx;
+	private int up_used_idx;
 	private int plan_used_idx;
-	private int count;
+	private int used_count;
 	
 	public Plan_Used_UpDTO() {
 		super();
 	}
 
 	public Plan_Used_UpDTO(int idx, int com_idx, int plan_idx, Date plan_start, String plan_type, String status,
-			int up_idx, int plan_used_idx, int count) {
+			int up_used_idx, int plan_used_idx, int used_count) {
 		super();
 		this.idx = idx;
 		this.com_idx = com_idx;
@@ -27,9 +27,9 @@ public class Plan_Used_UpDTO {
 		this.plan_start = plan_start;
 		this.plan_type = plan_type;
 		this.status = status;
-		this.up_idx = up_idx;
+		this.up_used_idx = up_used_idx;
 		this.plan_used_idx = plan_used_idx;
-		this.count = count;
+		this.used_count = used_count;
 	}
 
 	public int getIdx() {
@@ -80,12 +80,12 @@ public class Plan_Used_UpDTO {
 		this.status = status;
 	}
 
-	public int getUp_idx() {
-		return up_idx;
+	public int getUp_used_idx() {
+		return up_used_idx;
 	}
 
-	public void setUp_idx(int up_idx) {
-		this.up_idx = up_idx;
+	public void setUp_used_idx(int up_used_idx) {
+		this.up_used_idx = up_used_idx;
 	}
 
 	public int getPlan_used_idx() {
@@ -96,20 +96,19 @@ public class Plan_Used_UpDTO {
 		this.plan_used_idx = plan_used_idx;
 	}
 
-	public int getCount() {
-		return count;
+	public int getUsed_count() {
+		return used_count;
 	}
 
-	public void setCount(int count) {
-		this.count = count;
+	public void setUsed_count(int used_count) {
+		this.used_count = used_count;
 	}
 
 	@Override
 	public String toString() {
 		return "Plan_Used_UpDTO [idx=" + idx + ", com_idx=" + com_idx + ", plan_idx=" + plan_idx + ", plan_start="
-				+ plan_start + ", plan_type=" + plan_type + ", status=" + status + ", up_idx=" + up_idx
-				+ ", plan_used_idx=" + plan_used_idx + ", count=" + count + "]";
+				+ plan_start + ", plan_type=" + plan_type + ", status=" + status + ", up_used_idx=" + up_used_idx
+				+ ", plan_used_idx=" + plan_used_idx + ", used_count=" + used_count + "]";
 	}
-	
 	
 }
