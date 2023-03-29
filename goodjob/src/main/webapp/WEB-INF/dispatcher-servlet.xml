@@ -11,8 +11,9 @@
 		<property name="maxUploadSize" value="10485760"></property>
 	</bean>
 	<context:component-scan base-package="com.goodjob"></context:component-scan>
-
-
+	
+	<!-- controller -->
+	<bean id="faqController" class="com.goodjob.controller.FAQController"></bean>
 	
 	<!-- viewResolver & view-->
 	<bean id="goodjobJson" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"></bean>
@@ -23,7 +24,7 @@
 		<property name="order" value="1"></property>
 	</bean>
 	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
-		<property name="order" value="0"></property>
+		<property name="order" value="0"></property> 
 	</bean>
 	
 </beans>
