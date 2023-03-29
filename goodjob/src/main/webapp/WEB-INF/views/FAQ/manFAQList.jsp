@@ -24,9 +24,9 @@
 			<article>
 				<h3>FAQ</h3>
 				<div>
-					<span><input type="button" class="btn btn-primary">전체</span>
-					<span><input type="button" class="btn btn-primary">개인</span>
-					<span><input type="button" class="btn btn-primary">기업</span>
+					<span><input type="button" class="btn btn-primary" value="전체"></span>
+					<span><input type="button" class="btn btn-primary" value="개인"></span>
+					<span><input type="button" class="btn btn-primary" value="기업"></span>
 				</div>
 			</article>
 		</section>

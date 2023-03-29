@@ -12,9 +12,6 @@
 	</bean>
 	<context:component-scan base-package="com.goodjob"></context:component-scan>
 	
-	<!-- controller -->
-	<bean id="faqController" class="com.goodjob.controller.FAQController"></bean>
-	
 	<!-- viewResolver & view-->
 	<bean id="goodjobJson" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"></bean>
 	<bean id="goodjobDown" class="com.goodjob.view.DownloadView"></bean>
