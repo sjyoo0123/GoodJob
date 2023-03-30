@@ -8,34 +8,41 @@ public class NormalMemberDTO {
 	private String id;
 	private String pwd;
 	private String name;
-	private Date birth;
-	private String gender;
 	private String email;
 	private String tel;
 	private String addr;
 	private Date joindate;
 	private int singo_count;
+	private String user_category;
 	private String status;
+	private int nor_idx;
+	private int member_idx;
+	private Date birth;
+	private String gender;
 	
 	public NormalMemberDTO() {
 		super();
 	}
 
-	public NormalMemberDTO(int idx, String id, String pwd, String name, Date birth, String gender, String email,
-			String tel, String addr, Date joindate, int singo_count, String status) {
+	public NormalMemberDTO(int idx, String id, String pwd, String name, String email, String tel, String addr,
+			Date joindate, int singo_count, String user_category, String status, int nor_idx, int member_idx,
+			Date birth, String gender) {
 		super();
 		this.idx = idx;
 		this.id = id;
 		this.pwd = pwd;
 		this.name = name;
-		this.birth = birth;
-		this.gender = gender;
 		this.email = email;
 		this.tel = tel;
 		this.addr = addr;
 		this.joindate = joindate;
 		this.singo_count = singo_count;
+		this.user_category = user_category;
 		this.status = status;
+		this.nor_idx = nor_idx;
+		this.member_idx = member_idx;
+		this.birth = birth;
+		this.gender = gender;
 	}
 
 	public int getIdx() {
@@ -68,22 +75,6 @@ public class NormalMemberDTO {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public Date getBirth() {
-		return birth;
-	}
-
-	public void setBirth(Date birth) {
-		this.birth = birth;
-	}
-
-	public String getGender() {
-		return gender;
-	}
-
-	public void setGender(String gender) {
-		this.gender = gender;
 	}
 
 	public String getEmail() {
@@ -126,6 +117,14 @@ public class NormalMemberDTO {
 		this.singo_count = singo_count;
 	}
 
+	public String getUser_category() {
+		return user_category;
+	}
+
+	public void setUser_category(String user_category) {
+		this.user_category = user_category;
+	}
+
 	public String getStatus() {
 		return status;
 	}
@@ -134,11 +133,44 @@ public class NormalMemberDTO {
 		this.status = status;
 	}
 
+	public int getNor_idx() {
+		return nor_idx;
+	}
+
+	public void setNor_idx(int nor_idx) {
+		this.nor_idx = nor_idx;
+	}
+
+	public int getMember_idx() {
+		return member_idx;
+	}
+
+	public void setMember_idx(int member_idx) {
+		this.member_idx = member_idx;
+	}
+
+	public Date getBirth() {
+		return birth;
+	}
+
+	public void setBirth(Date birth) {
+		this.birth = birth;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
 	@Override
 	public String toString() {
-		return "NormalMemberDTO [idx=" + idx + ", id=" + id + ", pwd=" + pwd + ", name=" + name + ", birth=" + birth
-				+ ", gender=" + gender + ", email=" + email + ", tel=" + tel + ", addr=" + addr + ", joindate="
-				+ joindate + ", singo_count=" + singo_count + ", status=" + status + "]";
+		return "NormalMemberDTO [idx=" + idx + ", id=" + id + ", pwd=" + pwd + ", name=" + name + ", email=" + email
+				+ ", tel=" + tel + ", addr=" + addr + ", joindate=" + joindate + ", singo_count=" + singo_count
+				+ ", user_category=" + user_category + ", status=" + status + ", nor_idx=" + nor_idx + ", member_idx="
+				+ member_idx + ", birth=" + birth + ", gender=" + gender + "]";
 	}
 	
 	
