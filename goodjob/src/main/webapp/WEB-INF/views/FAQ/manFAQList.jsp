@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -15,22 +16,58 @@
     color: #fff;
     background-color: #0d6efd;
     border-color: #0d6efd;
+    
+}
+.container{
+
+	width: 960px;
 }
 </style>
+
 <body>
-	<div class="container">
-	
+<div class="container">
+<%@include file="/WEB-INF/views/header.jsp" %>
 		<section>
 			<article>
+			<!-- 
 				<h3>FAQ</h3>
 				<div>
 					<span><input type="button" class="btn btn-primary" value="전체"></span>
 					<span><input type="button" class="btn btn-primary" value="개인"></span>
 					<span><input type="button" class="btn btn-primary" value="기업"></span>
 				</div>
+				<form name="manFAQsearch" action="manFAQsearch.do" >
+				<div>
+					<input type="text" name="search">
+					<input type="submit" value="검색" class="btn btn-primary">
+				</div>
+				</form>
+				<input type="button" value="등록하기" onclick="location.href='manFAQAddPage.do'" class="btn btn-primary">
+				 -->
+				 <div class="row">
+				 	<div class="col-sm-3">
+				 		<h3>FAQ</h3>
+				 	</div>
+				 	<div class="col-sm-7"></div>
+				 	<div class="col-sm-2"></div>
+				 </div>
+				 <br>
+				 <div class="row">
+				 	<div class="col-sm-6">
+				 		<table class="table">
+				 			<tr>
+				 				<td><input type="button" class="btn btn-primary" value="전체" id="button1"></td>
+				 				<td><input type="button" class="btn btn-primary" value="개인" id="button1"></td>
+				 				<td><input type="button" class="btn btn-primary" value="기업" id="button1"></td>
+				 			</tr>
+				 		</table>
+				 	</div>
+				 	<div class="col-sm-4"></div>
+				 </div>
 			</article>
 		</section>
 	
-	</div>
+<%@include file="/WEB-INF/views/footer.jsp" %>
+</div>
 </body>
 </html>

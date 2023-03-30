@@ -12,13 +12,13 @@
 </head>
 <body>
 	<div class="container">
-	<%@include file="header.jsp"%>
+	 <%@include file="/WEB-INF/views/header.jsp"%> 
 		<section>
 			<article>
 				
 			</article>
 		</section>
-	<%@include file="footer.jsp"%>
+	 <%@include file="/WEB-INF/views/footer.jsp"%> 
 	</div>
 </body>
 </html>
