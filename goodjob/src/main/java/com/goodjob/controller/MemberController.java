@@ -1,6 +1,9 @@
 package com.goodjob.controller;
 
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,8 +25,8 @@ public class MemberController {
 	public String join() {
 		return "/member/join";
 	}
-	@RequestMapping(value = "nomalJoin.do" ,method = RequestMethod.POST)
-	public ModelAndView nomalJoin(NormalMemberDTO dto) {
+	@RequestMapping(value = "normalJoin.do" ,method = RequestMethod.POST)
+	public ModelAndView normalJoin(NormalMemberDTO dto) {
 		ModelAndView mav=new ModelAndView();
 		norDao.normalJoin(dto);
 		return mav;
@@ -31,15 +34,19 @@ public class MemberController {
 	@RequestMapping(value = "comJoin.do",method = RequestMethod.POST)
 	public ModelAndView comJoin(CompanyMemberDTO dto) {
 		ModelAndView mav=new ModelAndView();
+		comDao.comJoin(dto);
 		return mav;
 	}
 	@RequestMapping(value = "updateMember.do" ,method = RequestMethod.GET)
-	public ModelAndView updateMember() {
+	public ModelAndView updateMember(HttpSession session) {
+			
+		Integer sid=(Integer)session.getAttribute("sidx");
+		String rating=(String)session.getAttribute("rating");
 		ModelAndView mav=new ModelAndView();
 		return mav;
 	}
-	@RequestMapping(value = "nomalUpdate.do",method = RequestMethod.POST)
-	public ModelAndView nomalUpdate(NormalMemberDTO dto) {
+	@RequestMapping(value = "normalUpdate.do",method = RequestMethod.POST)
+	public ModelAndView normalUpdate(NormalMemberDTO dto) {
 		ModelAndView mav=new ModelAndView();
 		return mav;
 	}
@@ -52,14 +59,16 @@ public class MemberController {
 	public String login() {
 		return "/member/login";
 	}
-	@RequestMapping(value = "nomalLogin.do" ,method= RequestMethod.POST)
-	public ModelAndView noMalLogin(String id,String pwd) {
+	@RequestMapping(value = "normalLogin.do" ,method= RequestMethod.POST)
+	public ModelAndView norMalLogin(String id,String pwd) {
 		ModelAndView mav=new ModelAndView();
+		norDao.norLogin(id, pwd);
 		return mav;
 	}
 	@RequestMapping(value = "comLogin.do" ,method= RequestMethod.POST)
 	public ModelAndView comLogin(String id,String pwd) {
 		ModelAndView mav=new ModelAndView();
+		comDao.comLogin(id, pwd);
 		return mav;
 	}
 	
