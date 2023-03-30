@@ -1,32 +1,100 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<header class="mt-1">
+<style>
+header{
+z-index: 1 !important;
+}
+header .position-absolute{
+top:-100%;
+z-index:-1;
+background-color: white;
+transition: all 3s;
+
+}
+section{
+z-index:-2 !important;
+}
+div.col-11.mt-4.position-relative{
+}
+</style>
+<header class="mt-1 bg-white">
 	<div class="row">
-		<div class="offset-md-9 col-md-3 text-end">
-			<button type="button" class="btn btn-outline-primary me-2">로그인</button>
-			<button type="button" class="btn btn-primary">회원가입</button>
+		<div class="offset-9 col-3 text-end">
+			<a>로그인</a>
+			<a href="join.do">회원가입</a>
 		</div>
-		<a href="index.do" class="col-2"><img src="img/logo.png" class="col-12"></a>
+		<a href="index.do" class="col-2"><img src="img/logo.png"
+			class="col-12"></a>
 		<div class="col-10">
-			<form action="" class="offset-md-2 col-8 mt-5">
+			<form action="" class="offset-2 col-8 mt-5">
 				<div class="input-group">
-					<input type="text" class="form-control" placeholder="검색" aria-label="Recipient's username with two button addons">
+					<input type="text" class="form-control" placeholder="검색"
+						aria-label="Recipient's username with two button addons">
 					<button class="btn btn-outline-secondary" type="button">
 						<i class="bi bi-search"></i>
 					</button>
 				</div>
 			</form>
-			<ul class="nav col-12 mt-5 justify-content-evenly">
-				<li><a href="#" class="nav-link link-dark">공고정보</a></li>
-				<li><a href="#" class="nav-link link-dark">인재정보</a></li>
-				<li><a href="#" class="nav-link link-dark" onclick="location.href='review.do'">후기게시판</a></li>
-				<li><a href="#" class="nav-link link-dark">job도우미</a></li>
-				<li><a href="#" class="nav-link link-dark">고객센터</a></li>
-			</ul>
-		</div>
-			<hr>
-			<div class="">
-			
+			<div class="col-11 mt-4 position-relative pb-5">
+				<div class="nav">
+					<div class="col-2 offset-1">
+						<a href="#" class="">공고정보</a>
+						<ul class="nav position-absolute">
+							<li class="col-12"><a href="#">지역별</a></li>
+							<li class="col-12"><a href="#">업종별</a></li>
+							<li class="col-12"><a href="#">기간별</a></li>
+							<li class="col-12"><a href="#">급여별</a></li>
+						</ul>
+					</div>
+					<div class="col-2">
+						<a href="#" class="">인재정보</a>
+						<ul class="nav position-absolute">
+							<li class="col-12"><a href="#">지역별</a></li>
+							<li class="col-12"><a href="#">업종별</a></li>
+							<li class="col-12"><a href="#">기간별</a></li>
+							<li class="col-12"><a href="#">급여별</a></li>
+						</ul>
+					</div>
+					<div class="col-2">
+						<a href="#" class="">후기게시판</a>
+						<ul class="nav position-absolute">
+							<li class="col-12"><a href="#">키워드게시판</a></li>
+							<li class="col-12"><a href="#">나의후기</a></li>
+						</ul>
+					</div>
+					<div class="col-2">
+						<a href="#" class="">job도우미</a>
+						<ul class="nav position-absolute">
+							<li class="col-12"><a href="#">급여통계</a></li>
+							<li class="col-12"><a href="#">지역별</a></li>
+							<li class="col-12"><a href="#">직종별</a></li>
+							<li class="col-12"><a href="#">계산기</a></li>
+						</ul>
+					</div>
+					<div class="col-2">
+						<a href="#" class="">고객센터</a>
+						<ul class="nav position-absolute">
+							<li class="col-12"><a href="#">FAQ</a></li>
+							<li class="col-12"><a href="#">공지사항</a></li>
+							<li class="col-12"><a href="#">문의목록</a></li>
+							<li class="col-12"><a href="#">1대1문의</a></li>
+						</ul>
+					</div>
+				</div>
 			</div>
+		</div>
+		
 	</div>
 </header>
+<script>
+$('div.col-11.mt-4.position-relative,header .position-absolute').hover(()=>{
+	$('header').hover(()=>{
+	$('header .position-absolute').css({'margin-top':'160px'});
+	},()=>{
+		$('header .position-absolute').css({'margin-top':'0px','z-index':'-1'});
+	});
+},()=>{
+	$('header .position-absolute').css({'margin-top':'0px','z-index':'-1'});
+});
+
+</script>
