@@ -11,13 +11,13 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class NoticeController {
 
-	@GetMapping("/noticeWrite.do")
+	@RequestMapping(value="/noticeWrite.do", method=RequestMethod.GET)
 	public ModelAndView noticeWriteForm() {
 		ModelAndView mav=new ModelAndView();
 		mav.setViewName("notice/noticeWrite");
 		return mav;
 	}
-	@PostMapping("/noticeWrite.do")
+	@RequestMapping(value="/noticeWrite.do", method=RequestMethod.POST)
 	public ModelAndView noticeWriteSubmit() {
 		ModelAndView mav=new ModelAndView();
 		mav.setViewName("notice/noticeWrite");

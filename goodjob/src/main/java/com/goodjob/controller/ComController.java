@@ -18,10 +18,13 @@ public class ComController {
 	
 	@RequestMapping("/company.do")
 	public ModelAndView comMypageForm(HttpSession session) {
-		int sidx=(int)session.getAttribute("sidx");
+		int sidx=0;
+//		if(session.getAttribute("sidx")!=null) {
+//			sidx=(int)session.getAttribute("sidx");
+//		}
 		ModelAndView mav=new ModelAndView();
-		CompanyMemberDTO dto=ComDao.comInfo(sidx);
-		mav.addObject("dto", dto);
+//		CompanyMemberDTO dto=ComDao.comInfo(sidx);
+//		mav.addObject("dto", dto);
 		mav.setViewName("company/comMypage");
 		return mav;
 	}
