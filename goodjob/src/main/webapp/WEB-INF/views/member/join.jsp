@@ -71,12 +71,13 @@
 		let emailDiv=$('<div>').addClass('form-floating').append(emailInput, emailLabel);
 		let emailColDiv=$('<div>').addClass('col-10 col-md-4 offset-md-4 offset-2').append(emailDiv);
 		//tel
-		let telSelect=$('<select>').addClass('form-select col-4').attr('aria-label', 'Default select example').append($('<option>').prop('selected', true).text('선택')).append($('<option>').val('010').text('010')).append($('<option>').val('011').text('011'));
 		let telInput = $('<input>').attr({type:'text',id:'floatingInputTel',placeholder:'tel',class:'form-control'});
 		let telLabel=$('<label>').attr({for:'floatingInputTel'}).text('전화번호');
 		let telDiv=$('<div>').addClass('form-floating').append(telInput, telLabel);
-		let telGroup=$('<div>').addClass('input-group').append(telSelect, telDiv);
-		let telColDiv=$('<div>').addClass('col-10 col-md-4 offset-md-4 offset-2').append(telGroup);
+		let telColDiv=$('<div>').addClass('col-10 col-md-4 offset-md-4 offset-2').append(telDiv);
+		//submit
+		let submit =$('<button>').attr({'type':'submit'}).text('가입');
+		let submitCol=$('<div>').addClass('col-10 col-md-4 offset-md-4 offset-2').append(submit);
 		$('.normal').click(()=>{
 			$('.subject').text('개인 회원가입');
 				let startContent = $('.main').children().detach();
@@ -85,7 +86,7 @@
 				//name
 				let nameLabel=$('<label>').attr({for:'floatingInputName'}).text('이름');
 				//gen
-				let genColDiv=$('<div>').attr({class:'col-12'});
+				let genColDiv=$('<div>').attr({class:'col-10 col-md-4 offset-md-4 offset-2'});
 				let genDiv=$('<div>').attr({class:'form-floating'});
 				let genSelect=$('<select>').attr({class:'form-select','aria-label':'Default select example'});
 				let optionN=$('<option>').attr({selected:'selected'}).text('성별');
@@ -121,7 +122,7 @@
 					for:'floatingInputAddr'
 				}).text('상세주소');*/
 				//date
-				let dateColDiv=$('<div>').attr({class:'col-12'});
+				let dateColDiv=$('<div>').attr({class:'col-10 col-md-4 offset-md-4 offset-2'});
 				let dateDiv=$('<div>').attr({class:'form-floating'});
 				let dateInput=$('<input>').attr({type:'text',id:'date',class:'form-control',value:''});
 					dateInput.datepicker({
@@ -167,7 +168,7 @@
 				dongColDiv.append(dongDiv);
 				//addrColDiv.append(addrDiv);
 				dateColDiv.append(dateDiv);
-				formRowDiv.append(iconDiv).append(idColDiv).append(idText).append(pwdColDiv).append(pwdText).append(nameColDiv).append(emailColDiv).append(telColDiv).append(genColDiv).append(siColDiv).append(guColDiv).append(dongColDiv).append(dateColDiv);
+				formRowDiv.append(iconDiv).append(idColDiv).append(idText).append(pwdColDiv).append(pwdText).append(nameColDiv).append(emailColDiv).append(telColDiv).append(genColDiv).append(siColDiv).append(guColDiv).append(dongColDiv).append(dateColDiv).append(submitCol);
 				form.append(formRowDiv);
 				$('.main').append(form);
 			});
