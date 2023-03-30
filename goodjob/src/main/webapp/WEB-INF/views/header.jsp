@@ -19,7 +19,7 @@
 			<ul class="nav col-12 mt-5 justify-content-evenly">
 				<li><a href="#" class="nav-link link-dark">공고정보</a></li>
 				<li><a href="#" class="nav-link link-dark">인재정보</a></li>
-				<li><a href="#" class="nav-link link-dark">후기게시판</a></li>
+				<li><a href="#" class="nav-link link-dark" onclick="location.href='review.do'">후기게시판</a></li>
 				<li><a href="#" class="nav-link link-dark">job도우미</a></li>
 				<li><a href="#" class="nav-link link-dark">고객센터</a></li>
 			</ul>

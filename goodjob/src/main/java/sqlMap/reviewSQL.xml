@@ -3,13 +3,5 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.goodjob.review">
-	<select id="reviewList" parameterType="Map" resultType="com.goodjob.review.model.ReviewDTO">
-		select * from
-		(select rownum as rnum, a.* from(
-		select * from review order by idx desc)a )b
-		where rnum <![CDATA[>=]]>#{start} and rnum <![CDATA[<=]]>#{end}
-	</select>
-	<select id="reviewTotalCnt" resultType="Integer">
-		select count(*) from review
-	</select>
+	
 </mapper>

@@ -1,20 +1,29 @@
 package com.goodjob.review.model;
 
-import java.util.List;
-import java.util.Map;
+import org.mybatis.spring.SqlSessionTemplate;
 
 public class ReviewDAOImple implements ReviewDAO {
 	
-	@Override
-	public List<ReviewDTO> reviewList(Map map) {
-		// TODO Auto-generated method stub
-		return null;
+	private SqlSessionTemplate sqlMap;
+	
+	public ReviewDAOImple() {
+		// TODO Auto-generated constructor stub
 	}
 	
-	@Override
-	public int getTotalCnt() {
-		// TODO Auto-generated method stub
-		return 0;
+	public ReviewDAOImple(SqlSessionTemplate sqlMap) {
+		super();
+		this.sqlMap = sqlMap;
 	}
 	
+//	@Override
+//	public List<KeywordDTO> reviewWriteShow(KeywordDTO dto) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//	@Override
+//	public List<KeywordDTO> reviewWriteShow(KeywordDTO dto) {
+//		List<KeywordDTO> list = sqlMap.selectList("reviewWriteShow");
+//		return list;
+//	}
+//	
 }
