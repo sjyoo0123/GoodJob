@@ -44,8 +44,8 @@ public class NoticeDTO {
 		super();
 	}
 
-	public NoticeDTO(int idx, int com_idx, int normal_idx, int plan_idx, String com_name, String subject, String local1,
-			String local2, String local3, String detail_addr, String x, String y, int pay_hour, int pay_month,
+	public NoticeDTO(int idx, int com_idx, int plan_idx, String com_name, String subject, String local1,
+			String local2, String local3, String detail_addr, String x, String y, int pay_hour,
 			String pay_category, int worktime, Date writedate, String workday, int starttime, int finishtime,
 			Date deadline, String gender, int min_age, int max_age, String grade, String job, String recruit,
 			String content, String service_type, String period, String manager_name, String manager_tel,
@@ -53,7 +53,6 @@ public class NoticeDTO {
 		super();
 		this.idx = idx;
 		this.com_idx = com_idx;
-		this.normal_idx = normal_idx;
 		this.plan_idx = plan_idx;
 		this.com_name = com_name;
 		this.subject = subject;
@@ -64,7 +63,6 @@ public class NoticeDTO {
 		this.x = x;
 		this.y = y;
 		this.pay_hour = pay_hour;
-		this.pay_month = pay_month;
 		this.pay_category = pay_category;
 		this.worktime = worktime;
 		this.writedate = writedate;
