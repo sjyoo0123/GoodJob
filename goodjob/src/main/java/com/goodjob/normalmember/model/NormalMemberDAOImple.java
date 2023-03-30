@@ -5,14 +5,21 @@ import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.goodjob.member.model.MemberDTO;
+
 public class NormalMemberDAOImple implements NormalMemberDAO {
 	private SqlSessionTemplate sqlMap;
 
 	@Override
 	public int normalJoin(NormalMemberDTO dto) {
 		// TODO Auto-generated method stub
-		
-		return sqlMap.insert("normalJoin", dto);
+		sqlMap.insert("normalJoin", dto);
+		Map<String, String>map=new HashMap<String, String>();
+		map.put("id",dto.getId());
+		map.put("pwd", dto.getPwd());
+		MemberDTO mem=sqlMap.selectOne("selectMember", map);
+		//dto.setMember_idx(mem.getIdx);
+		return 0;
 	}
 	@Override
 	public NormalMemberDTO norLogin(String id, String pwd) {

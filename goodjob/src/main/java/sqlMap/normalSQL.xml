@@ -3,21 +3,16 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.goodjob.normalmember">
-	<insert id="normalJoin"
-		parameterType="com.goodjob.normalmember.model.NormalMemberDTO">
-		insert into normalmember
-		values(normalmember_idx.nextval,#{id},#{pwd},#{name},#{birth},#{gender},#{email},#{tel},#{addr},sysdate,0,'비활성')
+	<insert id="normalJoin" parameterType="com.goodjob.normalmember.model.NormalMemberDTO">
+		insert into member
+		values(member_idx.nextval,#{id},#{pwd},#{name},#{email},#{tel},#{addr},sysdate,0,'개인','활성')
 	</insert>
-	<select id="norIdDuplicateCheck" parameterType="String"
-		resultType="Integer">
-		select count(*) from normalmember where id=#{id}
-	</select>
-	<select id="norLogin" parameterType="Map"
+	
+	<select id="selectMember" parameterType="Map"
 		resultType="com.goodjob.normalmember.model.NormalMemberDTO">
-		select * from normalmember where id=#{id} and pwd=#{pwd}
+		select * from member where id=#{id} and pwd=#{pwd}
 	</select>
-	<update id="norUpdate"
-		parameterType="com.goodjob.normalmember.model.NormalMemberDTO">
+	<update id="norUpdate" parameterType="com.goodjob.normalmember.model.NormalMemberDTO">
 		update normalmember set
 		id=#{id},pwd=#{pwd},name=#{name},addr=#{addr},tel=#{tel} where
 		idx=#{idx}
