@@ -5,88 +5,87 @@ import java.sql.Date;
 public class NoticeDTO {
 
 	private int idx;
-	private int com_idx;
-	private int normal_idx;
 	private int plan_idx;
-	private String com_name;
+	private int com_idx;
 	private String subject;
+	private String gender;
+	private int min_age;
+	private int max_age;
+	private String grade;
+	private String job;
+	private String service_type;
+	private String recruit;
+	private String period;
+	private String workday;
+	private int starttime;
+	private int finishtime;
+	private String pay_category;
+	private int pay_hour;
+	private int pay_month;
+	private int worktime;
 	private String local1;
 	private String local2;
 	private String local3;
 	private String detail_addr;
 	private String x;
 	private String y;
-	private int pay_hour;
-	private int pay_month;
-	private String pay_category;
-	private int worktime;
-	private Date writedate;
-	private String workday;
-	private int starttime;
-	private int finishtime;
-	private Date deadline;
-	private String gender;
-	private int min_age;
-	private int max_age;
-	private String grade;
-	private String job;
-	private String recruit;
-	private String content;
-	private String service_type;
-	private String period;
+	private String com_name;
 	private String manager_name;
 	private String manager_tel;
 	private String manaber_email;
+	private String content;
+	private Date writedate;
+	private Date deadline;
 	private int ref;
 	private String status;
 	
 	public NoticeDTO() {
 		super();
 	}
-
-	public NoticeDTO(int idx, int com_idx, int normal_idx, int plan_idx, String com_name, String subject, String local1,
-			String local2, String local3, String detail_addr, String x, String y, int pay_hour, int pay_month,
-			String pay_category, int worktime, Date writedate, String workday, int starttime, int finishtime,
-			Date deadline, String gender, int min_age, int max_age, String grade, String job, String recruit,
-			String content, String service_type, String period, String manager_name, String manager_tel,
-			String manaber_email, int ref, String status) {
+	
+	public NoticeDTO(int idx, int plan_idx, int com_idx, String subject, String gender, int min_age, int max_age,
+			String grade, String job, String service_type, String recruit, String period, String workday, int starttime,
+			int finishtime, String pay_category, int pay_hour, int pay_month, int worktime, String local1,
+			String local2, String local3, String detail_addr, String x, String y, String com_name, String manager_name,
+			String manager_tel, String manaber_email, String content, Date writedate, Date deadline, int ref,
+			String status) {
 		super();
 		this.idx = idx;
-		this.com_idx = com_idx;
-		this.normal_idx = normal_idx;
 		this.plan_idx = plan_idx;
-		this.com_name = com_name;
+		this.com_idx = com_idx;
 		this.subject = subject;
+		this.gender = gender;
+		this.min_age = min_age;
+		this.max_age = max_age;
+		this.grade = grade;
+		this.job = job;
+		this.service_type = service_type;
+		this.recruit = recruit;
+		this.period = period;
+		this.workday = workday;
+		this.starttime = starttime;
+		this.finishtime = finishtime;
+		this.pay_category = pay_category;
+		this.pay_hour = pay_hour;
+		this.pay_month = pay_month;
+		this.worktime = worktime;
 		this.local1 = local1;
 		this.local2 = local2;
 		this.local3 = local3;
 		this.detail_addr = detail_addr;
 		this.x = x;
 		this.y = y;
-		this.pay_hour = pay_hour;
-		this.pay_month = pay_month;
-		this.pay_category = pay_category;
-		this.worktime = worktime;
-		this.writedate = writedate;
-		this.workday = workday;
-		this.starttime = starttime;
-		this.finishtime = finishtime;
-		this.deadline = deadline;
-		this.gender = gender;
-		this.min_age = min_age;
-		this.max_age = max_age;
-		this.grade = grade;
-		this.job = job;
-		this.recruit = recruit;
-		this.content = content;
-		this.service_type = service_type;
-		this.period = period;
+		this.com_name = com_name;
 		this.manager_name = manager_name;
 		this.manager_tel = manager_tel;
 		this.manaber_email = manaber_email;
+		this.content = content;
+		this.writedate = writedate;
+		this.deadline = deadline;
 		this.ref = ref;
 		this.status = status;
 	}
+
 
 	public int getIdx() {
 		return idx;
@@ -102,14 +101,6 @@ public class NoticeDTO {
 
 	public void setCom_idx(int com_idx) {
 		this.com_idx = com_idx;
-	}
-
-	public int getNormal_idx() {
-		return normal_idx;
-	}
-
-	public void setNormal_idx(int normal_idx) {
-		this.normal_idx = normal_idx;
 	}
 
 	public int getPlan_idx() {
@@ -370,17 +361,18 @@ public class NoticeDTO {
 
 	@Override
 	public String toString() {
-		return "NoticeDTO [idx=" + idx + ", com_idx=" + com_idx + ", normal_idx=" + normal_idx + ", plan_idx="
-				+ plan_idx + ", com_name=" + com_name + ", subject=" + subject + ", local1=" + local1 + ", local2="
-				+ local2 + ", local3=" + local3 + ", detail_addr=" + detail_addr + ", x=" + x + ", y=" + y
-				+ ", pay_hour=" + pay_hour + ", pay_month=" + pay_month + ", pay_category=" + pay_category
-				+ ", worktime=" + worktime + ", writedate=" + writedate + ", workday=" + workday + ", starttime="
-				+ starttime + ", finishtime=" + finishtime + ", deadline=" + deadline + ", gender=" + gender
-				+ ", min_age=" + min_age + ", max_age=" + max_age + ", grade=" + grade + ", job=" + job + ", recruit="
-				+ recruit + ", content=" + content + ", service_type=" + service_type + ", period=" + period
-				+ ", manager_name=" + manager_name + ", manager_tel=" + manager_tel + ", manaber_email=" + manaber_email
-				+ ", ref=" + ref + ", status=" + status + "]";
+		return "NoticeDTO [idx=" + idx + ", plan_idx=" + plan_idx + ", com_idx=" + com_idx + ", subject=" + subject
+				+ ", gender=" + gender + ", min_age=" + min_age + ", max_age=" + max_age + ", grade=" + grade + ", job="
+				+ job + ", service_type=" + service_type + ", recruit=" + recruit + ", period=" + period + ", workday="
+				+ workday + ", starttime=" + starttime + ", finishtime=" + finishtime + ", pay_category=" + pay_category
+				+ ", pay_hour=" + pay_hour + ", pay_month=" + pay_month + ", worktime=" + worktime + ", local1="
+				+ local1 + ", local2=" + local2 + ", local3=" + local3 + ", detail_addr=" + detail_addr + ", x=" + x
+				+ ", y=" + y + ", com_name=" + com_name + ", manager_name=" + manager_name + ", manager_tel="
+				+ manager_tel + ", manaber_email=" + manaber_email + ", content=" + content + ", writedate=" + writedate
+				+ ", deadline=" + deadline + ", ref=" + ref + ", status=" + status + "]";
 	}
+
+
 	
 	
 }
