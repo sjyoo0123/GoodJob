@@ -32,7 +32,7 @@ public class NoticeDTO {
 	private String com_name;
 	private String manager_name;
 	private String manager_tel;
-	private String manaber_email;
+	private String manager_email;
 	private String content;
 	private Date writedate;
 	private Date deadline;
@@ -47,7 +47,7 @@ public class NoticeDTO {
 			String grade, String job, String service_type, String recruit, String period, String workday, int starttime,
 			int finishtime, String pay_category, int pay_hour, int pay_month, int worktime, String local1,
 			String local2, String local3, String detail_addr, String x, String y, String com_name, String manager_name,
-			String manager_tel, String manaber_email, String content, Date writedate, Date deadline, int ref,
+			String manager_tel, String manager_email, String content, Date writedate, Date deadline, int ref,
 			String status) {
 		super();
 		this.idx = idx;
@@ -78,7 +78,7 @@ public class NoticeDTO {
 		this.com_name = com_name;
 		this.manager_name = manager_name;
 		this.manager_tel = manager_tel;
-		this.manaber_email = manaber_email;
+		this.manager_email = manager_email;
 		this.content = content;
 		this.writedate = writedate;
 		this.deadline = deadline;
@@ -335,12 +335,12 @@ public class NoticeDTO {
 		this.manager_tel = manager_tel;
 	}
 
-	public String getManaber_email() {
-		return manaber_email;
+	public String getManager_email() {
+		return manager_email;
 	}
 
-	public void setManaber_email(String manaber_email) {
-		this.manaber_email = manaber_email;
+	public void setManager_email(String manager_email) {
+		this.manager_email = manager_email;
 	}
 
 	public int getRef() {
@@ -368,7 +368,7 @@ public class NoticeDTO {
 				+ ", pay_hour=" + pay_hour + ", pay_month=" + pay_month + ", worktime=" + worktime + ", local1="
 				+ local1 + ", local2=" + local2 + ", local3=" + local3 + ", detail_addr=" + detail_addr + ", x=" + x
 				+ ", y=" + y + ", com_name=" + com_name + ", manager_name=" + manager_name + ", manager_tel="
-				+ manager_tel + ", manaber_email=" + manaber_email + ", content=" + content + ", writedate=" + writedate
+				+ manager_tel + ", manager_email=" + manager_email + ", content=" + content + ", writedate=" + writedate
 				+ ", deadline=" + deadline + ", ref=" + ref + ", status=" + status + "]";
 	}
 

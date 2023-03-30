@@ -13,9 +13,10 @@
 <body>
 	<div class="container">
 	<%@include file="header.jsp"%>
+	<hr>
 		<section>
 			<article>
-				
+				<h1>index.jspaaaaaaaaaaaaaaaa</h1>
 			</article>
 		</section>
 	<%@include file="footer.jsp"%>
