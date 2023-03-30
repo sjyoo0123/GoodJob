@@ -10,6 +10,8 @@
 <body>
 <h1>내공고리스트페이지</h1>
 <article>
+<button><span>진행중</span></button><button><span>승인대기</span></button><button><span>마감</span></button>
+<form><input type="text" name="searchNotice"><input type="submit" value="검색"></form>
 <table>
 <thead>
 <tr>
@@ -27,6 +29,14 @@
 		</tr>
 	</c:if>
 </tbody>
+<tfoot>
+		<tr>
+			<td colspan="4" align="center">
+			${pageStr}
+			</td>
+			<td><input type="button" value="공고등록"></td>
+		</tr>
+</tfoot>
 </table>
 </article>
 </body>

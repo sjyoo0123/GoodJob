@@ -9,4 +9,7 @@
   <select id="comIdDuplicateCheck" parameterType="String" resultType="Integer">
   select count(*) from companymember where id=#{id} 
   </select>
+  <select id="comInfo" parameterType="Integer" resultType="com.goodjob.companymember.CompanyMemberDTO">
+  select * from companymember where idx=#{idx}
+  </select>
   </mapper>
