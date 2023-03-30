@@ -5,5 +5,7 @@
   <configuration>
   	<mappers>
   		<mapper resource="sqlMap/reviewSQL.xml"/>
+  		<mapper resource="sqlMap/normalSQL.xml"/>
+  		<mapper resource="sqlMap/comSQL.xml"/>
   	</mappers>
   </configuration>
