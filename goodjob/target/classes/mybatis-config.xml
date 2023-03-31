@@ -9,5 +9,6 @@
   		<mapper resource="sqlMap/memberSQL.xml"/>
   		<mapper resource="sqlMap/comSQL.xml"/>
   		<mapper resource="sqlMap/normalSQL.xml"/>
+  		<mapper resource="sqlMap/oneoneSQL.xml"/>
   	</mappers>
   </configuration>

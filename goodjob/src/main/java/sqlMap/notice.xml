@@ -6,4 +6,7 @@
 <insert id="noticeWrite" parameterType="com.goodjob.notice.noticeDTO">
 
 </insert>
+<select id="noticeList" resurtType="com.goodjob.notice.model.noticeDTO">
+select * from notice
+</select>
   </mapper>

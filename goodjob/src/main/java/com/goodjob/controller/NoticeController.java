@@ -35,5 +35,10 @@ public class NoticeController {
 		mav.setViewName("notice/noticeComList");
 		return mav;
 	}
-	
+	@RequestMapping(value="noticeList.do",method = RequestMethod.GET)
+	public ModelAndView noticeList(@RequestParam(value="cp",defaultValue="1")int cp) {
+		ModelAndView mav=new ModelAndView();
+		mav.setViewName("notice/noticeList");
+		return mav;
+	}
 }
