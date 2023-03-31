@@ -3,10 +3,11 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.goodjob.notice">
-<insert id="noticeWrite" parameterType="com.goodjob.notice.noticeDTO">
-
+<insert id="noticeWrite" parameterType="com.goodjob.notice.model.NoticeDTO">
+insert into notice
+values(notice_idx.nextval,#{plan_idx},#{com_idx},#{subject},#{gender},#{min_age},#{max_age},#{grade},#{job},#{service_type},#{recruit},#{period},#{workday},#{starttime},#{finishtime},#{pay_category},#{pay_hour},#{pay_month},#{worktime},#{local1},#{local2},#{local3},#{detail_addr},#{x},#{y},#{com_name},#{manager_name},#{manager_tel},#{manager_email},#{content},sysdate,sysdate+30,0,'활성')
 </insert>
-<select id="noticeList" resurtType="com.goodjob.notice.model.noticeDTO">
+<select id="noticeList" resultType="com.goodjob.notice.model.noticeDTO">
 select * from notice
 </select>
   </mapper>

@@ -8,8 +8,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.goodjob.notice.model.NoticeDAO;
+import com.goodjob.notice.model.NoticeDTO;
+import java.util.*;
+
 @Controller
 public class NoticeController {
+
+	private NoticeDAO ndao;
+	
+	public NoticeController(NoticeDAO ndao) {
+		super();
+		this.ndao = ndao;
+	}
 
 	@RequestMapping(value="/noticeWrite.do", method=RequestMethod.GET)
 	public ModelAndView noticeWriteForm() {
@@ -17,10 +28,25 @@ public class NoticeController {
 		mav.setViewName("notice/noticeWrite");
 		return mav;
 	}
+	
 	@RequestMapping(value="/noticeWrite.do", method=RequestMethod.POST)
-	public ModelAndView noticeWriteSubmit() {
+	public ModelAndView noticeWriteSubmit(NoticeDTO dto,String workstarttime1,String workstarttime2,String workendtime1,String workendtime2) {
 		ModelAndView mav=new ModelAndView();
-		mav.setViewName("notice/noticeWrite");
+		String starttime=workstarttime1+workstarttime2;
+		dto.setStarttime(Integer.parseInt(starttime));
+		String finishtime=workendtime1+workendtime2;
+		dto.setFinishtime(Integer.parseInt(finishtime));
+		if(dto.getPay_category().equals("시급")) {
+			int pay_month=(dto.getFinishtime()-dto.getStarttime())*dto.getPay_hour();
+			dto.setPay_month(pay_month);
+		}else if(dto.getPay_category().equals("월급")) {
+			int pay_month=(dto.getFinishtime()-dto.getStarttime())*dto.getPay_hour()*dto.getWorktime();
+			dto.setPay_month(pay_month);
+		}
+		int result=ndao.noticeWrite(dto);
+		String msg=result>0?"작성완료":"작성실패";
+		mav.addObject("msg", msg);
+		mav.setViewName("notice/noticeMsg");
 		return mav;
 	}
 	@RequestMapping("/noticeComList.do")
