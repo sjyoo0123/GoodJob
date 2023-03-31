@@ -11,18 +11,26 @@
 	테스트
 	<h2>후기 작성</h2>
 	<table>
-		<c:if test="${empty dto}">
-			<tr>
-				<td>등록된 글이 없습니다</td>
-			</tr>
-		</c:if>
+		<article>
+			<form action="comSearch">
+				<input type="text" name="comName" placeholder="회사이름을 적어주세요">
+				<input type="submit" value="검색">
+			</form>
+		</article>
+		<article>
+			<form action="reviewWrite">
+				<c:if test="${empty dto}">
+					<tr>
+						<td>등록된 글이 없습니다</td>
+					</tr>
+				</c:if>
 
-		<c:forEach var="dto" items="${dto}">
-			<tr>
-				<td><input class="list" type="button" value="${dto.content }"
-					id="${dto.idx }"></td>
-			</tr>
-		</c:forEach>
+				<c:forEach var="dto" items="${dto}">
+					<tr>
+						<td><input class="list" type="button" value="${dto.content }"
+							id="${dto.idx }"></td>
+					</tr>
+				</c:forEach>
 	</table>
 
 	<div>
@@ -33,6 +41,13 @@
 
 
 	</div>
+	<input type="submit" value="작성">
+	<input type="button" value="취소" onclick="location.href='reviewList.do'">
+	</form>
+	</article>
+
+
+
 
 
 	테스트
@@ -65,10 +80,6 @@ function deleteNode() {
 	
 
 </script>
-	/////////////
-
-
-
-	////////////////
+	///////////// ////////////////
 </body>
 </html>

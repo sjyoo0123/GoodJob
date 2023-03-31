@@ -1,5 +1,7 @@
 package com.goodjob.review.model;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 
 public class ReviewDAOImple implements ReviewDAO {
@@ -15,15 +17,10 @@ public class ReviewDAOImple implements ReviewDAO {
 		this.sqlMap = sqlMap;
 	}
 	
-//	@Override
-//	public List<KeywordDTO> reviewWriteShow(KeywordDTO dto) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-//	@Override
-//	public List<KeywordDTO> reviewWriteShow(KeywordDTO dto) {
-//		List<KeywordDTO> list = sqlMap.selectList("reviewWriteShow");
-//		return list;
-//	}
-//	
+	@Override
+	public List<ReviewDTO> reviewList() {
+		List<ReviewDTO> list = sqlMap.selectList("reviewList");
+		return list;
+	}
+	
 }

@@ -19,6 +19,11 @@
 						<input type="button" value="후기 작성 하기" onclick="location.href='reviewWrite.do'" >
 				</form> 
 		</article>
+		<article>
+			<div>회사이름</div>
+			<div>리뷰 count</div>
+			<div>키워드</div>
+		</article>
 	</section>
 </body>
 </html>
