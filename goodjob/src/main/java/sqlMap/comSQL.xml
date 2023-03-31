@@ -13,7 +13,7 @@
 		resultType="Integer">
 		select count(*) from companymember where id=#{id}
 	</select>
-	<select id="comLogin" parameterType="Map"
+	<select id="comLogin" parameterType="Map"></select>
 	<select id="getComMember" parameterType="Integer"
 		resultType="com.goodjob.companymember.model.CompanyMemberDTO">
 		select * from companymember where id=#{id} and pwd=#{pwd}
