@@ -12,6 +12,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d67c0e8efbe506e6ef450c637bab0204&libraries=services"></script>
 <title>Insert title here</title>
 <script>
 $(document).ready(function() {
@@ -34,7 +35,25 @@ $(document).ready(function() {
     }
   });
 });
+$(document).ready(function() {
+	  $('input[name=checkboxworkday]').click(function() {
+	    if (this.id === 'moo') {
+	      $('input[name=checkboxworkday]:lt(7)').prop('checked', false);
+	    }
+	    else {
+	      $('#moo').prop('checked', false);
+	    }
+	  });
+	});
 </script>
+<style>
+    .map_wrap {position:relative;width:100%;height:500px;}
+    .title {font-weight:bold;display:block;}
+    .hAddr {position:absolute;left:10px;top:10px;border-radius: 2px;background:#fff;background:rgba(255,255,255,0.8);z-index:1;padding:5px;}
+    #centerAddr {display:block;margin-top:2px;font-weight: normal;}
+    .bAddr {padding:5px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
+    .addrtest1{width:400px;}
+</style>
 </head>
 <body>
 
@@ -120,14 +139,14 @@ $(document).ready(function() {
 				<tr>
 					<th></th>
 					<td><div id="checkworkday" style="display:none;">
-					<input type="checkbox" name="mon" value="mon" class="btn-check" id="mon"><label class="btn btn-outline-dark" for="mon">월</label>
-					<input type="checkbox" name="mon" value="mon" class="btn-check" id="tue"><label class="btn btn-outline-dark" for="mon">화</label>
-					<input type="checkbox" name="mon" value="mon" class="btn-check" id="wed"><label class="btn btn-outline-dark" for="mon">수</label>
-					<input type="checkbox" name="mon" value="mon" class="btn-check" id="thu"><label class="btn btn-outline-dark" for="mon">목</label>
-					<input type="checkbox" name="mon" value="mon" class="btn-check" id="fri"><label class="btn btn-outline-dark" for="mon">금</label>
-					<input type="checkbox" name="mon" value="mon" class="btn-check" id="sat"><label class="btn btn-outline-dark" for="mon">토</label>
-					<input type="checkbox" name="mon" value="mon" class="btn-check" id="sun"><label class="btn btn-outline-dark" for="mon">일</label>
-					<input type="checkbox" name="mon" value="mon" class="btn-check" id=""><label class="btn btn-outline-dark" for="mon">무관</label>
+					<input type="checkbox" name="checkboxworkday" value="mon" class="btn-check" id="mon"><label class="btn btn-outline-dark" for="mon">월</label>
+					<input type="checkbox" name="checkboxworkday" value="thu" class="btn-check" id="tue"><label class="btn btn-outline-dark" for="tue">화</label>
+					<input type="checkbox" name="checkboxworkday" value="wed" class="btn-check" id="wed"><label class="btn btn-outline-dark" for="wed">수</label>
+					<input type="checkbox" name="checkboxworkday" value="thu" class="btn-check" id="thu"><label class="btn btn-outline-dark" for="thu">목</label>
+					<input type="checkbox" name="checkboxworkday" value="fri" class="btn-check" id="fri"><label class="btn btn-outline-dark" for="fri">금</label>
+					<input type="checkbox" name="checkboxworkday" value="sat" class="btn-check" id="sat"><label class="btn btn-outline-dark" for="sat">토</label>
+					<input type="checkbox" name="checkboxworkday" value="sun" class="btn-check" id="sun"><label class="btn btn-outline-dark" for="sun">일</label>
+					<input type="checkbox" name="checkboxworkday" value="moo" class="btn-check" id="moo"><label class="btn btn-outline-dark" for="moo">무관</label>
 					</div></td>
 				</tr>
 				<tr>
@@ -150,8 +169,8 @@ $(document).ready(function() {
 				<table>
 					<tr>
 						<th>근무지주소</th>
-						<td><input type="text" id="searchaddr"><input
-							type="button" value="검색" onclick="searchaddr()"></td>
+						<td><input type="text" id="searchadd">
+						<input type="button" value="검색" onclick="searchaddr()"><input type="text" name="x" id="x"><input type="text" id="y"></td>
 					</tr>
 					<tr>
 						<th>상세주소</th>
@@ -159,7 +178,64 @@ $(document).ready(function() {
 					</tr>
 				</table>
 				<div>
-					<span>지도 들어갈 자리</span>
+					
+					<div class="map_wrap">
+    <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
+    <div class="hAddr">
+        <span class="title">지도중심기준 행정동 주소정보</span>
+        <span id="centerAddr"></span>
+    </div>
+</div>
+					</div>
+						<script>
+//html내부 onclick형
+function searchaddr() {
+	var value=document.getElementById("searchadd").value;
+$.ajax({
+      url:'https://dapi.kakao.com/v2/local/search/address.json?analyze_type=similar&page=1&size=10&query='+value,
+      type:'GET',
+      headers:{'Authorization': 'KakaoAK 61dcf9dc3f066d3fdbf620ba80e181cd'},//전송데이터
+      contentType: "application/json"
+      //전송받을타입 json으로 선언하면 json으로 파싱안해도됨
+   }).done((data)=>{
+	   
+	   var x=data.documents[0].x;
+	   document.getElementById("x").value=x;
+	   var y=data.documents[0].y;
+	   document.getElementById("y").value=y;
+	   var container = document.getElementById('map');
+		var options = {
+			center: new kakao.maps.LatLng(y, x),
+			level: 3
+		};
+		
+		
+		var map = new kakao.maps.Map(container, options);
+		
+		var marker = new kakao.maps.Marker({
+		    position: new kakao.maps.LatLng(y, x), // 마커의 좌표
+		    map: map // 마커를 표시할 지도 객체
+		});
+   }).fail(()=>{
+      //실패시 실행
+   }).always(()=>{
+      //성공여부 무관 실행
+   })
+}
+</script>
+<script>
+		var container = document.getElementById('map');
+		var options = {
+			center: new kakao.maps.LatLng(33.450701, 126.570667),
+			level: 3
+		};
+
+		var map = new kakao.maps.Map(container, options);
+		var marker = new kakao.maps.Marker({
+		    position: new kakao.maps.LatLng(37.56540, 126.97569), // 마커의 좌표
+		    map: map // 마커를 표시할 지도 객체
+		});
+	</script>
 				</div>
 				<table>
 					<tr>
