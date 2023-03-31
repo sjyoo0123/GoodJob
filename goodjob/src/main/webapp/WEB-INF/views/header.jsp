@@ -25,7 +25,7 @@ div.col-11.mt-4.position-relative{
 	<div class="row">
 		<div class="offset-9 col-3 text-end">
 		<c:if test="${!(empty logIdx)}">
-			<c:if test="${logCategory=='개인' }">
+			<c:if test="${logCategory.equlse() }">
 			개인
 			</c:if>
 			<c:if test="${logCategory==기업 }">

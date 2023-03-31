@@ -30,5 +30,9 @@ public class CompanyMemberDAOImple implements CompanyMemberDAO {
 		
 		return sqlMap.selectOne("getComMember", idx);
 	}
+	public CompanyMemberDTO comInfo(int idx) {
+		CompanyMemberDTO dto=sqlMap.selectOne("comInfo", idx);
+		return dto;
+	}
 
 }
