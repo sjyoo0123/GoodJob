@@ -6,20 +6,11 @@
 	<insert id="normalJoin"
 		parameterType="com.goodjob.normalmember.model.NormalMemberDTO">
 		insert into normalmember
-		values(normalmember_idx.nextval,#{id},#{pwd},#{name},#{birth},#{gender},#{email},#{tel},#{addr},sysdate,0,'비활성')
+		values(normalmember_idx.nextval,#{member_idx},#{birth},#{gender})
 	</insert>
-	<select id="norIdDuplicateCheck" parameterType="String"
-		resultType="Integer">
-		select count(*) from normalmember where id=#{id}
-	</select>
-	<select id="norLogin" parameterType="Map"
+	<select id="getNorMember" parameterType="Integer"
 		resultType="com.goodjob.normalmember.model.NormalMemberDTO">
-		select * from normalmember where id=#{id} and pwd=#{pwd}
+		select * from member,normalmember where
+		member.idx=normalmember.member_idx and member.idx=#{idx}
 	</select>
-	<update id="norUpdate"
-		parameterType="com.goodjob.normalmember.model.NormalMemberDTO">
-		update normalmember set
-		id=#{id},pwd=#{pwd},name=#{name},addr=#{addr},tel=#{tel} where
-		idx=#{idx}
-	</update>
 </mapper>
