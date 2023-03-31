@@ -31,6 +31,7 @@
    </bean>
    <bean id="blackListDao" class="com.goodjob.blacklist.model.BlackLIstDAOImple">
    		<property name="sqlMap" ref="sqlSessionTemplate"></property>
+   		</bean>
    <bean id="norDao" class="com.goodjob.normalmember.model.NormalMemberDAOImple">
    <constructor-arg>
          <ref bean ="sqlSessionTemplate"/>
