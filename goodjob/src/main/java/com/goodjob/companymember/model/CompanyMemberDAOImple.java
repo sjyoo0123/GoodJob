@@ -23,21 +23,6 @@ public class CompanyMemberDAOImple implements CompanyMemberDAO {
 		return sqlMap.insert("comJoin", dto);
 	}
 
-	@Override
-	public CompanyMemberDTO comLogin(String id, String pwd) {
-		// TODO Auto-generated method stub
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("id", id);
-		map.put("pwd", pwd);
-		return sqlMap.selectOne("comLogin", map);
-	}
-
-	@Override
-	public int comUpdate(CompanyMemberDTO dto) {
-		// TODO Auto-generated method stub
-		sqlMap.update("comUpdate", dto);
-		return 0;
-	}
 
 	@Override
 	public CompanyMemberDTO getComMember(int idx) {

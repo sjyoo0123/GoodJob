@@ -15,9 +15,5 @@
 		select * from member,companymember where
 		member.idx=companymember.member_idx and member.idx=#{idx}
 	</select>
-	<update id="comUpdate" parameterType="com.goodjob.companymember.model.CompanyMemberDTO">
-		update companymember set
-		id=#{id},pwd=#{pwd},com_name=#{com_name},addr=#{addr},tel=#{tel} where
-		idx=#{idx}
-	</update>
+
 </mapper>

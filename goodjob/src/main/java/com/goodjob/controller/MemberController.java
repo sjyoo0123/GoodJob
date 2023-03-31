@@ -41,14 +41,13 @@ public class MemberController {
 				norDto.getTel(), norDto.getAddr(), null, 0, "개인", "활성");
 		int idx = memDao.memberJoin(memDto);
 		if (idx == 0) {
-			mav.addObject("msg", "회원가입실패");
-			mav.setViewName("/member/join");
+			mav.addObject("msg", "alert('가입실패');");
 		} else {
 			norDto.setMember_idx(idx);
 			norDao.normalJoin(norDto);
-			mav.addObject("msg", "가입성공");
-			mav.setViewName("index");
+			mav.addObject("msg", "alert('가입성공');location.href=index.do;");
 		}
+		mav.setViewName("/member/join");
 		return mav;
 	}
 
@@ -60,26 +59,25 @@ public class MemberController {
 				comDto.getTel(), comDto.getAddr(), null, 0, "기업", "활성");
 		int idx = memDao.memberJoin(memDto);
 		if (idx == 0) {
-			mav.addObject("msg", "회원가입실패");
-			mav.setViewName("/member/join");
+			mav.addObject("msg", "alert('가입실패');");
 		} else {
 			comDto.setMember_idx(idx);
 			comDao.comJoin(comDto);
-			mav.addObject("msg", "가입성공");
-			mav.setViewName("index");
+			mav.addObject("msg", "alert('가입성공');location.href=index.do;");
 		}
+		mav.setViewName("/member/join");
 		return mav;
 	}
 
 	@RequestMapping(value = "updateMember.do", method = RequestMethod.GET)
 	public ModelAndView updateMember(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		int idx=Integer.parseInt((String)session.getAttribute("sidx")); 
-		String category=(String)session.getAttribute("scategory");
-		if(category.equals("개인")) {
-			mav.addObject("dto",norDao.getNorMember(idx));
-		}else if(category.equals("기업")){
-			mav.addObject("dto",comDao.getComMember(idx));
+		int idx = Integer.parseInt((String) session.getAttribute("sidx"));
+		String category = (String) session.getAttribute("scategory");
+		if (category.equals("개인")) {
+			mav.addObject("dto", norDao.getNorMember(idx));
+		} else if (category.equals("기업")) {
+			mav.addObject("dto", comDao.getComMember(idx));
 		}
 		mav.setViewName("member/updateMember");
 		return mav;
@@ -88,12 +86,14 @@ public class MemberController {
 	@RequestMapping(value = "normalUpdate.do", method = RequestMethod.POST)
 	public ModelAndView normalUpdate(NormalMemberDTO dto) {
 		ModelAndView mav = new ModelAndView();
+		memDao.memberUpdate(dto);
 		return mav;
 	}
 
 	@RequestMapping(value = "comUpdate.do", method = RequestMethod.POST)
 	public ModelAndView comUpdate(CompanyMemberDTO dto) {
 		ModelAndView mav = new ModelAndView();
+		memDao.memberUpdate(dto);
 		return mav;
 	}
 
@@ -113,7 +113,12 @@ public class MemberController {
 		MemberDTO dto = memDao.login(id, pwd, "기업");
 		return loginSession(dto, req);
 	}
-
+	@RequestMapping(value = "logout.do" ,method= RequestMethod.GET)
+	public String logout (HttpSession session) {
+		System.out.println(session.getAttribute("sidx"));
+		session.invalidate();
+		return "redirect:index.jsp";
+	}
 	public ModelAndView loginSession(MemberDTO dto, HttpServletRequest req) {
 		ModelAndView mav = new ModelAndView();
 		if (dto == null) {
@@ -128,6 +133,7 @@ public class MemberController {
 		}
 		return mav;
 	}
+
 	public Date datePasing(String birth_s) {
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		try {
@@ -139,6 +145,6 @@ public class MemberController {
 			e.printStackTrace();
 			return null;
 		}
-		
+
 	}
 }
