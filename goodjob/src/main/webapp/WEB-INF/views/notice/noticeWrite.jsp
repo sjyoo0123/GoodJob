@@ -13,6 +13,28 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 <title>Insert title here</title>
+<script>
+$(document).ready(function() {
+	$('#minmaxage').show();
+  $('input[name="age"]').change(function() {
+    if ($(this).val() == '연령지정') {
+      $('#minmaxage').show();
+    } else {
+      $('#minmaxage').hide();
+    }
+  });
+});
+$(document).ready(function() {
+	$('#checkworkday').show();
+  $('input[name="workday"]').change(function() {
+    if ($(this).val() == '요일지정') {
+      $('#checkworkday').show();
+    } else {
+      $('#checkworkday').hide();
+    }
+  });
+});
+</script>
 </head>
 <body>
 
@@ -39,6 +61,10 @@
 					<th>연령</th>
 					<td><input type="radio" value="연령지정" name="age" id="age" class="btn-check" autocomplete="off" checked><label class="btn btn-outline-primary" for="age">연령지정</label>
 					<input type="radio" value="연령미지정" name="age" id="age1" class="btn-check" autocomplete="off"><label class="btn btn-outline-primary" for="age1">연령미지정</label></td>
+				</tr>
+				<tr>
+					<th></th>
+					<td><div id="minmaxage" style="display:none;">연령최소<input type="text" name="min_age"> ~ 연령최대<input type="text" name="max_age"></div></td>
 				</tr>
 				<tr>
 					<th>연령최소</th>
@@ -90,6 +116,19 @@
 					<th>근무요일</th>
 					<td><input type="radio" value="요일지정" class="btn-check" id="workday" name="workday"autocomplete="off" checked><label class="btn btn-outline-primary" for="workday">요일지정</label>
 					<input type="radio" value="시간협의" class="btn-check" id="workday1" name="workday"autocomplete="off"><label class="btn btn-outline-primary" for="workday1">시간협의</label></td>
+				</tr>
+				<tr>
+					<th></th>
+					<td><div id="checkworkday" style="display:none;">
+					<input type="checkbox" name="mon" value="mon" class="btn-check" id="mon"><label class="btn btn-outline-dark" for="mon">월</label>
+					<input type="checkbox" name="mon" value="mon" class="btn-check" id="tue"><label class="btn btn-outline-dark" for="mon">화</label>
+					<input type="checkbox" name="mon" value="mon" class="btn-check" id="wed"><label class="btn btn-outline-dark" for="mon">수</label>
+					<input type="checkbox" name="mon" value="mon" class="btn-check" id="thu"><label class="btn btn-outline-dark" for="mon">목</label>
+					<input type="checkbox" name="mon" value="mon" class="btn-check" id="fri"><label class="btn btn-outline-dark" for="mon">금</label>
+					<input type="checkbox" name="mon" value="mon" class="btn-check" id="sat"><label class="btn btn-outline-dark" for="mon">토</label>
+					<input type="checkbox" name="mon" value="mon" class="btn-check" id="sun"><label class="btn btn-outline-dark" for="mon">일</label>
+					<input type="checkbox" name="mon" value="mon" class="btn-check" id=""><label class="btn btn-outline-dark" for="mon">무관</label>
+					</div></td>
 				</tr>
 				<tr>
 					<th>근무시간</th>
