@@ -19,4 +19,38 @@
 			and
 			user_category=#{category}
 	</select>
+	<select id="manBlackListContent" parameterType="Map" resultType="com.goodjob.blacklist.model.BlackListDTO">
+		select * from
+		(select rownum as rnum, a.* from(
+		SELECT *
+		FROM singo
+		INNER JOIN member ON member.idx = singo.member_idx
+		WHERE singo.status = '활성' AND singo.member_idx = #{idx}
+		ORDER BY "CHECK" ASC
+			)a )b
+		where rnum <![CDATA[>=]]>#{start} and rnum <![CDATA[<=]]>#{end}
+	</select>
+	<select id="manBlackListGetName" parameterType="Integer" resultType="String">
+		select 
+			name
+		from
+			member
+		where
+			idx=#{idx}
+	</select>
+	<select id="manBlackListContentTotalCnt" parameterType="Integer" resultType="Integer">
+		select count(*)
+		from singo
+		where status='활성' and member_idx=#{idx}
+	</select>
+	<update id="manBlackListDel" parameterType="Integer">
+		update member
+		set status='활성',singo_count=0
+		where idx=#{idx}
+	</update>
+	<update id="manBlackListSingoDel" parameterType="Integer">
+		update singo
+		set status='비활성'
+		where idx=#{idx}
+	</update>
   </mapper>
