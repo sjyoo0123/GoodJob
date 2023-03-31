@@ -1,38 +1,46 @@
 package com.goodjob.normalmember.model;
 
+
+
 import java.util.HashMap;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
-import com.goodjob.member.model.MemberDTO;
+import com.goodjob.companymember.model.CompanyMemberDTO;
+
 
 public class NormalMemberDAOImple implements NormalMemberDAO {
 	private SqlSessionTemplate sqlMap;
-
+	public NormalMemberDAOImple() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public NormalMemberDAOImple(SqlSessionTemplate sqlMap) {
+		// TODO Auto-generated constructor stub
+		this.sqlMap=sqlMap;
+	}
+	
 	@Override
 	public int normalJoin(NormalMemberDTO dto) {
 		// TODO Auto-generated method stub
-		sqlMap.insert("normalJoin", dto);
-		Map<String, String>map=new HashMap<String, String>();
-		map.put("id",dto.getId());
-		map.put("pwd", dto.getPwd());
-		MemberDTO mem=sqlMap.selectOne("selectMember", map);
-		//dto.setMember_idx(mem.getIdx);
-		return 0;
+		return sqlMap.insert("normalJoin", dto);
 	}
 	@Override
 	public NormalMemberDTO norLogin(String id, String pwd) {
 		// TODO Auto-generated method stub
-		Map<String, String>map=new HashMap<String, String>();
-		map.put("id",id);
-		map.put("pwd", pwd);
-		return sqlMap.selectOne("norLogin", map);
+		
+		return null;
 	}
 	@Override
 	public int norUpdate(NormalMemberDTO dto) {
 		// TODO Auto-generated method stub
-		sqlMap.update("norUpdate", dto);
 		return 0;
+	}
+	@Override
+	public NormalMemberDTO getNorMember(int idx) {
+		// TODO Auto-generated method stub
+		
+		return sqlMap.selectOne("getNorMember", idx);
 	}
 }
