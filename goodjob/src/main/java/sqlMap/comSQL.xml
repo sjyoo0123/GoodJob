@@ -23,7 +23,7 @@
 		id=#{id},pwd=#{pwd},com_name=#{com_name},addr=#{addr},tel=#{tel} where
 		idx=#{idx}
 	</update>
-	<select id="comInfo" parameterType="Integer" resultType="com.goodjob.companymember.CompanyMemberDTO">
+	<select id="comInfo" parameterType="Integer" resultType="com.goodjob.companymember.model.CompanyMemberDTO">
   select * from companymember where idx=#{idx}
   </select>
 </mapper>

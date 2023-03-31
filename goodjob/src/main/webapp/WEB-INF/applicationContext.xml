@@ -24,8 +24,15 @@
       <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactoryBean"></constructor-arg>
    </bean>
    <!-- Daos -->
-   <bean id="comDao" class="com.goodjob.companymember.model.CompanyMemberDAOImple"></bean>
-   <bean id="norDao" class="com.goodjob.normalmember.model.NormalMemberDAOImple"></bean>
+   <bean id="noticeDao" class="com.goodjob.notice.model.NoticeDAOImple">
+   		<property name="sqlMap" ref="sqlSessionTemplate"></property>
+   </bean>
+   <bean id="comDao" class="com.goodjob.companymember.model.CompanyMemberDAOImple">
+   		<property name="sqlMap" ref="sqlSessionTemplate"></property>
+   </bean>
+   <bean id="norDao" class="com.goodjob.normalmember.model.NormalMemberDAOImple">
+   		<property name="sqlMap" ref="sqlSessionTemplate"></property>
+   </bean>
    <bean id="blackListDao" class="com.goodjob.blacklist.model.BlackLIstDAOImple">
    		<property name="sqlMap" ref="sqlSessionTemplate"></property>
    </bean>

@@ -8,6 +8,15 @@ import org.mybatis.spring.SqlSessionTemplate;
 public class NormalMemberDAOImple implements NormalMemberDAO {
 	private SqlSessionTemplate sqlMap;
 
+	public NormalMemberDAOImple() {
+		// TODO Auto-generated constructor stub
+	}
+	public SqlSessionTemplate getSqlMap() {
+		return sqlMap;
+	}
+	public void setSqlMap(SqlSessionTemplate sqlMap) {
+		this.sqlMap = sqlMap;
+	}
 	@Override
 	public int normalJoin(NormalMemberDTO dto) {
 		// TODO Auto-generated method stub
