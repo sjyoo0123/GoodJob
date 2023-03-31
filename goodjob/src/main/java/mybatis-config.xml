@@ -6,5 +6,8 @@
   	<mappers>
   		<mapper resource="sqlMap/reviewSQL.xml"/>
   		<mapper resource="sqlMap/BlackListSQL.xml"/>
+  		<mapper resource="sqlMap/memberSQL.xml"/>
+  		<mapper resource="sqlMap/comSQL.xml"/>
+  		<mapper resource="sqlMap/normalSQL.xml"/>
   	</mappers>
   </configuration>

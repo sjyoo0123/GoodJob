@@ -20,7 +20,7 @@ div.col-11.mt-4.position-relative{
 <header class="mt-1 bg-white">
 	<div class="row">
 		<div class="offset-9 col-3 text-end">
-			<a>로그인</a>
+			<a href="login.do">로그인</a>
 			<a href="join.do">회원가입</a>
 		</div>
 		<a href="index.do" class="col-2"><img src="img/logo.png"
