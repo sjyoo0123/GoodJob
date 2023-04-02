@@ -7,5 +7,6 @@
   		<mapper resource="sqlMap/reviewSQL.xml"/>
   		<mapper resource="sqlMap/BlackListSQL.xml"/>
   		<mapper resource="sqlMap/faqSQL.xml"/>
+  		<mapper resource="sqlMap/oneSQL.xml"/>
   	</mappers>
   </configuration>
