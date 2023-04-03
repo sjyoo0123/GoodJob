@@ -12,10 +12,15 @@ public class ReviewDAOImple implements ReviewDAO {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ReviewDAOImple(SqlSessionTemplate sqlMap) {
-		super();
+	
+	public SqlSessionTemplate getSqlMap() {
+		return sqlMap;
+	}
+
+	public void setSqlMap(SqlSessionTemplate sqlMap) {
 		this.sqlMap = sqlMap;
 	}
+	
 
 	@Override
 	public List<ReviewDTO> reviewList() {

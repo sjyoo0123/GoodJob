@@ -12,8 +12,11 @@ public class KeywordDAOImple implements KeywordDAO {
 
 	}
 
-	public KeywordDAOImple(SqlSessionTemplate sqlMap) {
-		super();
+	public SqlSessionTemplate getSqlMap() {
+		return sqlMap;
+	}
+
+	public void setSqlMap(SqlSessionTemplate sqlMap) {
 		this.sqlMap = sqlMap;
 	}
 

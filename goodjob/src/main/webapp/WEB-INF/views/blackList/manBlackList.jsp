@@ -15,34 +15,86 @@
 		<section>
 			<article>
 				<div class="form-check form-check-inline">
-					<input type="radio" class="btn-check" name="options" id="normal" autocomplete="off" value="개인" checked>
+					<input type="radio" class="btn-check" name="options" id="normal" autocomplete="off" value="개인" >
 					<label class="btn btn-secondary" for="normal">일반회원</label>
-
 					<input type="radio" class="btn-check" name="options" id="company" value="기업" autocomplete="off">
 					<label class="btn btn-secondary" for="company">기업회원</label>
+				</div>
+				<div id="my-div">
 				</div>
 			</article>
 		</section>
 	<%@include file="/WEB-INF/views/footer.jsp"%>
-	</div>
-	
 <script>
-$("label").click(function(){
+$('input[name=options]').change(function(){
+	$('#my-div').empty();
 	 $.ajax({
 	      url:'manBlackListGet.do',
 	      type:'post',
-	      data:{"category":$(".btn-check").value},//전송데이터
-	      contentType: "application/json"
+	      data:{"category":$('.btn-check:checked').val()},//전송데이터
+	      dataType:'json'
 	      //전송받을타입 json으로 선언하면 json으로 파싱안해도됨
 	   }).done((data)=>{
 	      //성공시 실행
-		   window.alert('성공');
+		   var $table = $('<table>').addClass('table table-hover');
+			  var $thead = $('<thead>');
+			  var $theadRow = $('<tr>');
+			  var $th1 = $('<th>').text('번호');
+			  var $th2 = $('<th>').text('이름');
+			  var $th3 = $('<th>').text('누적 신고');
+			  var $th4 = $('<th>').text('등록일');
+			  
+			  $('#my-div').append($table);
+			  $theadRow.append($th1);
+			  $theadRow.append($th2);
+			  $theadRow.append($th3);
+			  $theadRow.append($th4);
+			  
+			  $thead.append($theadRow);
+			  $table.append($thead);
+			  
+			  var $tbody = $('<tbody>');
+			  
+			  // 만약 lists가 비어있을 경우 "글이 없습니다" 행 추가
+			  if (data.lists.length==0) {
+			    var $noDataTr = $('<tr>').append($('<td>').attr('colspan', '4').text('글이 없습니다'));
+			    $tbody.append($noDataTr);
+			  } else {
+			    // lists가 비어있지 않은 경우 데이터 행 추가
+			    $.each(data.lists, function(index, dto) {
+			      var $dataTr = $('<tr>');
+			      var $td1 = $('<td>').text(dto.idx);
+			      var $td2 = $('<td>').append($('<a>').attr('href', 'manBlackListContentForm.do?idx='+dto.idx).text(dto.name));
+			      var $td3 = $('<td>').text(dto.singo_count);
+			      var $td4 = $('<td>').text(dto.joindate ? formatDate(new Date(dto.joindate)) : 'N/A');
+
+			      function formatDate(date) {
+			        var year = date.getFullYear();
+			        var month = (date.getMonth() + 1).toString().padStart(2, '0');
+			        var day = date.getDate().toString().padStart(2, '0');
+			        return year + '-' + month + '-' + day;
+			      }
+			      
+			      $dataTr.append($td1);
+			      $dataTr.append($td2);
+			      $dataTr.append($td3);
+			      $dataTr.append($td4);
+			      
+			      $tbody.append($dataTr);
+			    });
+			  }
+			  
+			  $table.append($tbody);
+			  
+			  $('#my-div').append($table);
+			  
 	   }).fail(()=>{
 	      //실패시 실행
 	   }).always(()=>{
 	      //성공여부 무관 실행
 		   
 	   })
+	  
 	});
 </script>
 </body>

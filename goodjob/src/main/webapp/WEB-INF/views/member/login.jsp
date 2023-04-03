@@ -31,10 +31,10 @@ min-height: 3rem;
 		<%@include file="/WEB-INF/views/header.jsp"%>
 		<section>
 			<article>
-				<form action="normalLogin.do" method="get">
+				<form action="normalLogin.do" method="get" class="login">
 					<div class="row mt-5 gx-3 pt-5">
-				<div class="col-2 offset-4 text-center"><button class="w-100 bg-primary"><div class="text-nowrap">개인</div></button></div>
-				<div class="col-2 text-center"><button class="w-100"><div class="text-nowrap">기업</div></button></div>
+				<div class="col-2 offset-4 text-center"><button class="w-100 bg-primary nor"><div class="text-nowrap">개인</div></button></div>
+				<div class="col-2 text-center"><button class="w-100 com"><div class="text-nowrap">기업</div></button></div>
 						<div class="form-floating col-4 offset-4 mt-2">
 							<input type="text" class="form-control" id="floatingInput"
 								placeholder="아이디" name="id"> <label for="floatingInput">아이디</label>
@@ -57,9 +57,19 @@ min-height: 3rem;
 		</section>
 		<%@include file="/WEB-INF/views/footer.jsp"%>
 	</div>
-	<script>
-	$("div.bg-primary.text-center button.btn.btn-lg").off("mousedown focus click");
-	$("div:not(.bg-primary).text-center button.btn.btn-lg").off("mousedown focus click");
+<script>
+$('.nor').click((e)=>{
+    e.preventDefault();
+    $('.login').attr('action', 'normalLogin.do');
+    $('.com').attr('class','w-100 com');
+    $('.nor').attr('class','w-100 bg-primary nor');
+});
+$('.com').click((e)=>{
+    e.preventDefault();
+    $('.login').attr('action', 'comLogin.do');
+    $('.nor').attr('class','w-100 nor');
+    $('.com').attr('class','w-100 bg-primary com');
+});
 </script>
 </body>
 </html>

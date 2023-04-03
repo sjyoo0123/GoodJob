@@ -10,15 +10,18 @@
 	</insert>
 	<select id="memberSelect" parameterType="Map"
 		resultType="com.goodjob.member.model.MemberDTO">
-		select * from member where id=#{id} and pwd=#{pwd}
+		select * from member where id=#{id} and pwd=#{pwd} and status='활성'
 	</select>
 	<select id="login" parameterType="Map"
 		resultType="com.goodjob.member.model.MemberDTO">
 		select * from member where id=#{id} and pwd=#{pwd} and
-		user_category=#{user_category}
+		user_category=#{user_category} and status='활성'
 	</select>
 	<select id="idCheck" parameterType="String" resultType="Integer">
-		select count(*) from member where id=#{id}
+		select count(*) from member where id=#{id} and status='활성'
+	</select>
+	<select id="emailCheck" parameterType="String" resultType="Integer">
+	select count(*) from member where and email=#{email} and status='활성'
 	</select>
 	<update id="memberUpdate" parameterType="map">
 		BEGIN
@@ -27,10 +30,9 @@
 		WHERE idx = #{idx};
 
 		UPDATE ${tebleName}
-		SET gender = '남자'
+		SET ${qurey}
 		WHERE member_idx = #{idx};
 
-		COMMIT;
 		END
 	</update>
 </mapper>
