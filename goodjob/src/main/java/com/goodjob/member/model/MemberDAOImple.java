@@ -17,16 +17,24 @@ public class MemberDAOImple implements MemberDAO {
 		// TODO Auto-generated constructor stub
 	}
 
-	public MemberDAOImple(SqlSessionTemplate sqlMap) {
-		super();
+	public SqlSessionTemplate getSqlMap() {
+		return sqlMap;
+	}
+
+
+
+	public void setSqlMap(SqlSessionTemplate sqlMap) {
 		this.sqlMap = sqlMap;
 	}
+
+
 
 	@Override
 	synchronized public int memberJoin(MemberDTO dto) {
 		// TODO Auto-generated method stub
-		int idCheck=sqlMap.selectOne("idCheck", dto.getId());
-		if(idCheck==0) {
+		int idCheck = idCheck(dto.getId());
+		int emailCheck=emailCheck(dto.getEmail());
+		if (idCheck == 0) {
 			int count = sqlMap.insert("memberJoin", dto);
 			if (count > 0) {
 				Map<String, String> map = new HashMap<String, String>();
@@ -34,10 +42,10 @@ public class MemberDAOImple implements MemberDAO {
 				map.put("pwd", dto.getPwd());
 				MemberDTO memDto = sqlMap.selectOne("memberSelect", map);
 				return memDto.getIdx();
-			} else {//가입실패
+			} else {// 가입실패
 				return 0;
 			}
-		}else {//아이디중복
+		} else {// 아이디중복
 			return -1;
 		}
 	}
@@ -59,21 +67,36 @@ public class MemberDAOImple implements MemberDAO {
 	}
 
 	@Override
-	public Object getMember(String idx, String category) {
+	public int memberUpdate(Object dto) {
 		// TODO Auto-generated method stub
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("idx", idx);
-		map.put("category", category);
-		Map<String, String> dtoMap = sqlMap.selectOne(category, map);
-		sqlMap.selectOne(idx, category);
-		if (category.equals("normalmember")) {
-			return new NormalMemberDTO(0,dtoMap.get("id"), dtoMap.get("pwd"),dtoMap.get("name"),dtoMap.get("email"),dtoMap.get("tel"),
-					dtoMap.get("addr"),null, 0, null, null, 0, 0, null, dtoMap.get("gender"));
-		} else if (category.equals("companymember")) {
-			return new CompanyMemberDTO(0, idx, category, category, category, category,
-					category, null, 0, category, category, 0, 0, idx, 0, category, null);
+		if (dto instanceof NormalMemberDTO) {
+			NormalMemberDTO norDto = (NormalMemberDTO) dto;
+			paseMap(map, norDto.getPwd(), norDto.getTel(), norDto.getIdx() + "", norDto.getAddr());
+			map.put("qurey", "birth='" + norDto.getBirth() + "' , gender='" + norDto.getGender() + "'");
+		} else if (dto instanceof CompanyMemberDTO) {
+			CompanyMemberDTO comDto = (CompanyMemberDTO) dto;
+			paseMap(map, comDto.getPwd(), comDto.getTel(), comDto.getIdx() + "", comDto.getAddr());
+			map.put("qurey", "com_name='" + comDto.getName() + "' , com_num= '" + comDto.getCom_num()
+					+ "' ,detail_addr='" + comDto.getDetail_addr() + "'");
 		} else {
-			return null;
+			return -1;
 		}
+		return sqlMap.update("memberUpdate", map);
+	}@Override
+	public int emailCheck(String email) {
+		return sqlMap.selectOne("emailCheck",email);
+	}@Override
+	public int idCheck(String id) {
+		return sqlMap.selectOne("idCheck",id);
 	}
+
+	public Map<String, String> paseMap(Map<String, String> map, String pwd, String tel, String idx, String addr) {
+		map.put("idx", idx);
+		map.put("pwd", pwd);
+		map.put("tel", tel);
+		map.put("addr", addr);
+		return map;
+	}
+
 }

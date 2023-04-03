@@ -8,6 +8,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import com.goodjob.notice.model.NoticeDAO;
 import com.goodjob.notice.model.NoticeDTO;
 import java.util.*;
@@ -50,16 +55,32 @@ public class NoticeController {
 		return mav;
 	}
 	@RequestMapping("/noticeComList.do")
-	public ModelAndView noticeComListForm(@RequestParam(value="cp",defaultValue="1")int cp) {
+	public ModelAndView noticeComListForm(@RequestParam(value="cp",defaultValue="1")int cp,HttpSession session) {
 		int totalCnt=0;//getTotalCnt();
 		int listSize=5;
 		int pageSize=5;
 		
 		String pageStr=com.goodjob.page.module.PageModule.makePage("noticeComList.do", totalCnt, listSize, pageSize, cp);
+		int idx=(int)session.getAttribute("sidx");
+		List<NoticeDTO> lists=ndao.noticeComList(idx,cp,listSize);
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("pageStr", pageStr);
 		mav.setViewName("notice/noticeComList");
 		return mav;
 	}
-	
+	@RequestMapping(value="noticeList.do",method = RequestMethod.GET)
+	public ModelAndView noticeList(@RequestParam(value="cp",defaultValue="0")int cp,String qurey) {
+		ModelAndView mav=new ModelAndView();
+		//mav.addObject("dto",ndao.noticeList(cp));
+		System.out.println(cp+qurey);
+		if(cp==0) {
+			mav.setViewName("notice/noticeList");
+		}else {
+			mav.addObject("dtos","{\"1\":\"2\"}{\"1\":\"2\"}");
+			mav.addObject("page", "{\"1\":\"2\"}");
+			mav.setViewName("goodjobJson");
+		}
+		
+		return mav;
+	}
 }

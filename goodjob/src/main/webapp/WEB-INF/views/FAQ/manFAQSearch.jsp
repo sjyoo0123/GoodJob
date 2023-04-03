@@ -26,38 +26,9 @@
 	 color: #fff;
     background-color: #0d6efd;
     border-color: #0d6efd;
-
-}
-body a{
-
-	color: black;
-	
-}
-
-#td1{
-	text-align: center;
-	text-decoration: none;
-	text-decoration-line : none;
-	
 }
 </style>
-<script>
-/*
-function pageSubmit(){
-	var category=document.getElementById("category");
-	var cp=document.getElementById("cp");
-	
-	if(category == null){
-		category="전체";
-	}
-	if(cp == null){
-		cp==1;
-		
-	}
-	document.manFAQList.submit();
-}
-*/
-</script>
+
 <body>
 <div class="container">
 <%@include file="/WEB-INF/views/header.jsp" %>
@@ -68,40 +39,34 @@ function pageSubmit(){
 				 		<h3>FAQ</h3>
 				 	</div>
 				 </div>
-					
 				 <br>
 				 <div class="row">
 				 	<div class="col-sm-6">
-				 	<form name="manFAQList" action="manFAQList.do">
+				
 				 		<table class="table">
 				 			<tr>
 				 				<td>
-				 				<select class="form-select" name="category"> 
+				 				<select class="form-select" name="category" onchange="this.form.submit()">
 									  <option value="전체">전체</option>
 									  <option value="개인">개인</option>
 									  <option value="기업">기업</option>
 									</select>
 				 				</td>
-				 				<td>
-				 					<input type="submit" value="바꾸기">
-				 				</td>
 				 			</tr>
 				 		</table>
-				 		<input type="hidden" name="cp" id="cp" value="${cp }">
-				 	</form>
 				 	</div>
 				 </div>
-				 <div class="row">
+				 <br>
+				 	 <div class="row">
 				 	<div class="offset-sm-8 col-sm-4">
-				 		<form name="manFAQSearch" action="manFAQSearch.do" method="post">
-				 			<input type="text" name="search" placeholder="제목을 검색해주세요">
-				 			<input type="submit" value="검색하기">
+				 		<form name="manFAQSearch" action="manFAQSearch.do" method="get">
+				 			<input type="text" name="search" placeholder="제목을 검색해주세요" class="form-control">
+				 			<input type="submit" value="검색하기" class="btn btn-primary">
 				 		</form>
 				 	</div>
 				 </div>
 				 <br>
 				 <div class="row">
-						
 					 <table class="table">
 					 	<tbody>
 					 <c:if test="${empty lists }">
@@ -110,28 +75,23 @@ function pageSubmit(){
 					 	</tr>
 					 </c:if>
 					 	<c:forEach var="dto" items="${lists }">
-					 		<c:url var="contentUrl" value="manFAQContent.do">
-					 			<c:param name="idx" >${dto.idx}</c:param>
-					 		</c:url>
 					 		<tr>
-					 			<td align="center" id="back"><a href="${contentUrl }">${dto.subject }</a></td>
+					 			<td align="center" id="back">${dto.subject }</td>
 					 		</tr>
 					 		<tr>
 					 			<td align="center">${dto.content }</td>
 					 		</tr>
 					 		<tr>
-					 		
 					 			<td align="right">
-					 			<input type="button" value="수정하기" class="btn btn-primary" onclick="location.href='manFAQUpdatePage.do?idx=${dto.idx}'">
-					 			<input type="button" value="삭제하기"  class="btn btn-primary" onclick="location.href='manFAQDel.do?idx=${dto.idx}'">
+					 			<input type="button" value="수정하기" class="btn btn-primary">
+					 			<input type="button" value="삭제하기"  class="btn btn-primary">
 					 			</td>
-					 		
 					 		</tr>
 					 	</c:forEach>
 						 </tbody>
 						 <tfoot>
 						 	<tr>
-						 		<td id="td1">${pageStr }</td>
+						 		<td align="center">${pageStr }</td>
 						 	</tr>
 						 </tfoot>
 					 </table>
