@@ -12,6 +12,7 @@ public class BlackListDTO {
 	private String category;
 	private String singo_type;
 	private String singo_content;
+	private int singo_count;
 	private Date singo_date;
 	private int check;
 	private String status;
@@ -19,7 +20,7 @@ public class BlackListDTO {
 		super();
 	}
 	public BlackListDTO(int idx, int notice_idx, String name, int member_idx, String subject, String category,
-			String singo_type, String singo_content, Date singo_date, int check, String status) {
+			String singo_type, String singo_content, int singo_count, Date singo_date, int check, String status) {
 		super();
 		this.idx = idx;
 		this.notice_idx = notice_idx;
@@ -29,6 +30,7 @@ public class BlackListDTO {
 		this.category = category;
 		this.singo_type = singo_type;
 		this.singo_content = singo_content;
+		this.singo_count = singo_count;
 		this.singo_date = singo_date;
 		this.check = check;
 		this.status = status;
@@ -80,6 +82,12 @@ public class BlackListDTO {
 	}
 	public void setSingo_content(String singo_content) {
 		this.singo_content = singo_content;
+	}
+	public int getSingo_count() {
+		return singo_count;
+	}
+	public void setSingo_count(int singo_count) {
+		this.singo_count = singo_count;
 	}
 	public Date getSingo_date() {
 		return singo_date;

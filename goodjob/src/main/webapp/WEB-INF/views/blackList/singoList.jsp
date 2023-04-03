@@ -29,7 +29,7 @@
 $('input[name=options]').change(function(){
 	$('#my-div').empty();
 	 $.ajax({
-	      url:'manBlackListGet.do',
+	      url:'manBlackListSingoListGet.do',
 	      type:'post',
 	      data:{"category":$('.btn-check:checked').val()},//전송데이터
 	      dataType:'json'
@@ -39,10 +39,10 @@ $('input[name=options]').change(function(){
 		   var $table = $('<table>').addClass('table table-hover');
 			  var $thead = $('<thead>');
 			  var $theadRow = $('<tr>');
-			  var $th1 = $('<th>').text('번호');
-			  var $th2 = $('<th>').text('이름');
-			  var $th3 = $('<th>').text('누적 신고');
-			  var $th4 = $('<th>').text('등록일');
+			  var $th1 = $('<th>').text('이름');
+			  var $th2 = $('<th>').text('신고 횟수');
+			  var $th3 = $('<th>').text('등록일');
+			  var $th4 = $('<th>').text('확인여부');
 			  
 			  $('#my-div').append($table);
 			  $theadRow.append($th1);
@@ -63,10 +63,10 @@ $('input[name=options]').change(function(){
 			    // lists가 비어있지 않은 경우 데이터 행 추가
 			    $.each(data.lists, function(index, dto) {
 			      var $dataTr = $('<tr>');
-			      var $td1 = $('<td>').text(dto.idx);
-			      var $td2 = $('<td>').append($('<a>').attr('href', 'manBlackListContentForm.do?idx='+dto.idx).text(dto.name));
-			      var $td3 = $('<td>').text(dto.singo_count);
-			      var $td4 = $('<td>').text(dto.joindate ? formatDate(new Date(dto.joindate)) : 'N/A');
+			      var $td1 = $('<td>').append($('<a>').attr('href', 'manBlackListContentForm.do?idx='+dto.member_idx).text(dto.name));
+			      var $td2 = $('<td>').text(dto.singo_count);
+			      var $td3 = $('<td>').text(dto.singo_date ? formatDate(new Date(dto.singo_date)) : 'N/A');
+			      var $td4 = $('<td>').text( (dto.check == 1) ? "확인" : "미확인");
 
 			      function formatDate(date) {
 			        var year = date.getFullYear();

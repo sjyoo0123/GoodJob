@@ -6,7 +6,7 @@ if(${sort}==1){
 window.opener.ajaxgo();
 window.self.close();
 }else{
-opener.href='goodjob/manBlackList.do';
+opener.location.href='manBlackList.do';
 window.self.close();
 }
 </script>

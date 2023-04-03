@@ -58,4 +58,14 @@ public class BlackLIstDAOImple implements BlackListDAO {
 		int result=sqlMap.update("manBlackListSingoDel", idx);
 		return result;
 	}
+	@Override
+	public List<BlackListDTO> manBlackListSingoList(Map map) {
+		List<BlackListDTO> lists=sqlMap.selectList("manBlackListSingoList", map);
+		return lists;
+	}
+	@Override
+	public int manBlackListSingoTotalCnt(String category) {
+		int total=sqlMap.selectOne("manBlackListSingoListTotalCnt", category);
+		return total;
+	}
 }

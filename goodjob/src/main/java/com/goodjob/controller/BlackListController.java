@@ -112,6 +112,33 @@ public class BlackListController {
 		mav.setViewName("blackList/blackListMsg");
 		return mav;
 	}
+	
+	@RequestMapping(value="/manBlackListSingoList.do")
+	public String manBlackListSingoListForm() {
+		return "blackList/singoList";
+	}
+	
+	@RequestMapping(value="/manBlackListSingoListGet.do")
+	public ModelAndView manBlackListSingoList(@RequestParam(value="cp", defaultValue = "1")int cp,
+			@RequestParam(value="category")String category) {
+		ModelAndView mav=new ModelAndView();
+		
+		int totalCnt=bdao.manBlackListSingoTotalCnt(category);
+		int listSize=5;
+		int pageSize=5;
+		String pagestr=com.goodjob.page.module.PageModule.makePage("manBlackList.do", totalCnt, listSize, pageSize, cp);
+		int start=(cp-1)*listSize+1;
+		int end=cp*listSize;
+		Map map=new HashMap();
+		map.put("start", start);
+		map.put("end", end);
+		map.put("category", category);
+		List<BlackListDTO> lists=bdao.manBlackListSingoList(map);
+		mav.addObject("lists", lists);
+		mav.addObject("pagestr",pagestr);
+		mav.setViewName("goodjobJson");
+		return mav;
+	}
 }
 
 

@@ -57,21 +57,29 @@ function ajaxgo(){
 				   var card = $('<div>').addClass('card').appendTo($('#my-div'));
 				   var headerList = $('<ul>').addClass('nav nav-pills nav-fill card-header-pills');
 				   $('<li>').addClass('nav-item').appendTo(headerList).append(
-				   $('<p>').addClass('text-start').text(dto.subject)
+				     $('<p>').addClass('text-start').text(dto.subject)
 				   );
 				   $('<li>').addClass('nav-item').appendTo(headerList).append(
-				   $('<p>').addClass('text-end').text(dto.singo_date)
+				     $('<p>').addClass('text-end').text(dto.singo_date ? formatDate(new Date(dto.singo_date)) : 'N/A')
 				   );
 				   $('<div>').addClass('card-header').append(headerList).appendTo(card);
 				   var body = $('<div>').addClass('card-body').appendTo(card);
 				   $('<h5>').addClass('card-title').text(dto.singo_content).appendTo(body);
 				   var row = $('<div>').addClass('row').appendTo(body);
 				   $('<div>').addClass('col-5').appendTo(row).append(
-				   $('<p>').addClass('card-text').text(dto.name)
+				     $('<p>').addClass('card-text').text(dto.name)
 				   );
 				   $('<div>').addClass('offset-3 col-4').appendTo(row).append(
-				   $('<a>').addClass('btn btn-primary').attr('href', '#').text('삭제').on('click', function() {deletefun(dto.idx);})
+				     $('<a>').addClass('btn btn-primary').attr('href', '#').text('삭제').on('click', function() {deletefun(dto.idx);})
 				   );
+
+				   function formatDate(date) {
+				     var year = date.getFullYear();
+				     var month = (date.getMonth() + 1).toString().padStart(2, '0');
+				     var day = date.getDate().toString().padStart(2, '0');
+				     return year + '-' + month + '-' + day;
+				   }
+
 			
 			  
 	   })}}).fail(()=>{
