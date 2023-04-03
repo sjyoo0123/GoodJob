@@ -37,4 +37,14 @@
 		delete from faq
 		where idx=#{idx}
 	</delete>
+	<select id="manFAQSearch" parameterType="Map" resultType="com.goodjob.faq.model.FAQDTO">
+		select * from
+		(select rownum as rnum, a.* from
+		(select * from faq
+		where subject like '%'||#{search}||'%'
+		order by idx desc)a )b
+		where rnum<![CDATA[>=]]>#{start} and rnum<![CDATA[<=]]>#{end} 
+	
+		
+	</select>
  </mapper>

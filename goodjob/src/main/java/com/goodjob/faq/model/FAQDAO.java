@@ -16,6 +16,6 @@ public interface FAQDAO {
 	
 	public int manFAQDel(int idx);
 	
-	
+	public List<FAQDTO> manFAQSearch(int cp, int ls,String search);
 	
 }

@@ -152,4 +152,28 @@ public class FAQController {
 		
 	}
 	
+	//FAQ 검색하기
+	@RequestMapping("/manFAQSearch.do")
+	public ModelAndView manFAQSearch(@RequestParam(value= "cp", defaultValue = "1")int cp,
+			@RequestParam(value = "search", required = false)String search ) {
+		
+		ModelAndView mav=new ModelAndView();
+		
+		int totalCnt=faqDao.manFAQAllCnt();
+		int listSize=5;
+		int pageSize=5;
+			
+		List<FAQDTO> lists=faqDao.manFAQSearch(cp, pageSize,search);
+		
+		String pageStr=com.goodjob.page.module.PageModule.makePage("manFAQSearch.do", totalCnt, listSize, pageSize, cp);
+		
+		mav.addObject("lists", lists);
+		
+		mav.addObject("pageStr", pageStr);
+		
+		mav.setViewName("FAQ/manFAQSearch");
+		
+		return mav;
+	}
+	
 }

@@ -46,7 +46,7 @@
 				 		<table class="table">
 				 			<tr>
 				 				<td>
-				 				<select class="form-select" name="category">
+				 				<select class="form-select" name="category" onchange="this.form.submit()">
 									  <option value="전체">전체</option>
 									  <option value="개인">개인</option>
 									  <option value="기업">기업</option>
@@ -54,12 +54,19 @@
 				 				</td>
 				 			</tr>
 				 		</table>
-
+				 	</div>
+				 </div>
+				 <br>
+				 	 <div class="row">
+				 	<div class="offset-sm-8 col-sm-4">
+				 		<form name="manFAQSearch" action="manFAQSearch.do" method="get">
+				 			<input type="text" name="search" placeholder="제목을 검색해주세요" class="form-control">
+				 			<input type="submit" value="검색하기" class="btn btn-primary">
+				 		</form>
 				 	</div>
 				 </div>
 				 <br>
 				 <div class="row">
-						
 					 <table class="table">
 					 	<tbody>
 					 <c:if test="${empty lists }">

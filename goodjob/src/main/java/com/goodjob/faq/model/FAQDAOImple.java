@@ -71,4 +71,17 @@ public class FAQDAOImple implements FAQDAO {
 		
 		return count;
 	}
+	
+	@Override
+	public List<FAQDTO> manFAQSearch(int cp, int ls,String search) {
+		Map map=new HashMap();
+		int start=(cp-1)*ls+1;
+		int end=ls*cp;
+		map.put("start", start);
+		map.put("end", end);
+		map.put("search", search);
+		List<FAQDTO> lists=sqlMap.selectList("manFAQSearch",map);
+		
+		return lists;
+	}
 }
