@@ -28,6 +28,18 @@
 			<td colspan="5" align="center">등록된 게시물이 없습니다.</td>
 		</tr>
 	</c:if>
+	<c:forEach var="dto" items="${lists}">
+		<tr>
+			<td>${dto.writedate}~${dto.deadline}</td>
+			<c:url var="contentUrl" value="noticeContent.do">
+				<c:param name="idx">${dto.idx}</c:param>
+			</c:url>
+			<td><a href="${contentUrl}">${dto.subject}</a>${dto.com_name}</td>
+			<td>${dto.plan_idx}</td>
+			<td>@지원자@</td>
+			<td><button><span>UP</span></button></td>
+		</tr>
+	</c:forEach>
 </tbody>
 <tfoot>
 		<tr>

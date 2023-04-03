@@ -8,8 +8,17 @@ import org.mybatis.spring.SqlSessionTemplate;
 public class CompanyMemberDAOImple implements CompanyMemberDAO {
 	private SqlSessionTemplate sqlMap;
 
+	
 	public CompanyMemberDAOImple() {
 		// TODO Auto-generated constructor stub
+	}
+
+	public SqlSessionTemplate getSqlMap() {
+		return sqlMap;
+	}
+
+	public void setSqlMap(SqlSessionTemplate sqlMap) {
+		this.sqlMap = sqlMap;
 	}
 
 	public CompanyMemberDAOImple(SqlSessionTemplate sqlMap) {
