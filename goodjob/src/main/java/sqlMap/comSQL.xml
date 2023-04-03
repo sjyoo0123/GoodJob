@@ -2,26 +2,32 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
 <mapper namespace="com.goodjob.companymember">
 	<insert id="comJoin"
 		parameterType="com.goodjob.companymember.model.CompanyMemberDTO">
 		insert into companymember
 		values(companymember_idx.nextval,#{id},#{pwd},#{com_name},#{name},#{com_num},#{email},#{addr},#{detail_addr},#{tel},#{com_birth},sysdate,0,'비활성')
+		values(normalmember_idx.nextval,#{member_idx},#{com_name},#{com_num},#{detail_addr},#{com_birth})
 	</insert>
-	<select id="comIdDuplicateCheck" parameterType="String" resultType="Integer">
+	<select id="comIdDuplicateCheck" parameterType="String"
+		resultType="Integer">
 		select count(*) from companymember where id=#{id}
 	</select>
-	<select id="getComMember" parameterType="Integer" resultType="com.goodjob.companymember.model.CompanyMemberDTO">
+	<select id="comLogin" parameterType="Map"></select>
+	<select id="getComMember" parameterType="Integer"
+		resultType="com.goodjob.companymember.model.CompanyMemberDTO">
+		select * from companymember where id=#{id} and pwd=#{pwd}
 		select * from member,companymember where
 		member.idx=companymember.member_idx and member.idx=#{idx}
 	</select>
-	<update id="comUpdate" parameterType="com.goodjob.companymember.model.CompanyMemberDTO">
+	<update id="comUpdate"
+		parameterType="com.goodjob.companymember.model.CompanyMemberDTO">
 		update companymember set
 		id=#{id},pwd=#{pwd},com_name=#{com_name},addr=#{addr},tel=#{tel} where
 		idx=#{idx}
 	</update>
-	<select id="comInfo" parameterType="Integer" resultType="com.goodjob.companymember.model.CompanyMemberDTO">
-  select * from companymember where idx=#{idx}
-  </select>
+	<select id="comInfo" parameterType="Integer"
+		resultType="com.goodjob.companymember.model.CompanyMemberDTO">
+		select * from companymember where idx=#{idx}
+	</select>
 </mapper>
