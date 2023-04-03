@@ -100,28 +100,6 @@ $(document).ready(function() {
 	height: 500px;
 }
 
-.title {
-	font-weight: bold;
-	display: block;
-}
-
-.hAddr {
-	position: absolute;
-	left: 10px;
-	top: 10px;
-	border-radius: 2px;
-	background: #fff;
-	background: rgba(255, 255, 255, 0.8);
-	z-index: 1;
-	padding: 5px;
-}
-
-#centerAddr {
-	display: block;
-	margin-top: 2px;
-	font-weight: normal;
-}
-
 .bAddr {
 	padding: 5px;
 	text-overflow: ellipsis;
@@ -328,9 +306,6 @@ type="text" name="x" id="x"><input type="text" name="y" id="y"><input type="text
 					<div class="map_wrap">
 						<div id="map"
 							style="width: 100%; height: 100%; position: relative; overflow: hidden;"></div>
-						<div class="hAddr">
-							<span class="title">지도중심기준 행정동 주소정보</span> <span id="centerAddr"></span>
-						</div>
 					</div>
 				</div>
 			<script>
@@ -364,6 +339,10 @@ $.ajax({
 		    map: map // 마커를 표시할 지도 객체
 		    
 		});
+		infowindow = new kakao.maps.InfoWindow({zindex:1}); // 클릭한 위치에 대한 주소를 표시할 인포윈도우입니다
+
+		// 현재 지도 중심좌표로 주소를 검색해서 지도 좌측 상단에 표시합니다
+		
 		$.ajax({
 		      url:'https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?input_coord=WGS84&output_coord=WGS84&x='+x+'&y='+y,
 		      type:'GET',
@@ -371,8 +350,8 @@ $.ajax({
 		      contentType: "application/json"
 		      //전송받을타입 json으로 선언하면 json으로 파싱안해도됨
 		   }).done((data)=>{
-			   var detailAddr = !!result[0].road_address ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
-		        detailAddr += '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
+			   var detailAddr = !!data.documents[0].road_address ? '<div>도로명주소 : ' + data.documents[0].address_name + '</div>' : '';
+		        detailAddr += '<div>지번 주소 : ' + data.documents[0].address_name + '</div>';
 		        
 		        var content = '<div class="bAddr">' +
 		                        '<span class="title">법정동 주소정보</span>' + 
@@ -407,6 +386,8 @@ $.ajax({
 		    position: new kakao.maps.LatLng(37.56540, 126.97569), // 마커의 좌표
 		    map: map // 마커를 표시할 지도 객체
 		});
+		
+		
 	</script>
 
 			<table>

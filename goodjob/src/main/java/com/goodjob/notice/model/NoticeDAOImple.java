@@ -1,5 +1,8 @@
 package com.goodjob.notice.model;
 
+import java.util.List;
+import java.util.*;
+
 import org.mybatis.spring.SqlSessionTemplate;
 
 public class NoticeDAOImple implements NoticeDAO {
@@ -26,5 +29,15 @@ public NoticeDAOImple(SqlSessionTemplate sqlMap) {
 		int result=sqlMap.insert("noticeWrite",dto);
 		return result;
 	}
-
+@Override
+public List<NoticeDTO> noticeComList(int idx,int cp,int ls) {
+	int start=(cp-1)*ls+1;
+	int end=cp*ls;
+	Map map=new HashMap();
+	map.put("start", start);
+	map.put("end", end);
+	map.put("idx", idx);
+	List<NoticeDTO> lists=sqlMap.selectList("comNoticeList",map);
+	return lists;
+}
 }

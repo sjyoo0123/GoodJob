@@ -21,6 +21,14 @@ public class NormalMemberDAOImple implements NormalMemberDAO {
 		this.sqlMap=sqlMap;
 	}
 	
+	public SqlSessionTemplate getSqlMap() {
+		return sqlMap;
+	}
+
+	public void setSqlMap(SqlSessionTemplate sqlMap) {
+		this.sqlMap = sqlMap;
+	}
+
 	@Override
 	public int normalJoin(NormalMemberDTO dto) {
 		// TODO Auto-generated method stub
