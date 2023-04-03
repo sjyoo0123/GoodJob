@@ -34,17 +34,7 @@ public class NormalMemberDAOImple implements NormalMemberDAO {
 		// TODO Auto-generated method stub
 		return sqlMap.insert("normalJoin", dto);
 	}
-	@Override
-	public NormalMemberDTO norLogin(String id, String pwd) {
-		// TODO Auto-generated method stub
-		
-		return null;
-	}
-	@Override
-	public int norUpdate(NormalMemberDTO dto) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+
 	@Override
 	public NormalMemberDTO getNorMember(int idx) {
 		// TODO Auto-generated method stub

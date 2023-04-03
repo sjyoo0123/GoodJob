@@ -8,4 +8,11 @@ public interface BlackListDAO {
 
 	public List<MemberDTO> manBlackListGet(Map map);
 	public int manBlackListTotalCnt(String category);
+	public List<BlackListDTO> manBlackListContent(Map map);
+	public String manBlackListGetName(int idx);
+	public int manBlackListContentTotalCnt(int idx);
+	public int manBlackListDel(int idx);
+	public int manBlackListSingoDel(int idx);
+	public List<BlackListDTO> manBlackListSingoList(Map map);
+	public int manBlackListSingoTotalCnt(String category);
 }
