@@ -19,11 +19,11 @@
 	   <bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
       <property name="dataSource" ref="dataSource"></property>   
       <property name="configLocation" value="classpath:/mybatis-config.xml"></property>
-   </bean>      
+   </bean> 
    <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
       <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactoryBean"></constructor-arg>
    </bean>
-   <!-- Daos -->
+	<!-- Daos -->
    <bean id="noticeDao" class="com.goodjob.notice.model.NoticeDAOImple">
    		<property name="sqlMap" ref="sqlSessionTemplate"></property>
    </bean>
@@ -31,18 +31,24 @@
    		<constructor-arg>
    			<ref bean="sqlSessionTemplate"></ref>
    		</constructor-arg>
+   <bean id="faqDao" class="com.goodjob.faq.model.FAQDAOImple">
+   	<property name="sqlMap" ref="sqlSessionTemplate"></property>
    </bean>
-   <bean id="norDao" class="com.goodjob.normalmember.model.NormalMemberDAOImple">
+   <bean id="oneDao" class="com.goodjob.one_one.model.One_OneDAOImple">
+   		<property name="sqlMap" ref="sqlSessionTemplate"></property>
+   </bean>
+	    <bean id="norDao" class="com.goodjob.normalmember.model.NormalMemberDAOImple">
    		<constructor-arg>
    			<ref bean="sqlSessionTemplate"></ref>
    		</constructor-arg>
    </bean>
    <bean id="blackListDao" class="com.goodjob.blacklist.model.BlackLIstDAOImple">
-   		<property name="sqlMap" ref="sqlSessionTemplate"></property>
+	<property name="sqlMap" ref="sqlSessionTemplate"></property>
    </bean>
 	<bean id="memberDao" class="com.goodjob.member.model.MemberDAOImple">
    <constructor-arg>
          <ref bean ="sqlSessionTemplate"/>
       </constructor-arg>
 	</bean>
+	
 </beans>
