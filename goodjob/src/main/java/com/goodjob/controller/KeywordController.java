@@ -12,29 +12,20 @@ import com.goodjob.keyword.model.KeywordDTO;
 
 @Controller
 public class KeywordController {
-	
+
 	@Autowired
 	public KeywordDAO keyworddao;
-	
-	//	후기작성으로 이동
-	@RequestMapping( "/reviewWrite.do")
+
+	// 후기작성으로 이동 작성이 안되면 겟 메소드로 수정
+	@RequestMapping("/reviewWrite.do")
 	public ModelAndView reviewWriteForm(KeywordDTO dto) {
-		
+
 		ModelAndView mav = new ModelAndView();
 		List<KeywordDTO> list = keyworddao.reviewWriteForm();
-
-		int idsize = list.size();
-		int keyidx = dto.getIdx();
-		
-		mav.addObject("idsize", idsize);
-		mav.addObject("keyidx", keyidx);
-		System.out.println(keyidx);
-		
 		mav.addObject("dto", list);
+		System.out.println(list);
 		mav.setViewName("review/reviewWrite");
 		return mav;
 	}
-	
-	
-	
+
 }

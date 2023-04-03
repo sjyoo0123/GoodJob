@@ -56,7 +56,7 @@ div.col-11.mt-4.position-relative{
 						</ul>
 					</div>
 					<div class="col-2">
-						<a href="#" class="">후기게시판</a>
+						<a href="review.do" class="">후기게시판</a>
 						<ul class="nav position-absolute">
 							<li class="col-12"><a href="#">키워드게시판</a></li>
 							<li class="col-12"><a href="#">나의후기</a></li>

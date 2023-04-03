@@ -6,19 +6,28 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script>
+	$(document).ready(function){
+		$("input[type='checkbox']").on("click,function()"){
+			let count = $("input:checked[type='checkbox']").length;
+			
+			if(count>3){
+				$(this.prop("checked", false);
+				alert("3개까지만 선택할 수 있습니다")
+			}
+		}
+		
+	}
+</script>
 </head>
 <body>
 	테스트
 	<h2>후기 작성</h2>
-	<table>
-		<article>
-			<form action="comSearch">
-				<input type="text" name="comName" placeholder="회사이름을 적어주세요">
-				<input type="submit" value="검색">
-			</form>
-		</article>
-		<article>
-			<form action="reviewWrite">
+	<article>
+		<form name="reviewWrite" action="reviewWrite.do" method="post">
+			<input type="text" name="com_name" placeholder="회사이름을 적어주세요">
+			<input type="submit" value="검색">
+			<table>
 				<c:if test="${empty dto}">
 					<tr>
 						<td>등록된 글이 없습니다</td>
@@ -26,24 +35,25 @@
 				</c:if>
 
 				<c:forEach var="dto" items="${dto}">
-					<tr>
-						<td><input class="list" type="button" value="${dto.content }"
-							id="${dto.idx }"></td>
-					</tr>
+
+					<span> <input class="list" type="checkbox" name="keyword"
+						value="${dto.content }" id="${dto.idx }">${dto.content }
+					</span>
 				</c:forEach>
-	</table>
 
-	<div>
+				<div>
 
-		<div class="input">
-			<!-- 삽입할 위치 -->
-		</div>
+					<div class="input">
+						<!-- 삽입할 위치 -->
+					</div>
 
 
-	</div>
-	<input type="submit" value="작성">
-	<input type="button" value="취소" onclick="location.href='reviewList.do'">
-	</form>
+				</div>
+				<input type="submit" value="작성">
+				<input type="button" value="취소"
+					onclick="location.href='reviewList.do'">
+				</form>
+			</table>
 	</article>
 
 
@@ -53,7 +63,7 @@
 	테스트
 
 
-	<script
+	<!-- 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -76,10 +86,10 @@
 function deleteNode() {
    $('.me').remove();
    maxAppend -- ;
- }
-	
+ } -->
 
-</script>
+
+	</script>
 	///////////// ////////////////
 </body>
 </html>
