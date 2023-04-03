@@ -1,8 +1,7 @@
 package com.goodjob.notice.model;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
@@ -10,13 +9,13 @@ public class NoticeDAOImple implements NoticeDAO {
 
 	private SqlSessionTemplate sqlMap;
 	
-public NoticeDAOImple() {
-	// TODO Auto-generated constructor stub
-}
-public NoticeDAOImple(SqlSessionTemplate sqlMap) {
-	super();
-	this.sqlMap = sqlMap;
-}
+	public NoticeDAOImple() {
+		// TODO Auto-generated constructor stub
+	}
+	public NoticeDAOImple(SqlSessionTemplate sqlMap) {
+		super();
+		this.sqlMap = sqlMap;
+	}
 	public void setSqlMap(SqlSessionTemplate sqlMap) {
 		this.sqlMap = sqlMap;
 	}
@@ -30,10 +29,15 @@ public NoticeDAOImple(SqlSessionTemplate sqlMap) {
 		int result=sqlMap.insert("noticeWrite",dto);
 		return result;
 	}
-	public List<NoticeDTO> noticeList(int cp){
-		Map<String,String>map=new HashMap<String, String>();
-		map.put("cp", null);
-		return sqlMap.selectList("noticeList");
-	}
-
+@Override
+public List<NoticeDTO> noticeComList(int idx,int cp,int ls) {
+	int start=(cp-1)*ls+1;
+	int end=cp*ls;
+	Map map=new HashMap();
+	map.put("start", start);
+	map.put("end", end);
+	map.put("idx", idx);
+	List<NoticeDTO> lists=sqlMap.selectList("comNoticeList",map);
+	return lists;
+}
 }

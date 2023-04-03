@@ -9,10 +9,15 @@ public class GongJiDAOImple implements GongJiDAO {
 	public GongJiDAOImple() {
 		// TODO Auto-generated constructor stub
 	}
-	public GongJiDAOImple(SqlSessionTemplate sqlMap) {
-		// TODO Auto-generated constructor stub
+	
+	public SqlSessionTemplate getSqlMap() {
+		return sqlMap;
+	}
+
+	public void setSqlMap(SqlSessionTemplate sqlMap) {
 		this.sqlMap = sqlMap;
 	}
+
 	@Override
 	public List<GongJiDTO> userGongJiList() {
 		// TODO Auto-generated method stub

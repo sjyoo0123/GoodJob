@@ -15,12 +15,15 @@ public class NormalMemberDAOImple implements NormalMemberDAO {
 	public NormalMemberDAOImple() {
 		// TODO Auto-generated constructor stub
 	}
-	
-	public NormalMemberDAOImple(SqlSessionTemplate sqlMap) {
-		// TODO Auto-generated constructor stub
-		this.sqlMap=sqlMap;
+
+	public SqlSessionTemplate getSqlMap() {
+		return sqlMap;
 	}
-	
+
+	public void setSqlMap(SqlSessionTemplate sqlMap) {
+		this.sqlMap = sqlMap;
+	}
+
 	@Override
 	public int normalJoin(NormalMemberDTO dto) {
 		// TODO Auto-generated method stub
