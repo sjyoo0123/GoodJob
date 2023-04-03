@@ -40,4 +40,9 @@ public List<NoticeDTO> noticeComList(int idx,int cp,int ls) {
 	List<NoticeDTO> lists=sqlMap.selectList("comNoticeList",map);
 	return lists;
 }
+@Override
+public int noticeTotalCnt(int idx) {
+	int count=sqlMap.selectOne("noticeTotalCnt",idx);
+	return count;
+}
 }

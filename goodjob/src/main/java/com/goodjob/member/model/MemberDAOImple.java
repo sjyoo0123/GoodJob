@@ -29,6 +29,11 @@ public class MemberDAOImple implements MemberDAO {
 
 
 
+	public MemberDAOImple(SqlSessionTemplate sqlMap) {
+		super();
+		this.sqlMap = sqlMap;
+	}
+
 	@Override
 	synchronized public int memberJoin(MemberDTO dto) {
 		// TODO Auto-generated method stub

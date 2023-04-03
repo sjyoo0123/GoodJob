@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.goodjob.apply.model.ApplyDAO;
+import com.goodjob.apply.model.ApplyDTO;
 import com.goodjob.notice.model.NoticeDAO;
 import com.goodjob.notice.model.NoticeDTO;
 import java.util.*;
@@ -21,6 +23,7 @@ import java.util.*;
 public class NoticeController {
 
 	private NoticeDAO ndao;
+	
 	
 	public NoticeController(NoticeDAO ndao) {
 		super();
@@ -56,13 +59,13 @@ public class NoticeController {
 	}
 	@RequestMapping("/noticeComList.do")
 	public ModelAndView noticeComListForm(@RequestParam(value="cp",defaultValue="1")int cp,HttpSession session) {
-		int totalCnt=1;//getTotalCnt();
+		int idx=4;
+		//(int)session.getAttribute("sidx");
+		int totalCnt=ndao.noticeTotalCnt(idx);
 		int listSize=5;
 		int pageSize=5;
 		
 		String pageStr=com.goodjob.page.module.PageModule.makePage("noticeComList.do", totalCnt, listSize, pageSize, cp);
-		int idx=4;
-				//(int)session.getAttribute("sidx");
 		List<NoticeDTO> lists=ndao.noticeComList(idx,cp,listSize);
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("pageStr", pageStr);
@@ -70,6 +73,8 @@ public class NoticeController {
 		mav.setViewName("notice/noticeComList");
 		return mav;
 	}
+	
+	
 	@RequestMapping(value="noticeList.do",method = RequestMethod.GET)
 	public ModelAndView noticeList(@RequestParam(value="cp",defaultValue="0")int cp,String qurey) {
 		ModelAndView mav=new ModelAndView();

@@ -7,10 +7,13 @@
 insert into notice
 values(notice_idx.nextval,#{plan_idx},#{com_idx},#{subject},#{gender},#{min_age},#{max_age},#{grade},#{job},#{service_type},#{recruit},#{period},#{workday},#{starttime},#{finishtime},#{pay_category},#{pay_hour},#{pay_month},#{worktime},#{local1},#{local2},#{local3},#{detail_addr},#{x},#{y},#{com_name},#{manager_name},#{manager_tel},#{manager_email},#{content},sysdate,sysdate+30,0,'활성')
 </insert>
-<select id="comNoticeList" parameterType="Map" resultType="Map">
+<select id="comNoticeList" parameterType="Map" resultType="com.goodjob.notice.model.NoticeDTO">
 select * from
 		(select rownum as rnum,a.* from
-		(select notice.idx,notice.writedate,notice.deadline,notice.subject,notice.com_name,plan.plan_name,(select count(*)from apply where notice_idx=notice.idx) from notice,plan,apply where notice.com_idx=#{idx} and notice.plan_idx=plan.idx and notice.idx=apply.notice_idx and notice.status='활성' order by notice.idx desc) a) b
+		(select notice.idx,notice.writedate,notice.deadline,notice.subject,notice.com_name,plan.plan_name period,(select count(*)from apply where notice_idx=notice.idx) ref,(select count(*)from apply where notice_idx=notice.idx and "APPLY"."CHECK"=0) recruit from notice,plan,apply where notice.idx=#{idx} and notice.plan_idx=plan.idx and notice.idx=apply.notice_idx and notice.status='활성' order by notice.idx desc) a) b
 		where <![CDATA[rnum>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
+</select>
+<select id="noticeTotalCnt" parameterType="Integer" resultType="Integer">
+select count(*) from notice where idx=#{idx}
 </select>
   </mapper>
