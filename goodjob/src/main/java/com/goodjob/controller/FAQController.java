@@ -49,7 +49,14 @@ public class FAQController {
 		
 		return mav;
 	}
-	
+	@RequestMapping("userFAQList")
+	public ModelAndView userFaqList() {
+		ModelAndView mav= new ModelAndView();
+		mav.addObject("fList",null);
+		mav.setViewName("FAQ/userFAQList");
+		return mav;
+	}
+
 	//FAQ 등록하는 페이지 들어가기
 	@RequestMapping("/manFAQAddPage.do")
 	public String manFAQAddPage() {
@@ -172,7 +179,6 @@ public class FAQController {
 		mav.addObject("pageStr", pageStr);
 		
 		mav.setViewName("FAQ/manFAQSearch");
-		
 		return mav;
 	}
 	

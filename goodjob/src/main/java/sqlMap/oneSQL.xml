@@ -24,4 +24,7 @@
   		content=#{content},
   		where idx=#{idx}
   	</update>
+  	<select id="myOneOneList">
+select * from one_one where idx=#{idx}
+</select>
   </mapper>
