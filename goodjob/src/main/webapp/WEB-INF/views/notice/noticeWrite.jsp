@@ -290,12 +290,12 @@ $(document).ready(function() {
 					<c:forEach var="i" begin="0" end="23" step="1">
 						<option value="${i}">${i}</option>
 					</c:forEach>
-					</select> : <select name="workstarttime2"><option value="0">0</option><option value="30">30</option></select> ~ 근무종료시간
+					</select> : <select name="workstarttime2"><option value="00">0</option><option value="30">30</option></select> ~ 근무종료시간
 					<select name="workendtime1">
 					<c:forEach var="i" begin="0" end="48" step="1">
 						<option value="${i}">${i}</option>
 					</c:forEach>
-					</select> : <select name="workendtime2"><option value="0">0</option><option value="30">30</option></select>
+					</select> : <select name="workendtime2"><option value="00">0</option><option value="30">30</option></select>
 					</div></td>
 				</tr>
 				<tr>
@@ -371,6 +371,15 @@ $.ajax({
 		      contentType: "application/json"
 		      //전송받을타입 json으로 선언하면 json으로 파싱안해도됨
 		   }).done((data)=>{
+			   var detailAddr = !!result[0].road_address ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
+		        detailAddr += '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
+		        
+		        var content = '<div class="bAddr">' +
+		                        '<span class="title">법정동 주소정보</span>' + 
+		                        detailAddr + 
+		                    '</div>';
+		       infowindow.setContent(content);
+		       infowindow.open(map, marker);
 			   var region_1depth=data.documents[0].region_1depth_name;
 			   document.getElementById("region_1depth").value=region_1depth;
 			   var region_2depth=data.documents[0].region_2depth_name;
