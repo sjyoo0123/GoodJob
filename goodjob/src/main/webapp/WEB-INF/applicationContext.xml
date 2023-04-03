@@ -28,10 +28,14 @@
    		<property name="sqlMap" ref="sqlSessionTemplate"></property>
    </bean>
    <bean id="comDao" class="com.goodjob.companymember.model.CompanyMemberDAOImple">
-   		<property name="sqlMap" ref="sqlSessionTemplate"></property>
+   		<constructor-arg>
+   			<ref bean="sqlSessionTemplate"></ref>
+   		</constructor-arg>
    </bean>
    <bean id="norDao" class="com.goodjob.normalmember.model.NormalMemberDAOImple">
-   		<property name="sqlMap" ref="sqlSessionTemplate"></property>
+   		<constructor-arg>
+   			<ref bean="sqlSessionTemplate"></ref>
+   		</constructor-arg>
    </bean>
    <bean id="blackListDao" class="com.goodjob.blacklist.model.BlackLIstDAOImple">
    		<property name="sqlMap" ref="sqlSessionTemplate"></property>
@@ -40,5 +44,5 @@
    <constructor-arg>
          <ref bean ="sqlSessionTemplate"/>
       </constructor-arg>
-	
+	</bean>
 </beans>
