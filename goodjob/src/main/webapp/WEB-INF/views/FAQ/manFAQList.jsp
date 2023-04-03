@@ -92,7 +92,7 @@ function pageSubmit(){
 				 	</div>
 				 </div>
 				 <div class="row">
-				 	<div class="offset-sm-8 col-sm-4">
+				 	<div class="offset-sm-7 col-sm-5">
 				 		<form name="manFAQSearch" action="manFAQSearch.do" method="post">
 				 			<input type="text" name="search" placeholder="제목을 검색해주세요">
 				 			<input type="submit" value="검색하기">

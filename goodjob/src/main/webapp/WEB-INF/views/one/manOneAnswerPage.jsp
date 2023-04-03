@@ -25,7 +25,7 @@
 		</div>
 	</div>
 	<br>
-	<form name="manOneAnswer" action="manOneAnswer.do">
+	<form name="manOneAnswer" action="manOneAnswer.do" method="post">
 	<div class="row">
 		<div class="offset-sm-3 col-sm-6"> 
 			<table class="table">

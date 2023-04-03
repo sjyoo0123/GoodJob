@@ -3,12 +3,13 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-config.dtd">
   <configuration>
-  <settings>
-  	<setting name="jdbcTypeForNull" value="NULL"/>
-  </settings>
   	<mappers>
   		<mapper resource="sqlMap/reviewSQL.xml"/>
   		<mapper resource="sqlMap/BlackListSQL.xml"/>
+      <mapper resource="sqlMap/memberSQL.xml"/>
+      <mapper resource="sqlMap/comSQL.xml"/>
+  		<mapper resource="sqlMap/normalSQL.xml"/>
+  		<mapper resource="sqlMap/notice.xml"/>
   		<mapper resource="sqlMap/faqSQL.xml"/>
   		<mapper resource="sqlMap/oneSQL.xml"/>
   	</mappers>

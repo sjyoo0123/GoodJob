@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<!-- mybatis -->   
    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
@@ -17,17 +19,37 @@
 	   <bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
       <property name="dataSource" ref="dataSource"></property>   
       <property name="configLocation" value="classpath:/mybatis-config.xml"></property>
-   </bean>      
+   </bean> 
    <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
       <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactoryBean"></constructor-arg>
    </bean>
-   <bean id="comDao" class="com.goodjob.companymember.model.CompanyMemberDAOImple"></bean>
-   <bean id="norDao" class="com.goodjob.normalmember.model.NormalMemberDAOImple"></bean>
+	<!-- Daos -->
+   <bean id="noticeDao" class="com.goodjob.notice.model.NoticeDAOImple">
+   		<property name="sqlMap" ref="sqlSessionTemplate"></property>
+   </bean>
+   <bean id="comDao" class="com.goodjob.companymember.model.CompanyMemberDAOImple">
+   		<constructor-arg>
+   			<ref bean="sqlSessionTemplate"></ref>
+   		</constructor-arg>
+   	</bean>
    <bean id="faqDao" class="com.goodjob.faq.model.FAQDAOImple">
    	<property name="sqlMap" ref="sqlSessionTemplate"></property>
    </bean>
    <bean id="oneDao" class="com.goodjob.one_one.model.One_OneDAOImple">
    		<property name="sqlMap" ref="sqlSessionTemplate"></property>
    </bean>
+	    <bean id="norDao" class="com.goodjob.normalmember.model.NormalMemberDAOImple">
+   		<constructor-arg>
+   			<ref bean="sqlSessionTemplate"></ref>
+   		</constructor-arg>
+   </bean>
+   <bean id="blackListDao" class="com.goodjob.blacklist.model.BlackLIstDAOImple">
+	<property name="sqlMap" ref="sqlSessionTemplate"></property>
+   </bean>
+	<bean id="memberDao" class="com.goodjob.member.model.MemberDAOImple">
+   <constructor-arg>
+         <ref bean ="sqlSessionTemplate"/>
+      </constructor-arg>
+	</bean>
 	
 </beans>

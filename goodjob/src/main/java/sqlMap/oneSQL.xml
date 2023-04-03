@@ -22,6 +22,15 @@
   		update one_one set
   		subject=#{subject},
   		content=#{content},
+  		"CHECK"=1
   		where idx=#{idx}
   	</update>
+  	<select id="manOneSearch" resultType="com.goodjob.one_one.model.One_OneDTO" parameterType="Map">
+  		select * from
+  		(select rownum as rnum, a.* from
+  		(select * from one_one 
+  		where subject like '%'||#{search}||'%'
+  		order by idx desc)a)b
+  		where rnum <![CDATA[>=]]>#{start} and rnum<![CDATA[<=]]> #{end}
+  	</select>
   </mapper>

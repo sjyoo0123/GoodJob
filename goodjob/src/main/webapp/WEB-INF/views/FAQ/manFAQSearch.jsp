@@ -27,6 +27,12 @@
     background-color: #0d6efd;
     border-color: #0d6efd;
 }
+#td1{
+	text-align: center;
+	text-decoration: none;
+	text-decoration-line : none;
+	
+}
 </style>
 
 <body>
@@ -58,7 +64,7 @@
 				 </div>
 				 <br>
 				 	 <div class="row">
-				 	<div class="offset-sm-8 col-sm-4">
+				 	<div class="offset-sm-7 col-sm-5">
 				 		<form name="manFAQSearch" action="manFAQSearch.do" method="get">
 				 			<input type="text" name="search" placeholder="제목을 검색해주세요" class="form-control">
 				 			<input type="submit" value="검색하기" class="btn btn-primary">
@@ -75,8 +81,11 @@
 					 	</tr>
 					 </c:if>
 					 	<c:forEach var="dto" items="${lists }">
+					 		<c:url var="contentUrl" value="${lists }">
+					 			<c:param name="idx">${dto.idx }</c:param>
+					 		</c:url>
 					 		<tr>
-					 			<td align="center" id="back">${dto.subject }</td>
+					 			<td align="center" id="back"><a href="${contentUrl }">${dto.subject }</a></td>
 					 		</tr>
 					 		<tr>
 					 			<td align="center">${dto.content }</td>
@@ -91,7 +100,7 @@
 						 </tbody>
 						 <tfoot>
 						 	<tr>
-						 		<td align="center">${pageStr }</td>
+						 		<td align="center" id="td1">${pageStr }</td>
 						 	</tr>
 						 </tfoot>
 					 </table>

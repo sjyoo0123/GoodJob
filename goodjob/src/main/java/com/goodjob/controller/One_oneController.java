@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -71,26 +72,49 @@ public class One_OneController {
 	}
 	
 	//일대일 문의 답변하기 누르기
-	@RequestMapping("/manOneAnswer.do")
+	@RequestMapping(value = "/manOneAnswer", method = RequestMethod.POST)
 	public ModelAndView manOneAnswer(One_OneDTO dto) {
 		
 		ModelAndView mav=new ModelAndView();
 		
 		
 		
-		if(dto==null || dto.equals("")) {
-			mav.addObject("msg", "수정에 실패하셨습니다");
-			mav.addObject("goUrl", "manOneList.do");
-		}else {
-			int count=oneDao.manFAQAnswer(dto);
+	
+		
+			int count=oneDao.manOneAnswer(dto);
 			mav.addObject("msg", "수정에 성공하셨습니다.");
 			mav.addObject("goUrl", "manOneList.do");
-		}
+		
 			mav.setViewName("one/manOneMsg");
 		
 		
 		
 		return mav;
+	}
+	
+	//일대일문의 검색하기
+	@RequestMapping("/manOneSearch.do")
+	public ModelAndView manOneSearch(@RequestParam(value = "cp", defaultValue = "1")int cp
+			,@RequestParam (value = "search", required = false)String search) {
+		
+		ModelAndView mav=new ModelAndView();
+		
+		int totalCnt=oneDao.manOneAllCnt();
+		int listSize=5;
+		int pageSize=5;
+		
+		List<One_OneDTO> lists=oneDao.manOneSearch(cp, listSize, search);
+		
+		String pageStr=com.goodjob.page.module.PageModule.makePage("manOneSearch.do", totalCnt, listSize, pageSize, cp);
+		
+		mav.addObject("lists", lists);
+		mav.addObject("pageStr", pageStr);
+		
+		mav.setViewName("one/manOneSearch");
+		
+		return mav;
+		
+		
 	}
 	
 }
