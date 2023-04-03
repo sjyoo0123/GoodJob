@@ -26,14 +26,14 @@
 	</bean>
    <!-- Daos -->
    <bean id="noticeDao" class="com.goodjob.notice.model.NoticeDAOImple">
-   		<property name="sqlMap" ref="sqlSessionTemplate"></property>
-   </bean>
+   		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactoryBean"></constructor-arg>
+	</bean>
    <bean id="comDao" class="com.goodjob.companymember.model.CompanyMemberDAOImple">
-   		<property name="sqlMap" ref="sqlSessionTemplate"></property>
-   </bean>
+   		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactoryBean"></constructor-arg>
+	</bean>
    <bean id="norDao" class="com.goodjob.normalmember.model.NormalMemberDAOImple">
-   		<property name="sqlMap" ref="sqlSessionTemplate"></property>
-   </bean>
+   	<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactoryBean"></constructor-arg>
+	</bean>
    <bean id="blackListDao" class="com.goodjob.blacklist.model.BlackLIstDAOImple">
    		<property name="sqlMap" ref="sqlSessionTemplate"></property>
    </bean>
@@ -41,5 +41,21 @@
    <constructor-arg>
          <ref bean ="sqlSessionTemplate"/>
       </constructor-arg>
+	</bean>
+	<bean id="gongjiDao" class="com.goodjob.gongji.model.GongJiDAOImple">
+		<constructor-arg>
+			<ref bean="sqlSessionTemplate" />
+		</constructor-arg>
+</bean>
+	<bean id="singoDao" class="com.goodjob.singo.model.SinGoDAOImple">
+		<constructor-arg>
+			<ref bean="sqlSessionTemplate" />
+		</constructor-arg>
+</bean>
+	 <bean id="faqDao" class="com.goodjob.faq.model.FAQDAOImple">
+   	<property name="sqlMap" ref="sqlSessionTemplate"></property>
+	</bean>
+	<bean id="oneDao" class="com.goodjob.one_one.model.One_OneDAOImple">
+	<property name="sqlMap" ref="sqlSessionTemplate"></property>
 	</bean>
 </beans>
