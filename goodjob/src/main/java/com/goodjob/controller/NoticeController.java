@@ -56,15 +56,17 @@ public class NoticeController {
 	}
 	@RequestMapping("/noticeComList.do")
 	public ModelAndView noticeComListForm(@RequestParam(value="cp",defaultValue="1")int cp,HttpSession session) {
-		int totalCnt=0;//getTotalCnt();
+		int totalCnt=1;//getTotalCnt();
 		int listSize=5;
 		int pageSize=5;
 		
 		String pageStr=com.goodjob.page.module.PageModule.makePage("noticeComList.do", totalCnt, listSize, pageSize, cp);
-		int idx=(int)session.getAttribute("sidx");
+		int idx=4;
+				//(int)session.getAttribute("sidx");
 		List<NoticeDTO> lists=ndao.noticeComList(idx,cp,listSize);
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("pageStr", pageStr);
+		mav.addObject("lists", lists);
 		mav.setViewName("notice/noticeComList");
 		return mav;
 	}
