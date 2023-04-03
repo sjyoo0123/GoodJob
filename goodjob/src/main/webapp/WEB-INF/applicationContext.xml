@@ -31,6 +31,7 @@
 		<constructor-arg name="sqlSessionFactory"
 			ref="sqlSessionFactoryBean"></constructor-arg>
 	</bean>
+	
 	<!-- Daos -->
 	<bean id="noticeDao"
 		class="com.goodjob.notice.model.NoticeDAOImple">
@@ -70,4 +71,11 @@
 			<ref bean="sqlSessionTemplate" />
 		</constructor-arg>
 </bean>
+   <bean id="faqDao" class="com.goodjob.faq.model.FAQDAOImple">
+   	<property name="sqlMap" ref="sqlSessionTemplate"></property>
+   </bean>
+   
+   <bean id="oneDao" class="com.goodjob.one_one.model.One_OneDAOImple">
+   		<property name="sqlMap" ref="sqlSessionTemplate"></property>
+   </bean>
 </beans>

@@ -30,6 +30,8 @@ public class CompanyMemberDAOImple implements CompanyMemberDAO {
 		
 		return sqlMap.selectOne("getComMember", idx);
 	}
+
+	@Override
 	public CompanyMemberDTO comInfo(int idx) {
 		CompanyMemberDTO dto=sqlMap.selectOne("comInfo", idx);
 		return dto;
