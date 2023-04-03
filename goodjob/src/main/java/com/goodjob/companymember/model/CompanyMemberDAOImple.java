@@ -20,6 +20,12 @@ public class CompanyMemberDAOImple implements CompanyMemberDAO {
 		return sqlMap.insert("comJoin", dto);
 	}
 	@Override
+	public CompanyMemberDTO getComMember(int idx) {
+		// TODO Auto-generated method stub
+		
+		return sqlMap.selectOne("getComMember", idx);
+	}
+	@Override
 	public CompanyMemberDTO comInfo(int idx) {
 		CompanyMemberDTO dto=sqlMap.selectOne("comInfo", idx);
 		return dto;
