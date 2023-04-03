@@ -17,10 +17,17 @@ public class MemberDAOImple implements MemberDAO {
 		// TODO Auto-generated constructor stub
 	}
 
-	public MemberDAOImple(SqlSessionTemplate sqlMap) {
-		super();
+	public SqlSessionTemplate getSqlMap() {
+		return sqlMap;
+	}
+
+
+
+	public void setSqlMap(SqlSessionTemplate sqlMap) {
 		this.sqlMap = sqlMap;
 	}
+
+
 
 	@Override
 	synchronized public int memberJoin(MemberDTO dto) {

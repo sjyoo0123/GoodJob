@@ -6,7 +6,7 @@
   	<select id="manBlackListGet" parameterType="Map" resultType="com.goodjob.member.model.MemberDTO">
 		select * from
 		(select rownum as rnum, a.* from(
-		select * from member where status in('활성','블랙') and user_category=#{category} and singo_count<![CDATA[>=]]>20 order by idx desc)a )b
+		select * from member where status in('블랙') and user_category=#{category} and singo_count<![CDATA[>=]]>20 order by idx desc)a )b
 		where rnum <![CDATA[>=]]>#{start} and rnum <![CDATA[<=]]>#{end}
 	</select>
 	<select id="manBlackListGetTotalCnt" parameterType="String" resultType="Integer">
@@ -15,7 +15,7 @@
 		from
 			member
 		where
-			status in('활성','블랙')
+			status in('블랙')
 			and
 			user_category=#{category}
 	</select>
@@ -56,7 +56,7 @@
 	<select id="manBlackListSingoList" parameterType="map" resultType="com.goodjob.blacklist.model.BlackListDTO">
 		select * from
 			(select rownum as rnum, a.* from(
-			SELECT s.member_idx, m.name, MAX(m.singo_count)as singo_count, MAX(s.singo_date)as singo_date, MIN("CHECK")as "CHECK"
+			SELECT s.member_idx, m.name, MAX(m.singo_count)as singo_count, MAX(s.singo_date)as singo_date, MIN("CHECK")as "CHECK", MAX(m.status)as status
 			FROM singo s
 			INNER JOIN member m ON s.member_idx = m.idx
 			WHERE  m.status = '활성' and m.user_category=#{category}
