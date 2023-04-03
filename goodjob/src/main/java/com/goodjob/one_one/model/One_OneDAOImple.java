@@ -61,4 +61,10 @@ public class One_OneDAOImple implements One_OneDAO {
 		
 		return count;
 	}
+	@Override
+	public One_OneDTO UserOneList(int idx, int cp, int ls) {
+		// TODO Auto-generated method stub
+		
+		return null;
+	}
 }

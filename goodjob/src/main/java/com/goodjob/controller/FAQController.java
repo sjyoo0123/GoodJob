@@ -50,10 +50,17 @@ public class FAQController {
 		return mav;
 	}
 	@RequestMapping("userFAQList")
-	public ModelAndView userFaqList() {
+	public ModelAndView userFaqList(@RequestParam(value="cp",defaultValue = "1") int cp) {
 		ModelAndView mav= new ModelAndView();
-		mav.addObject("fList",null);
+		mav.addObject("fList",faqDao.manFAQList(cp, 15));
 		mav.setViewName("FAQ/userFAQList");
+		return mav;
+	}
+	@RequestMapping()
+	public ModelAndView userFaqContent(int idx) {
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("dto", faqDao.manFAQContent(idx));
+		mav.setViewName("FAQ/userFAQContent");
 		return mav;
 	}
 
