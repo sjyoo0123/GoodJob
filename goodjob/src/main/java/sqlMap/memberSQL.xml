@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.goodjob.member">
+	<insert id="memberJoin"
+		parameterType="com.goodjob.member.model.MemberDTO">
+		insert into member
+		values(member_idx.nextval,#{id},#{pwd},#{name},#{email},#{tel},#{addr},sysdate,#{singo_count},#{user_category},#{status})
+	</insert>
+	<select id="memberSelect" parameterType="Map"
+		resultType="com.goodjob.member.model.MemberDTO">
+		select * from member where id=#{id} and pwd=#{pwd}
+	</select>
+	<select id="login" parameterType="Map"
+		resultType="com.goodjob.member.model.MemberDTO">
+		select * from member where id=#{id} and pwd=#{pwd} and
+		user_category=#{user_category}
+	</select>
+	<select id="idCheck" parameterType="String" resultType="Integer">
+		select count(*) from member where id=#{id}
+	</select>
+	<update id="memberUpdate" parameterType="map">
+		BEGIN
+		UPDATE member
+		SET pwd = #{pwd} , tel=#{tel} , addr=#{addr}
+		WHERE idx = #{idx};
+
+		UPDATE ${tebleName}
+		SET gender = '남자'
+		WHERE member_idx = #{idx};
+
+		COMMIT;
+		END
+	</update>
+</mapper>
