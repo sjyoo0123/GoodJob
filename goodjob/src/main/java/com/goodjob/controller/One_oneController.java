@@ -13,7 +13,7 @@ import com.goodjob.one_one.model.One_OneDAO;
 import com.goodjob.one_one.model.One_OneDTO;
 
 @Controller
-public class One_OneController {
+public class One_oneController {
 	
 	@Autowired
 	private One_OneDAO oneDao;

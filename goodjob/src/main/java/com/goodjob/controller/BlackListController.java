@@ -53,10 +53,11 @@ public class BlackListController {
 	}
 	
 	@RequestMapping(value = "/manBlackListContentForm.do")
-	public ModelAndView manBlackListContentForm(@RequestParam(value="idx")int idx) {
+	public ModelAndView manBlackListContentForm(@RequestParam(value="idx")int idx,@RequestParam(value="status", defaultValue = "블랙")String status) {
 		ModelAndView mav=new ModelAndView();
 		String name=bdao.manBlackListGetName(idx);
 		mav.addObject("name", name);
+		mav.addObject("status", status);
 		mav.addObject("idx", idx);
 		mav.setViewName("blackList/manBlackListContent");
 		return mav;

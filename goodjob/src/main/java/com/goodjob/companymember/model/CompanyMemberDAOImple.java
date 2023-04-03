@@ -1,12 +1,24 @@
 package com.goodjob.companymember.model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 
 public class CompanyMemberDAOImple implements CompanyMemberDAO {
 	private SqlSessionTemplate sqlMap;
 
+	
 	public CompanyMemberDAOImple() {
 		// TODO Auto-generated constructor stub
+	}
+
+	public SqlSessionTemplate getSqlMap() {
+		return sqlMap;
+	}
+
+	public void setSqlMap(SqlSessionTemplate sqlMap) {
+		this.sqlMap = sqlMap;
 	}
 
 	public CompanyMemberDAOImple(SqlSessionTemplate sqlMap) {
@@ -19,15 +31,19 @@ public class CompanyMemberDAOImple implements CompanyMemberDAO {
 		// TODO Auto-generated method stub
 		return sqlMap.insert("comJoin", dto);
 	}
+
+
 	@Override
 	public CompanyMemberDTO getComMember(int idx) {
 		// TODO Auto-generated method stub
 		
 		return sqlMap.selectOne("getComMember", idx);
 	}
+
 	@Override
 	public CompanyMemberDTO comInfo(int idx) {
 		CompanyMemberDTO dto=sqlMap.selectOne("comInfo", idx);
 		return dto;
 	}
+
 }

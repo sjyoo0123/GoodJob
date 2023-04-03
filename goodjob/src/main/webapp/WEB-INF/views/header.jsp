@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
+<c:set var="logIdx" value="${sessionScope.sidx}"/>
+<c:set var="logName" value="${sessionScope.sname}"/>
+<c:set var="logCategory" value="${sessionScope.scategory}"/>
+<c:set var="nor" value="개인"></c:set>
+<c:set var="com" value="기업"></c:set>
+<c:set var="man" value="관리자"></c:set>
 <style>
 header{
 z-index: 1 !important;
@@ -20,8 +27,23 @@ div.col-11.mt-4.position-relative{
 <header class="mt-1 bg-white">
 	<div class="row">
 		<div class="offset-9 col-3 text-end">
+		<c:if test="${!(empty logIdx)}">
+			<c:if test="${logCategory eq nor}">
+			<span>개인</span>
+			</c:if>
+			<c:if test="${logCategory eq com}">
+			<span>기업</span>
+			</c:if>
+			<c:if test="${logCategory eq man}">
+			<span>관리자</span>
+			</c:if>
+			
+			<a href="logout.do">로그아웃</a>
+		</c:if>
+		<c:if test="${empty logIdx}">
 			<a href="login.do">로그인</a>
 			<a href="join.do">회원가입</a>
+		</c:if>
 		</div>
 		<a href="index.do" class="col-2"><img src="img/logo.png"
 			class="col-12"></a>
