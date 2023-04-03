@@ -62,9 +62,18 @@ public class NoticeController {
 		return mav;
 	}
 	@RequestMapping(value="noticeList.do",method = RequestMethod.GET)
-	public ModelAndView noticeList(@RequestParam(value="cp",defaultValue="1")int cp) {
+	public ModelAndView noticeList(@RequestParam(value="cp",defaultValue="0")int cp,String qurey) {
 		ModelAndView mav=new ModelAndView();
-		mav.setViewName("notice/noticeList");
+		//mav.addObject("dto",ndao.noticeList(cp));
+		System.out.println(cp+qurey);
+		if(cp==0) {
+			mav.setViewName("notice/noticeList");
+		}else {
+			mav.addObject("dtos","{\"1\":\"2\"}{\"1\":\"2\"}");
+			mav.addObject("page", "{\"1\":\"2\"}");
+			mav.setViewName("goodjobJson");
+		}
+		
 		return mav;
 	}
 }

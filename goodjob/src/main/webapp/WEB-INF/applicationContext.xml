@@ -58,4 +58,16 @@
 			<ref bean="sqlSessionTemplate" />
 		</constructor-arg>
 </bean>
+	<bean id="gongjiDao"
+		class="com.goodjob.gongji.model.GongJiDAOImple">
+		<constructor-arg>
+			<ref bean="sqlSessionTemplate" />
+		</constructor-arg>
+</bean>
+	<bean id="singoDao"
+		class="com.goodjob.singo.model.SinGoDAOImple">
+		<constructor-arg>
+			<ref bean="sqlSessionTemplate" />
+		</constructor-arg>
+</bean>
 </beans>

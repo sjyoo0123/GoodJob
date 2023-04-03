@@ -33,7 +33,6 @@
 		SET ${qurey}
 		WHERE member_idx = #{idx};
 
-		COMMIT;
 		END
 	</update>
 </mapper>
