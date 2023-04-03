@@ -20,7 +20,12 @@
 			<div class="col-3 fs-1 fw-blod">
 			${name}		
 			</div>
+			<c:if test="${status ne '활성'}">
 			<button type="button" class="btn btn-primary col-2" id="delbutton">삭제하기</button>
+			</c:if>
+			<c:if test="${status ne '활성'}">
+			<button type="button" class="btn btn-primary col-2" id="addbutton">블랙리스트 추가</button>
+			</c:if>
 			</div>
 			<div id="my-div">
 			</div>

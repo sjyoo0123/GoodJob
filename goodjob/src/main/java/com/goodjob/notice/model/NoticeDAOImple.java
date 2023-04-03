@@ -6,13 +6,13 @@ public class NoticeDAOImple implements NoticeDAO {
 
 	private SqlSessionTemplate sqlMap;
 	
-public NoticeDAOImple() {
-	// TODO Auto-generated constructor stub
-}
-public NoticeDAOImple(SqlSessionTemplate sqlMap) {
-	super();
-	this.sqlMap = sqlMap;
-}
+	public NoticeDAOImple() {
+		// TODO Auto-generated constructor stub
+	}
+	public NoticeDAOImple(SqlSessionTemplate sqlMap) {
+		super();
+		this.sqlMap = sqlMap;
+	}
 	public void setSqlMap(SqlSessionTemplate sqlMap) {
 		this.sqlMap = sqlMap;
 	}
