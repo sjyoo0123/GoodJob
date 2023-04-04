@@ -15,13 +15,7 @@
 	 <%@include file="/WEB-INF/views/header.jsp"%> 
 		<section>
 			<article>
-				<c:if test="${empty fList}">
-				등록된 글이 없습니다
-				</c:if>
-				<c:forEach var="dto" items="${fList }">
-				${dto.subject }
-				${dto.content }
-				</c:forEach>
+				
 			</article>
 		</section>
 	 <%@include file="/WEB-INF/views/footer.jsp"%> 

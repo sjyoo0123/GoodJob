@@ -12,6 +12,7 @@ public interface One_OneDAO {
 	
 	public int manFAQAnswer(One_OneDTO dto);
 	
-	public One_OneDTO UserOneList(int idx,int cp,int ls);
+	public One_OneDTO userOneList(int idx,int cp,int ls);
 	
+	public int userOneWrite(One_OneDTO dto);
 }

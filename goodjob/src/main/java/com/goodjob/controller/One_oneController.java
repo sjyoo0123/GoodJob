@@ -94,12 +94,17 @@ public class One_oneController {
 		
 		return mav;
 	}
-	@RequestMapping("")
+	@RequestMapping("one/userOneList")
 	public ModelAndView userOneList(HttpSession session) {
 		ModelAndView mav=new ModelAndView();
 		int idx=Integer.parseInt((String)session.getAttribute("idx"));
 		mav.addObject("list",oneDao);
 		mav.setViewName("");
+		return mav;
+	}
+	@RequestMapping("one/userOneWrite")
+	public ModelAndView userOneWrite() {
+		ModelAndView mav=new ModelAndView();
 		return mav;
 	}
 	

@@ -56,13 +56,7 @@ public class FAQController {
 		mav.setViewName("FAQ/userFAQList");
 		return mav;
 	}
-	@RequestMapping()
-	public ModelAndView userFaqContent(int idx) {
-		ModelAndView mav=new ModelAndView();
-		mav.addObject("dto", faqDao.manFAQContent(idx));
-		mav.setViewName("FAQ/userFAQContent");
-		return mav;
-	}
+
 
 	//FAQ 등록하는 페이지 들어가기
 	@RequestMapping("/manFAQAddPage.do")
