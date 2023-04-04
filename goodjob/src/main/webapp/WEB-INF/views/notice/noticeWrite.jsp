@@ -27,7 +27,7 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d67c0e8efbe506e6ef450c637bab0204&libraries=services"></script>
-<title>Insert title here</title>
+<title>공고작성</title>
 <script>
 $(document).ready(function() {
 	$('#minmaxage').show();
@@ -78,6 +78,16 @@ $(document).ready(function() {
     }
   });
 });
+$(document).ready(function() {
+	$('#hourworktime').show();
+	  $('input[name="pay_category"]').change(function() {
+	    if ($(this).val() == '시급') {
+	      $('#hourworktime').show();
+	    } else {
+	      $('#hourworktime').hide();
+	    }
+	  });
+	});
 $(document).ready(function() {
 	  $('input[type="submit"]').click(function() {
 	    var selectedDays = '';
@@ -283,7 +293,10 @@ $(document).ready(function() {
 						class="btn btn-outline-primary" for="pay_category">시급</label> <input
 						type="radio" value="월급" class="btn-check" id="pay_category1" name="pay_category"
 						autocomplete="off"><label class="btn btn-outline-primary"
-						for="pay_category1">월급</label><br> <input type="text" name="pay">원 <div id="weekworktime" style="display: none;">1주 근무시간<input type="number" name="worktime" value="0"></div></td>
+						for="pay_category1">월급</label> <input
+						type="radio" value="협의" class="btn-check" id="pay_category2" name="pay_category"
+						autocomplete="off"><label class="btn btn-outline-primary"
+						for="pay_category2">협의</label><br><div id="hourworktime" style="display: none;"><input type="text" name="pay" value="0">원</div> <div id="weekworktime" style="display: none;"><input type="text" name="pay" value="0">원 1주 근무시간<input type="number" name="worktime" value="0"></div></td>
 				</tr>
 			</table>
 		</div>

@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.goodjob.apply.model.ApplyDAO;
+import com.goodjob.apply.model.ApplyDTO;
 import com.goodjob.notice.model.NoticeDAO;
 import com.goodjob.notice.model.NoticeDTO;
 import java.util.*;
@@ -21,6 +23,7 @@ import java.util.*;
 public class NoticeController {
 
 	private NoticeDAO ndao;
+	
 	
 	public NoticeController(NoticeDAO ndao) {
 		super();
@@ -47,6 +50,8 @@ public class NoticeController {
 		}else if(dto.getPay_category().equals("월급")) {
 			int pay_month=(dto.getFinishtime()-dto.getStarttime())*dto.getPay_hour()*dto.getWorktime();
 			dto.setPay_month(pay_month);
+		}else if(dto.getPay_category().equals("협의")) {
+			dto.setPay_month(0);
 		}
 		int result=ndao.noticeWrite(dto);
 		String msg=result>0?"작성완료":"작성실패";
@@ -56,16 +61,63 @@ public class NoticeController {
 	}
 	@RequestMapping("/noticeComList.do")
 	public ModelAndView noticeComListForm(@RequestParam(value="cp",defaultValue="1")int cp,HttpSession session) {
-		int totalCnt=0;//getTotalCnt();
+		int idx=4;
+		//(int)session.getAttribute("sidx");
+		int totalCnt=ndao.noticeTotalCnt(idx);
 		int listSize=5;
 		int pageSize=5;
 		
 		String pageStr=com.goodjob.page.module.PageModule.makePage("noticeComList.do", totalCnt, listSize, pageSize, cp);
-		int idx=(int)session.getAttribute("sidx");
 		List<NoticeDTO> lists=ndao.noticeComList(idx,cp,listSize);
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("pageStr", pageStr);
+		mav.addObject("lists", lists);
 		mav.setViewName("notice/noticeComList");
+		return mav;
+	}
+	@RequestMapping("/noticeContent.do")
+	public ModelAndView noticeContent(@RequestParam(value="idx")int nidx) {
+		NoticeDTO dto=ndao.noticeContent(nidx);
+		String workday=dto.getWorkday();
+		String yy = "";
+		if(workday.charAt(0)=='1') {
+			yy+="월";
+		}if(workday.charAt(1)=='1') {
+			yy+="화";
+		}if(workday.charAt(2)=='1') {
+			yy+="수";
+		}if(workday.charAt(3)=='1') {
+			yy+="목";
+		}if(workday.charAt(4)=='1') {
+			yy+="금";
+		}if(workday.charAt(5)=='1') {
+			yy+="토";
+		}if(workday.charAt(6)=='1') {
+			yy+="일";
+		}if(workday.charAt(7)=='1') {
+			yy+="무관";
+		}
+		String starttime1=dto.getStarttime()%100==0?"00":dto.getStarttime()%100+"";
+		String starttime=""+dto.getStarttime()/100+ ":" +starttime1;
+		String endtime1=dto.getFinishtime()%100==0?"00":dto.getFinishtime()%100+"";
+		String endtime=""+dto.getFinishtime()/100+ ":" +endtime1;
+		String startendtime=starttime+" ~ "+endtime;
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("dto", dto);
+		mav.addObject("yy", yy);
+		mav.addObject("startendtime", startendtime);
+		mav.setViewName("notice/noticeContent");
+		return mav;
+	}
+
+	@RequestMapping("/noticeDel.do")
+	public ModelAndView noticeDel(@RequestParam(value="idx")int nidx) {
+		int count=ndao.noticeDel(nidx);
+		String msg=count>0?"삭제완료":"삭제실패";
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("msg", msg);
+		mav.addObject("goUrl", "company.do");
+		mav.setViewName("notice/noticeMsg");
 		return mav;
 	}
 	@RequestMapping(value="noticeList.do",method = RequestMethod.GET)
@@ -83,4 +135,5 @@ public class NoticeController {
 		
 		return mav;
 	}
+	
 }
