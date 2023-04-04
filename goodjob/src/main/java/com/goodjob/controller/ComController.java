@@ -18,7 +18,7 @@ public class ComController {
 	
 	@RequestMapping("/company.do")
 	public ModelAndView comMypageForm(HttpSession session) {
-		int sidx=0;
+		int sidx=1;
 //		if(session.getAttribute("sidx")!=null) {
 //			sidx=(int)session.getAttribute("sidx");
 //		}

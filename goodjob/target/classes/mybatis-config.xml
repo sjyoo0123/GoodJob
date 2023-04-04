@@ -5,6 +5,7 @@
   <configuration>
   	<mappers>
   		<mapper resource="sqlMap/reviewSQL.xml"/>
+  		<mapper resource="sqlMap/keywordSQL.xml"/>
   		<mapper resource="sqlMap/BlackListSQL.xml"/>
      	<mapper resource="sqlMap/memberSQL.xml"/>
   		<mapper resource="sqlMap/comSQL.xml"/>
@@ -12,5 +13,6 @@
   		<mapper resource="sqlMap/notice.xml"/>
   		<mapper resource="sqlMap/faqSQL.xml"/>
   		<mapper resource="sqlMap/oneSQL.xml"/>
+  		<mapper resource="sqlMap/applySQL.xml"/>
   	</mappers>
   </configuration>
