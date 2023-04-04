@@ -5,8 +5,8 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<!-- mybatis -->   
-   <bean id="dataSource"
+	<!-- mybatis -->
+	<bean id="dataSource"
 		class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></property>
 		<property name="url" value="jdbc:oracle:thin:@Localhost:1521:xe"></property>
@@ -17,39 +17,62 @@
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
-	<bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+
+	<bean id="sqlSessionFactoryBean"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"></property>
-		<property name="configLocation"	value="classpath:/mybatis-config.xml"></property>
+		<property name="configLocation"
+			value="classpath:/mybatis-config.xml"></property>
 	</bean>
-	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
-		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactoryBean"></constructor-arg>
+	<bean id="sqlSessionTemplate"
+		class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg name="sqlSessionFactory"
+			ref="sqlSessionFactoryBean"></constructor-arg>
 	</bean>
-   <!-- Daos -->
-   <bean id="noticeDao" class="com.goodjob.notice.model.NoticeDAOImple">
-   		<property name="sqlMap" ref="sqlSessionTemplate"></property>
+	<!-- Daos -->
+	<bean id="noticeDao"
+		class="com.goodjob.notice.model.NoticeDAOImple">
+		<property name="sqlMap" ref="sqlSessionTemplate"></property>
 	</bean>
-   	<bean id="comDao" class="com.goodjob.companymember.model.CompanyMemberDAOImple">
-   		<property name="sqlMap" ref="sqlSessionTemplate"></property>
+	<bean id="comDao"
+		class="com.goodjob.companymember.model.CompanyMemberDAOImple">
+		<property name="sqlMap" ref="sqlSessionTemplate"></property>
 	</bean>
-   	<bean id="norDao" class="com.goodjob.normalmember.model.NormalMemberDAOImple">
-   		<property name="sqlMap" ref="sqlSessionTemplate"></property>
+	<bean id="norDao"
+		class="com.goodjob.normalmember.model.NormalMemberDAOImple">
+		<property name="sqlMap" ref="sqlSessionTemplate"></property>
 	</bean>
-   <bean id="blackListDao" class="com.goodjob.blacklist.model.BlackLIstDAOImple">
-   		<property name="sqlMap" ref="sqlSessionTemplate"></property>
-   </bean>
-	<bean id="memberDao" class="com.goodjob.member.model.MemberDAOImple">
-   		<property name="sqlMap" ref="sqlSessionTemplate"></property>	
+	<bean id="blackListDao"
+		class="com.goodjob.blacklist.model.BlackLIstDAOImple">
+		<property name="sqlMap" ref="sqlSessionTemplate"></property>
 	</bean>
-	<bean id="gongjiDao" class="com.goodjob.gongji.model.GongJiDAOImple">
+	<bean id="memberDao"
+		class="com.goodjob.member.model.MemberDAOImple">
+		<property name="sqlMap" ref="sqlSessionTemplate"></property>
+	</bean>
+	<bean id="gongjiDao"
+		class="com.goodjob.gongji.model.GongJiDAOImple">
 		<property name="sqlMap" ref="sqlSessionTemplate"></property>
 	</bean>
 	<bean id="singoDao" class="com.goodjob.singo.model.SinGoDAOImple">
 		<property name="sqlMap" ref="sqlSessionTemplate"></property>
 	</bean>
-	<bean id="faqDao" class="com.goodjob.faq.model.FAQDAOImple">
+	<bean id="blackListDao" class="com.goodjob.blacklist.model.BlackLIstDAOImple">
    		<property name="sqlMap" ref="sqlSessionTemplate"></property>
+   </bean>
+	<bean id="faqDao" class="com.goodjob.faq.model.FAQDAOImple">
+		<property name="sqlMap" ref="sqlSessionTemplate"></property>
 	</bean>
-	<bean id="oneDao" class="com.goodjob.one_one.model.One_OneDAOImple">
+	<bean id="oneDao"
+		class="com.goodjob.one_one.model.One_OneDAOImple">
+		<property name="sqlMap" ref="sqlSessionTemplate"></property>
+	</bean>
+	<bean id="ReviewDAO"
+		class="com.goodjob.review.model.ReviewDAOImple">
+		<property name="sqlMap" ref="sqlSessionTemplate"></property>
+	</bean>
+	<bean id="KeywordDAO"
+		class="com.goodjob.keyword.model.KeywordDAOImple">
 		<property name="sqlMap" ref="sqlSessionTemplate"></property>
 	</bean>
 	<bean id="applyDao" class="com.goodjob.apply.model.ApplyDAOImple">

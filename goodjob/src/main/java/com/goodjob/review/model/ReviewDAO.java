@@ -1,10 +1,10 @@
 package com.goodjob.review.model;
 
-import java.util.*;
+import java.util.List;
 
 public interface ReviewDAO {
-	
-	public List<ReviewDTO> reviewList(Map map);
 
-	public int getTotalCnt();
+	public List<ReviewDTO> reviewList();
+
+	public int reviewWrite(ReviewDTO dto);
 }
