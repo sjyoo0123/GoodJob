@@ -6,4 +6,5 @@ import com.goodjob.apply.model.ApplyDTO;
 
 public interface ApplyDAO {
 	public List<ApplyDTO> apComList(int idx,int cp,int ls);
+	public int applyTotalCnt(int idx);
 }

@@ -45,4 +45,15 @@ public int noticeTotalCnt(int idx) {
 	int count=sqlMap.selectOne("noticeTotalCnt",idx);
 	return count;
 }
+@Override
+public NoticeDTO noticeContent(int idx) {
+	NoticeDTO dto=sqlMap.selectOne("noticeContent",idx);
+	return dto;
+}
+@Override
+public int noticeDel(int idx) {
+	int count=sqlMap.update("noticeDel", idx);
+	return count;
+}
+
 }

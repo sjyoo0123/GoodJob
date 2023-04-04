@@ -23,7 +23,7 @@ public class ApplyController {
 
 	@RequestMapping("/apComList.do")
 	public ModelAndView apComListForm(@RequestParam(value="cp",defaultValue="1")int cp,@RequestParam(value="noticeidx")int nidx,@RequestParam(value="subject")String subject,HttpSession session) {
-		int totalCnt=1;//dao.TotalCnt();
+		int totalCnt=adao.applyTotalCnt(nidx);
 		int listSize=5;
 		int pageSize=5;
 		

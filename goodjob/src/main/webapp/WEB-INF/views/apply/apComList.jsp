@@ -55,23 +55,32 @@
 	</c:if>
 	<c:forEach var="dto" items="${lists}">
 		<tr>
-			<td>${dto.applydate}</td>
+			<td>${dto.writedate}</td>
 			<c:url var="contentUrl" value="applyContent.do">
-				<c:param name="idx">${dto.memberidx}</c:param>
+				<c:param name="idx">${dto.com_idx}</c:param>
 			</c:url>
-			<td><a href="${contentUrl}">${dto.normal_name}</a></td>
-			<td>${dto.notice_idx}</td>
+			<td><a href="${contentUrl}">${dto.subject}</a></td>
+			<td>${dto.plan_idx}</td>
 			<td>${dto.gender}</td>
-			<td><c:if test="${dto.check=0}">X</c:if><c:if test="${dto.check=1}">O</c:if></td>
+			<td>${dto.local1}</td>			
+			<td>
+			<c:choose>
+	<c:when test="${dto.min_age==1}">
+		O
+	</c:when>
+	<c:when test="${dto.min_age==0}">
+		X
+	</c:when>
+	</c:choose>
+	</td>
 		</tr>
 	</c:forEach>
 </tbody>
 <tfoot>
 		<tr>
-			<td colspan="4" align="center">
+			<td colspan="6" align="center">
 			${pageStr}
 			</td>
-			<td></td>
 		</tr>
 </tfoot>
 </table>
