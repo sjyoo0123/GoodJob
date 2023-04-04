@@ -63,7 +63,7 @@ $('input[name=options]').change(function(){
 			    // lists가 비어있지 않은 경우 데이터 행 추가
 			    $.each(data.lists, function(index, dto) {
 			      var $dataTr = $('<tr>');
-			      var $td1 = $('<td>').append($('<a>').attr('href', 'manBlackListContentForm.do?idx='+dto.member_idx).text(dto.name));
+			      var $td1 = $('<td>').append($('<a>').attr('href', 'manBlackListContentForm.do?idx='+dto.member_idx+'&status='+dto.status).text(dto.name));
 			      var $td2 = $('<td>').text(dto.singo_count);
 			      var $td3 = $('<td>').text(dto.singo_date ? formatDate(new Date(dto.singo_date)) : 'N/A');
 			      var $td4 = $('<td>').text( (dto.check == 1) ? "확인" : "미확인");

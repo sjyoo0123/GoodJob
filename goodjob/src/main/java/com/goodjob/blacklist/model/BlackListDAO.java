@@ -15,4 +15,7 @@ public interface BlackListDAO {
 	public int manBlackListSingoDel(int idx);
 	public List<BlackListDTO> manBlackListSingoList(Map map);
 	public int manBlackListSingoTotalCnt(String category);
+	public int manBlackListUpdateSingoCount(int idx);
+	public int manBlackListAdd(int idx);
+	public int manBlackListSingoCheckUpdate(int idx);
 }
