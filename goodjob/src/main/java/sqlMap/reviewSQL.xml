@@ -3,13 +3,13 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.goodjob.review">
-	<select id="reviewList" parameterType="Map" resultType="com.goodjob.review.model.ReviewDTO">
-		select * from
-		(select rownum as rnum, a.* from(
-		select * from review order by idx desc)a )b
-		where rnum <![CDATA[>=]]>#{start} and rnum <![CDATA[<=]]>#{end}
+	<select id="reviewList"	resultType="com.goodjob.review.model.ReviewDTO">
+		select com_name, count(*) as normal_idx from review Group by com_name
 	</select>
-	<select id="reviewTotalCnt" resultType="Integer">
-		select count(*) from review
-	</select>
+	<insert id="reviewWrite"
+		parameterType="com.goodjob.review.model.ReviewDTO">
+		INSERT INTO review
+		VALUES (keyword_idx_nextval, 3, 3,
+		#{com_name}, sysdate , 3, 1)
+	</insert>
 </mapper>
