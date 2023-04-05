@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.Cookie;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.goodjob.module.AjaxPageModule;
 import com.goodjob.apply.model.ApplyDAO;
 import com.goodjob.apply.model.ApplyDTO;
 import com.goodjob.notice.model.NoticeDAO;
@@ -121,19 +123,26 @@ public class NoticeController {
 		return mav;
 	}
 	@RequestMapping(value="noticeList.do",method = RequestMethod.GET)
-	public ModelAndView noticeList(@RequestParam(value="cp",defaultValue="0")int cp,String qurey) {
+	public ModelAndView noticeList(@RequestParam(value="cp",defaultValue="0")int cp,
+			@RequestParam(value="listWeekday",defaultValue = "")String[] listWeekday,
+			@RequestParam(value="local3",defaultValue = "")String[] local3,
+			@RequestParam(value="local2",defaultValue = "")String[] local2) {
 		ModelAndView mav=new ModelAndView();
-		//mav.addObject("dto",ndao.noticeList(cp));
-		System.out.println(cp+qurey);
+		for(int i=0;i<listWeekday.length;i++) {
+			System.out.println(listWeekday[i]);
+		}
 		if(cp==0) {
+			mav.addObject("page",AjaxPageModule.makePage(0, 10, 5, 1));
 			mav.setViewName("notice/noticeList");
+			return mav;
 		}else {
 			mav.addObject("dtos","{\"1\":\"2\"}{\"1\":\"2\"}");
-			mav.addObject("page", "{\"1\":\"2\"}");
+			mav.addObject("page", AjaxPageModule.makePage(0, 10, 5, cp));
 			mav.setViewName("goodjobJson");
+			
+			return mav;
 		}
 		
-		return mav;
 	}
 	
 }

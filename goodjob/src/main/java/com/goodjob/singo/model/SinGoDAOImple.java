@@ -19,7 +19,7 @@ public class SinGoDAOImple implements SinGoDAO {
 	@Override
 public int sinGoWrite(SinGoDTO dto) {
 	// TODO Auto-generated method stub
-		sqlMap.insert("sinGoWrite");
-	return 0;
+		
+	return sqlMap.insert("sinGoWrite");
 }
 }
