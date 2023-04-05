@@ -7,16 +7,18 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script>
-	$(document).ready(function){
-		$("input[type='checkbox']").on("click,function()"){
-			let count = $("input:checked[type='checkbox']").length;
-			
-			if(count>3){
-				$(this.prop("checked", false);
-				alert("3개까지만 선택할 수 있습니다")
-			}
-		}
+	function show(obj){
+		var chkbox = document.getElementsByName("keyword");
+		var chkcnt = 0;
 		
+		for(var i =1; i<chkbox.length;i++){
+			chkcnt++;
+		}
+	}
+	if(chkcnt>3){
+		alert("3개까지 체크할 수 있습니다.")
+		obj.checked = false;
+		return false;
 	}
 </script>
 </head>
@@ -26,7 +28,6 @@
 	<article>
 		<form name="reviewWrite" action="reviewWrite.do" method="post">
 			<input type="text" name="com_name" placeholder="회사이름을 적어주세요">
-			<input type="submit" value="검색">
 			<table>
 				<c:if test="${empty dto}">
 					<tr>
@@ -36,24 +37,23 @@
 
 				<c:forEach var="dto" items="${dto}">
 
-					<span> <input class="list" type="checkbox" name="keyword"
-						value="${dto.content }" id="${dto.idx }">${dto.content }
+					<span> <input type="checkbox" name="keyword" onclick="show(this)"
+						value="${dto.content }">${dto.content }
 					</span>
 				</c:forEach>
 
-				<div>
 
-					<div class="input">
-						<!-- 삽입할 위치 -->
-					</div>
-
-
+				<div class="input">
+					<!-- 삽입할 위치 -->
 				</div>
-				<input type="submit" value="작성">
-				<input type="button" value="취소"
-					onclick="location.href='reviewList.do'">
-				</form>
+
+
+				<div>
+					<input type="submit" value="작성"> <input type="button"
+						value="취소" onclick="location.href='reviewList.do'">
+				</div>
 			</table>
+		</form>
 	</article>
 
 

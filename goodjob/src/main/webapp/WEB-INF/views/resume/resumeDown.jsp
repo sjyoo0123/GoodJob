@@ -1,106 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+    pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
-	crossorigin="anonymous">
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-	integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
-	crossorigin="anonymous"></script>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-
+<meta charset="UTF-8">
 <title>Insert title here</title>
-<script>
-	$(document).ready(function() {
-		$('#checkh_h_workday').show();
-		$('input[name="h_workday"]').change(function() {
-			if ($(this).val() == '요일지정') {
-				$('#checkh_h_workday').show();
-			} else {
-				$('#checkh_h_workday').hide();
-			}
-		});
-	});
-	$(document).ready(function() {
-		$('input[name="career_check"]').change(function() {
-			if ($(this).val() == '경력') {
-				$('#carrer1').show();
-			} else {
-				$('#carrer1').hide();
-			}
-		});
-	});
-	$(document).ready(function() {
-		$('input[name=checkboxh_h_workday]').click(function() {
-			if (this.id === 'moo') {
-				$('input[name=checkboxh_h_workday]:lt(7)').prop('checked', false);
-			} else {
-				$('#moo').prop('checked', false);
-			}
-		});
-	});
-
-	function show() {
-
-		var url = "h_job.do";
-		var name = "h_job";
-		var option = "width=500, heigt = 500, top=500, left =200";
-		window.open(url, name, option);
-
-	}
-
-	$(document).ready(
-			function() {
-				$('input[type="checkbox"][name="check"]').click(
-						function() {
-
-							if ($(this).prop('checked')) {
-								$('input[type="checkbox"][name="check"]').prop(
-										'checked', false);
-								$(this).prop('checked', true);
-							}
-						});
-			});
-	$(document).ready(function() {
-	  $('input[name="h_pay_category"]').change(function() {
-	    if ($(this).val() == '월급') {
-	      $('#week_h_worktime').show();
-	    } else {
-	      $('#week_h_worktime').hide();
-	    }
-	  });
-	});
-	$(document).ready(function() {
-		  $('input[type="submit"]').click(function() {
-		    var selectedDays = '';
-		    $('input[name="checkboxh_h_workday"]').each(function() {
-		      if($(this).is(':checked')) {
-		        selectedDays += '1';
-		      } else {
-		        selectedDays += '0';
-		      }
-		    });
-		    $('#h_workday').val(selectedDays);
-		  });
-		});
-</script>
 <style>
 .map_wrap {
 	position: relative;
@@ -144,23 +49,12 @@
 </head>
 <body>
 	<h1>이력서 작성</h1>
-	<form name="resumeWrite" action="resumeWrite.do" method="post">
 		<hr>
 		<div>
 			<table>
-			<c:if test="${empty dto }">
-				<tr>
-					<th></th>
-					<td>등록된 정보가 없습니다</td>
-				</tr>
-			</c:if>
 				<tr>
 					<th> 이름 / 성별  /  생년월일 </th>
-					<td></td>
-				</tr>
-				<tr>
-					<th>${dto.name} / ${nto.status} / ${nto.review_num }</th>
-					<td></td>
+					<td>${dto.name} / ${nto.status} / ${nto.review_num }</td>
 				</tr>
 				<tr>
 					<th>주소</th>

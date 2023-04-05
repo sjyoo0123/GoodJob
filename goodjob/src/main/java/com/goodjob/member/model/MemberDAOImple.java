@@ -1,6 +1,5 @@
 package com.goodjob.member.model;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -97,6 +96,12 @@ public class MemberDAOImple implements MemberDAO {
 		map.put("tel", tel);
 		map.put("addr", addr);
 		return map;
+	}
+	
+	@Override
+	public MemberDTO resumeWriteForm() {
+		MemberDTO dto= sqlMap.selectOne("resumeWriteForm");
+		return dto;
 	}
 
 }

@@ -4,6 +4,7 @@ public class ResumeDTO {
 
 	private int idx;
 	private int normal_idx;
+	private int h_job;;
 	private String name;
 	private String gender;
 	private int age;
@@ -13,9 +14,9 @@ public class ResumeDTO {
 	private String tel;
 	private String subject;
 	private String grade;
+	private String career_check;
 	private String h_local1;
 	private String h_local2;
-	private String h_job;
 	private String h_period;
 	private String h_workday;
 	private String h_worktime;
@@ -24,18 +25,19 @@ public class ResumeDTO {
 	private String content;
 	private String status;
 	private int check;
-	
+
 	public ResumeDTO() {
 		super();
 	}
 
-	public ResumeDTO(int idx, int normal_idx, String name, String gender, int age, String addr, String deltai_addr,
-			String email, String tel, String subject, String grade, String h_local1, String h_local2, String h_job,
-			String h_period, String h_workday, String h_worktime, String h_pay, String h_pay_category, String content,
-			String status, int check) {
+	public ResumeDTO(int idx, int normal_idx, int h_job, String name, String gender, int age, String addr,
+			String deltai_addr, String email, String tel, String subject, String grade, String career_check,
+			String h_local1, String h_local2, String h_period, String h_workday, String h_worktime, String h_pay,
+			String h_pay_category, String content, String status, int check) {
 		super();
 		this.idx = idx;
 		this.normal_idx = normal_idx;
+		this.h_job = h_job;
 		this.name = name;
 		this.gender = gender;
 		this.age = age;
@@ -45,9 +47,9 @@ public class ResumeDTO {
 		this.tel = tel;
 		this.subject = subject;
 		this.grade = grade;
+		this.career_check = career_check;
 		this.h_local1 = h_local1;
 		this.h_local2 = h_local2;
-		this.h_job = h_job;
 		this.h_period = h_period;
 		this.h_workday = h_workday;
 		this.h_worktime = h_worktime;
@@ -72,6 +74,14 @@ public class ResumeDTO {
 
 	public void setNormal_idx(int normal_idx) {
 		this.normal_idx = normal_idx;
+	}
+
+	public int getH_job() {
+		return h_job;
+	}
+
+	public void setH_job(int h_job) {
+		this.h_job = h_job;
 	}
 
 	public String getName() {
@@ -146,6 +156,14 @@ public class ResumeDTO {
 		this.grade = grade;
 	}
 
+	public String getCareer_check() {
+		return career_check;
+	}
+
+	public void setCareer_check(String career_check) {
+		this.career_check = career_check;
+	}
+
 	public String getH_local1() {
 		return h_local1;
 	}
@@ -160,14 +178,6 @@ public class ResumeDTO {
 
 	public void setH_local2(String h_local2) {
 		this.h_local2 = h_local2;
-	}
-
-	public String getH_job() {
-		return h_job;
-	}
-
-	public void setH_job(String h_job) {
-		this.h_job = h_job;
 	}
 
 	public String getH_period() {
@@ -236,13 +246,12 @@ public class ResumeDTO {
 
 	@Override
 	public String toString() {
-		return "ResumeDTO [idx=" + idx + ", normal_idx=" + normal_idx + ", name=" + name + ", gender=" + gender
+		return "ResumeDTO [idx=" + idx + ", normal_idx=" + normal_idx + ", h_job=" + h_job +", name=" + name + ", gender=" + gender
 				+ ", age=" + age + ", addr=" + addr + ", deltai_addr=" + deltai_addr + ", email=" + email + ", tel="
-				+ tel + ", subject=" + subject + ", grade=" + grade + ", h_local1=" + h_local1 + ", h_local2="
-				+ h_local2 + ", h_job=" + h_job + ", h_period=" + h_period + ", h_workday=" + h_workday
-				+ ", h_worktime=" + h_worktime + ", h_pay=" + h_pay + ", h_pay_category=" + h_pay_category
+				+ tel + ", subject=" + subject + ", grade=" + grade + " ,career_check=" + career_check + " ,h_local1="
+				+ h_local1 + ", h_local2=" + h_local2 +  ", h_period=" + h_period + ", h_workday="
+				+ h_workday + ", h_worktime=" + h_worktime + ", h_pay=" + h_pay + ", h_pay_category=" + h_pay_category
 				+ ", content=" + content + ", status=" + status + ", check=" + check + "]";
 	}
-	
-	
+
 }

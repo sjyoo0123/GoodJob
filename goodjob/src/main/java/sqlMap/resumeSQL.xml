@@ -3,9 +3,23 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.goodjob.resume">
-		<insert id="resumeWrite" parameterType="com.goodjob.resume.model.ResumeDTO" >
-		 insert into  
-	 	resume 
-	  	values(resume_idx.nextval,#{name},#{email},#{dept})
+	<insert id="resumeWrite"
+		parameterType="com.goodjob.resume.model.ResumeDTO">
+		insert into
+		resume
+		values(resume_idx.nextval, 1,1 ,'김선훈',
+		#{gender}, #{age}, #{addr}, #{deltai_addr},#{email},
+		#{tel},
+		#{subject}, #{grade}, #{career_check} , '서울시', '서대문구',
+		#{h_period},
+		#{h_workday}, #{h_worktime}, #{h_pay},
+		#{h_pay_category}, #{content},
+		'활성', #{check})
 	</insert>
+	<insert id="resumeWrite2" parameterType="com.goodjob.career.model.CareerDTO">
+		insert into career values(career_idx.nextval, 1, 1, #{startday}, #{endday} ,#{com_name},#{part},#{service_type},'활성')
+	</insert>
+	<select id="resumeDown" parameterType="com.goodjob.resume.model.ResumeDTO">
+		
+	</select>
 </mapper>

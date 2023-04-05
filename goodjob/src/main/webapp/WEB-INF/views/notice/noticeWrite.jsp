@@ -279,11 +279,11 @@ $(document).ready(function() {
 				<tr>
 					<th>급여</th>
 					<td><input type="radio" value="시급" class="btn-check" id="pay_category"
-						name="pay_category" autocomplete="off" checked><label
+						name="h_pay_category" autocomplete="off" checked><label
 						class="btn btn-outline-primary" for="pay_category">시급</label> <input
-						type="radio" value="월급" class="btn-check" id="pay_category1" name="pay_category"
+						type="radio" value="월급" class="btn-check" id="pay_category1" name="h_pay_category"
 						autocomplete="off"><label class="btn btn-outline-primary"
-						for="pay_category1">월급</label><br> <input type="text" name="pay">원 <div id="weekworktime" style="display: none;">1주 근무시간<input type="number" name="worktime" value="0"></div></td>
+						for="pay_category1">월급</label><br> <input type="text" name="h_pay">원 <div id="weekworktime" style="display: none;">1주 근무시간<input type="number" name="h_worktime" value="0"></div></td>
 				</tr>
 			</table>
 		</div>

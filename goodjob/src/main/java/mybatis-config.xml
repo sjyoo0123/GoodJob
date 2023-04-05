@@ -13,5 +13,6 @@
   		<mapper resource="sqlMap/notice.xml"/>
   		<mapper resource="sqlMap/faqSQL.xml"/>
   		<mapper resource="sqlMap/oneSQL.xml"/>
+  		<mapper resource="sqlMap/resumeSQL.xml"/>
   	</mappers>
   </configuration>
