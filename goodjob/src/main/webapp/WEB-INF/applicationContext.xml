@@ -57,9 +57,6 @@
 	<bean id="singoDao" class="com.goodjob.singo.model.SinGoDAOImple">
 		<property name="sqlMap" ref="sqlSessionTemplate"></property>
 	</bean>
-	<bean id="blackListDao" class="com.goodjob.blacklist.model.BlackLIstDAOImple">
-   		<property name="sqlMap" ref="sqlSessionTemplate"></property>
-   </bean>
 	<bean id="faqDao" class="com.goodjob.faq.model.FAQDAOImple">
 		<property name="sqlMap" ref="sqlSessionTemplate"></property>
 	</bean>
