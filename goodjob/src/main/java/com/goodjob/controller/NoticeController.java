@@ -61,15 +61,24 @@ public class NoticeController {
 	}
 	@RequestMapping("/noticeComList.do")
 	public ModelAndView noticeComListForm(@RequestParam(value="cp",defaultValue="1")int cp,HttpSession session) {
-		int idx=4;
-		//(int)session.getAttribute("sidx");
+		int idx=0;
+		ModelAndView mav=new ModelAndView();
+		if(session.getAttribute("sidx")==null||session.getAttribute("sidx")=="") {
+			String msg="잘못된 접근입니다";
+			String goUrl="index.do";
+			mav.addObject("msg", msg);
+			mav.addObject("goUrl", goUrl);
+			mav.setViewName("notice/noticeMsg");
+			return mav;
+		}else {
+			idx=(int)session.getAttribute("sidx");
+		}
 		int totalCnt=ndao.noticeTotalCnt(idx);
 		int listSize=5;
 		int pageSize=5;
 		
 		String pageStr=com.goodjob.page.module.PageModule.makePage("noticeComList.do", totalCnt, listSize, pageSize, cp);
 		List<NoticeDTO> lists=ndao.noticeComList(idx,cp,listSize);
-		ModelAndView mav=new ModelAndView();
 		mav.addObject("pageStr", pageStr);
 		mav.addObject("lists", lists);
 		mav.setViewName("notice/noticeComList");

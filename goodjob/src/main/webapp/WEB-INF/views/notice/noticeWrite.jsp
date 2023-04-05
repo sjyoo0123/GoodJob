@@ -124,7 +124,7 @@ $(document).ready(function() {
 </head>
 <body>
 <h1>요금제<input type="text" name="plan_idx" value="1"></h1>
-<h1>기업idx</h1><input type="text" name="com_idx" value="1">
+<h1>기업idx</h1><input type="text" name="com_idx" value="7">
 
 	<h1>공고 등록</h1>
 	<form action="noticeWrite.do" method="post">
