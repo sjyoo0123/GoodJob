@@ -67,14 +67,14 @@ div {
 								<div class="weekday">
 									<!-- 요일 -->
 									<label>월<input type="checkbox" value="월"
-										name="listWeekday"></label><label>화<input
-										type="checkbox" value="화" name="listWeekday"></label><label>수<input
-										type="checkbox" value="수" name="listWeekday"></label><label>목<input
-										type="checkbox" value="목" name="listWeekday"></label><label>금<input
-										type="checkbox" value="금" name="listWeekday"></label><label>토<input
-										type="checkbox" value="토" name="listWeekday"></label><label>일<input
-										type="checkbox" value="일" name="listWeekday"></label><label>무관</label><input
-										type="checkbox" value="무관" name="listWeekday">
+										name="listworkday"></label><label>화<input
+										type="checkbox" value="화" name="listworkday"></label><label>수<input
+										type="checkbox" value="수" name="listworkday"></label><label>목<input
+										type="checkbox" value="목" name="listworkday"></label><label>금<input
+										type="checkbox" value="금" name="listworkday"></label><label>토<input
+										type="checkbox" value="토" name="listworkday"></label><label>일<input
+										type="checkbox" value="일" name="listworkday"></label><label>무관</label><input
+										type="checkbox" value="무관" name="listworkday">
 									<!-- 근무시간 -->
 
 								</div>
@@ -82,6 +82,7 @@ div {
 							</div>
 							<form id="category">
 								<input type="hidden" id="cp" name="cp" value="1"> 선택한 쿼리 들어감
+								<input type="hidden" name="bAjax" value="true">
 							</form>
 						</div>
 					</div>
@@ -177,7 +178,7 @@ div {
 	 })
 	
 	$('button:contains("업종별")').on('click',()=>{
- 	 $('.query> div').each(function() {
+ 	 $('.query > div').each(function() {
     if (!$(this).hasClass('d-none')) {
       $(this).addClass('d-none');
     }

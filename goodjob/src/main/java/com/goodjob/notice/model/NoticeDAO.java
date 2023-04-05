@@ -6,4 +6,6 @@ public interface NoticeDAO {
 	public int noticeTotalCnt(int idx);
 	public NoticeDTO noticeContent(int idx);
 	public int noticeDel(int idx);
+	public int whereNoticeTotalCnt(String workday,String[] local2,String[] local3);
+	public List<NoticeDTO> whereNoticeList(String workday,String[] local2,String[] local3,int start,int end);
 }
