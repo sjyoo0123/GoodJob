@@ -42,6 +42,10 @@
 		class="com.goodjob.normalmember.model.NormalMemberDAOImple">
 		<property name="sqlMap" ref="sqlSessionTemplate"></property>
 	</bean>
+	<bean id="blackListDao"
+		class="com.goodjob.blacklist.model.BlackLIstDAOImple">
+		<property name="sqlMap" ref="sqlSessionTemplate"></property>
+	</bean>
 	<bean id="memberDao"
 		class="com.goodjob.member.model.MemberDAOImple">
 		<property name="sqlMap" ref="sqlSessionTemplate"></property>
@@ -53,9 +57,6 @@
 	<bean id="singoDao" class="com.goodjob.singo.model.SinGoDAOImple">
 		<property name="sqlMap" ref="sqlSessionTemplate"></property>
 	</bean>
-	<bean id="blackListDao" class="com.goodjob.blacklist.model.BlackLIstDAOImple">
-   		<property name="sqlMap" ref="sqlSessionTemplate"></property>
-   </bean>
 	<bean id="faqDao" class="com.goodjob.faq.model.FAQDAOImple">
 		<property name="sqlMap" ref="sqlSessionTemplate"></property>
 	</bean>
@@ -72,6 +73,9 @@
 		<property name="sqlMap" ref="sqlSessionTemplate"></property>
 	</bean>
 	<bean id="applyDao" class="com.goodjob.apply.model.ApplyDAOImple">
+		<property name="sqlMap" ref="sqlSessionTemplate"></property>
+	</bean>
+	<bean id="jobDao" class="com.goodjob.job.model.JobDAOImple">
 		<property name="sqlMap" ref="sqlSessionTemplate"></property>
 	</bean>
 </beans>
