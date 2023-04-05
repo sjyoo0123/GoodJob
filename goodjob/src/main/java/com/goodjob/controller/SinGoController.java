@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.goodjob.singo.model.SinGoDAO;
 import com.goodjob.singo.model.SinGoDTO;
@@ -13,8 +14,10 @@ public class SinGoController {
 	@Autowired
 	SinGoDAO sgDao;
 	
+	@ResponseBody
 	@RequestMapping(value = "sinGo.do" , method = RequestMethod.POST)
-	public void sinGoWrite(SinGoDTO dto) {
-		sgDao.sinGoWrite(dto);
+	public String sinGoWrite(SinGoDTO dto) {
+		String msg=sgDao.sinGoWrite(dto)>0?"작성성공":"작성실패";
+		return msg;
 	}
 }

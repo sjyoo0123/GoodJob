@@ -24,7 +24,10 @@
   		content=#{content},
   		where idx=#{idx}
   	</update>
-  	<select id="myOneOneList">
+  	<select id="userOneList" resultType="com.goodjob.one_one.model.One_OneDTO" parameterType="Integer">
 select * from one_one where idx=#{idx}
+</select>
+<select id="userOneCnt" resultType="Integer" parameterType="Integer">
+select count(*) from one_one where idx=#{idx}
 </select>
   </mapper>
