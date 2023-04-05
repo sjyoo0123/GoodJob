@@ -42,6 +42,10 @@
 		class="com.goodjob.normalmember.model.NormalMemberDAOImple">
 		<property name="sqlMap" ref="sqlSessionTemplate"></property>
 	</bean>
+	<bean id="blackListDao"
+		class="com.goodjob.blacklist.model.BlackLIstDAOImple">
+		<property name="sqlMap" ref="sqlSessionTemplate"></property>
+	</bean>
 	<bean id="memberDao"
 		class="com.goodjob.member.model.MemberDAOImple">
 		<property name="sqlMap" ref="sqlSessionTemplate"></property>
