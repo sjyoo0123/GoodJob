@@ -113,12 +113,15 @@ $(document).ready(function() {
 
 	<h1>공고 등록</h1>
 	<form action="noticeWrite.do" method="post" id="writeForm">
+	<div class="container px-4 px-lg-5">
+	<div class="row gx-4 gx-lg-5 justify-content-center">
+	<div class="col-md-10 col-lg-8 col-xl-7">
 		<div>
 			<h2>공고제목</h2>
 			<input type="text" name="subject"
 				class="form-control form-control-lg">
 		</div>
-		<hr>
+		<hr class="my-4">
 		<div>
 			<h2>모집조건</h2>
 			<table>
@@ -178,7 +181,7 @@ $(document).ready(function() {
 				</tr>
 			</table>
 		</div>
-		<hr>
+		<hr class="my-4">
 		<div>
 			<h2>근무조건</h2>
 			<table>
@@ -285,7 +288,7 @@ $(document).ready(function() {
 				</tr>
 			</table>
 		</div>
-		<hr>
+		<hr class="my-4">
 		<div>
 			<h2>근무지정보</h2>
 			<div>
@@ -379,7 +382,7 @@ $(document).ready(function() {
 			</table>
 		</div>
 
-		<hr>
+		<hr class="my-4">
 		<div>
 			<h2>담당자정보</h2>
 			<table>
@@ -397,12 +400,15 @@ $(document).ready(function() {
 				</tr>
 			</table>
 		</div>
-		<hr>
+		<hr class="my-4">
 		<div>
 			<h2>상세정보</h2>
 			<textarea rows="30" cols="50" name="content"></textarea>
 		</div>
 		<input type="submit" value="등록">
+		</div>
+		</div>
+		</div>
 	</form>
 
 </body>
