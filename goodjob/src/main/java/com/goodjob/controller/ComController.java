@@ -18,13 +18,20 @@ public class ComController {
 	
 	@RequestMapping("/company.do")
 	public ModelAndView comMypageForm(HttpSession session) {
-		int sidx=0;
-//		if(session.getAttribute("sidx")!=null) {
-//			sidx=(int)session.getAttribute("sidx");
-//		}
+		int idx=0;
 		ModelAndView mav=new ModelAndView();
-//		CompanyMemberDTO dto=ComDao.comInfo(sidx);
-//		mav.addObject("dto", dto);
+		if(session.getAttribute("sidx")==null||session.getAttribute("sidx")=="") {
+			String msg="로그인 후 이용바랍니다.";
+			String goUrl="index.do";
+			mav.addObject("msg", msg);
+			mav.addObject("goUrl", goUrl);
+			mav.setViewName("notice/noticeMsg");
+			return mav;
+		}else {
+			idx=(int)session.getAttribute("sidx");
+		}
+		CompanyMemberDTO dto=ComDao.comInfo(idx);
+		mav.addObject("dto", dto);
 		mav.setViewName("company/comMypage");
 		return mav;
 	}

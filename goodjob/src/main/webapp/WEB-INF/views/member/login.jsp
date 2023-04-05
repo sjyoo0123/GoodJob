@@ -31,13 +31,13 @@ min-height: 3rem;
 		<%@include file="/WEB-INF/views/header.jsp"%>
 		<section>
 			<article>
-				<form action="normalLogin.do" method="get" class="login">
+				<form action="${url}" method="get" class="login">
 					<div class="row mt-5 gx-3 pt-5">
 				<div class="col-2 offset-4 text-center"><button class="w-100 bg-primary nor"><div class="text-nowrap">개인</div></button></div>
 				<div class="col-2 text-center"><button class="w-100 com"><div class="text-nowrap">기업</div></button></div>
 						<div class="form-floating col-4 offset-4 mt-2">
 							<input type="text" class="form-control" id="floatingInput"
-								placeholder="아이디" name="id"> <label for="floatingInput">아이디</label>
+								placeholder="아이디" name="id" value="${cookie.sid.value }"> <label for="floatingInput">아이디</label>
 						</div>
 						<div class="form-floating col-4 offset-4 mt-2">
 							<input type="password" class="form-control" id="floatingPassword"
@@ -45,7 +45,7 @@ min-height: 3rem;
 						</div>
 
 						<div class="checkbox mb-3  col-4 offset-4">
-							<label> <input type="checkbox" value="remember-me">아이디
+							<label> <input type="checkbox" ${check} name="save">아이디
 								저장
 							</label>
 						</div>

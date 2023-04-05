@@ -11,9 +11,8 @@
 		<property name="driverClassName"
 			value="oracle.jdbc.driver.OracleDriver"></property>
 		<property name="url"
-			value="jdbc:oracle:thin:@localhost:1521:xe"></property>
-		<property name="username" value="scott"></property>
-
+			value="jdbc:oracle:thin:@java-yong.tplinkdns.com:9000:orcl"></property>
+		<property name="username" value="project01"></property>
 		<property name="password" value="1234"></property>
 	</bean>
 	<bean id="transactionManager"
@@ -60,9 +59,6 @@
 	<bean id="singoDao" class="com.goodjob.singo.model.SinGoDAOImple">
 		<property name="sqlMap" ref="sqlSessionTemplate"></property>
 	</bean>
-	<bean id="blackListDao" class="com.goodjob.blacklist.model.BlackLIstDAOImple">
-   		<property name="sqlMap" ref="sqlSessionTemplate"></property>
-   </bean>
 	<bean id="faqDao" class="com.goodjob.faq.model.FAQDAOImple">
 		<property name="sqlMap" ref="sqlSessionTemplate"></property>
 	</bean>
@@ -80,6 +76,12 @@
 	</bean>
 	<bean id="ResumeDAO"
 		class="com.goodjob.resume.model.ResumeDAOImple">
+		<property name="sqlMap" ref="sqlSessionTemplate"></property>
+	</bean>
+	<bean id="applyDao" class="com.goodjob.apply.model.ApplyDAOImple">
+		<property name="sqlMap" ref="sqlSessionTemplate"></property>
+	</bean>
+	<bean id="jobDao" class="com.goodjob.job.model.JobDAOImple">
 		<property name="sqlMap" ref="sqlSessionTemplate"></property>
 	</bean>
 </beans>

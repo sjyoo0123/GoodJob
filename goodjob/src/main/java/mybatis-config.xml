@@ -14,5 +14,7 @@
   		<mapper resource="sqlMap/faqSQL.xml"/>
   		<mapper resource="sqlMap/oneSQL.xml"/>
   		<mapper resource="sqlMap/resumeSQL.xml"/>
+  		<mapper resource="sqlMap/applySQL.xml"/>
+  		<mapper resource="sqlMap/jobSQL.xml"/>
   	</mappers>
   </configuration>
