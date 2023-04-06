@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.util.HtmlUtils;
 
 import com.goodjob.one_one.model.One_OneDAO;
 import com.goodjob.one_one.model.One_OneDTO;
@@ -17,6 +18,7 @@ public class One_oneController {
 	
 	@Autowired
 	private One_OneDAO oneDao;
+
 	
 	//일대일문의 들어가기
 	@RequestMapping("/manOneList.do")
@@ -49,8 +51,16 @@ public class One_oneController {
 		ModelAndView mav=new ModelAndView();
 		
 		One_OneDTO dto=oneDao.manOneContent(idx);
+
+		
+		String str_a=dto.getContent();
+		String str_b=str_a.replace("ABCD", "");
+		
+		dto.setContent(str_b);
 		
 		mav.addObject("dto", dto);
+		
+		
 		mav.setViewName("one/manOneContent");
 		
 		return mav;
@@ -58,11 +68,24 @@ public class One_oneController {
 	
 	//일대일 문의 수정 페이지 들어가기
 	@RequestMapping("/manOneAnswerPage.do")
-	public ModelAndView manOneAnswerPage(@RequestParam(value="idx")int idx) {
+	public ModelAndView manOneAnswerPage(
+			@RequestParam(value="idx")int idx,
+			@RequestParam(value="content")String content) {
 		
 		ModelAndView mav=new ModelAndView();
 		
+		// replacedString에는 다음과 같은 문자열이 저장됩니다.
+		// "\n---------------------------------------\n"
+		
+	
+		
+		
 		One_OneDTO dto=oneDao.manOneContent(idx);
+		
+		String str_a=dto.getContent()+"ABCD";
+		String str_b=str_a.replace("ABCD", "&#10;---------------------------------------&#10;");
+		
+		dto.setContent(str_b);
 		
 		mav.addObject("dto", dto);
 		mav.setViewName("one/manOneAnswerPage");
@@ -72,22 +95,33 @@ public class One_oneController {
 	}
 	
 	//일대일 문의 답변하기 누르기
-	@RequestMapping(value = "/manOneAnswer", method = RequestMethod.POST)
+	@RequestMapping(value = "/manOneAnswer.do", method = RequestMethod.POST)
 	public ModelAndView manOneAnswer(One_OneDTO dto) {
 		
 		ModelAndView mav=new ModelAndView();
 		
+
+			
+			int count=oneDao.manOneAnswer(dto);	
+			
+			if(count>0) {
+				
+				String str_a=dto.getContent();
+				String str_b=str_a.replace("&#10;---------------------------------------&#10;", "ABCD");
+				
+				dto.setContent(str_b);
 		
-		
-	
-		
-			int count=oneDao.manOneAnswer(dto);
-			mav.addObject("msg", "수정에 성공하셨습니다.");
-			mav.addObject("goUrl", "manOneList.do");
-		
+				
+				mav.addObject("msg", "수정에 성공하셨습니다");
+				mav.addObject("goUrl", "manOneList.do");
+			}else {
+				
+				mav.addObject("msg", "수정에 실패하셨습니다.");
+				mav.addObject("goUrl", "manOneList.do");
+			}
+			
+
 			mav.setViewName("one/manOneMsg");
-		
-		
 		
 		return mav;
 	}

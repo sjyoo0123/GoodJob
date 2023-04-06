@@ -23,8 +23,8 @@
 }
 </style>
 <body>
-<%@include file="/WEB-INF/views/header.jsp"%>
 	<div class="container">
+	<%@include file="/WEB-INF/views/header.jsp"%>
 		<div class="row">
 				<div class="offset-sm-3 col-sm-6">
 					<h2>일대일 문의</h2>
@@ -94,7 +94,7 @@
 					</tr>
 				</tfoot>
 			</table>
+			<%@include file="/WEB-INF/views/footer.jsp" %>
 	</div>
-<%@include file="/WEB-INF/views/footer.jsp" %>
 </body>
 </html>

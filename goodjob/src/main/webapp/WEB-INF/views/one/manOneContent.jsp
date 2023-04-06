@@ -17,8 +17,8 @@
 }
 </style>
 <body>
-<%@include file="/WEB-INF/views/header.jsp" %>
 <div class="container">
+<%@include file="/WEB-INF/views/header.jsp" %>
 	<div class="row">
 		<div class="col-sm-4">
 			문의
@@ -42,7 +42,7 @@
 				</tr>
 				<tr>
 					<td>
-						<textarea cols="30" rows="10" readonly="readonly" name="content">
+						<textarea cols="50" rows="20" readonly="readonly" name="content">
 							${dto.content }
 						</textarea>
 					</td>
@@ -57,7 +57,7 @@
 		</form>
 		</div>
 	</div>
+	<%@include file="/WEB-INF/views/footer.jsp" %>
 </div>
-<%@include file="/WEB-INF/views/footer.jsp" %>
 </body>
 </html>

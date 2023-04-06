@@ -41,23 +41,6 @@ body a{
 	
 }
 </style>
-<script>
-/*
-function pageSubmit(){
-	var category=document.getElementById("category");
-	var cp=document.getElementById("cp");
-	
-	if(category == null){
-		category="전체";
-	}
-	if(cp == null){
-		cp==1;
-		
-	}
-	document.manFAQList.submit();
-}
-*/
-</script>
 <body>
 <div class="container">
 <%@include file="/WEB-INF/views/header.jsp" %>

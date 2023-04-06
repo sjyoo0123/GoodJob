@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.goodjob.plan_up">
+ 	<insert id="manPlanAdd_up" parameterType="com.goodjob.plan_up.model.Plan_UpDTO">
+ 		insert into plan
+ 		values(
+ 		plan_idx_se.nextval,
+ 		#{plan_name},
+ 		#{plan_price},
+ 		#{plan_type},
+ 		'활성'
+ 		)
+ 	</insert>
+ 	<insert id="manPlanUpAdd" parameterType="Map">
+ 		insert into plan_up
+ 		values(
+ 		plan_up_idx.nextval,
+ 		plan_idx_se.currval,
+ 		#{count}
+ 		)
+ 		
+ 	</insert>
+ </mapper>

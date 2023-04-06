@@ -21,7 +21,7 @@
   	<update id="manOneAnswer" parameterType="com.goodjob.one_one.model.One_OneDTO">
   		update one_one set
   		subject=#{subject},
-  		content=#{content},
+  		content=#{content}||'ABCD',
   		"CHECK"=1
   		where idx=#{idx}
   	</update>

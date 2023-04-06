@@ -12,5 +12,9 @@
   		<mapper resource="sqlMap/notice.xml"/>
   		<mapper resource="sqlMap/faqSQL.xml"/>
   		<mapper resource="sqlMap/oneSQL.xml"/>
+  		<mapper resource="sqlMap/bannerSQL.xml"/>
+  		<mapper resource="sqlMap/totalFileSQL.xml"/>
+  		<mapper resource="sqlMap/plan_vipSQL.xml"/>
+  		<mapper resource="sqlMap/plan_upSQL.xml"/>
   	</mappers>
   </configuration>

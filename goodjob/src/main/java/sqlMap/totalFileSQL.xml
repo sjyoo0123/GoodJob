@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.goodjob.totalfile"> 
+	<insert id="manFileAdd" parameterType="Map">
+		insert into totalfile
+		values(
+		totalfile_idx.nextval,
+		#{category},
+		#{file},
+		${table_name}_idx.currval
+		)
+	</insert>
+	<update id="manFileUpdate" parameterType="com.goodjob.totalfile.model.TotalFileDTO">
+		update totalfile set
+		"FILE"=#{file},
+		table_idx=#{table_idx}
+		where idx=#{idx}
+	</update>
+	<delete id="manFileDel" parameterType="com.goodjob.totalfile.model.TotalFileDTO">
+		delete from totalfile
+		where table_idx=#{idx}
+	</delete>
+</mapper>
