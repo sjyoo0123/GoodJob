@@ -33,4 +33,10 @@
   		order by idx desc)a)b
   		where rnum <![CDATA[>=]]>#{start} and rnum<![CDATA[<=]]> #{end}
   	</select>
+  	<select id="userOneList" resultType="com.goodjob.one_one.model.One_OneDTO" parameterType="Integer">
+select * from one_one where idx=#{idx}
+</select>
+<select id="userOneCnt" resultType="Integer" parameterType="Integer">
+select count(*) from one_one where idx=#{idx}
+</select>
   </mapper>

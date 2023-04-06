@@ -5,6 +5,7 @@
   <configuration>
   	<mappers>
   		<mapper resource="sqlMap/reviewSQL.xml"/>
+  		<mapper resource="sqlMap/keywordSQL.xml"/>
   		<mapper resource="sqlMap/BlackListSQL.xml"/>
      	<mapper resource="sqlMap/memberSQL.xml"/>
   		<mapper resource="sqlMap/comSQL.xml"/>
@@ -16,5 +17,8 @@
   		<mapper resource="sqlMap/totalFileSQL.xml"/>
   		<mapper resource="sqlMap/plan_vipSQL.xml"/>
   		<mapper resource="sqlMap/plan_upSQL.xml"/>
+  		<mapper resource="sqlMap/applySQL.xml"/>
+  		<mapper resource="sqlMap/jobSQL.xml"/>
+  		<mapper resource="sqlMap/offerSQL.xml"/>
   	</mappers>
   </configuration>

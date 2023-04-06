@@ -13,4 +13,10 @@ public interface One_OneDAO {
 	public int manOneAnswer(One_OneDTO dto);
 	
 	public List<One_OneDTO> manOneSearch(int cp, int ls, String search);
+
+	
+	public One_OneDTO userOneList(int idx,int cp,int ls);
+	
+	public int userOneWrite(One_OneDTO dto);
+
 }

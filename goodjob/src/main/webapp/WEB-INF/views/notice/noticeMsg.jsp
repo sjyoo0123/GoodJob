@@ -8,6 +8,7 @@
 <title>Insert title here</title>
 <script>
 window.alert('${msg}');
+location.href='${goUrl}';
 </script>
 </head>
 <body>

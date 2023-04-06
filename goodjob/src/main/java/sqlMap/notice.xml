@@ -10,7 +10,42 @@ values(notice_idx.nextval,#{plan_idx},#{com_idx},#{subject},#{gender},#{min_age}
 <select id="comNoticeList" parameterType="Map" resultType="com.goodjob.notice.model.NoticeDTO">
 select * from
 		(select rownum as rnum,a.* from
-		(select * from notice where com_idx=#{idx} and status='활성' order by idx desc) a) b
+		(
+SELECT
+notice.idx,
+notice.writedate,
+notice.deadline,
+notice.subject,
+notice.com_name,
+plan.plan_name period,
+COUNT(DISTINCT apply.idx) ref,
+COUNT(DISTINCT CASE WHEN apply."CHECK" = 0 THEN apply.idx END) recruit
+FROM
+notice
+INNER JOIN plan ON notice.plan_idx = plan.idx
+LEFT JOIN apply ON notice.idx = apply.notice_idx
+WHERE
+notice.com_idx = 7
+AND notice.status = '활성'
+GROUP BY
+notice.idx,
+notice.writedate,
+notice.deadline,
+notice.subject,
+notice.com_name,
+plan.plan_name
+ORDER BY
+notice.idx DESC
+) a) b
 		where <![CDATA[rnum>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
 </select>
+<select id="noticeTotalCnt" parameterType="Integer" resultType="Integer">
+select count(*) from notice where com_idx=#{idx} and status='활성'
+</select>
+<select id="noticeContent" parameterType="Integer" resultType="com.goodjob.notice.model.NoticeDTO">
+select * from notice where idx=#{idx} and status='활성'
+</select>
+<update id="noticeDel" parameterType="Integer">
+update notice set status='비활성' where idx=#{idx}
+</update>
   </mapper>
