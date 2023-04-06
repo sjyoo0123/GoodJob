@@ -35,6 +35,9 @@
 <button class="btn btn-outline-dark"><span>수정</span></button>
 <button class="btn btn-outline-dark"><span>삭제</span></button>
 </div>
+	<div class="container px-4 px-lg-5">
+	<div class="row gx-4 gx-lg-5 justify-content-center">
+	<div class="col-md-10 col-lg-8 col-xl-7">
 <h1>${dto.subject}</h1>
 <h6>${dto.writedate}</h6>
 <div class="row row-cols-lg-auto g-3 align-items-center">
@@ -53,6 +56,7 @@
   <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7Zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216ZM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/>
 </svg><br>모집모집</div>
 </div>
+<hr class="my-4">
 <div class="row row-cols-lg-auto g-3 align-items-center">
 <div class="col-12">
 <h2>모집조건</h2>
@@ -102,17 +106,20 @@
 <button><span>통계페이지로</span></button>
 </div>
 </div>
+<hr class="my-4">
 <div>
 <h2>근무지정보</h2>
 <h5>근무지명&nbsp;${dto.com_name}(${dto.local1} ${dto.local2} ${dto.local3} ${dto.detail_addr})</h5>
 </div>
 <div>지도 들어갈 자리!~!~!~!~</div>
+<hr class="my-4">
 <div>
 <h2>상세내용</h2>
 <div>
 ${dto.content}
 </div>
 </div>
+<hr class="my-4">
 <div class="bs-docs-section">
 <div class="row">
 <div class="col-lg-5">
@@ -161,6 +168,9 @@ ${dto.content}
 	<td>@@회사이메일@@</td>
 </tr>
 </table>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
