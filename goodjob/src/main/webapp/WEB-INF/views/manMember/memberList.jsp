@@ -15,7 +15,7 @@
 		<%@include file="/WEB-INF/views/header.jsp"%>
 		<section>
 			<article>
-			<table class="table table-success table-striped-columns">
+			<table class="table table-hover">
 			<thead>
 				<tr>
 					<th>기업 이름</th>

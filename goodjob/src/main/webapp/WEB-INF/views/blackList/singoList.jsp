@@ -16,9 +16,9 @@
 			<article>
 				<div class="form-check form-check-inline">
 					<input type="radio" class="btn-check" name="options" id="normal" autocomplete="off" value="개인" >
-					<label class="btn btn-secondary" for="normal">일반회원</label>
+					<label class="btn btn-outline-primary" for="normal">일반회원</label>
 					<input type="radio" class="btn-check" name="options" id="company" value="기업" autocomplete="off">
-					<label class="btn btn-secondary" for="company">기업회원</label>
+					<label class="btn btn-outline-primary" for="company">기업회원</label>
 				</div>
 				<div id="my-div">
 				</div>

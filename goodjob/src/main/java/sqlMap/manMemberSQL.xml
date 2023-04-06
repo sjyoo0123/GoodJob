@@ -19,10 +19,18 @@
   	from member
   	where status='대기' and user_category='기업'
   </select>
-  <select id="manMemberContent" parameterType="Integer" resultType="com.goodjob.companymember.model.CompanyModelDTO">
+  <select id="manMemberContent" parameterType="Integer" resultType="com.goodjob.companymember.model.CompanyMemberDTO">
   	select *
   	from member m
   	inner join companymember c on m.idx=c.member_idx
   	where m.idx=#{idx}
   </select>
+  <update id="manMemberUpdate" parameterType="Integer">
+  	update member
+  	set status='활성'
+  	where idx=#{idx}
+  </update>
+  	<update id="manMemberDel" statementType="CALLABLE">
+    { CALL delete_com(#{idx, jdbcType=INTEGER}) }
+</update>
   </mapper>

@@ -16,7 +16,22 @@
 		<%@include file="/WEB-INF/views/header.jsp"%>
 		<section>
 			<article>
-			
+			<div>
+				<ul>
+					<li>id:${dto.id }</li>
+					<li>이름:${dto.name }</li>
+					<li>대표자명:${dto.com_name }</li>
+					<li>사업자번호:${dto.com_num }</li>
+					<li>이메일:${dto.email }</li>
+					<li>전화번호:${dto.tel }</li>
+					<li>주소:${dto.addr }</li>
+					<li>상세주소:${dto.detail_addr }</li>
+				</ul>
+			</div>
+			<div>
+				<input type="button" value="승낙하기" onclick="javascript:location.href='manMemberUpdate.do?idx=${dto.idx}&category=활성'">
+				<input type="button" value="거절하기" onclick="javascript:location.href='manMemberUpdate.do?idx=${dto.idx}&category=거절'">
+			</div>
 			</article>
 		</section>
 	<%@include file="/WEB-INF/views/footer.jsp"%>

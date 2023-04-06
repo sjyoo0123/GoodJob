@@ -10,4 +10,6 @@ public interface ManMemberDAO {
 	public List<MemberDTO> manMemberList(Map map);
 	public int manMemberListTotalCnt();
 	public CompanyMemberDTO manMemberContent(int idx);
+	public int manMemberUpdate(int idx);
+	public int manMemberDel(int idx);
 }

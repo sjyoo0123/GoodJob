@@ -50,27 +50,21 @@ public class ManMemberController {
 		
 		return mav;
 	}
+	
+	@RequestMapping("manMemberUpdate.do")
+	public ModelAndView manMemberUpdate(@RequestParam(value="idx")int idx,@RequestParam(value="category")String category) {
+		ModelAndView mav=new ModelAndView();
+		
+
+		int result=0;
+		if(category.equals("활성")) {
+			result=mmdao.manMemberUpdate(idx);
+		}else if(category.equals("거절")){
+			result=mmdao.manMemberDel(idx);
+		}
+		String msg=result>0?"작업완료":"작업 실패";
+		mav.addObject("msg",msg);
+		mav.setViewName("manMember/memberMsg");
+		return mav;
+	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
