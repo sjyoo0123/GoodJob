@@ -16,5 +16,8 @@
   		<mapper resource="sqlMap/manMemberSQL.xml"/>
   		<mapper resource="sqlMap/salesSQL.xml"/>
   		<mapper resource="sqlMap/jobHelperSQL.xml"/>
+  		<mapper resource="sqlMap/applySQL.xml"/>
+  		<mapper resource="sqlMap/jobSQL.xml"/>
+  		<mapper resource="sqlMap/offerSQL.xml"/>
   	</mappers>
   </configuration>

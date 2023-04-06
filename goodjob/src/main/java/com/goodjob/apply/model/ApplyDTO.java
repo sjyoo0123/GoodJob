@@ -9,13 +9,13 @@ public class ApplyDTO {
 	private int notice_idx;
 	private Date applydate;
 	private String normal_name;
-	private Date normal_berth;
+	private Date normal_birth;
 	private int check;
 	private String status;
 	public ApplyDTO() {
 		super();
 	}
-	public ApplyDTO(int idx, int normal_idx, int notice_idx, Date applydate, String normal_name, Date normal_berth,
+	public ApplyDTO(int idx, int normal_idx, int notice_idx, Date applydate, String normal_name, Date normal_birth,
 			int check, String status) {
 		super();
 		this.idx = idx;
@@ -23,7 +23,7 @@ public class ApplyDTO {
 		this.notice_idx = notice_idx;
 		this.applydate = applydate;
 		this.normal_name = normal_name;
-		this.normal_berth = normal_berth;
+		this.normal_birth = normal_birth;
 		this.check = check;
 		this.status = status;
 	}
@@ -57,11 +57,11 @@ public class ApplyDTO {
 	public void setNormal_name(String normal_name) {
 		this.normal_name = normal_name;
 	}
-	public Date getNormal_berth() {
-		return normal_berth;
+	public Date getNormal_birth() {
+		return normal_birth;
 	}
-	public void setNormal_berth(Date normal_berth) {
-		this.normal_berth = normal_berth;
+	public void setNormal_birth(Date normal_birth) {
+		this.normal_birth = normal_birth;
 	}
 	public int getCheck() {
 		return check;
@@ -78,7 +78,7 @@ public class ApplyDTO {
 	@Override
 	public String toString() {
 		return "ApplyDTO [idx=" + idx + ", normal_idx=" + normal_idx + ", notice_idx=" + notice_idx + ", applydate="
-				+ applydate + ", normal_name=" + normal_name + ", normal_berth=" + normal_berth + ", check=" + check
+				+ applydate + ", normal_name=" + normal_name + ", normal_berth=" + normal_birth + ", check=" + check
 				+ ", status=" + status + "]";
 	}
 	

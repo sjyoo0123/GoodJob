@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.goodjob.apply">
+ <select id="apComList" parameterType="Map" resultType="com.goodjob.notice.model.NoticeDTO">
+ select * from
+		(select rownum as rnum,a.* from
+		(select apply.applydate writedate,apply.normal_name subject,TRUNC((sysdate-apply.normal_birth)/365) plan_idx,normalmember.gender,member.addr local1,apply."CHECK" min_age,apply.member_idx com_idx  from apply,normalmember,member where apply.member_idx=normalmember.member_idx and normalmember.member_idx=member.idx and apply.notice_idx=#{idx} and apply.status='활성') a) b
+		where <![CDATA[rnum>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
+ </select>
+ <select id="applyTotalCnt" parameterType="Integer" resultType="Integer">
+select count(*) from apply where notice_idx=#{idx} and status='활성'
+</select>
+ </mapper>

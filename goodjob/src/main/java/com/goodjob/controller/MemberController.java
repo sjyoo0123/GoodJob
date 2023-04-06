@@ -1,10 +1,13 @@
 package com.goodjob.controller;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -98,33 +101,54 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "login.do", method = RequestMethod.GET)
-	public String login() {
-		return "/member/login";
+	public ModelAndView login(@CookieValue(value="sid",defaultValue = "")String id,
+			@CookieValue(value="sca",defaultValue = "개인")String user_category) {
+		ModelAndView mav=new ModelAndView();
+		if(!id.equals("")) {
+		mav.addObject("check", "checked");
+		}
+		mav.setViewName("/member/login");
+		if(user_category.equals("기업")) {
+			mav.addObject("url", "comLogin.do");
+		}else {
+			mav.addObject("url", "normalLogin.do");
+		}
+		return mav;
 	}
 
 	@RequestMapping(value = "normalLogin.do", method = RequestMethod.GET)
-	public ModelAndView norMalLogin(String id, String pwd, HttpServletRequest req) {
+	public ModelAndView norMalLogin(String id, String pwd, HttpServletRequest req,boolean save,HttpServletResponse res) {
 		MemberDTO dto = memDao.login(id, pwd, "개인");
-		return loginSession(dto, req);
+		return loginSession(dto, req,save,res);
 	}
 
 	@RequestMapping(value = "comLogin.do", method = RequestMethod.GET)
-	public ModelAndView comLogin(String id, String pwd, HttpServletRequest req) {
+	public ModelAndView comLogin(String id, String pwd, HttpServletRequest req,boolean save,HttpServletResponse res) {
 		MemberDTO dto = memDao.login(id, pwd, "기업");
-		return loginSession(dto, req);
+		return loginSession(dto, req,save,res);
 	}
 	@RequestMapping(value = "logout.do" ,method= RequestMethod.GET)
 	public String logout (HttpSession session) {
-		System.out.println(session.getAttribute("sidx"));
 		session.invalidate();
 		return "redirect:index.jsp";
 	}
-	public ModelAndView loginSession(MemberDTO dto, HttpServletRequest req) {
+	public ModelAndView loginSession(MemberDTO dto, HttpServletRequest req,boolean save,HttpServletResponse res) {
 		ModelAndView mav = new ModelAndView();
 		if (dto == null) {
 			mav.addObject("msg", "등록된아이디혹은비밀번호가 없습니다");
 			mav.setViewName("/member/login");
 		} else {
+			Cookie ck=new Cookie("sid",dto.getId());
+			Cookie ck2=new Cookie("sca",dto.getUser_category());
+			if(save) {
+				ck.setMaxAge(3000);
+				ck2.setMaxAge(3000);
+			}else {
+				ck.setMaxAge(0);
+				ck2.setMaxAge(0);
+			}
+			res.addCookie(ck);
+			res.addCookie(ck2);
 			HttpSession session = req.getSession();
 			session.setAttribute("sidx", dto.getIdx());
 			session.setAttribute("sname", dto.getName());
@@ -133,6 +157,10 @@ public class MemberController {
 		}
 		return mav;
 	}
-
+	public ModelAndView memberFindId(String email) {
+		ModelAndView mav=new ModelAndView();
+		mav.setViewName("");
+		return mav;
+	}
 
 }
