@@ -7,19 +7,65 @@
 		parameterType="com.goodjob.resume.model.ResumeDTO">
 		insert into
 		resume
-		values(resume_idx.nextval, 1,1 ,'김선훈',
-		#{gender}, #{age}, #{addr}, #{deltai_addr},#{email},
-		#{tel},
-		#{subject}, #{grade}, #{career_check} , '서울시', '서대문구',
+		values(resume_idx.nextval,
+		#{member_idx} ,#{name},
+		#{gender}, #{age}, #{addr},
+		#{detail_addr},#{email},
+		#{tel}, #{subject}, #{grade}, #{career_check}
+		,#{job} ,#{h_local1}, #{h_local2},
 		#{h_period},
-		#{h_workday}, #{h_worktime}, #{h_pay},
+		#{h_workday},
+		#{h_worktime}, #{h_pay},
 		#{h_pay_category}, #{content},
 		'활성', #{check})
 	</insert>
-	<insert id="resumeWrite2" parameterType="com.goodjob.career.model.CareerDTO">
-		insert into career values(career_idx.nextval, 1, 1, #{startday}, #{endday} ,#{com_name},#{part},#{service_type},'활성')
+	<insert id="resumeWrite2"
+		parameterType="com.goodjob.career.model.CareerDTO">
+		insert into career values(career_idx.nextval,
+		#{resume_idx} , #{startday}, #{endday}
+		,#{com_name},#{part},#{service_type},'활성')
 	</insert>
-	<select id="resumeDown" parameterType="com.goodjob.resume.model.ResumeDTO">
-		
+	<select id="resumeDown"
+		resultType="com.goodjob.resume.model.ResumeDTO">
+		select * from resume where idx = 1 and status ='활성'
 	</select>
+	<select id="resumeCareerDown"
+		resultType="com.goodjob.career.model.CareerDTO">
+		select * from career where idx = 1
+	</select>
+	<update id="resumeUpdate"
+		parameterType="com.goodjob.resume.model.ResumeDTO">
+	
+	UPDATE resume SET
+		detail_addr = #{detail_addr},
+		subject = #{subject},
+		grade = #{grade},
+		career_check = #{career_check},
+	
+		job = #{job},
+		h_local1 = #{h_local1},
+		h_local2 = #{h_local2},
+		h_period = #{h_period},
+		h_workday = #{h_workday},
+		h_worktime = #{h_worktime},
+		h_pay = #{h_pay},
+		h_pay_category = #{h_pay_category},
+		content = #{content},
+		"CHECK" = #{check}
+				
+		where idx =1 
+	
+	</update>
+	<update id="careerUpdate"
+		parameterType="com.goodjob.career.model.CareerDTO">
+		update career 
+		set 
+		startday = #{startday}, 
+		endday=	#{endday} ,
+		com_name= #{com_name}, 
+		part = #{part}, 
+		service_type= #{service_type} 
+		
+		where idx =1
+	</update>
 </mapper>

@@ -33,4 +33,25 @@ public class ResumeDAOImple implements ResumeDAO {
 		return count;
 	}
 
+	@Override
+	public ResumeDTO resumeDown() {
+		ResumeDTO dto = sqlMap.selectOne("resumeDown");
+		return dto;
+	}
+	@Override
+	public CareerDTO resumeCarrerDown() {
+		CareerDTO dto = sqlMap.selectOne("resumeCareerDown");
+		return dto;
+	}
+	@Override
+	public int resumeUpdate(ResumeDTO dto) {
+		int count = sqlMap.update("resumeUpdate", dto);
+		return count;
+	}
+	@Override
+	public int careerUpdate(ResumeDTO dto, CareerDTO cto) {
+		int count = sqlMap.update("resumeUpdate" , dto);
+		count += sqlMap.update("careerUpdate", cto);
+		return count;
+	}
 }
