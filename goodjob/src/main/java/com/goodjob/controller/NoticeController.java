@@ -122,57 +122,44 @@ public class NoticeController {
 		mav.setViewName("notice/noticeMsg");
 		return mav;
 	}
-	@RequestMapping(value="noticeList.do",method = RequestMethod.GET)
-	public ModelAndView noticeList(@RequestParam(value="cp",defaultValue="1")int cp,
-			@RequestParam(value="listWeekday",defaultValue="")String[] listworkday,
-			@RequestParam(value="local2",defaultValue="")String[] local2,
-			@RequestParam(value="local3",defaultValue="")String[] local3,
-			@RequestParam(value = "bAjax" ,defaultValue = "false")boolean bAjax) {
-		ModelAndView mav=new ModelAndView();
-		StringBuffer workday=new StringBuffer("////////");
-		if(!listworkday.equals("")&&!listworkday.equals(null)) {
-				for(int i=0;i<listworkday.length;i++) {
-					switch (listworkday[i]) {
-					case"월":
-						workday.setCharAt(0,'1');
-						break;
-					case"화":
-						workday.setCharAt(1,'1');
-						break;
-					case"수":
-						workday.setCharAt(2,'1');
-						break;
-					case"목":
-						workday.setCharAt(3,'1');
-						break;
-					case"금":
-						workday.setCharAt(4,'1');
-						break;
-					case"토":
-						workday.setCharAt(5,'1');
-						break;
-					case"일":
-						workday.setCharAt(6,'1');
-						break;
-					case"무관":
-						workday.setCharAt(7,'1');
-						break;
-					}
-			}}
-			int totalCnt=ndao.whereNoticeTotalCnt(workday.toString(), local2, local3);
-			int ls=10;
-			int pageSize=5;
-			int start=(cp-1)*ls;
-			int end = cp * ls;
-				mav.addObject("list", ndao.whereNoticeList(workday.toString(), local2, local3,start,end));
-				mav.addObject("page",AjaxPageModule.makePage(totalCnt,ls,pageSize, cp));
-				if(bAjax) {
-					mav.setViewName("goodjobJson");
-				}else {
-					mav.setViewName("notice/noticeList");
+
+	@RequestMapping(value = "noticeList.do", method = RequestMethod.GET)
+	public ModelAndView noticeList(@RequestParam(value = "cp", defaultValue = "1") int cp,
+			@RequestParam(value = "listWeekday", defaultValue = "") String[] listworkday,
+			@RequestParam(value = "local2", defaultValue = "") String[] local2,
+			@RequestParam(value = "local3", defaultValue = "") String[] local3,
+			@RequestParam(value = "bAjax", defaultValue = "false") boolean bAjax) {
+		ModelAndView mav = new ModelAndView();
+		StringBuffer workday = null;
+		if (!listworkday.equals("") && !listworkday.equals(null)) {
+			workday = new StringBuffer("________");
+		} else {
+			workday = new StringBuffer("00000000");
+			for (int i = 0; i < listworkday.length; i++) {
+				switch (listworkday[i]) {
+				case "월": workday.setCharAt(0, '_'); break;
+				case "화": workday.setCharAt(1, '_'); break;
+				case "수": workday.setCharAt(2, '_'); break;
+				case "목": workday.setCharAt(3, '_'); break;
+				case "금": workday.setCharAt(4, '_'); break;
+				case "토": workday.setCharAt(5, '_'); break;
+				case "일": workday.setCharAt(6, '_'); break;
+				case "무관": workday.setCharAt(7, '_'); break;
+				}
 			}
+		}
+		int totalCnt = ndao.whereNoticeTotalCnt(workday.toString(), local2, local3);
+		int ls = 10;
+		int pageSize = 5;
+		int start = (cp - 1) * ls;
+		int end = cp * ls;
+		mav.addObject("list", ndao.whereNoticeList(workday.toString(), local2, local3, start, end));
+		mav.addObject("page", AjaxPageModule.makePage(totalCnt, ls, pageSize, cp));
+		if (bAjax) {
+			mav.setViewName("goodjobJson");
+		} else {
+			mav.setViewName("notice/noticeList");
+		}
 		return mav;
-		
 	}
-	
 }

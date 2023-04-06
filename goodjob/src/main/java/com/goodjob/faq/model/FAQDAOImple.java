@@ -84,4 +84,33 @@ public class FAQDAOImple implements FAQDAO {
 		
 		return lists;
 	}
+	@Override
+	public List<FAQDTO> userSearchFAQ(int start, int end, String search, String category) {
+		// TODO Auto-generated method stub
+		Map<String, Object>map=searchMapping(search, category);
+		map.put("start", start);
+		map.put("end", end);
+		return sqlMap.selectList("userSearchFAQ", map);
+	}
+	@Override
+	public int userSearchTotalCntFAQ(String search, String category) {
+		// TODO Auto-generated method stub
+		return sqlMap.selectOne("userSearchTotalCntFAQ", searchMapping(search, category));
+	}
+	public Map<String, Object>searchMapping(String search, String category){
+		Map<String, Object>map=new HashMap<String, Object>();
+		if(!(search.equals(""))&&!(search.equals(null))) {
+			map.put("search",search);
+			map.put("sbollean", true);
+		}else {
+			map.put("sbollean", false);
+		}
+		if(!(category.equals(""))&&!(category.equals(null))) {
+			map.put("category",category);
+			map.put("cbollean", true);
+		}else {
+			map.put("cbollean", false);
+		}
+		return map;
+	}
 }

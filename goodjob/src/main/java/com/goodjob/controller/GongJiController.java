@@ -12,14 +12,14 @@ public class GongJiController {
 	@Autowired
 	GongJiDAO gDao;
 
-	@RequestMapping(value= "userGongJiList",method = RequestMethod.GET)
+	@RequestMapping(value= "userGongJiList.do",method = RequestMethod.GET)
 	public ModelAndView userGongJiList() {
 		ModelAndView mav= new ModelAndView();
 		mav.addObject("list",gDao.userGongJiList());
 		mav.setViewName("gongji/userGongJiList");
 		return mav;
 	}
-	@RequestMapping(value = "gongJiContent",method = RequestMethod.GET)
+	@RequestMapping(value = "gongJiContent.do",method = RequestMethod.GET)
 	public ModelAndView gongjiContent(@RequestParam(value = "idx",defaultValue = "0")int idx) {
 		ModelAndView mav= new ModelAndView();
 		mav.addObject("dto", gDao.gongJiContent(idx));

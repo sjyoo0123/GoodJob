@@ -19,6 +19,7 @@
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 <title>Good Job</title>
+<script type="text/javascript">${msg}</script>
 </head>
 <style>
 button.w-100{
@@ -70,6 +71,24 @@ $('.com').click((e)=>{
     $('.nor').attr('class','w-100 nor');
     $('.com').attr('class','w-100 bg-primary com');
 });
+$('form').submit(function(event) {
+    // 모든 입력 요소가 채워졌는지 확인
+    var filled = true;
+    $(this).find('input').each(function() {
+        if ($(this).val() === '') {
+            filled = false;
+            return false; // each() 반복 중단
+        }
+    });
+    if (filled) {
+        return true;
+    } else {
+        event.preventDefault();
+        alert('모든 항목을 입력해주세요');
+        return false;
+    }
+});
+
 </script>
 </body>
 </html>

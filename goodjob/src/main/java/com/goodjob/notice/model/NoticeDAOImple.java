@@ -65,44 +65,40 @@ public class NoticeDAOImple implements NoticeDAO {
 	public List<NoticeDTO> whereNoticeList(String workday, String[] local2, String[] local3, int start, int end) {
 		// TODO Auto-generated method stub
 		Map<String, Object> map = whereMap(workday, local2, local3);
-		map.put("start",start);
-		map.put("end",end);
+		map.put("start", start);
+		map.put("end", end);
 		return sqlMap.selectList("whereNoticeList", map);
 	}
-
 	@Override
 	public int whereNoticeTotalCnt(String workday, String[] local2, String[] local3) {
 		// TODO Auto-generated method stub
-		return sqlMap.selectOne("whereNoticeTotalCnt",whereMap(workday, local2, local3));
+		return sqlMap.selectOne("whereNoticeTotalCnt", whereMap(workday, local2, local3));
 	}
 	public Map<String, Object> whereMap(String workday, String[] local2, String[] local3) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		System.out.println(local3.length+""+local2.length);
-		if ((local2.length!=0||local3.length!=0)) {
+		if ((local2.length != 0 || local3.length != 0)) {
 			map.put("boolean1", true);
-			if (local2.length!=0) {
-				System.out.println(workday);
+			if (local2.length != 0) {
 				map.put("boolean2", true);
-				System.out.println(local2[0].toString());
 			} else {
 				map.put("boolean2", false);
 			}
-			if (local3.length!=0) {
+			if (local2.length == 0 && local3.length != 0) {
+				map.put("boolean4", false);
+			} else {
+				map.put("boolean4", true);
+			}
+			if (local3.length != 0) {
 				map.put("boolean3", true);
-				System.out.println(local3[0].toString());
 			} else {
 				map.put("boolean3", false);
 			}
 		} else {
 			map.put("boolean1", false);
 		}
-
 		map.put("workday", workday);
 		map.put("local2", local2);
 		map.put("local3", local3);
 		return map;
 	}
-
-	
-	
 }

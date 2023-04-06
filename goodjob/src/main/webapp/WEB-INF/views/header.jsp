@@ -7,6 +7,7 @@
 <c:set var="nor" value="개인"></c:set>
 <c:set var="com" value="기업"></c:set>
 <c:set var="man" value="관리자"></c:set>
+<c:set var="logStatus" value="${sessionScope.status}"></c:set>
 <style>
 header{
 z-index: 1 !important;
@@ -60,12 +61,11 @@ div.col-11.mt-4.position-relative{
 			<div class="col-11 mt-4 position-relative pb-5">
 				<div class="nav">
 					<div class="col-2 offset-1">
-						<a href="#" class="">공고정보</a>
+						<a href="noticeList.do" class="">공고정보</a>
 						<ul class="nav position-absolute">
 							<li class="col-12"><a href="#">지역별</a></li>
-							<li class="col-12"><a href="#">업종별</a></li>
+							<li class="col-12"><a href="#">직종별</a></li>
 							<li class="col-12"><a href="#">기간별</a></li>
-							<li class="col-12"><a href="#">급여별</a></li>
 						</ul>
 					</div>
 					<div class="col-2">
@@ -74,13 +74,12 @@ div.col-11.mt-4.position-relative{
 							<li class="col-12"><a href="#">지역별</a></li>
 							<li class="col-12"><a href="#">업종별</a></li>
 							<li class="col-12"><a href="#">기간별</a></li>
-							<li class="col-12"><a href="#">급여별</a></li>
 						</ul>
 					</div>
 					<div class="col-2">
 						<a href="review.do" class="">후기게시판</a>
 						<ul class="nav position-absolute">
-							<li class="col-12"><a href="#">키워드게시판</a></li>
+							<li class="col-12"><a href="review.do">키워드게시판</a></li>
 							<li class="col-12"><a href="#">나의후기</a></li>
 						</ul>
 					</div>
@@ -94,11 +93,10 @@ div.col-11.mt-4.position-relative{
 						</ul>
 					</div>
 					<div class="col-2">
-						<a href="#" class="">고객센터</a>
+						<a href="userFAQList.do" class="">고객센터</a>
 						<ul class="nav position-absolute">
-							<li class="col-12"><a href="#">FAQ</a></li>
-							<li class="col-12"><a href="#">공지사항</a></li>
-							<li class="col-12"><a href="#">문의목록</a></li>
+							<li class="col-12"><a href="userFAQList.do">FAQ</a></li>
+							<li class="col-12"><a href="userGongJiList.do">공지사항</a></li>
 							<li class="col-12"><a href="#">1대1문의</a></li>
 						</ul>
 					</div>

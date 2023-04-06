@@ -28,4 +28,20 @@
 		<property name="order" value="0"></property> 
 	</bean>
 	
+	<!-- email -->
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+    	<property name="host" value="smtp.gmail.com" />
+   		<property name="port" value="587" />
+   		<property name="username" value="jeondohwan4@gmail.com" />
+    	<property name="password" value="!wjs58800213" />
+    	<property name="javaMailProperties">
+        	<props>
+            	<prop key="mail.smtp.auth">true</prop>
+            	<prop key="mail.smtp.starttls.enable">true</prop>
+        	</props>
+    	</property>
+	</bean>
+	<bean id="emailService" class="com.goodjob.module.EmailServiceImpl">
+    	<property name="mailSender" ref="mailSender" />
+	</bean>
 </beans>

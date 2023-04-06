@@ -4,12 +4,15 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.goodjob.module.AjaxPageModule;
 import com.goodjob.one_one.model.One_OneDAO;
 import com.goodjob.one_one.model.One_OneDTO;
 
@@ -94,18 +97,37 @@ public class One_oneController {
 		
 		return mav;
 	}
-	@RequestMapping("one/userOneList")
-	public ModelAndView userOneList(HttpSession session) {
+	@RequestMapping("userOneList.do")
+	public ModelAndView userOneList(HttpSession session,@RequestParam(value="cp",defaultValue = "1")int cp) {
 		ModelAndView mav=new ModelAndView();
 		int idx=Integer.parseInt((String)session.getAttribute("idx"));
-		mav.addObject("list",oneDao);
-		mav.setViewName("");
+		int pazeSize=5;
+		int listSize=15;
+		mav.addObject("page",AjaxPageModule.makePage(0, listSize, pazeSize, cp));
+		mav.addObject("list",oneDao.userOneList(idx, cp, listSize));
+		mav.setViewName("one/userOneList");
 		return mav;
 	}
-	@RequestMapping("one/userOneWrite")
-	public ModelAndView userOneWrite() {
+	@RequestMapping(value= "userOneWrite.do",method = RequestMethod.POST)
+	public ModelAndView userOneWrite(One_OneDTO dto) {
 		ModelAndView mav=new ModelAndView();
+		mav.addObject("msg",oneDao.userOneWrite(dto));
+		
 		return mav;
 	}
+	@RequestMapping("userOneContent.do")
+	public ModelAndView userOneContent(int idx) {
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("dto",oneDao.manOneContent(idx));
+		mav.setViewName("one/userOneContent");
+		return  mav;
+	}
+	@RequestMapping(value="userOneReWrite.do",method = RequestMethod.POST)
+	public ModelAndView userOneReWrite(One_OneDTO dto) {
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("msg",oneDao.manFAQAnswer(dto));
+		return  mav;
+	}
+	
 	
 }

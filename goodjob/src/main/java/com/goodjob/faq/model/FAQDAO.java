@@ -18,4 +18,7 @@ public interface FAQDAO {
 	
 	public List<FAQDTO> manFAQSearch(int cp, int ls,String search);
 	
+	public List<FAQDTO>userSearchFAQ(int start,int end,String search,String category);
+	
+	public int userSearchTotalCntFAQ(String search,String category);
 }

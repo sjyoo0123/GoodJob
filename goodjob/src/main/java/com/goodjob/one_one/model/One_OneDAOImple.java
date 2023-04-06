@@ -4,6 +4,7 @@ import java.util.*;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.servlet.ModelAndView;
 
 public class One_OneDAOImple implements One_OneDAO {
 
@@ -62,15 +63,30 @@ public class One_OneDAOImple implements One_OneDAO {
 		return count;
 	}
 	@Override
-	public One_OneDTO userOneList(int idx, int cp, int ls) {
+	public List<One_OneDTO> userOneList(int idx, int cp, int ls) {
 		// TODO Auto-generated method stub
+		int start=(cp-1)*ls+1;
+		int end=cp*ls;
+		Map<String, Integer> map=new HashMap<String, Integer>();
+		map.put("start", start);
+		map.put("end", end);
 		
-		return null;
+		return sqlMap.selectList("userOneList", map);
 	}
 	@Override
 	public int userOneWrite(One_OneDTO dto) {
 		// TODO Auto-generated method stub
-		
-		return 0;
+		return sqlMap.insert("userOneWrite", dto);
 	}
+	@Override
+	public One_OneDTO userOneContent(int idx) {
+		// TODO Auto-generated method stub
+		return sqlMap.selectOne("userOneContent",idx);
+	}
+	@Override
+	public int userOneReWrite(One_OneDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlMap.update("userOneReWrite", dto);
+	}
+	
 }

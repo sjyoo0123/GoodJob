@@ -15,48 +15,15 @@
 	 <%@include file="/WEB-INF/views/header.jsp"%> 
 		<section>
 			<article>
-			<div class="row">
-				<c:if test="${empty list}">
-				등록된 글이 없습니다
+				<c:if test="${empty dto}">
+				삭제된 게시글 입니다
 				</c:if>
-				<c:if test="${!empty list}">
-				<form id="seachFAQ">
-				<select name="category">
-				<option disabled>목록</option>
-				<option>개인</option>
-				<option>기업</option>
-				</select>
-				<input type="text"name="subject">
-				<input type="hidden" name="cp">
-				<input type="hidden" name="bAjax" value="true">
-				<button type="button" class="search">검색</button>
-				</form>
-				</c:if>
-				<c:forEach var="dto" items="${list}">
-				${dto.subject}
-				${dto.content}
-				</c:forEach>
-			</div>
-			<div id="page">${page}</div>
+				${dto.subject }
+				${dto.ckeck }
+				
 			</article>
 		</section>
 	 <%@include file="/WEB-INF/views/footer.jsp"%> 
 	</div>
-	<script>
-	$('.search').on('click',()=>{
-		$.ajax({
-			url:'userFAQList.do',
-			data:$('#seachFAQ').serialize()
-		}).done((data)=>{
-			/////////////////////////////////
-			for(var i=0;i<data.list.length;i++){
-			$('.content').text(data.list[i].subject);
-			}
-			////////////////////////////////
-			$('#page').children().remove();
-			$('#page').append(data.page);
-		})
-	});
-	</script>
 </body>
 </html>

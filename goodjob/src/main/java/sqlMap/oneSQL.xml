@@ -24,10 +24,28 @@
   		content=#{content},
   		where idx=#{idx}
   	</update>
-  	<select id="userOneList" resultType="com.goodjob.one_one.model.One_OneDTO" parameterType="Integer">
-select * from one_one where idx=#{idx}
-</select>
-<select id="userOneCnt" resultType="Integer" parameterType="Integer">
-select count(*) from one_one where idx=#{idx}
-</select>
+	<select id="userOneList"
+		resultType="com.goodjob.one_one.model.One_OneDTO" parameterType="Map">
+		select * from (select rownum as rnum,a. * from (
+		select * from one_one where idx=#{idx} and status='활성'
+		ORDER BY idx)a)
+		where rnum <![CDATA[>=]]>
+		#{start} and rnum <![CDATA[<=]]>
+		#{end}
+	</select>
+	<select id="userOneCnt" resultType="Integer"
+		parameterType="Integer">
+		select count(*) from one_one where idx=#{idx} and
+		status='활성'
+	</select>
+	<insert id="userOneWrite"
+		parameterType="com.goodjob.one_one.model.One_OneDTO">
+		insert into one_one values()
+	</insert>
+	<update id="userOneReWrite" parameterType="com.goodjob.one_one.model.One_OneDTO">
+	update one_one set
+  	subject=#{subject},
+  	content=#{content},
+ 	where idx=#{idx}
+	</update>
   </mapper>

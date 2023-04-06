@@ -20,11 +20,6 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 <title>Good Job</title>
 <style type="text/css">
-div {
-	/*border: 1px black solid;*/
-	
-}
-
 .btn.col-1 {
 	border: 1px black solid;
 }
@@ -52,7 +47,7 @@ div {
 							</div>
 							<div class="col-12 query">
 								<!--업종별 -->
-								<div class="d-none occupation">대분류 중분류 셀박 소분류 체크박스</div>
+								<div class="d-none occupation"><select></select></div>
 
 								<!--지역별 -->
 								<div class="addr input-group">
@@ -75,8 +70,6 @@ div {
 										type="checkbox" value="토" name="listworkday"></label><label>일<input
 										type="checkbox" value="일" name="listworkday"></label><label>무관</label><input
 										type="checkbox" value="무관" name="listworkday">
-									<!-- 근무시간 -->
-
 								</div>
 								<button id="submit">조회</button>
 							</div>
@@ -90,23 +83,13 @@ div {
 						<c:if test="${empty list}">
 						조회된 공고가 없습니다
 						</c:if>
-						<c:forEach var="dto" items="${list }"></c:forEach>
+						<c:forEach var="dto" items="${list }">
+						${dto.subject }
+						</c:forEach>
 					</div>
 				</div>
-				<div class="page">
-					<div class="row justify-content-evenly">
-						<button type="button" class="btn col-1">
-							<i class="bi bi-backspace-fill"></i>
-						</button>
-						<button type="button" class="btn col-1">1</button>
-						<button type="button" class="btn col-1">2</button>
-						<button type="button" class="btn col-1">3</button>
-						<button type="button" class="btn col-1">4</button>
-						<button type="button" class="btn col-1">5</button>
-						<button type="button" class="btn col-1 next" value="next">
-							<i class="bi bi-backspace-reverse-fill"></i>
-						</button>
-					</div>
+				<div id="page">
+					${page}
 				</div>
 			</article>
 		</section>
@@ -123,7 +106,6 @@ div {
 			$('.mAddr').append(op);
 		}
 	});
-	
 	$('.mAddr').on('change',()=>{
 		$('.sAddr').empty();
 		$('.lAddr').empty();
@@ -177,7 +159,7 @@ div {
 		 })
 	 })
 	
-	$('button:contains("업종별")').on('click',()=>{
+	$('button:contains("직종별")').on('click',()=>{
  	 $('.query > div').each(function() {
     if (!$(this).hasClass('d-none')) {
       $(this).addClass('d-none');
@@ -193,7 +175,7 @@ div {
 			  });
 			  $('.addr').removeClass('d-none');
 	});
-	$('button:contains("기간별")').on('click',()=>{
+	$('button:contains("요일별")').on('click',()=>{
 		 $('.query >div').each(function() {
 			    if (!$(this).hasClass('d-none')) {
 			      $(this).addClass('d-none');
@@ -201,8 +183,6 @@ div {
 			  });
 			  $('.weekday').removeClass('d-none');
 	});
-
-	
 	$(document).on('change', '.lAddr label input,.weekday input', function() {
 		  var labelText = $(this).parent().text().trim();
 		  var $checkbox = $(this);
@@ -223,32 +203,73 @@ div {
 		  }
 		});
 //pageing
-var para=null;
-var purl='noticeList.do';
+//형식
+//<div class="row">
+//<form id="category">
+//<input type="hidden" name="cp" value="1">
+//<input type="hidden" name="bAjax" value="true"> //ajax인지 판별할려면필요 컨트롤러에서 defaultValue = "false"
+//<button type="button" id="submit">조회</button>
+//</form>
+//<div class="content">
+//</div>
+//</div>
+//<div id="page">
+//</div>
+var para=$('#category').serialize();
+
 	$('#submit').click(function() {
 		$('#cp').attr({value:'1'});
-		para=$('#category').serialize();
-		page(purl);
+		page();
 	});
-	
-	$(document).on('click','.page button',function(){
+	$(document).on('click','#page button',function(){
 		$('#cp').attr({value:$(this).val()});
-		page(purl);
+		page();
 	});
 	
-	function page(purl){
+	function page(){
+		para=$('#category').serialize();
 		$.ajax({
-			url:purl,
+			url:'noticeList.do',
 			data:para
 		}).done((data)=>{
-			$('.page').text(data.page);
-			alert(data);
+			/////////////////////////////////
+			for(var i=0;i<data.list.length;i++){
+			$('.content').text(data.list[i].subject);
+			}
+			////////////////////////////////
+			$('#page').children().remove();
+			$('#page').append(data.page);
 		})
 	}
-	
-	</script>
-	<script>
+	$.ajax({
+	      url: "job.do",
+	      success: function(data) {
+	       for(var i = 0; i < data.length; i++) {
+	                $(".occupation").append("<option value='"+data[i] + "' name='job1'").text(data[i]);
+	            }
+	            $(document).on('change','.occupation',function(e) {
+	                var job1val = $(this).val();
+	                $.ajax({
+	                    url: "job.do",
+	                    method: "POST",
+	                    data: {job1: job1val},
+	                    success: function(data) {
+	                        $("#joblist2").empty();
+	                        for (var i = 0; i < data.length; i++) {
+	                            $("#joblist2").append("<button type='button' class='btn btn-outline-dark'>" + data[i] + "</button>");
+	                        }
+	                        $("#joblist2 button").click(function() {
+	                            var btnval = $(this).text();
+	                            opener.writeForm.job.value=btnval;
+	                            window.self.close();
+	                        });
+	                    }
+	                });
+	            });
+	        }
+	    });
 
 	</script>
+
 </body>
 </html>
