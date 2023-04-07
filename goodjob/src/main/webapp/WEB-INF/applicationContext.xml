@@ -72,6 +72,10 @@
 		class="com.goodjob.keyword.model.KeywordDAOImple">
 		<property name="sqlMap" ref="sqlSessionTemplate"></property>
 	</bean>
+	<bean id="ResumeDAO"
+		class="com.goodjob.resume.model.ResumeDAOImple">
+		<property name="sqlMap" ref="sqlSessionTemplate"></property>
+	</bean>
 	<bean id="applyDao" class="com.goodjob.apply.model.ApplyDAOImple">
 		<property name="sqlMap" ref="sqlSessionTemplate"></property>
 	</bean>
