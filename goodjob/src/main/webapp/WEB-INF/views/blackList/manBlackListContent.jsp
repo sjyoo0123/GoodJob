@@ -23,7 +23,7 @@
 			<c:if test="${status ne '활성'}">
 			<button type="button" class="btn btn-primary col-2" id="delbutton">삭제하기</button>
 			</c:if>
-			<c:if test="${status ne '활성'}">
+			<c:if test="${status eq '활성'}">
 			<button type="button" class="btn btn-primary col-2" id="addbutton">블랙리스트 추가</button>
 			</c:if>
 			</div>
@@ -42,8 +42,11 @@ $('#delbutton').click(function(){
 });
 
 function deletefun(num){
-	window.open('manBlackListDelForm.do?sort=1&idx='+num,'deletpopup','width=400;height=400;');
+	window.open('manBlackListDelForm.do?sort=1&idx='+num+'&member_idx='+${idx},'deletpopup','width=400;height=400;');
 }
+$('#addbutton').click(function(){
+	window.open('manBlackListAdd.do?idx='+${idx},'addpopup','width=400,height=400');
+});
 
 function ajaxgo(){
 	$('#my-div').empty();

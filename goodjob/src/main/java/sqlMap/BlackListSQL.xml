@@ -6,7 +6,7 @@
   	<select id="manBlackListGet" parameterType="Map" resultType="com.goodjob.member.model.MemberDTO">
 		select * from
 		(select rownum as rnum, a.* from(
-		select * from member where status in('블랙') and user_category=#{category} and singo_count<![CDATA[>=]]>20 order by idx desc)a )b
+		select * from member where status ='블랙' and user_category=#{category} order by idx desc)a )b
 		where rnum <![CDATA[>=]]>#{start} and rnum <![CDATA[<=]]>#{end}
 	</select>
 	<select id="manBlackListGetTotalCnt" parameterType="String" resultType="Integer">
@@ -15,7 +15,7 @@
 		from
 			member
 		where
-			status in('블랙')
+			status='블랙'
 			and
 			user_category=#{category}
 	</select>
@@ -45,7 +45,7 @@
 	</select>
 	<update id="manBlackListDel" parameterType="Integer">
 		update member
-		set status='활성',singo_count=0
+		set status='활성'
 		where idx=#{idx}
 	</update>
 	<update id="manBlackListSingoDel" parameterType="Integer">
@@ -73,4 +73,20 @@
 			where m.user_category =#{category}
 			group by member_idx)
 	</select>
+	<update id="manBlackListUpdateSingoCount" parameterType="hashmap">
+		update member
+		set singo_count=(select count(*) from singo where member_idx=#{num1} and status='활성')
+		where idx=#{num2}
+	</update>
+	<update id="manBlackListAdd" parameterType="Integer">
+		update member
+		set status='블랙'
+		where idx=#{idx}
+	</update>
+	<update id="manBlackListSingoCheckUpdate" parameterType="Integer">
+		update singo
+		set	"CHECK"=1
+		where member_idx=#{idx}
+	</update>
+
   </mapper>
