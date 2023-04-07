@@ -28,78 +28,7 @@
 
 <title>Insert title here</title>
 <script>
-	$(document).ready(function() {
-		$('#checkh_h_workday').show();
-		$('input[name="h_workday"]').change(function() {
-			if ($(this).val() == '요일지정') {
-				$('#checkh_h_workday').show();
-			} else {
-				$('#checkh_h_workday').hide();
-			}
-		});
-	});
-	$(document).ready(function() {
-		$('input[name="career_check"]').change(function() {
-			if ($(this).val() == '경력') {
-				$('#carrer1').show();
-			} else {
-				$('#carrer1').hide();
-			}
-		});
-	});
-	$(document).ready(function() {
-		$('input[name=checkboxh_h_workday]').click(function() {
-			if (this.id === 'moo') {
-				$('input[name=checkboxh_h_workday]:lt(7)').prop('checked', false);
-			} else {
-				$('#moo').prop('checked', false);
-			}
-		});
-	});
-
-	function show() {
-
-		var url = "joblist.do";
-		var name = "h_job";
-		var option = "width=500, heigt = 500, top=500, left =200";
-		window.open(url, name, option);
-
-	}
-
-	$(document).ready(
-			function() {
-				$('input[type="checkbox"][name="check"]').click(
-						function() {
-
-							if ($(this).prop('checked')) {
-								$('input[type="checkbox"][name="check"]').prop(
-										'checked', false);
-								$(this).prop('checked', true);
-							}
-						});
-			});
-	$(document).ready(function() {
-	  $('input[name="h_pay_category"]').change(function() {
-	    if ($(this).val() == '월급') {
-	      $('#week_h_worktime').show();
-	    } else {
-	      $('#week_h_worktime').hide();
-	    }
-	  });
-	});
-	$(document).ready(function() {
-		  $('input[type="submit"]').click(function() {
-		    var selectedDays = '';
-		    $('input[name="checkboxh_h_workday"]').each(function() {
-		      if($(this).is(':checked')) {
-		        selectedDays += '1';
-		      } else {
-		        selectedDays += '0';
-		      }
-		    });
-		    $('#h_workday').val(selectedDays);
-		  });
-		});
+	
 </script>
 <style>
 .map_wrap {
@@ -404,8 +333,8 @@
 		</div>
 		<div>
 			<h2>공개여부</h2>
-			<lable> <input type="checkbox" name="check" value=1>공개</lable>
-			<lable> <input type="checkbox" name="check" value=0>비공개</lable>
+			<label> <input type="checkbox" name="check" value=1>공개</label>
+			<label> <input type="checkbox" name="check" value=0>비공개</label>
 
 		</div>
 		<input type="submit" value="등록">
@@ -450,6 +379,78 @@
 				}
 			})
 	});
+	$(document).ready(function() {
+		$('#checkh_h_workday').show();
+		$('input[name="h_workday"]').change(function() {
+			if ($(this).val() == '요일지정') {
+				$('#checkh_h_workday').show();
+			} else {
+				$('#checkh_h_workday').hide();
+			}
+		});
+	});
+	$(document).ready(function() {
+		$('input[name="career_check"]').change(function() {
+			if ($(this).val() == '경력') {
+				$('#carrer1').show();
+			} else {
+				$('#carrer1').hide();
+			}
+		});
+	});
+	$(document).ready(function() {
+		$('input[name=checkboxh_h_workday]').click(function() {
+			if (this.id === 'moo') {
+				$('input[name=checkboxh_h_workday]:lt(7)').prop('checked', false);
+			} else {
+				$('#moo').prop('checked', false);
+			}
+		});
+	});
+
+	function show() {
+
+		var url = "joblist.do";
+		var name = "h_job";
+		var option = "width=500, heigt = 500, top=500, left =200";
+		window.open(url, name, option);
+
+	}
+
+	$(document).ready(
+			function() {
+				$('input[type="checkbox"][name="check"]').click(
+						function() {
+
+							if ($(this).prop('checked')) {
+								$('input[type="checkbox"][name="check"]').prop(
+										'checked', false);
+								$(this).prop('checked', true);
+							}
+						});
+			});
+	$(document).ready(function() {
+	  $('input[name="h_pay_category"]').change(function() {
+	    if ($(this).val() == '월급') {
+	      $('#week_h_worktime').show();
+	    } else {
+	      $('#week_h_worktime').hide();
+	    }
+	  });
+	});
+	$(document).ready(function() {
+		  $('input[type="submit"]').click(function() {
+		    var selectedDays = '';
+		    $('input[name="checkboxh_h_workday"]').each(function() {
+		      if($(this).is(':checked')) {
+		        selectedDays += '1';
+		      } else {
+		        selectedDays += '0';
+		      }
+		    });
+		    $('#h_workday').val(selectedDays);
+		  });
+		});
 	</script>
 </body>
 </html>
