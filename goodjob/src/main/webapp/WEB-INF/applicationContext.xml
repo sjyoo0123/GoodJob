@@ -81,4 +81,16 @@
 	<bean id="offerDao" class="com.goodjob.offer.model.OfferDAOImple">
 		<property name="sqlMap" ref="sqlSessionTemplate"></property>
 	</bean>
+	<bean id="bannerDao" class="com.goodjob.banner.model.BannerDAOImple">
+		<property name="sqlMap" ref="sqlSessionTemplate"></property>
+	</bean>
+	<bean id="totalFileDao" class="com.goodjob.totalfile.model.TotalFileDAOImple">
+		<property name="sqlMap" ref="sqlSessionTemplate"></property>
+	</bean>
+	<bean id="plan_UpDao" class="com.goodjob.plan_up.model.Plan_UpDAOImple">
+		<property name="sqlMap" ref="sqlSessionTemplate"></property>
+	</bean>
+	<bean id="plan_VipDao" class="com.goodjob.plan_vip.model.Plan_VipDAOImple">
+		<property name="sqlMap" ref="sqlSessionTemplate"></property>
+	</bean>
 </beans>
