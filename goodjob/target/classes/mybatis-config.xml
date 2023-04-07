@@ -15,5 +15,6 @@
   		<mapper resource="sqlMap/oneSQL.xml"/>
   		<mapper resource="sqlMap/applySQL.xml"/>
   		<mapper resource="sqlMap/jobSQL.xml"/>
+  		<mapper resource="sqlMap/gongjiSQL.xml"/>
   	</mappers>
   </configuration>
