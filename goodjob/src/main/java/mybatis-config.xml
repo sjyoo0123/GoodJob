@@ -16,6 +16,11 @@
   		<mapper resource="sqlMap/manMemberSQL.xml"/>
   		<mapper resource="sqlMap/salesSQL.xml"/>
   		<mapper resource="sqlMap/jobHelperSQL.xml"/>
+  		<mapper resource="sqlMap/resumeSQL.xml"/>
+  		<mapper resource="sqlMap/bannerSQL.xml"/>
+  		<mapper resource="sqlMap/totalFileSQL.xml"/>
+  		<mapper resource="sqlMap/plan_vipSQL.xml"/>
+  		<mapper resource="sqlMap/plan_upSQL.xml"/>
   		<mapper resource="sqlMap/applySQL.xml"/>
   		<mapper resource="sqlMap/jobSQL.xml"/>
   		<mapper resource="sqlMap/offerSQL.xml"/>

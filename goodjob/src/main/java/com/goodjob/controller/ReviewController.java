@@ -5,11 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.goodjob.review.model.ReviewDAO;
 import com.goodjob.review.model.ReviewDTO;
+
 
 @Controller
 public class ReviewController {
@@ -39,6 +42,14 @@ public class ReviewController {
 
 		return mav;
 	}
+	//관리자 리뷰 페이지 들어가기
+	public ModelAndView manReviewPage() {
+		
+		ModelAndView mav=new ModelAndView();
+		
+		return mav;
+	}
+
 
 	@RequestMapping(value = "/reviewWrite.do", method = RequestMethod.POST)
 	public ModelAndView reviewWriteSumbmit(ReviewDTO dto) {
