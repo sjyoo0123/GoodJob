@@ -6,7 +6,7 @@
 	<insert id="memberJoin"
 		parameterType="com.goodjob.member.model.MemberDTO">
 		insert into member
-		values(member_idx.nextval,#{id},#{pwd},#{name},#{email},#{tel},#{addr},sysdate,#{singo_count},#{user_category},#{status})
+		values(member_idx_se.nextval,#{id},#{pwd},#{name},#{email},#{tel},#{addr},sysdate,#{singo_count},#{user_category},#{status})
 	</insert>
 	<select id="memberSelect" parameterType="Map"
 		resultType="com.goodjob.member.model.MemberDTO">

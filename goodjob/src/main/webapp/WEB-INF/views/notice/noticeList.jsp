@@ -20,82 +20,162 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 <title>Good Job</title>
 <style type="text/css">
-.btn.col-1 {
-	border: 1px black solid;
+div.new {
+	border: 1px solid #efefef;
+}
+
+.lAddr, .sjob, .weekday {
+	overflow: auto !important;
+	max-height: 100px !important;
+	min-height: 100px !important;
+}
+
+div .col-8.offset-2.mh-100 {
+	background-color: #efefef;
+}
+
+div .col-8.offset-2.mh-100>*>*>div {
+	background-color: white;
+}
+table a{
+color: black;
 }
 </style>
 </head>
 <body>
 	<div class="container">
 		<%@include file="/WEB-INF/views/header.jsp"%>
+		<c:set var="si" value="시급"></c:set>
 		<section>
 			<article>
 				<div class="row">
 					<div class="col-12 fs-1 mt-5 pt-5">
 						<div class="col-4 offset-4 text-center">채용정보</div>
 					</div>
-					<div class="col-8 offset-2">
+					<div class="col-8 offset-2 mh-100">
 						<div class="nav text-center">
-							<div class="col-2 offset-2">
-								<button type="button" class="btn">직종별</button>
+							<div class="col-2 offset-3">
+								<button type="button" class="btn btn-outline-secondary navi">직종별</button>
 							</div>
 							<div class="col-2">
-								<button type="button" class="btn">지역별</button>
+								<button type="button" class="btn btn-outline-secondary navi">지역별</button>
 							</div>
 							<div class="col-2">
-								<button type="button" class="btn">요일별</button>
+								<button type="button" class="btn btn-outline-secondary navi">요일별</button>
 							</div>
 							<div class="col-12 query">
 								<!--업종별 -->
-								<div class="d-none occupation"><select></select></div>
+								<div class="d-none occupation input-group p-3">
+									<select class=" fjob form-select col-4" size="3"
+										aria-label="size 3 select example"></select>
+									<div class="sjob col-8"></div>
+								</div>
 
 								<!--지역별 -->
-								<div class="addr input-group">
-									<select class="mAddr" size="3">
-										<option selected>시 도</option>
-									</select> <select class="sAddr" size="3">
-										<option selected>시 구 군</option>
+								<div class="d-none addr input-group p-3">
+									<select class="mAddr form-select col-2" size="4">
+										<option selected disabled="disabled">시 도</option>
+									</select> <select class="sAddr form-select col-2" size="4">
+										<option selected disabled>시 구 군</option>
 									</select>
-									<div class="lAddr"></div>
+									<div class="lAddr col-8"></div>
 								</div>
 								<!--기간별 -->
-								<div class="weekday">
+								<div class="d-none weekday justify-content-center p-3">
 									<!-- 요일 -->
-									<label>월<input type="checkbox" value="월"
-										name="listworkday"></label><label>화<input
-										type="checkbox" value="화" name="listworkday"></label><label>수<input
-										type="checkbox" value="수" name="listworkday"></label><label>목<input
-										type="checkbox" value="목" name="listworkday"></label><label>금<input
-										type="checkbox" value="금" name="listworkday"></label><label>토<input
-										type="checkbox" value="토" name="listworkday"></label><label>일<input
-										type="checkbox" value="일" name="listworkday"></label><label>무관</label><input
-										type="checkbox" value="무관" name="listworkday">
+									<input type="checkbox" value="월" name="listworkday"
+										class="btn-check" id="btn-check-outlined1" autocomplete="off"><label
+										class="btn btn-outline-secondary" for="btn-check-outlined1">월</label>
+									<input type="checkbox" value="화" name="listworkday"
+										class="btn-check" id="btn-check-outlined2" autocomplete="off"><label
+										class="btn btn-outline-secondary" for="btn-check-outlined2">화</label>
+									<input type="checkbox" value="수" name="listworkday"
+										class="btn-check" id="btn-check-outlined3" autocomplete="off"><label
+										class="btn btn-outline-secondary" for="btn-check-outlined3">수</label>
+									<input type="checkbox" value="목" name="listworkday"
+										class="btn-check" id="btn-check-outlined4" autocomplete="off"><label
+										class="btn btn-outline-secondary" for="btn-check-outlined4">목</label>
+									<input type="checkbox" value="금" name="listworkday"
+										class="btn-check" id="btn-check-outlined5" autocomplete="off"><label
+										class="btn btn-outline-secondary" for="btn-check-outlined5">금</label>
+									<input type="checkbox" value="토" name="listworkday"
+										class="btn-check" id="btn-check-outlined6" autocomplete="off"><label
+										class="btn btn-outline-secondary" for="btn-check-outlined6">토</label>
+									<input type="checkbox" value="일" name="listworkday"
+										class="btn-check" id="btn-check-outlined7" autocomplete="off"><label
+										class="btn btn-outline-secondary" for="btn-check-outlined7">일</label>
+									<input type="checkbox" value="무관" name="listworkday"
+										class="btn-check" id="btn-check-outlined8" autocomplete="off"><label
+										class="btn btn-outline-secondary" for="btn-check-outlined8">무관</label>
 								</div>
-								<button id="submit">조회</button>
 							</div>
-							<form id="category">
-								<input type="hidden" id="cp" name="cp" value="1"> 선택한 쿼리 들어감
-								<input type="hidden" name="bAjax" value="true">
+							<div class="text-end col-12">
+								<button id="submit" class="btn btn-light text-end">조회</button>
+							</div>
+							<form id="category" class="col-12 d-flex flex-wrap">
+								<input type="hidden" id="cp" name="cp" value="1"> <input
+									type="hidden" name="bAjax" value="true">
 							</form>
 						</div>
 					</div>
 					<div class="content">
-						<c:if test="${empty list}">
+						<c:if test="${!empty list}">
+							<table class="table table-striped table-hover">
+
+								<thead>
+									<tr>
+										<th scope="col">번호</th>
+										<th scope="col">제목</th>
+										<th scope="col">직종</th>
+										<th scope="col">지역</th>
+										<th scope="col">급여</th>
+										<th scope="col">회사명</th>
+										<th scope="col">마감일</th>
+									</tr>
+								</thead>
+								<tbody>
+									<c:forEach var="dto" items="${list }">
+										<tr>
+											<td scope="row">${dto.idx}</td>
+											
+											<td><a href="noticeContent.do?idx=${dto.idx}">${dto.subject}</a></td>
+											
+											<td>${dto.job}</td>
+											<td>${dto.local2}${dto.local3}</td>
+											<td>${dto.pay_category}<c:if
+													test="${dto.pay_category eq si}">
+							${dto.pay_hour}
+							</c:if> <c:if test="${!(dto.pay_category eq si)}">
+							${dto.pay_month}
+							</c:if></td>
+											<td>${dto.com_name}</td>
+											<td>${dto.writedate}</td>
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
+						</c:if>
+						<c:if test="${empty list }">
 						조회된 공고가 없습니다
 						</c:if>
-						<c:forEach var="dto" items="${list }">
-						${dto.subject }
-						</c:forEach>
+
+
 					</div>
 				</div>
-				<div id="page">
-					${page}
-				</div>
+				<div id="page">${page}</div>
 			</article>
 		</section>
 		<%@include file="/WEB-INF/views/footer.jsp"%>
 	</div>
 	<script>
+	$("form").on("keydown", function(e) {
+	    if (e.keyCode == 13) {
+	        stopSubmit(e);
+	    }
+	});
+	 function stopSubmit(e) {
+	        e.preventDefault();
+	    }
 	$.ajax({
 		url:'https://grpc-proxy-server-mkvo6j4wsq-du.a.run.app/v1/regcodes?regcode_pattern=*00000000',
 	      type:'get',
@@ -124,6 +204,7 @@
 				  var name = data.regcodes[i].name;
 				  var sname = name.split(' ');
 				  if(sname.length==3){
+					 
 					  var op = $('<option>').attr({id: data.regcodes[i].code.substring(0, 5)}).text(sname[1]+' '+sname[2]);
 					  $('.sAddr').append(op);
 				  }else{
@@ -131,7 +212,6 @@
 				  var op = $('<option>').attr({id: data.regcodes[i].code.substring(0, 5)}).text(sname.slice(1));
 				  $('.sAddr').append(op);
 				  }
-				
 				}
 			})
 	});
@@ -144,22 +224,35 @@
 			content:'application/json'
 		 }).done((data)=>{
 			 for(var i=0;i<data.regcodes.length;i++){
+				 
 				 if(i==0){
 					 var name=data.regcodes[i].name;
 					 var sname=name.split(' ');
-						 var op=  $('<label>').text(sname.slice(sname.length-1)+'전체').append($('<input>').attr({id:data.regcodes[i].code,type:'checkbox',value:sname.slice(sname.length-1),name:'local2'})); 
-					 $('.lAddr').append(op);
+					 var label=  $('<label>').attr({for:data.regcodes[i].code,class:'btn btn-outline-secondary'}).text(sname.slice(sname.length-1)+'전체')
+					 var input=$('<input>').attr({id:data.regcodes[i].code,type:'checkbox',value:sname.slice(sname.length-1),name:'local2',class:'btn-check',autocomplete:'off'}); 
+					 
 				 }else{
 				 var name=data.regcodes[i].name;
 				 var sname=name.split(' ');
-					 var op=  $('<label>').text(sname.slice(sname.length-1)).append($('<input>').attr({id:data.regcodes[i].code,type:'checkbox',value:sname.slice(sname.length-1),name:'local3'})); 
-				 $('.lAddr').append(op);
+					 var label=  $('<label>').attr({for:data.regcodes[i].code,class:'btn btn-outline-secondary'}).text(sname.slice(sname.length-1));
+					var input=$('<input>').attr({id:data.regcodes[i].code,type:'checkbox',value:sname.slice(sname.length-1),name:'local3',class:'btn-check',autocomplete:'off'}); 
+					
+					 }
+				 if ($('#category input[value="' + sname.slice(sname.length-1) + '"]').length > 0){
+					 input.prop('checked', true);
 				 }
+				 $('.lAddr').append(input,label);
 			 }
 		 })
 	 })
 	
-	$('button:contains("직종별")').on('click',()=>{
+	$('button:contains("직종별")').on('click',function(){
+		$('.navi').each(function(){
+			if($(this).hasClass('active')){
+			$(this).removeClass('active');	
+			}
+		});
+		$(this).addClass('active');
  	 $('.query > div').each(function() {
     if (!$(this).hasClass('d-none')) {
       $(this).addClass('d-none');
@@ -167,7 +260,13 @@
   });
   $('.occupation').removeClass('d-none');
 });
-	$('button:contains("지역별")').on('click',()=>{
+	$('button:contains("지역별")').on('click',function(){
+		$('.navi').each(function(){
+			if($(this).hasClass('active')){
+			$(this).removeClass('active');	
+			}
+		});
+		$(this).addClass('active');
 		 $('.query >div').each(function() {
 			    if (!$(this).hasClass('d-none')) {
 			      $(this).addClass('d-none');
@@ -175,7 +274,13 @@
 			  });
 			  $('.addr').removeClass('d-none');
 	});
-	$('button:contains("요일별")').on('click',()=>{
+	$('button:contains("요일별")').on('click',function(){
+		$('.navi').each(function(){
+			if($(this).hasClass('active')){
+			$(this).removeClass('active');	
+			}
+		});
+		$(this).addClass('active');
 		 $('.query >div').each(function() {
 			    if (!$(this).hasClass('d-none')) {
 			      $(this).addClass('d-none');
@@ -183,16 +288,17 @@
 			  });
 			  $('.weekday').removeClass('d-none');
 	});
-	$(document).on('change', '.lAddr label input,.weekday input', function() {
-		  var labelText = $(this).parent().text().trim();
+	$(document).on('change', '.lAddr input,.weekday input,.sjob input', function() {
+		  var labelText =  $('label[for="'+this.id+'"]').text();
 		  var $checkbox = $(this);
 		  if ($checkbox.is(':checked')) {
-		    var div = $('<div>');
-		    var btn = $('<button>').text('삭제');
+		    var div = $('<div>').attr({class:'col-3 new'});
+		    var icon= $('<i>').addClass('btn-light bi bi-x-circle');
+		    var btn =$('<a>').attr('href','#;').append(icon);
 		    div.append($('<span>').text(labelText));
 		    div.append(btn);
 		   var input=$('<input>').attr({type:'hidden',value:$checkbox.val(),name:$checkbox.attr('name')});
-		   div.append(input)
+		   div.append(input);
 		    $('#category').append(div);
 		    btn.on('click', function() {
 		      div.remove();
@@ -233,43 +339,60 @@ var para=$('#category').serialize();
 			data:para
 		}).done((data)=>{
 			/////////////////////////////////
-			for(var i=0;i<data.list.length;i++){
-			$('.content').text(data.list[i].subject);
-			}
+				$('table tbody').children().remove();
+			$.each(data.list, function(index, dto) {
+  var tr = $('<tr>');
+  tr.append('<td scope="row">' + dto.idx + '</td>');
+  tr.append('<td><a href=noticeContent.do?idx='+dto.idx+'>' + dto.subject + '</a></td>');
+  tr.append('<td>' + dto.job + '</td>');
+  tr.append('<td>' + dto.local2 + dto.local3 + '</td>');
+  tr.append('<td>' + dto.pay_category +' '+ (dto.pay_category === '시급' ? dto.pay_hour : dto.pay_month) + '</td>');
+  tr.append('<td>' + dto.com_name + '</td>');
+  var date = new Date(dto.writedate);
+  var year = date.getFullYear();
+  var month = ('0' + (date.getMonth() + 1)).slice(-2);
+  var day = ('0' + date.getDate()).slice(-2);
+  var formattedDate = year + '-' + month + '-' + day;
+  
+  tr.append('<td>' + formattedDate + '</td>');
+  $('table tbody').append(tr);
+});
 			////////////////////////////////
 			$('#page').children().remove();
 			$('#page').append(data.page);
 		})
 	}
+	
 	$.ajax({
 	      url: "job.do",
 	      success: function(data) {
 	       for(var i = 0; i < data.length; i++) {
-	                $(".occupation").append("<option value='"+data[i] + "' name='job1'").text(data[i]);
+	    	   var op=$('<option>').attr({value:data[i],id:'job'+i}).text(data[i]);
+	                $(".fjob ").append(op);
 	            }
-	            $(document).on('change','.occupation',function(e) {
+	            $(document).on('change','.fjob',function(e) {
+	            	$('.sjob').children().remove();
 	                var job1val = $(this).val();
 	                $.ajax({
 	                    url: "job.do",
 	                    method: "POST",
 	                    data: {job1: job1val},
 	                    success: function(data) {
-	                        $("#joblist2").empty();
 	                        for (var i = 0; i < data.length; i++) {
-	                            $("#joblist2").append("<button type='button' class='btn btn-outline-dark'>" + data[i] + "</button>");
+	                        	if ($('#category input[value="' + data[i] + '"]').length > 0) {
+	                        		  
+	                        $(".sjob").append("<input type='checkbox' checked value='" + data[i] + "' name='job' id='job1_"+i+"' class='btn-check "+$(this).attr('id')+"' autocomplete='off'><label class='btn btn-outline-secondary' for='job1_"+i+"'>"+data[i]+"</label>");
+	                        		}else{
+	                        			
+	                        $(".sjob").append("<input type='checkbox' value='" + data[i] + "' name='job' id='job1_"+i+"' class='btn-check "+$(this).attr('id')+"' autocomplete='off'><label class='btn btn-outline-secondary' for='job1_"+i+"'>"+data[i]+"</label>");
+	                        		}
+	                        
 	                        }
-	                        $("#joblist2 button").click(function() {
-	                            var btnval = $(this).text();
-	                            opener.writeForm.job.value=btnval;
-	                            window.self.close();
-	                        });
 	                    }
 	                });
 	            });
 	        }
 	    });
-
 	</script>
-
 </body>
 </html>

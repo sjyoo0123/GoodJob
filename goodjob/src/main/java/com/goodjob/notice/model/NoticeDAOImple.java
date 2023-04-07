@@ -62,19 +62,19 @@ public class NoticeDAOImple implements NoticeDAO {
 	}
 
 	@Override
-	public List<NoticeDTO> whereNoticeList(String workday, String[] local2, String[] local3, int start, int end) {
+	public List<NoticeDTO> whereNoticeList(String workday, String[] local2, String[] local3,String[] job, int start, int end) {
 		// TODO Auto-generated method stub
-		Map<String, Object> map = whereMap(workday, local2, local3);
+		Map<String, Object> map = whereMap(workday, local2, local3,job);
 		map.put("start", start);
 		map.put("end", end);
 		return sqlMap.selectList("whereNoticeList", map);
 	}
 	@Override
-	public int whereNoticeTotalCnt(String workday, String[] local2, String[] local3) {
+	public int whereNoticeTotalCnt(String workday, String[] local2, String[] local3,String[] job) {
 		// TODO Auto-generated method stub
-		return sqlMap.selectOne("whereNoticeTotalCnt", whereMap(workday, local2, local3));
+		return sqlMap.selectOne("whereNoticeTotalCnt", whereMap(workday, local2, local3,job));
 	}
-	public Map<String, Object> whereMap(String workday, String[] local2, String[] local3) {
+	public Map<String, Object> whereMap(String workday, String[] local2, String[] local3,String[] job) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		if ((local2.length != 0 || local3.length != 0)) {
 			map.put("boolean1", true);
@@ -83,10 +83,10 @@ public class NoticeDAOImple implements NoticeDAO {
 			} else {
 				map.put("boolean2", false);
 			}
-			if (local2.length == 0 && local3.length != 0) {
-				map.put("boolean4", false);
-			} else {
+			if (local2.length != 0 && local3.length != 0) {
 				map.put("boolean4", true);
+			} else {
+				map.put("boolean4", false);
 			}
 			if (local3.length != 0) {
 				map.put("boolean3", true);
@@ -96,9 +96,16 @@ public class NoticeDAOImple implements NoticeDAO {
 		} else {
 			map.put("boolean1", false);
 		}
+		if(job.length !=0) {
+			map.put("boolean5", true);
+		}else {
+			map.put("boolean5", false);
+			
+		}
 		map.put("workday", workday);
 		map.put("local2", local2);
 		map.put("local3", local3);
+		map.put("job", job);
 		return map;
 	}
 }

@@ -99,17 +99,23 @@ public class FAQDAOImple implements FAQDAO {
 	}
 	public Map<String, Object>searchMapping(String search, String category){
 		Map<String, Object>map=new HashMap<String, Object>();
-		if(!(search.equals(""))&&!(search.equals(null))) {
-			map.put("search",search);
-			map.put("sbollean", true);
-		}else {
-			map.put("sbollean", false);
-		}
-		if(!(category.equals(""))&&!(category.equals(null))) {
+		if(category.length()>0) {
 			map.put("category",category);
 			map.put("cbollean", true);
 		}else {
 			map.put("cbollean", false);
+		}
+		if(search.length()>0&&category.length()>0) {
+			map.put("cands",true);
+		}
+		if(search.length()>0&&category.length()==0){
+			map.put("cands2",true);
+		}
+		if(search.length()>0) {
+			map.put("search",search);
+			map.put("sbollean", true);
+		}else {
+			map.put("sbollean", false);
 		}
 		return map;
 	}

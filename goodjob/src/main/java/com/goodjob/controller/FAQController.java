@@ -55,14 +55,15 @@ public class FAQController {
 
 	@RequestMapping("userFAQList.do")
 	public ModelAndView userFaqList(@RequestParam(value = "cp", defaultValue = "1") int cp,
-			@RequestParam(value = "search", defaultValue = "") String search,
+			@RequestParam(value = "subject", defaultValue = "") String search,
 			@RequestParam(value = "category", defaultValue = "") String category,
 			@RequestParam(value="bAjax", defaultValue = "false")boolean bAjax,
 			HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-//		if(category.equals("")||category.equals(null)&&!session.getAttribute("scategory").equals(null)) {
-//			category= (String)session.getAttribute("scategory");
-//		}
+		 String scategory = session.getAttribute("scategory") != null ? (String) session.getAttribute("scategory") : "";
+		    if (category.equals("") && !scategory.equals("")) {
+		        category = scategory;
+		    }
 		int listSize = 10;
 		int pageSize = 5;
 		int start = (cp - 1) * listSize + 1;

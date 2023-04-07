@@ -9,6 +9,19 @@
 <c:set var="man" value="관리자"></c:set>
 <c:set var="logStatus" value="${sessionScope.status}"></c:set>
 <style>
+*::-webkit-scrollbar {
+  width: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #aaa;
+  border-radius: 5px;
+}
+
 header{
 z-index: 1 !important;
 }

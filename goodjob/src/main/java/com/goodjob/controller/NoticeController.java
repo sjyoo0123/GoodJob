@@ -134,12 +134,14 @@ public class NoticeController {
 
 	@RequestMapping(value = "noticeList.do", method = RequestMethod.GET)
 	public ModelAndView noticeList(@RequestParam(value = "cp", defaultValue = "1") int cp,
-			@RequestParam(value = "listWeekday", defaultValue = "") String[] listworkday,
+			@RequestParam(value = "listworkday", defaultValue = "") String[] listworkday,
 			@RequestParam(value = "local2", defaultValue = "") String[] local2,
 			@RequestParam(value = "local3", defaultValue = "") String[] local3,
+			@RequestParam(value="job",defaultValue = "")String[] job,
 			@RequestParam(value = "bAjax", defaultValue = "false") boolean bAjax) {
 		ModelAndView mav = new ModelAndView();
 		StringBuffer workday = null;
+		System.out.println(listworkday.length);System.out.println(local2.length);
 		if (!listworkday.equals("") && !listworkday.equals(null)) {
 			workday = new StringBuffer("________");
 		} else {
@@ -157,12 +159,12 @@ public class NoticeController {
 				}
 			}
 		}
-		int totalCnt = ndao.whereNoticeTotalCnt(workday.toString(), local2, local3);
+		int totalCnt = ndao.whereNoticeTotalCnt(workday.toString(), local2,local3,job);
 		int ls = 10;
 		int pageSize = 5;
-		int start = (cp - 1) * ls;
+		int start = (cp - 1) * ls+1;
 		int end = cp * ls;
-		mav.addObject("list", ndao.whereNoticeList(workday.toString(), local2, local3, start, end));
+		mav.addObject("list", ndao.whereNoticeList(workday.toString(), local2, local3,job, start, end));
 		mav.addObject("page", AjaxPageModule.makePage(totalCnt, ls, pageSize, cp));
 		if (bAjax) {
 			mav.setViewName("goodjobJson");
