@@ -102,11 +102,5 @@ public class MemberDAOImple implements MemberDAO {
 		map.put("addr", addr);
 		return map;
 	}
-	
-	@Override
-	public MemberDTO resumeWriteForm() {
-		MemberDTO dto= sqlMap.selectOne("resumeWriteForm");
-		return dto;
-	}
 
 }

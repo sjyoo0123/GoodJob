@@ -35,7 +35,4 @@
 
 		END
 	</update>
-	<select id="resumeWriteForm" resultType="com.goodjob.member.model.MemberDTO">
-		select * from member where idx =1 and status = '활성' 
-	</select>
 </mapper>
