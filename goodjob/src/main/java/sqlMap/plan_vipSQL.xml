@@ -23,4 +23,11 @@
  		#{vip_floor}
  		)
  	</insert>
+ 	<select id="manPlanVipList" parameterType="Map" resultType="com.goodjob.plan_vip.model.Plan_VipDTO">
+ 	select * from(
+		rownum as rnum, a.* from
+		(select * from plan,plan_vip
+		 where plan.idx=plan_up.idx order by idx asc )a)b
+		 where rnum <![CDATA[>=]]>#{start} and rnum <![CDATA[<=]]>#{end}
+ 	</select>
  </mapper>

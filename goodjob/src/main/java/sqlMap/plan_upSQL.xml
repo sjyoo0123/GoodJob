@@ -22,4 +22,14 @@
  		)
  		
  	</insert>
+ 	<select id="manPlanUpList" resultType="com.goodjob.plan_up.model.Plan_UpDTO" parameterType="Map">
+ 		
+		select * from(
+		rownum as rnum, a.* from
+		(select * from plan,plan_up
+		 where plan.idx=plan_up.idx order by idx asc )a)b
+		 where rnum <![CDATA[>=]]>#{start} and rnum <![CDATA[<=]]>#{end}
+	
+		
+ 	</select>
  </mapper>
