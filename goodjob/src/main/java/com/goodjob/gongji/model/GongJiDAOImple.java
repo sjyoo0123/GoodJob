@@ -30,4 +30,19 @@ public class GongJiDAOImple implements GongJiDAO {
 		
 		return sqlMap.selectOne("gongJiContent", idx);
 	}
+	@Override
+	public int gongJiInsert(GongJiDTO dto) {
+		int result=sqlMap.insert("gongJiInsert", dto);
+		return result;
+	}
+	@Override
+	public int gongJiUpdate(GongJiDTO dto) {
+		int result=sqlMap.update("gongJiUpdate", dto);
+		return result;
+	}
+	@Override
+	public int gongJiDel(int idx) {
+		int result=sqlMap.delete("gongJiDel", idx);
+		return result;
+	}
 }

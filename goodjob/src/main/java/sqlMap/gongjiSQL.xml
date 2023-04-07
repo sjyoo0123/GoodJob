@@ -3,10 +3,23 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.goodjob.gongji">
-<select id="userGongJiList" resultType="List">
+<select id="userGongJiList" resultType="com.goodjob.gongji.model.GongJiDTO">
 select * from gongji
 </select>
 <select id="gongJiContent" resultType="com.goodjob.gongji.model.GongJiDTO" parameterType="Integer">
 select * from gongji where idx=#{idx}
 </select>
+<insert id="gongJiInsert" parameterType="com.goodjob.gongji.model.GongJiDTO">
+insert into gongji
+values(gongji_idx.nextval,#{subject},#{content},sysdate)
+</insert>
+<update id="gongJiUpdate" parameterType="com.goodjob.gongji.model.GongJiDTO">
+update gongji
+set subject=#{subject},content=#{content}
+where idx=#{idx}
+</update>
+<delete id="gongJiDel" parameterType="Integer">
+delete from gongji
+where idx=#{idx}
+</delete>
 </mapper>
