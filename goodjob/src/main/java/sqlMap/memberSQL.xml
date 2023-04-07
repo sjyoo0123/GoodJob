@@ -21,7 +21,7 @@
 		select count(*) from member where id=#{id} and status='활성'
 	</select>
 	<select id="emailCheck" parameterType="String" resultType="Integer">
-	select count(*) from member where and email=#{email} and status='활성'
+	select count(*) from member where email=#{email} and status='활성'
 	</select>
 	<update id="memberUpdate" parameterType="map">
 		BEGIN
@@ -35,4 +35,7 @@
 
 		END
 	</update>
+	<select id="resumeWriteForm" resultType="com.goodjob.member.model.MemberDTO">
+		select * from member where idx =1 and status = '활성' 
+	</select>
 </mapper>

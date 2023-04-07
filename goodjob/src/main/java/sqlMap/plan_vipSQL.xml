@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.goodjob.plan_vip">
+ 	<insert id="manPlanAdd_vip" parameterType="com.goodjob.plan_vip.model.Plan_VipDTO">
+ 		 insert into plan
+ 		values(
+ 		plan_idx_se.nextval,
+ 		#{plan_name},
+ 		#{plan_price},
+ 		#{plan_type},
+ 		'활성'
+ 		)
+ 		
+ 	</insert>
+ 	<insert id="manPlanVipAdd" parameterType="Map">
+ 		insert into plan_vip
+ 		values(
+ 		plan_vip_idx.nextval,
+ 		plan_idx_se.currval,
+ 		#{plan_period},
+ 		#{vip_floor}
+ 		)
+ 	</insert>
+ 	<select id="manPlanVipList" parameterType="Map" resultType="com.goodjob.plan_vip.model.Plan_VipDTO">
+ 	select * from(
+		rownum as rnum, a.* from
+		(select * from plan,plan_vip
+		 where plan.idx=plan_up.idx order by idx asc )a)b
+		 where rnum <![CDATA[>=]]>#{start} and rnum <![CDATA[<=]]>#{end}
+ 	</select>
+ </mapper>

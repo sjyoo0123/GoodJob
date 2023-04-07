@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions"  prefix="fn"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -16,16 +17,21 @@
 	width: 960px;
 }
 </style>
+<script>
+let textareaValue = document.getElementById('myTextarea').value; // textarea의 값 가져오기
+let replacedValue = textareaValue.replace(/\n/g, '<br>'); // 개행 문자열을 <br>로 대체하기
+
+</script>
 <body>
-<%@include file="/WEB-INF/views/header.jsp" %>
 <div class="container">
+<%@include file="/WEB-INF/views/header.jsp" %>
 	<div class="row">
 		<div class="col-sm-4">
 			문의 답변
 		</div>
 	</div>
 	<br>
-	<form name="manOneAnswer" action="manOneAnswer.do">
+	<form name="manOneAnswer" action="manOneAnswer.do" method="post">
 	<div class="row">
 		<div class="offset-sm-3 col-sm-6"> 
 			<table class="table">
@@ -43,9 +49,8 @@
 				</tr>
 				<tr>
 					<td>
-						<textarea cols="30" rows="10" name="content">
-							${dto.content } 	&#10;
-							---------------------------------------		&#10;
+						<textarea cols="50" rows="20" name="content" id=>
+							${dto.content}
 						</textarea>
 					</td>
 				</tr>
@@ -60,7 +65,7 @@
 		</div>
 	</div>
 	</form>
+	<%@include file="/WEB-INF/views/footer.jsp" %>
 </div>
-<%@include file="/WEB-INF/views/footer.jsp" %>
 </body>
 </html>
