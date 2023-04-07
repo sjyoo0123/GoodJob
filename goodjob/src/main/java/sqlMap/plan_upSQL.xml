@@ -22,14 +22,35 @@
  		)
  		
  	</insert>
- 	<select id="manPlanUpList" resultType="com.goodjob.plan_up.model.Plan_UpDTO" parameterType="Map">
+ 	<select id="manPlanUpList" resultType="com.goodjob.plan_up.model.Plan_UpDTO" >
  		
-		select * from(
-		rownum as rnum, a.* from
+		select * from
 		(select * from plan,plan_up
-		 where plan.idx=plan_up.idx order by idx asc )a)b
-		 where rnum <![CDATA[>=]]>#{start} and rnum <![CDATA[<=]]>#{end}
-	
-		
+		 where plan.idx=plan_up.plan_idx and status='활성' order by idx asc )b
  	</select>
+ 	<update id="manPlanDel_up" parameterType="com.goodjob.plan_up.model.Plan_UpDTO">
+ 		update plan set
+ 		status='비활성화'
+ 		where idx=#{idx}
+ 	</update>
+ 	<select id="manPlanUpList_update" resultType="com.goodjob.plan_up.model.Plan_UpDTO">
+			select * from
+		(select * from plan,plan_up
+		 where plan.idx=plan_up.plan_idx order by idx asc )b 	
+ 	</select>
+ 	<select id="manPlanUpContent" resultType="com.goodjob.plan_up.model.Plan_UpDTO" parameterType="Integer">
+ 		select * from plan a,plan_up b
+ 		where a.idx=b.plan_idx and idx=#{idx}
+ 	</select>
+ 	<update id="manPlanUpUpdate_a"  parameterType="com.goodjob.plan_up.model.Plan_UpDTO">
+ 		update plan set
+ 		plan_name=#{plan_name},
+ 		plan_price=#{plan_price}
+ 		where idx=#{idx}
+ 	</update>
+ 	<update id="manPlanUpUpdate_b" parameterType="com.goodjob.plan_up.model.Plan_UpDTO">
+ 		update plan_up set
+ 		count=#{count}
+ 		where plan_idx=#{idx}
+ 	</update>
  </mapper>

@@ -33,4 +33,53 @@ public class Plan_VipDAOImple implements Plan_VipDAO {
 		
 		return count;
 	}
+	
+	@Override
+	public List<Plan_VipDTO> manPlanVipList() {
+		
+		List<Plan_VipDTO> lists=sqlMap.selectList("manPlanVipList");
+		
+		return lists;
+	}
+	
+	@Override
+	public int manPlanDel_vip(int idx) {
+		
+		int count=sqlMap.update("manPlanDel_vip", idx);
+		
+		return count;
+	}
+	
+	@Override
+	public List<Plan_VipDTO> manPlanVipList_update() {
+	
+		List<Plan_VipDTO> lists= sqlMap.selectList("manPlanVipList_update");
+		
+		return lists;
+		
+	}
+	
+	@Override
+	public Plan_VipDTO manPlanVipContent(int idx) {
+		
+		Plan_VipDTO dto=sqlMap.selectOne("manPlanVipContent",idx);
+		
+		return dto;	
+		
+	}
+	@Override
+	public int manPlanVipUpdate_a(Plan_VipDTO dto) {
+		
+		int count=sqlMap.update("manPlanVipUpdate_a", dto);
+		
+		return count;
+	}
+	
+	@Override
+	public int manPlanVipUpdate_b(Plan_VipDTO dto) {
+
+		int count=sqlMap.update("manPlanVipUpdate_b", dto);
+		
+		return count;
+	}
 }

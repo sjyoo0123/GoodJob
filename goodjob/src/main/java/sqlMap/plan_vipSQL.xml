@@ -23,11 +23,35 @@
  		#{vip_floor}
  		)
  	</insert>
- 	<select id="manPlanVipList" parameterType="Map" resultType="com.goodjob.plan_vip.model.Plan_VipDTO">
- 	select * from(
-		rownum as rnum, a.* from
+ 	<select id="manPlanVipList" resultType="com.goodjob.plan_vip.model.Plan_VipDTO">
+ 	select * from
 		(select * from plan,plan_vip
-		 where plan.idx=plan_up.idx order by idx asc )a)b
-		 where rnum <![CDATA[>=]]>#{start} and rnum <![CDATA[<=]]>#{end}
+		 where plan.idx=plan_vip.plan_idx and status='활성' order by idx asc )b
  	</select>
+ 	<update id="manPlanDel_vip" parameterType="com.goodjob.plan_vip.model.Plan_VipDTO">
+ 			update plan set
+ 			status='비활성화'
+ 			where idx=#{idx}	
+ 	</update>
+ 	<select id="manPlanVipList_update" resultType="com.goodjob.plan_vip.model.Plan_VipDTO">
+		select * from
+		(select * from plan,plan_vip
+		 where plan.idx=plan_vip.plan_idx order by idx asc )b 	
+ 	</select>
+ 	<select id="manPlanVipContent" resultType="com.goodjob.plan_vip.model.Plan_VipDTO" >
+ 	 		select * from plan a,plan_vip b
+ 		where a.idx=b.plan_idx and idx=#{idx}
+ 	</select>
+ 	<update id="manPlanVipUpdate_a"  parameterType="com.goodjob.plan_vip.model.Plan_VipDTO">
+ 		update plan set
+ 		plan_name=#{plan_name},
+ 		plan_price=#{plan_price}
+ 		where idx=#{idx}
+ 	</update>
+ 	<update id="manPlanVipUpdate_b" parameterType="com.goodjob.plan_vip.model.Plan_VipDTO">
+ 		update plan_vip set
+ 		plan_period=#{plan_period},
+ 		vip_floor=#{vip_floor}
+ 		where plan_idx=#{idx}
+ 	</update>
  </mapper>

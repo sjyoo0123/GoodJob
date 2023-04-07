@@ -64,11 +64,12 @@
 								</td>
 								<td class="plan-option">
 									<div  style="display: none;" class="vip-option">
+										등급 :
 										<select class="form-select" name="vip_floor">
 											<option value="다이아">다이아</option>
 											<option value="골드">골드</option>
 											<option value="실버">실버</option>
-										</select>
+										</select>기간 :
 										<select class="form-select" name="plan_period">
 											<option value="1">1일</option>
 											<option value="3">3일</option>
