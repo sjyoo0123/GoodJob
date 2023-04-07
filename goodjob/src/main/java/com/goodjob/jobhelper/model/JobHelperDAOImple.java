@@ -21,4 +21,14 @@ public class JobHelperDAOImple implements JobHelperDAO {
 		List<JobHelperDTO> lists=sqlMap.selectList("helperJobGet", job);
 		return lists;
 	}
+	@Override
+	public List<String> helperJobCategoryGet() {
+		List<String> lists=sqlMap.selectList("helperJobCategoryGet");
+		return lists;
+	}
+	@Override
+	public List<JobHelperDTO> helperLocalGet(String local) {
+		List<JobHelperDTO> lists=sqlMap.selectList("helperLocalGet", local);
+		return lists;
+	}
 }

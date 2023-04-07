@@ -10,4 +10,15 @@
   	where h.job1=#{category} and n.pay_hour<![CDATA[>]]>0
   	group by h.job2
   </select>
+  <select id="helperJobCategoryGet" resultType="String">
+  	select job1
+  	from hope_job
+  	group by job1
+  </select>
+  <select id="helperLocalGet" parameterType="String" resultType="com.goodjob.jobhelper.model.JobHelperDTO">
+  	select trunc(avg(pay_hour)) as price, local2 as category
+	from notice
+	where local1=#{category} and pay_hour<![CDATA[>]]>0
+	group by local2
+  </select>
   </mapper>
