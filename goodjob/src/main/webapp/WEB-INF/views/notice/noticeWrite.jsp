@@ -110,17 +110,22 @@ $(document).ready(function() {
 <body>
 <h1>요금제<input type="text" name="plan_idx" value="1"></h1>
 <h1>기업idx</h1><input type="text" name="com_idx" value="7">
-
 	<h1>공고 등록</h1>
 	<form action="noticeWrite.do" method="post" id="writeForm">
-		<div>
-			<h2>공고제목</h2>
+	<div class="container px-4 px-lg-5">
+	<div class="row gx-4 gx-lg-5 justify-content-center">
+	<div class="col-md-12 col-lg-9 col-xl-8">
+		<div class="card bg-primary bg-opacity-10">
+				<div class="card-body">
+			<h2 class="card-title">공고제목</h2>
 			<input type="text" name="subject"
 				class="form-control form-control-lg">
 		</div>
-		<hr>
-		<div>
-			<h2>모집조건</h2>
+		</div>
+		<hr class="my-4">
+		<div class="card bg-primary bg-opacity-10">
+						<div class="card-body">
+			<h2 class="card-title">모집조건</h2>
 			<table>
 				<tr>
 					<th>성별</th>
@@ -178,9 +183,11 @@ $(document).ready(function() {
 				</tr>
 			</table>
 		</div>
-		<hr>
-		<div>
-			<h2>근무조건</h2>
+		</div>
+		<hr class="my-4">
+		<div class="card bg-primary bg-opacity-10">
+								<div class="card-body">
+			<h2 class="card-title">근무조건</h2>
 			<table>
 				<tr>
 					<th>근무기간</th>
@@ -285,9 +292,11 @@ $(document).ready(function() {
 				</tr>
 			</table>
 		</div>
-		<hr>
-		<div>
-			<h2>근무지정보</h2>
+		</div>
+		<hr class="my-4">
+		<div class="card bg-primary bg-opacity-10">
+								<div class="card-body">
+			<h2 class="card-title">근무지정보</h2>
 			<div>
 				<table>
 					<tr>
@@ -378,10 +387,12 @@ $(document).ready(function() {
 				</tr>
 			</table>
 		</div>
+		</div>
 
-		<hr>
-		<div>
-			<h2>담당자정보</h2>
+		<hr class="my-4">
+		<div class="card bg-primary bg-opacity-10">
+								<div class="card-body">
+			<h2 class="card-title">담당자정보</h2>
 			<table>
 				<tr>
 					<th>담당자명</th>
@@ -397,12 +408,23 @@ $(document).ready(function() {
 				</tr>
 			</table>
 		</div>
-		<hr>
-		<div>
-			<h2>상세정보</h2>
+		</div>
+		<hr class="my-4">
+		<div class="card bg-primary bg-opacity-10">
+								<div class="card-body">
+			<h2 class="card-title">상세정보</h2>
 			<textarea rows="30" cols="50" name="content"></textarea>
 		</div>
-		<input type="submit" value="등록">
+		<button type="submit" class="btn btn-primary btn-icon-split btn-lg">
+    <span class="icon text-white-50">
+        <i class="bi bi-check-lg"></i>
+    </span>
+    <span class="text">공고 등록하기</span>
+</button>
+		</div>
+		</div>
+		</div>
+		</div>
 	</form>
 
 </body>

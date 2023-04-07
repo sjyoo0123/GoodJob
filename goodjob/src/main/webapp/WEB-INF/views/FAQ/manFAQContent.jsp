@@ -18,8 +18,8 @@
 </style>
 </head>
 <body>
-	<%@include file="/WEB-INF/views/header.jsp" %>
 	<div class="container">
+	<%@include file="/WEB-INF/views/header.jsp" %>
 		<div class="row">
 			<div class="offset-sm-3 col-sm-6">
 				<h3>FAQ 수정</h3>
@@ -54,7 +54,7 @@
 				</div>
 			</div>
 		</form>
+		<%@include file="/WEB-INF/views/footer.jsp" %>
 	</div>
-	<%@include file="/WEB-INF/views/footer.jsp" %>
 </body>
 </html>

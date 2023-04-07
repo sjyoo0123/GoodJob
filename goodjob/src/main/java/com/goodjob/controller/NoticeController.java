@@ -141,7 +141,6 @@ public class NoticeController {
 			@RequestParam(value = "bAjax", defaultValue = "false") boolean bAjax) {
 		ModelAndView mav = new ModelAndView();
 		StringBuffer workday = null;
-		System.out.println(listworkday.length);System.out.println(local2.length);
 		if (!listworkday.equals("") && !listworkday.equals(null)) {
 			workday = new StringBuffer("________");
 		} else {
@@ -173,4 +172,21 @@ public class NoticeController {
 		}
 		return mav;
 	}
+	@RequestMapping("/noticeUpdate.do")
+	public ModelAndView noticeUpdateForm(@RequestParam(value="idx")int nidx) {
+		ModelAndView mav=new ModelAndView();
+		NoticeDTO dto=ndao.noticeContent(nidx);
+		
+		return mav;
+	}
+	@RequestMapping(value="/noticeUpdate.do",method=RequestMethod.POST)
+	public ModelAndView noticeUpdateSubmit(NoticeDTO dto) {
+
+		ModelAndView mav=new ModelAndView();
+		
+		return mav;
+	}
+	
+	
+
 }

@@ -10,7 +10,10 @@ public interface One_OneDAO {
 	
 	public One_OneDTO manOneContent(int idx);
 	
-	public int manFAQAnswer(One_OneDTO dto);
+	public int manOneAnswer(One_OneDTO dto);
+	
+	public List<One_OneDTO> manOneSearch(int cp, int ls, String search);
+
 	
 	public List<One_OneDTO> userOneList(int idx,int cp,int ls);
 	
@@ -19,4 +22,5 @@ public interface One_OneDAO {
 	public One_OneDTO userOneContent(int idx);
 	
 	public int userOneReWrite(One_OneDTO dto);
+
 }

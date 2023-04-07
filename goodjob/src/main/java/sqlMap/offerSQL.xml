@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.goodjob.offer">
+ <select id="ofComList" parameterType="Map" resultType="com.goodjob.notice.model.NoticeDTO">
+ select * from
+		(select rownum as rnum,a.* from
+		(select offer.normember_idx idx, offer.offerdate writedate, offer.normal_name subject,to_char(offer.normal_birth,'yyyy') pay_month, TRUNC((sysdate-offer.normal_birth)/365) min_age,offer.normal_gender gender,member.addr period ,offer."CHECK" ref from offer,member where offer.commember_idx=#{idx} and offer.normember_idx=member.idx) a) b
+		where <![CDATA[rnum>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
+ </select>
+ <select id="offerTotalCnt" parameterType="Integer" resultType="Integer">
+ select count(*) from offer where commember_idx=#{idx} and status='활성'
+ </select>
+ </mapper>

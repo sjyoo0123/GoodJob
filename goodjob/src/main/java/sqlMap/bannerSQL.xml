@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.goodjob.banner">
+ 	<insert id="manBannerAdd" parameterType="com.goodjob.banner.model.BannerDTO">
+ 		insert into banner
+ 		values (
+ 		banner_idx.nextval,
+ 		#{subject},
+ 		#{link},
+ 		1,
+ 		'활성'
+ 		)
+ 	</insert>
+ 	<update id="manBannerRef" parameterType="com.goodjob.banner.model.BannerDTO">
+ 		update banner set
+ 		ref=ref+1
+ 	</update>
+ 	<select id="manBannerCount" resultType="Integer">
+ 		select count(*) from banner
+ 	</select>
+ 	<select id="manBannerFileList" resultType="com.goodjob.banner.model.Banner_totalFileDTO">
+ 		select banner.*,totalfile.*,totalfile.idx as file_idx from banner,totalfile
+		where banner.idx = totalfile.table_idx
+		and category='banner'
+		order by table_idx asc
+ 	</select>
+ 	<select id="manBannerUpdateContent" resultType="com.goodjob.banner.model.Banner_totalFileDTO">
+ 		select banner.*,totalfile.*,totalfile.idx as file_idx from banner,totalfile
+		where banner.idx = totalfile.table_idx
+		and table_idx=#{idx} and category='banner'
+ 	</select>
+ 	<delete id="manBannerDel" parameterType="com.goodjob.banner.model.BannerDTO">
+ 		delete from banner
+ 		where idx=${idx}
+ 	</delete>
+ </mapper>

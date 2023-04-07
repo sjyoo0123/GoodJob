@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,34 +28,7 @@
 
 <title>Insert title here</title>
 <script>
-	$(document).ready(function() {
-		$('#checkworkday').show();
-		$('input[name="workday"]').change(function() {
-			if ($(this).val() == '요일지정') {
-				$('#checkworkday').show();
-			} else {
-				$('#checkworkday').hide();
-			}
-		});
-	});
-	$(document).ready(function() {
-		$('input[name="carrercheck"]').change(function() {
-			if ($(this).val() == '경력') {
-				$('#carrer1').show();
-			} else {
-				$('#carrer1').hide();
-			}
-		});
-	});
-	$(document).ready(function() {
-		$('input[name=checkboxworkday]').click(function() {
-			if (this.id === 'moo') {
-				$('input[name=checkboxworkday]:lt(7)').prop('checked', false);
-			} else {
-				$('#moo').prop('checked', false);
-			}
-		});
-	});
+	
 </script>
 <style>
 .map_wrap {
@@ -99,55 +73,65 @@
 </head>
 <body>
 	<h1>이력서 작성</h1>
-	<form action="reviewWrite.do" method="post">
+	<form id="writeForm" name="resumeWrite" action="resumeWrite.do" method="post">
 		<hr>
 		<div>
 			<table>
+			<c:if test="${empty dto }">
 				<tr>
-					<th>이름 / 성별 / 생녀월일</th>
+					<th></th>
+					<td>등록된 정보가 없습니다</td>
+				</tr>
+			</c:if>
+				<tr>
+					<th> 이름 / 성별  /  생년월일 </th>
 					<td></td>
 				</tr>
 				<tr>
-					<th>홍길동 / 남성 / 1990.09.09</th>
+					<th>${dto.name} / ${nto.status} / ${nto.review_num }</th>
 					<td></td>
 				</tr>
 				<tr>
 					<th>주소</th>
-					<td>2</td>
+					<td><span>${dto.addr }</span> 
+					<div>상세주소<input type="text" name="detail_addr"></div>
+					</td>
 				</tr>
 				<tr>
 					<th>이메일</th>
-					<td>3</td>
+					<td>${dto.email }</td>
 				</tr>
 				<tr>
 					<th>tel</th>
-					<td>3</td>
+					<td>${dto.tel }</td>
 				</tr>
 				<tr>
-
+				
+			<hr>
+				<div>
+				 <input type="hidden" name="name" value="${dto.name} ">
+				<input type="hidden" name="addr" value="${dto.addr }">
+				<input type="hidden" name="gender" value="${nto.status }">
+				<input type="hidden" name="email" value="${dto.email }">
+				<input type="hidden" name="tel" value="${dto.tel }">
+				<input type="hidden" name="age" value="${nto.review_num }">
+				<input type="hidden" name="member_idx" value="${dto.idx}"> 
+				</div>
 					<th><h2>이력서제목</h2></th>
-					<td><div>
-							<input type="text" name="subject"
-								class="form-control form-control-lg">
-						</div></td>
+					<td>
+						<div>
+							<input type="text" name="subject" class="form-control form-control-lg">
+						</div>
+					</td>
 				</tr>
 				<tr>
 					<th>학력</th>
-					<td><select name="grade"
-						class="form-select form-select-lg mb-3"
-						aria-label=".form-select-lg example">
-							<option value="초등학교">초등학교</option>
-							<option value="중학교">중학교</option>
-							<option value="고등학교">고등학교</option>
-							<option value="대학교">대학교</option>
+					<td><select name="grade" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+							<option value="초등학교 졸업">초등학교 졸업</option>
+							<option value="중학교 졸업">중학교 졸업</option>
+							<option value="고등학교 졸업">고등학교 졸업</option>
+							<option value="대학교 졸업">대학교 졸업</option>
 							<option value="학력무관">학력무관</option>
-					</select> <select name="gradefinish" class="form-select form-select-lg mb-3"
-						aria-label=".form-select-lg example">
-							<option value="졸업">졸업</option>
-							<option value="재학">재학</option>
-							<option value="중퇴">중퇴</option>
-							<option value="휴학">휴학</option>
-							<option value="수료">수료</option>
 					</select></td>
 				</tr>
 
@@ -162,13 +146,13 @@
 
 				<tr>
 					<th>경력구분</th>
-					<td><input type="radio" value="신입" class="btn-check"
-						id="carrercheck1" name="carrercheck" autocomplete="off" checked>
-						<label class="btn btn-outline-primary" for="carrercheck1">신입</label>
+					<td>
+						<input type="radio" value="신입" class="btn-check" id="career_check1" name="career_check" autocomplete="off" checked>
+						<label class="btn btn-outline-primary" for="career_check1">신입</label>
 
-						<input type="radio" value="경력" class="btn-check" id="carrercheck"
-						name="carrercheck" autocomplete="off"> <label
-						class="btn btn-outline-primary" for="carrercheck">경력</label></td>
+						<input type="radio" value="경력" class="btn-check" id="career_check" 	name="career_check" autocomplete="off"> 
+						<label class="btn btn-outline-primary" for="career_check">경력</label>
+					</td>
 				</tr>
 				<tr>
 					<th></th>
@@ -181,9 +165,9 @@
 								</tr>
 								<tr>
 									<th>근무기간</th>
-									<td><input type="text" id="date" name="startday"
-										placeholder="근무시작일">&nbsp;<input type="text"
-										id="date2" name="finishday" placeholder="근무종료일"></td>
+									<td><input type="text" id="date" name="startday_s" placeholder="근무시작일">
+									&nbsp;
+									<input type="text" id="date2" name="endday_s" placeholder="근무종료일"></td>
 								</tr>
 
 
@@ -225,6 +209,10 @@
 									<th>담당업무</th>
 									<td><input type="text" name="part"></td>
 								<tr>
+								<tr>
+									<th>서비스타입</th>
+									<td><input type="text" name="service_type"></td>
+								<tr>
 							</table>
 						</div></td>
 				</tr>
@@ -238,109 +226,231 @@
 
 				<tr>
 					<th>희망 근무지</th>
-					<td><input type="text" name="local"></td>
+					<div class="addr input-group">
+									<select class="h_local1" size="3" name="h_local1">
+										<option selected>시 도</option>
+									</select> <select class="h_local2" size="3" name="h_local2">
+										<option selected>시 구 군</option>
+									</select>
+						<div class="lAddr"></div>
+					</div>
 				</tr>
 				<tr>
-					<th>업직종</th>
-					<td><input type="button" value="직종"></td>
+						<tr>
+					<th>직종</th>
+					<td><input type="button" value="직종" onclick="show()">
+					<input type="text" value="직종" name="job" id="job" readonly></td>
+				</tr>
 				</tr>
 
 
 				<tr>
 					<th>근무기간</th>
-					<td><input type="radio" name="period" value="하루"
-						class="btn-check" id="period" autocomplete="off" checked><label
-						class="btn btn-outline-primary" for="period">하루</label> <input
-						type="radio" name="period" value="일주일이하" class="btn-check"
-						id="period1" autocomplete="off"><label
-						class="btn btn-outline-primary" for="period1">일주일이하</label> <input
-						type="radio" name="period" value="1주일~1개월" class="btn-check"
-						id="period2" autocomplete="off"><label
-						class="btn btn-outline-primary" for="period2">1주일~1개월</label> <input
-						type="radio" name="period" value="1개월~3개월" class="btn-check"
-						id="period3" autocomplete="off"><label
-						class="btn btn-outline-primary" for="period3">1개월~3개월</label> <input
-						type="radio" name="period" value="3개월~6개월" class="btn-check"
-						id="period4" autocomplete="off"><label
-						class="btn btn-outline-primary" for="period4">3개월~6개월</label> <input
-						type="radio" name="period" value="6개월~1년" class="btn-check"
-						id="period5" autocomplete="off"><label
-						class="btn btn-outline-primary" for="period5">6개월~1년</label> <input
-						type="radio" name="period" value="1년이상" class="btn-check"
-						id="period6" autocomplete="off"><label
-						class="btn btn-outline-primary" for="period6">1년이상</label> <input
-						type="radio" name="period" value="추후협의" class="btn-check"
-						id="period7" autocomplete="off"><label
-						class="btn btn-outline-primary" for="period7">추후협의</label></td>
+					<td>
+					<input type="radio" name="h_period" value="하루" class="btn-check" id="h_period" autocomplete="off" checked>
+					<label class="btn btn-outline-primary" for="h_period">하루</label> 
+					<input type="radio" name="h_period" value="일주일이하" class="btn-check"	id="h_period1" autocomplete="off">
+					<label class="btn btn-outline-primary" for="h_period1">일주일이하</label> 
+						<input type="radio" name="h_period" value="1주일~1개월" class="btn-check" id="h_period2" autocomplete="off">
+						<label class="btn btn-outline-primary" for="h_period2">1주일~1개월</label> 
+						<input type="radio" name="h_period" value="1개월~3개월" class="btn-check" id="h_period3" autocomplete="off">
+						<label class="btn btn-outline-primary" for="h_period3">1개월~3개월</label> 
+						<input type="radio" name="h_period" value="3개월~6개월" class="btn-check" id="h_period4" autocomplete="off">
+						<label class="btn btn-outline-primary" for="h_period4">3개월~6개월</label>
+						<input type="radio" name="h_period" value="6개월~1년" class="btn-check" id="h_period5" autocomplete="off">
+						<label class="btn btn-outline-primary" for="h_period5">6개월~1년</label> 
+						<input type="radio" name="h_period" value="1년이상" class="btn-check" id="h_period6" autocomplete="off">
+						<label class="btn btn-outline-primary" for="h_period6">1년이상</label>
+						<input type="radio" name="h_period" value="추후협의" class="btn-check" 	id="h_period7" autocomplete="off">
+						<label class="btn btn-outline-primary" for="h_period7">추후협의</label>
+						</td>
 				</tr>
 				<tr>
 					<th>근무요일</th>
 					<td><input type="radio" value="요일지정" class="btn-check"
-						id="workday" name="workday" autocomplete="off" checked> <label
-						class="btn btn-outline-primary" for="workday">요일지정</label> <input
-						type="radio" value="시간협의" class="btn-check" id="workday1"
-						name="workday" autocomplete="off"> <label
-						class="btn btn-outline-primary" for="workday1">시간협의</label></td>
+						id="h_workday" name="h_workday" autocomplete="off" checked> <label
+						class="btn btn-outline-primary" for="h_workday">요일지정</label> <input
+						type="radio" value="시간협의" class="btn-check" id="h_workday1"
+						name="h_workday" autocomplete="off"> <label
+						class="btn btn-outline-primary" for="h_workday1">시간협의</label></td>
 				</tr>
 				<tr>
 					<th></th>
-					<td><div id="checkworkday" style="display: none;">
-							<input type="checkbox" name="checkboxworkday" value="mon"
+					<td><div id="checkh_h_workday" style="display: none;">
+							<input type="checkbox" name="checkboxh_h_workday" value="mon"
 								class="btn-check" id="mon"><label
 								class="btn btn-outline-dark" for="mon">월</label> <input
-								type="checkbox" name="checkboxworkday" value="thu"
+								type="checkbox" name="checkboxh_h_workday" value="thu"
 								class="btn-check" id="tue"><label
 								class="btn btn-outline-dark" for="tue">화</label> <input
-								type="checkbox" name="checkboxworkday" value="wed"
+								type="checkbox" name="checkboxh_h_workday" value="wed"
 								class="btn-check" id="wed"><label
 								class="btn btn-outline-dark" for="wed">수</label> <input
-								type="checkbox" name="checkboxworkday" value="thu"
+								type="checkbox" name="checkboxh_h_workday" value="thu"
 								class="btn-check" id="thu"><label
 								class="btn btn-outline-dark" for="thu">목</label> <input
-								type="checkbox" name="checkboxworkday" value="fri"
+								type="checkbox" name="checkboxh_h_workday" value="fri"
 								class="btn-check" id="fri"><label
 								class="btn btn-outline-dark" for="fri">금</label> <input
-								type="checkbox" name="checkboxworkday" value="sat"
+								type="checkbox" name="checkboxh_h_workday" value="sat"
 								class="btn-check" id="sat"><label
 								class="btn btn-outline-dark" for="sat">토</label> <input
-								type="checkbox" name="checkboxworkday" value="sun"
+								type="checkbox" name="checkboxh_h_workday" value="sun"
 								class="btn-check" id="sun"><label
 								class="btn btn-outline-dark" for="sun">일</label> <input
-								type="checkbox" name="checkboxworkday" value="moo"
+								type="checkbox" name="checkboxh_h_workday" value="moo"
 								class="btn-check" id="moo"><label
 								class="btn btn-outline-dark" for="moo">무관</label>
 						</div></td>
 				</tr>
 				<tr>
-					<th>근무시간</th>
-					<td><input type="radio" value="시간지정" class="btn-check"
-						id="workdaytime" name="workdaytime" autocomplete="off" checked><label
-						class="btn btn-outline-primary" for="workdaytime">시간지정</label> <input
-						type="radio" value="시간협의" class="btn-check" id="workdaytime1"
-						name="workdaytime" autocomplete="off"><label
-						class="btn btn-outline-primary" for="workdaytime1">시간협의</label></td>
-				</tr>
+					<th>희망하는 근무시간</th>
+					<td><select name="h_worktime" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+							<option value="오전">오전</option>
+							<option value="오후">오후</option>
+							<option value="무관">무관</option>
+					</select></td>
+					</tr>
 				<tr>
 					<th>급여</th>
-					<td><input type="radio" value="시급" class="btn-check" id="pay"
-						name="pay" autocomplete="off" checked><label
-						class="btn btn-outline-primary" for="pay">시급</label> <input
-						type="radio" value="월급" class="btn-check" id="pay1" name="pay"
+					<td><input type="radio" value="시급" class="btn-check" id="h_pay_category"
+						name="h_pay_category" autocomplete="off" checked><label
+						class="btn btn-outline-primary" for="h_pay_category">시급</label> 
+						<input type="radio" value="월급" class="btn-check" id="h_pay_category1" name="h_pay_category"
 						autocomplete="off"><label class="btn btn-outline-primary"
-						for="pay1">월급</label><br> <input type="text" name="pay">원</td>
+						for="h_pay_category1">월급</label><br> <input type="text" name="h_pay">원 
+						<div id="week_h_worktime" style="display: none;">1주 근무시간<input type="number" name="h_worktime" value="0"></div></td>
+						<!-- weekh_h_wortime 을 week_h_worktime으로 수정  -->
 				</tr>
 			</table>
 		</div>
-		<hr>
 
-		</div>
 		<hr>
 
 		<div>
 			<h2>자기소개서</h2>
 			<textarea rows="30" cols="50" name="content"></textarea>
 		</div>
+		<div>
+			<h2>공개여부</h2>
+			<label> <input type="checkbox" name="check" value=1>공개</label>
+			<label> <input type="checkbox" name="check" value=0>비공개</label>
+
+		</div>
 		<input type="submit" value="등록">
 	</form>
+	<script>
+	$.ajax({
+		url:'https://grpc-proxy-server-mkvo6j4wsq-du.a.run.app/v1/regcodes?regcode_pattern=*00000000',
+	      type:'get',
+	      contentType: "application/json"
+	}).done((data)=>{
+		for(var i=0;i<data.regcodes.length;i++){
+			var op= $('<option>').attr({id:data.regcodes[i].code.substring(0,2)}).text(data.regcodes[i].name);
+			$('.h_local1').append(op);
+		}
+	});
+	$('.h_local1').on('change',()=>{
+		$('.h_local2').empty();
+		$('.lAddr').empty();
+		var pattern=$('.h_local1 option:selected').attr('id');
+		$.ajax({
+			url:'https://grpc-proxy-server-mkvo6j4wsq-du.a.run.app/v1/regcodes?regcode_pattern='+pattern+'*00000&is_ignore_zero=true',
+			type:'get',
+		      contentType:"application/json"
+		}).done((data)=>{
+			for(var i=0; i<data.regcodes.length; i++){
+				  if (i > 0 && data.regcodes[i].code.substring(0, 5) - 1 == data.regcodes[i-1].code.substring(0, 5)) {
+					  if(data.regcodes[i-1].code.substring(0, 5).substr(-1) == '0'){
+				   		 $('#' + data.regcodes[i-1].code.substring(0, 5)).remove();
+					  }
+				  }
+				  var name = data.regcodes[i].name;
+				  var sname = name.split(' ');
+				  if(sname.length==3){
+					  var op = $('<option>').attr({id: data.regcodes[i].code.substring(0, 5)}).text(sname[1]+' '+sname[2]);
+					  $('.h_local2').append(op);
+				  }else{
+					  
+				  var op = $('<option>').attr({id: data.regcodes[i].code.substring(0, 5)}).text(sname.slice(1));
+				  $('.h_local2').append(op);
+				  }
+				
+				}
+			})
+	});
+	$(document).ready(function() {
+		$('#checkh_h_workday').show();
+		$('input[name="h_workday"]').change(function() {
+			if ($(this).val() == '요일지정') {
+				$('#checkh_h_workday').show();
+			} else {
+				$('#checkh_h_workday').hide();
+			}
+		});
+	});
+	$(document).ready(function() {
+		$('input[name="career_check"]').change(function() {
+			if ($(this).val() == '경력') {
+				$('#carrer1').show();
+			} else {
+				$('#carrer1').hide();
+			}
+		});
+	});
+	$(document).ready(function() {
+		$('input[name=checkboxh_h_workday]').click(function() {
+			if (this.id === 'moo') {
+				$('input[name=checkboxh_h_workday]:lt(7)').prop('checked', false);
+			} else {
+				$('#moo').prop('checked', false);
+			}
+		});
+	});
+
+	function show() {
+
+		var url = "joblist.do";
+		var name = "h_job";
+		var option = "width=500, heigt = 500, top=500, left =200";
+		window.open(url, name, option);
+
+	}
+
+	$(document).ready(
+			function() {
+				$('input[type="checkbox"][name="check"]').click(
+						function() {
+
+							if ($(this).prop('checked')) {
+								$('input[type="checkbox"][name="check"]').prop(
+										'checked', false);
+								$(this).prop('checked', true);
+							}
+						});
+			});
+	$(document).ready(function() {
+	  $('input[name="h_pay_category"]').change(function() {
+	    if ($(this).val() == '월급') {
+	      $('#week_h_worktime').show();
+	    } else {
+	      $('#week_h_worktime').hide();
+	    }
+	  });
+	});
+	$(document).ready(function() {
+		  $('input[type="submit"]').click(function() {
+		    var selectedDays = '';
+		    $('input[name="checkboxh_h_workday"]').each(function() {
+		      if($(this).is(':checked')) {
+		        selectedDays += '1';
+		      } else {
+		        selectedDays += '0';
+		      }
+		    });
+		    $('#h_workday').val(selectedDays);
+		  });
+		});
+	</script>
 </body>
 </html>

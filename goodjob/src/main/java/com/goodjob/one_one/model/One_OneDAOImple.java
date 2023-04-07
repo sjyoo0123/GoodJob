@@ -56,11 +56,28 @@ public class One_OneDAOImple implements One_OneDAO {
 	}
 
 	@Override
-	public int manFAQAnswer(One_OneDTO dto) {
+	public int manOneAnswer(One_OneDTO dto) {
 		
 		int count=sqlMap.update("manOneAnswer", dto);
 		
 		return count;
+	}
+	
+	@Override
+	public List<One_OneDTO> manOneSearch(int cp, int ls, String search) {
+		
+		Map map=new HashMap();
+		int start=(cp-1)*ls+1;
+		int end=cp*ls;
+		search="";
+		map.put("start", start);
+		map.put("end", end);
+		map.put("search", search);
+		
+		
+		List<One_OneDTO> lists=sqlMap.selectList("manOneSearch", map);
+		
+		return lists;
 	}
 	@Override
 	public List<One_OneDTO> userOneList(int idx, int cp, int ls) {
@@ -88,5 +105,7 @@ public class One_OneDAOImple implements One_OneDAO {
 		// TODO Auto-generated method stub
 		return sqlMap.update("userOneReWrite", dto);
 	}
+	
+
 	
 }
