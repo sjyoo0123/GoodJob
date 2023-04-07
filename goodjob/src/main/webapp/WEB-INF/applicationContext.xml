@@ -106,4 +106,7 @@
 	<bean id="plan_VipDao" class="com.goodjob.plan_vip.model.Plan_VipDAOImple">
 		<property name="sqlMap" ref="sqlSessionTemplate"></property>
 	</bean>
+	<bean id="plan_used_vipDao" class="com.goodjob.plan_used_vip.model.Plan_Used_VipDAOImple">
+		<property name="sqlMap" ref="sqlSessionTemplate"></property>
+	</bean>
 </beans>

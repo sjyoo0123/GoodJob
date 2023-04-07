@@ -30,6 +30,8 @@
 <title>${dto.subject}</title>
 </head>
 <body>
+<input type="hidden" id="x" value="${dto.x}">
+<input type="hidden" id="y" value="${dto.y}">
 <div class="container">
 <div class="btn-group btn-group-lg" role="group" aria-label="Large button group">
 <button class="btn btn-outline-dark"><span>수정</span></button>
@@ -110,8 +112,44 @@
 <div>
 <h2>근무지정보</h2>
 <h5>근무지명&nbsp;${dto.com_name}(${dto.local1} ${dto.local2} ${dto.local3} ${dto.detail_addr})</h5>
+<input type="hidden" id="com_name" value="${dto.com_name}">
 </div>
-<div>지도 들어갈 자리!~!~!~!~</div>
+<div id="map" style="width:100%;height:350px;"></div>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d67c0e8efbe506e6ef450c637bab0204"></script>
+<script>
+var x=document.getElementById('x').value;
+var y=document.getElementById('y').value;
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    mapOption = { 
+        center: new kakao.maps.LatLng(y, x), // 지도의 중심좌표
+        level: 3 // 지도의 확대 레벨
+    };
+
+var map = new kakao.maps.Map(mapContainer, mapOption);
+
+// 마커가 표시될 위치입니다 
+var markerPosition  = new kakao.maps.LatLng(y, x); 
+
+// 마커를 생성합니다
+var marker = new kakao.maps.Marker({
+    position: markerPosition
+});
+
+// 마커가 지도 위에 표시되도록 설정합니다
+marker.setMap(map);
+var com_name=document.getElementById('com_name').value;
+var iwContent = '<div style="padding:5px;">'+com_name+' <br><a href="https://map.kakao.com/link/map/'+com_name+','+y+','+x+'" style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/'+com_name+','+y+','+x+'" style="color:blue" target="_blank">길찾기</a></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+    iwPosition = new kakao.maps.LatLng(y, x); //인포윈도우 표시 위치입니다
+
+// 인포윈도우를 생성합니다
+var infowindow = new kakao.maps.InfoWindow({
+    position : iwPosition, 
+    content : iwContent 
+});
+  
+// 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
+infowindow.open(map, marker); 
+</script>
 <hr class="my-4">
 <div>
 <h2>상세내용</h2>

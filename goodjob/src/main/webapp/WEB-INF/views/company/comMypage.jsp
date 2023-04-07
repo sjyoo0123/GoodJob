@@ -33,34 +33,60 @@
   justify-content: center;
   gap: 20px;
 }
+.card-stats {
+position: relative;
+}
+
+.card-icon {
+position: absolute;
+top: 0;
+right: 0;
+width: 100%;
+height: 100%;
+display: flex;
+justify-content: flex-end;
+align-items: flex-start;
+z-index: -1; 
+}
+
+.card-body {
+position: relative;
+z-index: 1;
+}
 </style>
 </head>
 <body>
-	<%@include file="/WEB-INF/views/header.jsp"%>
 	<div class="container-fluid" >
+	<%@include file="/WEB-INF/views/header.jsp"%>
 	<div class="row">
 		<div class="col-sm-6 mb-4">
 		<div class="card bg-secondary bg-opacity-10">
 		<div class="card-body">
 			<h2 class="card-title">나의회사</h2>
-			<h3>회 ${dto.com_name} 사</h3>
+			<h3>${cdto.com_name}</h3>
 		</div>
 		</div>
 		</div>
 		<div class="col-sm-6 mb-4">
-		<div class="card bg-secondary bg-opacity-10">
+		<div class="card-stats card bg-secondary bg-opacity-10">
+		<div class="card-icon"><i class="bi bi-ticket-fill" style="font-size: 6rem; color: gold;"></i></div>
 		<div class="card-body">
 			<h2 class="card-title">
-				<a href="#">나의 요금제</a>
+				<a href="comPlanList.do">나의 요금제</a><br>
 			</h2>
-			<h3>나의 요금제 목록 들어갈 자리</h3>
+			<h3><c:if test="${empty vlists}"><p>등록된 공고가 없습니다.</p></c:if>
+			<c:forEach var="dto" items="${vlists}">
+							<h3>${dto.subject}</h3>
+						</c:forEach>
+			</h3>
 		</div>
 		</div>
 		</div>
 		<br>
 		<div class="col-sm-6 mb-4">
-		<div class="card bg-secondary bg-opacity-10">
+		<div class="card-stats card bg-secondary bg-opacity-10">
 		<div class="card-body">
+		<div class="card-icon"><i class="bi bi-clipboard-fill" style="font-size: 6rem; color: #1A4369;"></i></div>
 			<h1 class="card-title">
 				<a href="noticeComList.do">공고 현황</a>
 			</h1>
@@ -73,7 +99,7 @@
 					<div class="col-sm-8">
 						<c:if test="${empty nlists}"><p>등록된 공고가 없습니다.</p></c:if>
 						<c:forEach var="dto" items="${nlists}">
-							<h3>${dto.subject}</h3>
+							<h3><a href="#">${dto.subject}</a></h3>
 						</c:forEach>
 					</div>
 			</div>
@@ -81,8 +107,9 @@
 		</div>
 		</div>
 		<div class="col-sm-6 mb-4">
-		<div class="card bg-secondary bg-opacity-10">
+		<div class="card-stats card bg-secondary bg-opacity-10">
 		<div class="card-body">
+				<div class="card-icon"><i class="bi bi-people-fill" style="font-size: 6rem; color: #52C640;"></i></div>
 			<h1 class="card-title">
 				<a href="ofComList.do">제의 현황</a>
 			</h1>
