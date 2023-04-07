@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+        <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,50 +26,83 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 <title>Insert title here</title>
-<style type="text/css">
-div{
-background-color: skyblue;
+<style>
+.container-fluid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
 }
 </style>
 </head>
-<body class="container overflow-hidden text-left">
-	<h1>기업마이페이지</h1>
-	<div class="row g-2">
-		<div class="col-6">
-			<h2>나의회사${dto.com_name}</h2>
+<body>
+	<%@include file="/WEB-INF/views/header.jsp"%>
+	<div class="container-fluid" >
+	<div class="row">
+		<div class="col-sm-6 mb-4">
+		<div class="card bg-secondary bg-opacity-10">
+		<div class="card-body">
+			<h2 class="card-title">나의회사</h2>
+			<h3>회 ${dto.com_name} 사</h3>
 		</div>
-		<div class="col-6">
-			<h2>
+		</div>
+		</div>
+		<div class="col-sm-6 mb-4">
+		<div class="card bg-secondary bg-opacity-10">
+		<div class="card-body">
+			<h2 class="card-title">
 				<a href="#">나의 요금제</a>
 			</h2>
 			<h3>나의 요금제 목록 들어갈 자리</h3>
 		</div>
+		</div>
+		</div>
 		<br>
-		<div class="col-6">
-			<h1>
+		<div class="col-sm-6 mb-4">
+		<div class="card bg-secondary bg-opacity-10">
+		<div class="card-body">
+			<h1 class="card-title">
 				<a href="noticeComList.do">공고 현황</a>
 			</h1>
-			<div>
+			<div class="row">
+				<div class="col-sm-4">
 				<h4>진행중인 공고</h4>
 				<br>
-				<h3>@건</h3>
-			</div>
-			<div>
-				<h3>공고 리스트 들어갈 자리</h3>
+						<h1>${ntotalCnt}건</h1>
+					</div>
+					<div class="col-sm-8">
+						<c:if test="${empty nlists}"><p>등록된 공고가 없습니다.</p></c:if>
+						<c:forEach var="dto" items="${nlists}">
+							<h3>${dto.subject}</h3>
+						</c:forEach>
+					</div>
 			</div>
 		</div>
-		<div class="col-6">
-			<h1>
-				<a href="#">제의 현황</a>
+		</div>
+		</div>
+		<div class="col-sm-6 mb-4">
+		<div class="card bg-secondary bg-opacity-10">
+		<div class="card-body">
+			<h1 class="card-title">
+				<a href="ofComList.do">제의 현황</a>
 			</h1>
-			<div>
+			<div class="row">
+			<div class="col-sm-5">
 				<h4>진행중인 제의</h4>
-				<h3>@건</h3>
+				<h1>${ototalCnt}건</h1>
 			</div>
-			<div>
-				<h3>리스트 들어갈 자리</h3>
+			<div class="col-sm-7">
+				<c:if test="${empty olists}"><p>등록된 공고가 없습니다.</p></c:if>
+						<c:forEach var="dto" items="${olists}">
+							<h3>${dto.subject}(${dto.min_age}세)</h3>
+						</c:forEach>
 			</div>
+			</div>
+		</div>
 		</div>
 	</div>
+	</div>
+	</div>
+		<%@include file="/WEB-INF/views/footer.jsp"%>
 </body>
 </html>

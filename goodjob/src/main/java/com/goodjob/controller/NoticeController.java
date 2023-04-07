@@ -131,6 +131,22 @@ public class NoticeController {
 		mav.setViewName("notice/noticeMsg");
 		return mav;
 	}
+	@RequestMapping("/noticeUpdate.do")
+	public ModelAndView noticeUpdateForm(@RequestParam(value="idx")int nidx) {
+		ModelAndView mav=new ModelAndView();
+		NoticeDTO dto=ndao.noticeContent(nidx);
+		
+		return mav;
+	}
+	@RequestMapping(value="/noticeUpdate.do",method=RequestMethod.POST)
+	public ModelAndView noticeUpdateSubmit(NoticeDTO dto) {
+
+		ModelAndView mav=new ModelAndView();
+		
+		return mav;
+	}
+	
+	
 	@RequestMapping(value="noticeList.do",method = RequestMethod.GET)
 	public ModelAndView noticeList(@RequestParam(value="cp",defaultValue="0")int cp,
 			@RequestParam(value="listWeekday",defaultValue = "")String[] listWeekday,

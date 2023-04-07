@@ -1,11 +1,14 @@
 package com.goodjob.totalfile.model;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class TotalFileDTO {
 
 	private int idx;
 	private String category;
 	private String file;
 	private int table_idx;
+	private MultipartFile multiFile;
 	
 	public TotalFileDTO() {
 		super();
@@ -16,6 +19,13 @@ public class TotalFileDTO {
 		this.category = category;
 		this.file = file;
 		this.table_idx = table_idx;
+	}
+	
+	public MultipartFile getMultiFile() {
+		return multiFile;
+	}
+	public void setMultiFile(MultipartFile multiFile) {
+		this.multiFile = multiFile;
 	}
 	public int getIdx() {
 		return idx;

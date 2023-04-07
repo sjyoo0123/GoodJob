@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -12,6 +11,41 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 </head>
 <body>
-	
+	<div class="container">
+		<%@include  file="/WEB-INF/views/header.jsp"%>
+			<section>
+				<article>
+					<div class="row">
+						<div class="offset-sm-3 col-sm-6">
+							<h3>후기게시판 관리</h3>
+						</div>
+					</div>	
+					<div class="row">
+						<div class="col-sm-5">
+							<form name="manReviewSearch" action="manReviewSearch.do">
+								<input type="text" name="search" placeholder="기업 이름을 검색해주세요">
+								<input type="submit" value="검색하기">
+							</form>
+						</div>
+					</div>
+					<br>
+					<div class="row">
+						<div class="offset-sm-3 col-sm-6">
+							<table class="table">
+								<thead>
+									<tr>
+										<th>No.</th>
+										<th>기업명</th>
+										<th>키워드</th>
+										<th>작성일</th>
+									</tr>
+								</thead>
+							</table>
+						</div>
+					</div>
+				</article>
+		</section>
+		<%@include file="/WEB-INF/views/footer.jsp" %>
+	</div>
 </body>
 </html>
