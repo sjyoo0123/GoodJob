@@ -44,7 +44,5 @@
 		where subject like '%'||#{search}||'%'
 		order by idx desc)a )b
 		where rnum<![CDATA[>=]]>#{start} and rnum<![CDATA[<=]]>#{end} 
-	
-		
 	</select>
  </mapper>

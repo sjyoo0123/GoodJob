@@ -6,4 +6,12 @@ public interface NoticeDAO {
 	public int noticeTotalCnt(int idx);
 	public NoticeDTO noticeContent(int idx);
 	public int noticeDel(int idx);
+	public List<NoticeDTO> manNoticeStatusList(int cp, int ls);
+	public List<NoticeDTO> manNoticeAcceptList(int cp, int ls);
+	public int manNoticeStatusCnt();
+	public NoticeDTO manNoticeAcceptContent(int idx);
+	public int manNoticeAcceptContent_Ok(int idx);
+	public int manNoticeAcceptContent_No(int idx);
+	public int manNoticeDel(int idx);
+	public List<NoticeDTO> manNoticeDelList(int cp, int ls);
 }

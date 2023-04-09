@@ -1,6 +1,5 @@
 package com.goodjob.notice.model;
 
-import java.util.List;
 import java.util.*;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -55,5 +54,80 @@ public int noticeDel(int idx) {
 	int count=sqlMap.update("noticeDel", idx);
 	return count;
 }
+@Override
+public List<NoticeDTO> manNoticeStatusList(int cp, int ls) {
+	
+	Map map=new HashMap();
+	int start=(cp-1)*ls+1;
+	int end=cp*ls;
+	map.put("start", start);
+	map.put("end", end);
+	
+	List<NoticeDTO> lists=sqlMap.selectList("manNoticeStatusList", map);
+	
+	return lists;
+}
+@Override
+public List<NoticeDTO> manNoticeAcceptList(int cp, int ls) {
 
+	Map map=new HashMap();
+	int start=(cp-1)*ls+1;
+	int end=cp*ls;
+	map.put("start", start);
+	map.put("end", end);
+	
+	List<NoticeDTO> lists=sqlMap.selectList("manNoticeAcceptList", map);
+	
+	return lists;
+}
+
+@Override
+public int manNoticeStatusCnt() {
+	
+	int count=sqlMap.selectOne("manNoticeStatusCnt");
+	
+	return count;
+}
+@Override
+public NoticeDTO manNoticeAcceptContent(int idx) {
+	
+	NoticeDTO dto=sqlMap.selectOne("manNoticeAcceptContent",idx);
+	
+	return dto;
+}
+@Override
+public int manNoticeAcceptContent_No(int idx) {
+	
+	int count=sqlMap.update("manNoticeAcceptContent_No", idx);
+	
+	return count;
+}
+@Override
+public int manNoticeAcceptContent_Ok(int idx) {
+	
+	int count=sqlMap.update("manNoticeAcceptContent_Ok", idx);
+	
+	return count;
+}
+@Override
+public int manNoticeDel(int idx) {
+	
+	int count=sqlMap.update("manNoticeDel", idx);
+	
+	return count;
+}
+
+@Override
+public List<NoticeDTO> manNoticeDelList(int cp, int ls) {
+	
+	Map map=new HashMap();
+	int start=(cp-1)*ls+1;
+	int end=cp*ls;
+	map.put("start", start);
+	map.put("end", end);
+	
+	List<NoticeDTO> lists=sqlMap.selectList("manNoticeDelList", map);
+	
+	return lists;
+}
 }

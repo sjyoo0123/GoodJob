@@ -48,4 +48,57 @@ select * from notice where idx=#{idx} and status='활성'
 <update id="noticeDel" parameterType="Integer">
 update notice set status='비활성' where idx=#{idx}
 </update>
+<select id="manNoticeStatusList" resultType="com.goodjob.notice.model.NoticeDTO" parameterType="Map">
+	        select * from(
+        select  rownum as rnum, a.* from(
+        select  *  from notice
+       	where status='활성화'
+        )a
+        ) b
+        where rnum<![CDATA[>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
+</select>
+<select id="manNoticeTotalList" resultType="Integer">
+	select count(*) from notice
+	where status='활성'
+</select>
+<select id="manNoticeAcceptList" resultType="com.goodjob.notice.model.NoticeDTO" parameterType="Map">
+	select * from(
+	select rownum as rnum, a.* from(
+	select * from
+	where status='승인'
+	)a
+	)b
+	where rnum<![CDATA[>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
+</select>
+<select id="manNoticeStatusCnt" resultType="Integer">
+	select count(*) from notice
+	where status='대기'
+</select>
+<select id="manNoticeAcceptContent" parameterType="Integer" resultType="com.goodjob.notice.model.NoticeDTO">
+	select * from notice where idx=#{idx}
+</select>
+<update id="manNoticeAcceptContent_Ok" parameterType="com.goodjob.notice.model.NoticeDTO">
+	update notice set
+	status = '활성'
+	where idx=${idx}
+</update>
+<update id="manNoticeAcceptContent_No" parameterType="com.goodjob.notice.model.NoticeDTO">
+	update notice set
+	status = '거부'
+	where idx=${idx}
+</update>
+<update	 id="manNoticeDel" parameterType="com.goodjob.notice.model.NoticeDTO">
+	update notice set
+	status = '비활성'
+	where idx=${idx}
+</update>
+<select id="manNoticeDelList" parameterType="Map" resultType="com.goodjob.notice.model.NoticeDTO">
+	select * from(
+	select rownum as rnum, a.*(
+	select * from notice
+	order by idx asc
+	)a
+	)b
+	where rnum<![CDATA[>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
+</select>
   </mapper>
