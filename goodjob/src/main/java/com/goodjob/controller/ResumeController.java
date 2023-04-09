@@ -88,7 +88,7 @@ public class ResumeController {
 
 	/** 이력서 다운로드  업데이트 후 다시 한 번 보기*/
 	@RequestMapping(value = "resumeDown.do", method = RequestMethod.GET)
-	public ModelAndView resumeDown(@RequestParam(value="member_idx")int ridx) {
+	public ModelAndView resumeDown(@RequestParam(value="member_idx")int ridx ) {
 		ModelAndView mav = new ModelAndView();
 		ResumeDTO rto = resumeDao.resumeDown(ridx);
 		String yy = "";
@@ -247,7 +247,7 @@ public class ResumeController {
 		}
 		mav.addObject("yy", yy);
 		mav.addObject("dto", rto);
-		mav.setViewName("resume/resumeDown");
+		mav.setViewName("resume/resumeContent");
 		return mav;
 	}
 	

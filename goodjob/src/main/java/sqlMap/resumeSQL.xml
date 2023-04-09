@@ -76,4 +76,7 @@
 		
 		where resume_idx = #{idx}
 	</update>
+	<select id="injaeList" resultType="com.goodjob.resume.model.ResumeDTO" >
+		select member_idx, name, age, gender, job from resume where "CHECK" = 1 and status = '활성'  order by idx
+	</select>
 </mapper>

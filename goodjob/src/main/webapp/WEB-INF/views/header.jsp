@@ -69,7 +69,7 @@ div.col-11.mt-4.position-relative{
 						</ul>
 					</div>
 					<div class="col-2">
-						<a href="#" class="">인재정보</a>
+						<a href="injaeList.do" class="">인재정보</a>
 						<ul class="nav position-absolute">
 							<li class="col-12"><a href="#">지역별</a></li>
 							<li class="col-12"><a href="#">업종별</a></li>
@@ -80,7 +80,7 @@ div.col-11.mt-4.position-relative{
 					<div class="col-2">
 						<a href="review.do" class="">후기게시판</a>
 						<ul class="nav position-absolute">
-							<li class="col-12"><a href="#">키워드게시판</a></li>
+							<li class="col-12"><a href="reviewList.do">키워드게시판</a></li>
 							<li class="col-12"><a href="#">나의후기</a></li>
 						</ul>
 					</div>

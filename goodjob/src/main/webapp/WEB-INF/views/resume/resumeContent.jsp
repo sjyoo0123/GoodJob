@@ -89,7 +89,7 @@
 			</tr>
 			<tr>
 				<th>주소</th>
-				<td><span>${dto.addr } ${dto.deltai_addr }</span></td>
+				<td><span>${dto.addr } ${dto.detail_addr }</span></td>
 			</tr>
 			<tr>
 				<th>이메일</th>
