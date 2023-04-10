@@ -33,7 +33,6 @@
 		<%@include file="/WEB-INF/views/header.jsp"%>
 		<section>
 			<article>
-				<i class="bi bi-eye-slash"></i>
 				<div class="row text-center p-4 m-4">
 					<div class="col fs-1 fw-bold subject">회원가입</div>
 				</div>
@@ -62,8 +61,101 @@
 		<%@include file="/WEB-INF/views/footer.jsp"%>
 	</div>
 	<script>
+	var idcheck=false;
+	var pwdcheck=false;
+	var emailcheck=false;
+	$(document).on('click','.pwdcon',function(){
+		if($(this).hasClass('bi-eye-slash-fill')){
+			$(this).removeClass('bi-eye-slash-fill');
+			$(this).addClass('bi-eye-fill');
+			$('#floatingInputPwd').attr('type','password');
+		}else{
+			$(this).removeClass('bi-eye-fill');
+			$(this).addClass('bi-eye-slash-fill');
+			$('#floatingInputPwd').attr('type','text');
+		}
+	});
+	$(document).on('focusout','#floatingInputId',function(){
+	    var idRegex = /^[a-z0-9]{8,20}$/;
+	    var idValue = $(this).val();
+	    if (!idRegex.test(idValue)) { 
+	        $('#idtest').text('영문 소문자와 숫자로 8~20자 이내로 입력해주세요.');
+	        idcheck=false;
+	    } else { 
+	        $.ajax({
+	            url:'check.do',
+	            data:{id:idValue}
+	        }).done((data)=>{
+	            if(data==1){
+	                $('#idtest').text('등록된 아이디가 있습니다');
+	                idcheck=false;
+	            }else if(data==0){
+	                $('#idtest').text('사용 가능한 아이디입니다');
+	                idcheck=true;
+	            }
+	        });
+	    }
+	});
+	$(document).on('change','#floatingInputPwd',function(){
+	    var password = $(this).val();
+	    var password_regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[~!@#$%^&*()_+]).{8,}$/;
+	    if (password_regex.test(password)) {
+	        $('#pwdtest').text('사용 가능한 비밀번호입니다');
+	        pwdcheck=true;
+	    } else {
+	        $('#pwdtest').text('영문 대/소문자, 숫자, 특수문자를 포함한 8자리 이상의 비밀번호를 입력해주세요');
+	        pwdcheck=false;
+	    }
+	});
+	$(document).on('submit', 'form', function(event) {
+		if(idcheck&&pwdcheck&&email){
+	    var filled = true;
+	    $(this).find('input, select, textarea').each(function() {
+	        if ($(this).val() === ''||$(this).text()=== '' ) {
+	        	if($(this).is('select')){
+	        		if($(this).text() === '성별'||$(this).text() === '시 도'||$(this).text() === '시 구 군'||$(this).text() === '동 읍 면')
+	        			filled = false;
+		           		 return false; 
+	        	}
+	            filled = false;
+	            return false; 
+	        }
+	    });
+	    if (filled) {
+	        return true;
+	    } else {
+	        event.preventDefault();
+	        alert('모든 항목을 입력해주세요');
+	        return false;
+	    }
+		}else{
+			event.preventDefault();
+			alert('아이디,비밀번호,이메일 항목을 확인해주세요')
+		}
+	});
+	$(document).on('focusout', '#floatingInputEmail', function() {
+		  var emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+		  var email = $(this).val();
+		  if (emailRegex.test(email)) {
+		    $.ajax({
+		      url: 'check.do',
+		      data: { email: email }
+		    }).done((data) => {
+		      if (data == 1) {
+		        $('#emailtest').text('등록된 이메일이 있습니다');
+		        emailcheck = false;
+		      } else if (data == 0) {
+		        $('#emailtest').text('사용 가능한 이메일입니다');
+		        emailcheck = true;
+		      }
+		    });
+		  } else {
+		    $('#emailtest').text('유효한 이메일 주소를 입력하세요.');
+		    emailcheck = false;
+		  }
+		});
 		//backlink
-		let ibutton=$('<a>').attr('href','#;');
+		let ibutton=$('<a>').attr('href','join.do');
 		let icon=$('<i>').attr('class','bi bi-arrow-90deg-left');
 		let iconDiv=$('<div>').attr('class','col-9 fs-1 offset-3 text-start').append(ibutton.append(icon));
 		//id
@@ -71,13 +163,15 @@
 		let idLabel=$('<label>').attr({for:'floatingInputId'}).text('아이디');
 		let idDiv=$('<div>').attr({class:'form-floating'}).append(idInput, idLabel);
 		let idColDiv=$('<div>').attr({class:'col-10 col-md-4 offset-md-4 offset-2'}).append(idDiv);
-		let idText=$('<div>').attr({class:'col-10 offset-2 offset-md-0 col-md-4 text-start fs-3 '}).css('color','red').text('test');
+		let idText=$('<div>').attr({class:'col-10 offset-2 offset-md-0 col-md-4 text-start fs-6',id:'idtest'}).css('color','red');
 		//pwd
+		let pcon=$('<i>').attr('class','pwdcon bi bi-eye-fill fs-4');
+		let pbutton=$('<a>').attr({'href':'#;','class':'position-absolute top-50 end-0 translate-middle-y'}).append(pcon);
 		let pwdInput = $('<input>').attr({type:'password',id:'floatingInputPwd',placeholder:'password',class:'form-control',name:'pwd'});
 		let pwdLabel=$('<label>').attr({for:'floatingInputPwd'}).text('비밀번호');
-		let pwdDiv=$('<div>').addClass('form-floating').append(pwdInput, pwdLabel);
+		let pwdDiv=$('<div>').addClass('form-floating position-relative').append(pwdInput, pwdLabel,pbutton);
 		let pwdColDiv=$('<div>').addClass('col-10 col-md-4 offset-md-4 offset-2').append(pwdDiv);
-		let pwdText=$('<div>').attr({class:'col-10 offset-2 offset-md-0 col-md-4 text-start fs-3 '}).css('color','red').text('test');
+		let pwdText=$('<div>').attr({class:'col-10 offset-2 offset-md-0 col-md-4 text-start fs-6',id:'pwdtest'}).css('color','red');
 		//name
 		let nameDiv=$('<div>').attr({class:'form-floating'});
 		let nameInput = $('<input>').attr({type:'text',id:'floatingInputName',placeholder:'name',class:'form-control',name:'name'});
@@ -92,6 +186,7 @@
 		let emailLabel=$('<label>').attr({for:'floatingInputEmail'}).text('이메일');
 		let emailDiv=$('<div>').addClass('form-floating').append(emailInput, emailLabel);
 		let emailColDiv=$('<div>').addClass('col-10 col-md-4 offset-md-4 offset-2').append(emailDiv);
+		let emailText=$('<div>').attr({class:'col-10 offset-2 offset-md-0 col-md-4 text-start fs-6',id:'emailtest'}).css('color','red');
 		//tel
 		let telInput = $('<input>').attr({type:'text',id:'floatingInputTel',placeholder:'tel',class:'form-control',name:'tel'});
 		let telLabel=$('<label>').attr({for:'floatingInputTel'}).text('전화번호');
@@ -104,7 +199,7 @@
 		let mAddrColDiv=$('<div>').attr({class:'col-10 col-md-4 offset-md-4 offset-2'});
 		let mAddrDiv=$('<div>').attr({class:'form-floating input-group'});
 		let siSelect=$('<select>').attr({class:'form-select col-4 mainAddr','aria-label':'Default select example',name:'addr'});
-		let siOption=$('<option>').attr({selected:'selected'}).text('시 도');
+		let siOption=$('<option>').attr({label:'시 도',selected:'selected',disabled:'disabled'});
 		siSelect.append(siOption);
 			$.ajax({
 				url:'https://grpc-proxy-server-mkvo6j4wsq-du.a.run.app/v1/regcodes?regcode_pattern=*00000000',
@@ -117,15 +212,14 @@
 				}
 			});
 		let guSelect=$('<select>').attr({class:'form-select col-4 subAddr','aria-label':'Default select example',name:'addr'});
-		let guOption=$('<option>').attr({selected:'selected'}).text('시 구 군');
+		let guOption=$('<option>').attr({selected:'selected',disabled:'disabled'}).text('시 구 군');
 		guSelect.append(guOption);
-			
 		$(document).on('change', '.mainAddr', function(){
 			$('.subAddr').empty();
-			let guOption=$('<option>').attr({selected:'selected'}).text('시 구 군');
+			let guOption=$('<option>').attr({selected:'selected',disabled:'disabled'}).text('시 구 군');
 			guSelect.append(guOption);
 			$('.ssubAddr').empty();
-			let dongOption=$('<option>').attr({selected:'selected'}).text('동 읍 면');
+			let dongOption=$('<option>').attr({selected:'selected',disabled:'disabled'}).text('동 읍 면');
 			dongSelect.append(dongOption);
 			var data= $('.mainAddr  option:selected').attr('id');
 			$.ajax({
@@ -134,31 +228,42 @@
 			      contentType: "application/json"
 			}).done((data)=>{
 				for(var i=0;i<data.regcodes.length;i++){
-					var name=data.regcodes[i].name;
-					var sname=name.split(' ');
-					var op= $('<option>').attr({id:data.regcodes[i].code.substring(0,5)}).text(sname.slice(1));
-					guSelect.append(op);
+					if (i > 0 && data.regcodes[i].code.substring(0, 5) - 1 == data.regcodes[i-1].code.substring(0, 5)) {
+						  if(data.regcodes[i-1].code.substring(0, 5).substr(-1) == '0'){
+					   		 $('#' + data.regcodes[i-1].code.substring(0, 5)).remove();
+						  }
+					  }
+					  var name = data.regcodes[i].name;
+					  var sname = name.split(' ');
+					  if(sname.length==3){
+						  var op = $('<option>').attr({id: data.regcodes[i].code.substring(0, 5)}).text(sname[1]+' '+sname[2]);
+						  guSelect.append(op);
+					  }else{
+						  
+					  var op = $('<option>').attr({id: data.regcodes[i].code.substring(0, 5)}).text(sname.slice(1));
+					  guSelect.append(op);
+					  }
 				}
 			});
 		});
 		let dongSelect=$('<select>').attr({class:'form-select col-4 ssubAddr','aria-label':'Default select example',name:'addr'});
-		let dongOption=$('<option>').attr({selected:'selected'}).text('동 읍 면');
+		let dongOption=$('<option>').attr({selected:'selected',disabled:'disabled'}).text('동 읍 면');
 		dongSelect.append(dongOption);
 		$(document).on('change','.subAddr',function(){
 			$('.ssubAddr').empty();
-			let dongOption=$('<option>').attr({selected:'selected'}).text('동 읍 면');
+			let dongOption=$('<option>').attr({selected:'selected',disabled:'disabled'}).text('동 읍 면');
 			dongSelect.append(dongOption);
 			var data= $('.subAddr  option:selected').attr('id');
 			$.ajax({
-				url:'https://grpc-proxy-server-mkvo6j4wsq-du.a.run.app/v1/regcodes?regcode_pattern='+data+'*&is_ignore_zero=true',
+				url:'https://grpc-proxy-server-mkvo6j4wsq-du.a.run.app/v1/regcodes?regcode_pattern='+data+'*00&is_ignore_zero=true',
 				type:'get',
 				contentType: "application/json"
 			}).done((data)=>{
 				for(var i=0;i<data.regcodes.length;i++){
-					var name=data.regcodes[i].name;
-					var sname=name.split(' ');
-					var op= $('<option>').attr({id:data.regcodes[i].code}).text(sname.slice(2));
-					dongSelect.append(op);
+					 var name=data.regcodes[i].name;
+					 var sname=name.split(' ');
+						 var op=$('<option>').attr({id:data.regcodes[i].code}).text(sname.slice(sname.length-1)); 
+						 dongSelect.append(op);
 				}
 			});
 		});
@@ -168,7 +273,6 @@
 		let dateColDiv=$('<div>').attr({class:'col-10 col-md-4 offset-md-4 offset-2'});
 		let dateDiv=$('<div>').attr({class:'form-floating'});
 		let dateInput=$('<input>').attr({type:'text',id:'date',class:'form-control',name:'birth_s'});
-		
 	    //detailaddr2
 			var addrColDiv=$('<div>').attr({class:'col-12'});
 			var addrDiv=$('<div>').attr({class:'form-floating'});
@@ -186,31 +290,31 @@
 				let genColDiv=$('<div>').attr({class:'col-10 col-md-4 offset-md-4 offset-2'});
 				let genDiv=$('<div>').attr({class:'form-floating'});
 				let genSelect=$('<select>').attr({class:'form-select','aria-label':'Default select example',name:'gender'});
-				let optionN=$('<option>').attr({selected:'selected'}).text('성별');
+				let optionN=$('<option>').attr({disabled:'disabled',selected:'selected'}).text('성별');
 				let optionM=$('<option>').attr({value:'남성'}).text('남성');
 				let optionG=$('<option>').attr({value:'여성'}).text('여성');
+				let addrLabel=$('<label>').attr({for:'date'}).text('생년월일');
 				//date
 					dateInput.datepicker({
-	         format: 'yyyy-mm-dd', //데이터 포맷 형식(yyyy : 년 mm : 월 dd : 일 )
-	         autoclose: true, //사용자가 날짜를 클릭하면 자동 캘린더가 닫히는 옵션
+	         format: 'yyyy-mm-dd',
+	         autoclose: true,
 	         templates: {
 	            leftArrow: '&laquo;',
 	            rightArrow: '&raquo;',
-	         }, //다음달 이전달로 넘어가는 화살표 모양 커스텀 마이징
-	         showWeekDays: true, // 위에 요일 보여주는 옵션 기본값 : true
-	         title: '생년월일', //캘린더 상단에 보여주는 타이틀
-	         todayHighlight: true, //오늘 날짜에 하이라이팅 기능 기본값 :false
-	         toggleActive: true, //이미 선택된 날짜 선택하면 기본값 : false인경우 그대로 유지 true인 경우 날짜 삭제
-	         language: 'ko', //달력의 언어 선택, 그에 맞는 js로 교체해줘야한다.
+	         },
+	         showWeekDays: true,
+	         title: '생년월일', 
+	         toggleActive: true, 
+	         language: 'ko', 
 	      });
-				dateDiv.append(dateInput);
+				dateDiv.append(dateInput).append(addrLabel);
 				dateColDiv.append(dateDiv);
 				nameDiv.append(nameInput).append(nameLabel);
+				nameColDiv.append(nameDiv);
 				genSelect.append(optionN).append(optionM).append(optionG);
 				genDiv.append(genSelect);
-				nameColDiv.append(nameDiv);
 				genColDiv.append(genDiv);
-				formRowDiv.append(iconDiv).append(idColDiv).append(idText).append(pwdColDiv).append(pwdText).append(nameColDiv).append(emailColDiv).append(telColDiv).append(genColDiv).append(mAddrColDiv).append(dateColDiv).append(submitCol);
+				formRowDiv.append(iconDiv,idColDiv,idText,pwdColDiv,pwdText,nameColDiv,emailColDiv,emailText).append(telColDiv).append(genColDiv).append(mAddrColDiv).append(dateColDiv).append(submitCol);
 				form.append(formRowDiv);
 				$('.main').append(form);
 			});
@@ -234,20 +338,21 @@
 			let dAddrColDiv=$('<div>').attr({class:'col-10 col-md-4 offset-md-4 offset-2'}).append(dAddrDiv);
 			let dAddrText=$('<div>').attr({class:'col-10 offset-2 offset-md-0 col-md-4 text-start fs-3 '}).css('color','red').text('test');
 			//date
-				dateInput.datepicker({
+			dateInput.datepicker({
 	         format: 'yyyy-mm-dd', //데이터 포맷 형식(yyyy : 년 mm : 월 dd : 일 )
-	         autoclose: true, //사용자가 날짜를 클릭하면 자동 캘린더가 닫히는 옵션
+	         autoclose: true,
 	         templates: {
 	            leftArrow: '&laquo;',
 	            rightArrow: '&raquo;',
-	         }, //다음달 이전달로 넘어가는 화살표 모양 커스텀 마이징
-	         showWeekDays: true, // 위에 요일 보여주는 옵션 기본값 : true
-	         title: '설립일', //캘린더 상단에 보여주는 타이틀
-	         todayHighlight: true, //오늘 날짜에 하이라이팅 기능 기본값 :false
-	         toggleActive: true, //이미 선택된 날짜 선택하면 기본값 : false인경우 그대로 유지 true인 경우 날짜 삭제
-	         language: 'ko', //달력의 언어 선택, 그에 맞는 js로 교체해줘야한다.
+	         }, 
+	         showWeekDays: true,
+	         title: '설립일',
+	         todayHighlight: true,
+	         toggleActive: true,
+	         language: 'ko',
 	      });
-				dateDiv.append(dateInput);
+				let addrLabel=$('<label>').attr({for:'date'}).text('설립일');
+				dateDiv.append(dateInput).append(addrLabel);
 				dateColDiv.append(dateDiv);
 			nameDiv.append(nameInput).append(nameLabel);
 			nameColDiv.append(nameDiv);

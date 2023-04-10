@@ -22,4 +22,5 @@
 		delete from totalfile
 		where table_idx=#{idx}
 	</delete>
+	
 </mapper>

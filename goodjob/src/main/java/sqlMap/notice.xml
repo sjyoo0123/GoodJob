@@ -48,4 +48,80 @@ select * from notice where idx=#{idx} and status='활성'
 <update id="noticeDel" parameterType="Integer">
 update notice set status='비활성' where idx=#{idx}
 </update>
+<select id="whereNoticeTotalCnt" parameterType="Map"
+	resultType="Integer">
+	SELECT count(*)
+	FROM notice
+	WHERE status = '활성'
+	AND workday like
+	#{workday}
+	<if test="boolean1">
+		AND (
+		<if test="boolean2">
+			local2 IN
+			<foreach item="item" index="index" collection="local2"
+				open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+		<if test="boolean4">
+			OR
+		</if>
+		<if test="boolean3">
+			local3 IN
+			<foreach item="item" index="index" collection="local3"
+				open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+		)
+	</if>
+	<if test="boolean5">
+		AND ( job in
+		<foreach item="item" index="index" collection="job" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+		)
+	</if>
+</select>
+	<select id="whereNoticeList" parameterType="Map"
+		resultType="com.goodjob.notice.model.NoticeDTO">
+		select * from (select rownum as rnum,a. * from (
+		SELECT * FROM notice
+		WHERE status = '활성'
+		AND workday LIKE #{workday}
+		<if test="boolean1.booleanValue()">
+			AND (
+			<if test="boolean2.booleanValue()">
+				local2 IN
+				<foreach item="item" index="index" collection="local2"
+					open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="boolean4.booleanValue()">
+				OR
+			</if>
+			<if test="boolean3.booleanValue()">
+				local3 IN
+				<foreach item="item" index="index" collection="local3"
+					open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			)
+		</if>
+		<if test="boolean5">
+			AND ( job in
+			<foreach item="item" index="index" collection="job" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
+			)
+		</if>
+		ORDER BY ref desc)a)
+		where  <![CDATA[rnum>=]]>#{start}
+		and rnum<![CDATA[<=]]>#{end}
+	</select>
   </mapper>

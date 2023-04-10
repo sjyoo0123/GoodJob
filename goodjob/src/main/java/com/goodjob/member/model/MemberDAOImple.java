@@ -38,7 +38,10 @@ public class MemberDAOImple implements MemberDAO {
 		// TODO Auto-generated method stub
 		int idCheck = idCheck(dto.getId());
 		int emailCheck=emailCheck(dto.getEmail());
+		
 		if (idCheck == 0) {
+			if(emailCheck==0) {
+				
 			int count = sqlMap.insert("memberJoin", dto);
 			if (count > 0) {
 				Map<String, String> map = new HashMap<String, String>();
@@ -48,6 +51,9 @@ public class MemberDAOImple implements MemberDAO {
 				return memDto.getIdx();
 			} else {// 가입실패
 				return 0;
+			}
+			}else {
+				return-2;
 			}
 		} else {// 아이디중복
 			return -1;
@@ -108,5 +114,10 @@ public class MemberDAOImple implements MemberDAO {
 		MemberDTO dto= sqlMap.selectOne("resumeWriteForm");
 		return dto;
 	}
-
+	@Override
+	public int updateStatus(MemberDTO dto) {
+		// TODO Auto-generated method stub
+		int count =sqlMap.update("updateStatus",dto);
+		return count;
+	}
 }

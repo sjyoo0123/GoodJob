@@ -15,5 +15,6 @@ public interface BannerDAO {
 	public int manBannerRef();
 	
 	public int manBannerCount();
+	public List<BannerDTO>mainBanner();
 	
 }
