@@ -36,6 +36,10 @@
 		resultType="com.goodjob.resume.model.ResumeDTO" parameterType="Integer" >
 		select * from resume where member_idx = #{idx} and status ='활성'
 	</select>
+	<select id="resumeContent"
+		resultType="com.goodjob.resume.model.ResumeDTO" parameterType="Integer" >
+		select * from resume where member_idx = #{idx} and status ='활성'
+	</select>
 	<select id="resumeCareerDown" 
 		resultType="com.goodjob.career.model.CareerDTO" parameterType="Integer" >
 		select * from career where idx = #{idx}

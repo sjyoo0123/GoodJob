@@ -174,16 +174,13 @@ public class ResumeController {
 		System.out.println(getridx.toString());
 		if (dto.getCareer_check().equals("신입")) {
 			result = resumeDao.resumeUpdate(dto);
-			System.out.println("11");
 		} else {
-			System.out.println("2");
 			cto.setResume_idx(getridx.getIdx());
 			System.out.println("resumeidx=" + cto.getResume_idx());
 			cto.setStartday(mo.datePasing(startday_s));
 			cto.setEndday(mo.datePasing(endday_s));
 			result = resumeDao.careerUpdate(dto, cto);
 		}
-		System.out.println("33");
 		String msg = result > 0 ? "이력서 수정 성공" : "이력서 수정 실패";
 		mav.addObject("msg", msg);
 		mav.setViewName("review/reviewMsg");
@@ -199,6 +196,7 @@ public class ResumeController {
 		return mav;
 	}
 	
+	/**이력서 컨텐츠*/
 	@RequestMapping("/resumeContent")
 	public ModelAndView resumeContent(HttpSession session, 
 			@RequestParam(value="idx")int ridx) {

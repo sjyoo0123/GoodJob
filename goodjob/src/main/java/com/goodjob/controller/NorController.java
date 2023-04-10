@@ -5,7 +5,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.goodjob.resume.model.ResumeDAO;
@@ -18,7 +17,7 @@ public class NorController {
 	public ResumeDAO resumeDao;
 
 	@RequestMapping("/norMyPage.do")
-	public ModelAndView mypage(HttpSession session, @RequestParam(value = "idx") int ridx) {
+	public ModelAndView mypage(HttpSession session/* , @RequestParam(value = "idx") int ridx */) {
 		ModelAndView mav = new ModelAndView();
 		int idx = 0;
 		if (session.getAttribute("sidx") == null || session.getAttribute("sidx") == "") {
@@ -31,7 +30,7 @@ public class NorController {
 		} else {
 			idx = (int) session.getAttribute("sidx");
 		}
-		ResumeDTO dto = resumeDao.resumeDown(ridx);
+		ResumeDTO dto = resumeDao.resumeDown(idx);
 		mav.addObject("dto", dto);
 		mav.setViewName("norMyPage/norMyPage");
 		return mav;
