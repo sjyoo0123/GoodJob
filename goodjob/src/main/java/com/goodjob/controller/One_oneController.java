@@ -139,14 +139,20 @@ public class One_oneController {
 		return mav;
 	}
 	@RequestMapping("userOneList.do")
-	public ModelAndView userOneList(HttpSession session,@RequestParam(value="cp",defaultValue = "1")int cp) {
+	public ModelAndView userOneList(HttpSession session,@RequestParam(value="cp",defaultValue = "1")int cp,
+			@RequestParam(value="bAjax" ,defaultValue="false")boolean bAjax) {
 		ModelAndView mav=new ModelAndView();
 		Integer sIdx=session.getAttribute("sidx")!=null?(Integer)session.getAttribute("sidx"):0;
+		int totalCnt=oneDao.userOneTotalCnt(sIdx);
 		int pazeSize=5;
-		int listSize=15;
-		mav.addObject("page",AjaxPageModule.makePage(0, listSize, pazeSize, cp));
+		int listSize=10;
+		mav.addObject("page",AjaxPageModule.makePage(totalCnt, listSize, pazeSize, cp));
 		mav.addObject("list",oneDao.userOneList(sIdx, cp, listSize));
-		mav.setViewName("one/userOneList");
+		if(bAjax) {
+			mav.setViewName("goodjobJson");
+		}else {
+			mav.setViewName("one/userOneList");
+		}
 		return mav;
 	}
 	@RequestMapping(value= "userOneWrite.do",method = RequestMethod.POST)

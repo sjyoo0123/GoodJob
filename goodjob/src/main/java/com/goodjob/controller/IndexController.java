@@ -7,7 +7,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.goodjob.banner.model.BannerDAO;
 import com.goodjob.gongji.model.GongJiDAO;
-import com.goodjob.module.EmailServiceImpl;
 import com.goodjob.notice.model.NoticeDAO;
 
 @Controller
@@ -24,7 +23,7 @@ public class IndexController {
 		mav.addObject("dieList",nDao);
 		mav.addObject("goldList",nDao);
 		mav.addObject("silList",nDao);
-		mav.addObject("gList",gDao.userGongJiList("", 1, 5));
+		mav.addObject("gList",gDao.userGongJiList("", 1, 3));
 		mav.addObject("banner", bDao.mainBanner());
 		
 		mav.setViewName("index");

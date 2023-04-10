@@ -7,7 +7,6 @@ public class AjaxPageModule {
 	      if(totalCnt%listSize==0)totalPage--;
 	      int userGroup=cp/pageSize;
 	      if(cp%pageSize==0)userGroup--;
-	      System.out.println(totalPage+"'"+userGroup);
 	      sb.append("<div class='row justify-content-evenly'><button type='button'");
 	      if(userGroup<=0){
 	    	  sb.append(" disabled");
@@ -25,7 +24,7 @@ public class AjaxPageModule {
 	      }
 	      sb.append("<button type='button'");
 	      if(userGroup!=(totalPage/pageSize-(totalPage%pageSize==0?1:0))){
-	    	  sb.append( "value="+((userGroup+1)*pageSize+1)+"'");
+	    	  sb.append( "value='"+((userGroup+1)*pageSize+1)+"'");
 	      }else {
 	    	  sb.append(" disabled");
 	      }

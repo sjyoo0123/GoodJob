@@ -68,8 +68,7 @@ public class MemberController {
 
 	@RequestMapping(value = "comJoin.do", method = RequestMethod.POST)
 	public ModelAndView comJoin(CompanyMemberDTO comDto, String birth_s) {
-		Module mo = new Module();
-		comDto.setCom_birth(mo.datePasing(birth_s));
+		comDto.setCom_birth(Module.datePasing(birth_s));
 		ModelAndView mav = new ModelAndView();
 		MemberDTO memDto = new MemberDTO(0, comDto.getId(), comDto.getPwd(), comDto.getName(), comDto.getEmail(),
 				comDto.getTel(), comDto.getAddr(), null, 0, "기업", "대기");
@@ -160,7 +159,6 @@ public class MemberController {
 	public ModelAndView loginSession(MemberDTO dto, HttpServletRequest req, boolean save, HttpServletResponse res) {
 		ModelAndView mav = new ModelAndView();
 		if (dto == null) {
-			System.out.println(1);
 			mav.addObject("msg", "alert('등록된아이디혹은비밀번호가 없습니다');location.href='login.do';");
 			
 		} else {

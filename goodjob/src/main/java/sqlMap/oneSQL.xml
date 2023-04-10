@@ -36,7 +36,7 @@
 	</select>
 	<select id="userOneCnt" resultType="Integer"
 		parameterType="Integer">
-		select count(*) from one_one where idx=#{idx} and
+		select count(*) from one_one where member_idx=#{idx} and
 		status='활성'
 	</select>
 	<insert id="userOneWrite" parameterType="com.goodjob.one_one.model.One_OneDTO" >
@@ -56,5 +56,5 @@
   		order by idx desc)a)b
   		where rnum <![CDATA[>=]]>#{start} and rnum<![CDATA[<=]]> #{end}
   	</select>
- 
+
   </mapper>
