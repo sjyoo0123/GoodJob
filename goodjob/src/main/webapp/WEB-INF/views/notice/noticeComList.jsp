@@ -34,13 +34,13 @@
 	<article>
 		<div class="btn-group btn-group-lg" role="group"
 			aria-label="Large button group">
-			<button class="btn btn-outline-dark">
+			<button class="btn btn-outline-dark" onclick="location.href='noticeComList.do?status=0'">
 				<span>진행중</span>
 			</button>
-			<button class="btn btn-outline-dark">
+			<button class="btn btn-outline-dark" onclick="location.href='noticeComList.do?status=1'">
 				<span>승인대기</span>
 			</button>
-			<button class="btn btn-outline-dark">
+			<button class="btn btn-outline-dark" onclick="location.href='noticeComList.do?status=2'">
 				<span>마감</span>
 			</button>
 		</div>
@@ -56,9 +56,9 @@
 			</div>
 		</form>
 		<hr class="my-4">
-<div class="container px-0 px-lg-1">
-<div class="row gx-2 gx-lg-3 justify-content-center">
-	<div class="col-md-11 col-lg-9 col-xl-8">
+<div class="container">
+<div class="row">
+	<div class="col-12">
 		<table class="table table-hover">
 			<thead>
 				<tr>
