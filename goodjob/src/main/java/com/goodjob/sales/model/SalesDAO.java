@@ -5,6 +5,6 @@ import java.util.Map;
 
 public interface SalesDAO {
 
-	public List<SalesDTO> salesGetPeriod(Map map);
-	public List<SalesDTO> salesGetMonth(Map map);
+	public List<SalesDTO> salesGetPeriod(Map<String,String> map);
+	public List<SalesDTO> salesGetMonth(Map<String,String> map);
 }

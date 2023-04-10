@@ -5,24 +5,24 @@ import java.sql.Date;
 public class SalesDTO {
 
 
-	private Date paydate;
+	private String paydate;
 	private int price;
 	
 	public SalesDTO() {
 		super();
 	}
 
-	public SalesDTO(Date paydate, int price, String name) {
+	public SalesDTO(String paydate, int price) {
 		super();
 		this.paydate = paydate;
 		this.price = price;
 	}
 
-	public Date getPaydate() {
+	public String getPaydate() {
 		return paydate;
 	}
 
-	public void setPaydate(Date paydate) {
+	public void setPaydate(String paydate) {
 		this.paydate = paydate;
 	}
 

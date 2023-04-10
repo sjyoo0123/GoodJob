@@ -30,7 +30,7 @@ public class ManMemberController {
 		String pagestr=com.goodjob.page.module.PageModule.makePage("manMemberList.do", totalCnt, listSize, pageSize, cp);
 		int start=(cp-1)*listSize+1;
 		int end=cp*listSize;
-		Map map=new HashMap();
+		Map<String,Integer> map=new HashMap<String,Integer>();
 		map.put("start", start);
 		map.put("end", end);
 		List<MemberDTO> lists=mmdao.manMemberList(map);

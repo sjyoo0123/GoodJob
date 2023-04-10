@@ -42,15 +42,7 @@ public class ReviewController {
 
 		return mav;
 	}
-	//관리자 리뷰 페이지 들어가기
-	public ModelAndView manReviewPage() {
-		
-		ModelAndView mav=new ModelAndView();
-		
-		return mav;
-	}
-
-
+	
 	@RequestMapping(value = "/reviewWrite.do", method = RequestMethod.POST)
 	public ModelAndView reviewWriteSumbmit(ReviewDTO dto) {
 		int result = reviewDao.reviewWrite(dto);

@@ -40,58 +40,61 @@
 							| <a href="manPlanDelPage.do">삭제</a>
 						</div>
 					</div>
-					<form name="manPlanUpDel" action="manPlanUpDel.do" method="post">
 					<div class="row">
 						<div class="offset-sm-3 col-sm-6">
 							<div class="card">
-								<h3 class="card-title">up 요금제 삭제하기</h3>
+								<h3 class="card-title">up 요금제 수정하기</h3>
 								<table class="table">
-									<c:if test="${empty lists_up }">
+									<c:if test="${empty lists_up_update }">
 										<tr>
 											<td colspan="4" align="center">등록된 up요금제가 없습니다.</td>
 										</tr>
 									</c:if>
-									<c:forEach var="dto" items="${lists_up }">
-										<input type="hidden" name="idx" value="${dto.idx }">
+									<c:forEach var="dto" items="${lists_up_update }">
+										
 										<tr>
-											<td>요금제 이름 : ${dto.plan_name }</td>
+											
+											<td>요금제 이름 : ${dto.plan_name }	</td>
 											<td>업 횟수 : ${dto.count }</td>
 											<td>요금제 가격 : ${dto.plan_price }</td>
-											<td><input type="submit" value="삭제하기"></td>
+											<td><input type="button" class="btn btn-primary" value="수정하기" onclick="location.href='manPlanUpUpdateContent.do?idx=${dto.idx}'"></td>
 										</tr>
 									</c:forEach>
+										<tfoot>
+											<tr>
+												
+											</tr>
+										</tfoot>
 								</table>
 							</div>
 						</div>
 					</div>
-					</form>
 					<hr>
-					<form name="manPlanVipDel" action="manPlanVipDel.do" method="post">
 					<div class="row">
 						<div class="offset-sm-3 col-sm-6">
 							<div class="card">
-								<h3 class="card-title">vip 요금제 삭제하기</h3>
+								<h3 class="card-title">vip 요금제 수정하기</h3>
 								<table class="table">
-									<c:if test="${empty lists_vip }">
+									<c:if test="${empty lists_vip_update}">
 										<tr>
 											<td colspan="5" align="center">등록된 vip요금제가 없습니다.</td>
 										</tr>
 									</c:if>
-									<c:forEach var="dto" items="${lists_vip }">
-										<input type="hidden" name="idx" value="${dto.idx }">
+									<c:forEach var="dto" items="${lists_vip_update }">
+										
 										<tr>
-											<td>요금제 이름 : ${dto.plan_name }</td>
+											<td>요금제 이름 : ${dto.plan_name } </td>
 											<td>요금제 등급 : ${dto.vip_floor }</td>
 											<td>요금제 가격 : ${dto.plan_price }</td>
-											<td>남은 기간 : ${dto.plan_period }</td>
-											<td><input type="submit" value="삭제하기"></td>
-										</tr>
+											<td>기간 : ${dto.plan_period }</td>
+											<td><input type="button" class="btn btn-primary" value="수정하기" onclick="location.href='manPlanVipUpdateContent.do?idx=${dto.idx}'"></td>
+										</tr>	
 									</c:forEach>
 								</table>
+							
 							</div>
 						</div>
 					</div>
-					</form>
 			</article>
 		</section>
 		<%@include file="/WEB-INF/views/footer.jsp" %>

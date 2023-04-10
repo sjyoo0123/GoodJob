@@ -10,6 +10,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 </head>
+
 <body>
 	<div class="container">
 		<%@include  file="/WEB-INF/views/header.jsp"%>
@@ -17,30 +18,44 @@
 				<article>
 					<div class="row">
 						<div class="offset-sm-3 col-sm-6">
-							<h3>후기게시판 관리</h3>
+							<h3 align="center">키워드 추가 관리,삭제</h3>
 						</div>
+						<br>
+						
 					</div>	
-					<div class="row">
-						<div class="col-sm-5">
-							<form name="manReviewSearch" action="manReviewSearch.do">
-								<input type="text" name="search" placeholder="기업 이름을 검색해주세요">
-								<input type="submit" value="검색하기">
-							</form>
+					<form name="manKeywordAdd" action="manKeywordAdd.do">
+						<div class="row">
+							<div class="col-sm-8">
+								키워드 추가<input type="text"  name="content" placeholder="키워드를 입력해주세요." class="form-control">
+							</div>
+							<div class="col-sm-3">
+							<br>
+									<input type="submit" value="추가하기" class="btn btn-primary">
+							</div>
 						</div>
-					</div>
+					</form>
+					<form name="manKeywordDel" action="manKeywordDel.do">
+					<div class="row">
+							<div class="col-sm-8">
+								키워드 삭제<input type="text"  name="keywordDel" placeholder="키워드를 입력해주세요." readonly="readonly" id="keywordDel" class="form-control">
+										<input type="hidden" name="keywordDel2" id="keywordDel2"> 
+							</div>
+							<div class="col-sm-3">
+							<br>
+									<input type="submit" value="삭제하기" class="btn btn-primary">
+							</div>
+						</div>
+					</form>
+					<br>
 					<br>
 					<div class="row">
-						<div class="offset-sm-3 col-sm-6">
-							<table class="table">
-								<thead>
-									<tr>
-										<th>No.</th>
-										<th>기업명</th>
-										<th>키워드</th>
-										<th>작성일</th>
-									</tr>
-								</thead>
-							</table>
+						<div class="offset-sm-3 col-sm-6" >
+							<c:if test="${empty lists }">
+								키워드가 없습니다.
+							</c:if>
+							<c:forEach var="dto" items="${lists }">
+								<input type="button" value="${dto.content}" name="keyword" onclick="document.getElementById('keywordDel').value='${dto.content}'; document.getElementById('keywordDel2').value='${dto.idx}';"  id="keyword" class="btn btn-primary">
+							</c:forEach>
 						</div>
 					</div>
 				</article>
