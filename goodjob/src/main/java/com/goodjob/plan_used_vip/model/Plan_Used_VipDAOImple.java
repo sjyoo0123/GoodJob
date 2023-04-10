@@ -1,0 +1,36 @@
+package com.goodjob.plan_used_vip.model;
+
+import java.util.*;
+
+import org.mybatis.spring.SqlSessionTemplate;
+
+import com.goodjob.notice.model.NoticeDTO;
+
+public class Plan_Used_VipDAOImple implements Plan_Used_VipDAO {
+	
+	private SqlSessionTemplate sqlMap;
+	public Plan_Used_VipDAOImple() {
+		// TODO Auto-generated constructor stub
+	}
+public SqlSessionTemplate getSqlMap() {
+		return sqlMap;
+	}
+	public void setSqlMap(SqlSessionTemplate sqlMap) {
+		this.sqlMap = sqlMap;
+	}
+public Plan_Used_VipDAOImple(SqlSessionTemplate sqlMap) {
+		super();
+		this.sqlMap = sqlMap;
+	}
+@Override
+public List<NoticeDTO> comUsedVIP(int idx, int cp, int ls) {
+	int start = (cp - 1) * ls + 1;
+	int end = cp * ls;
+	Map map = new HashMap();
+	map.put("start", start);
+	map.put("end", end);
+	map.put("idx", idx);
+	List<NoticeDTO> lists=sqlMap.selectList("comUsedVIP",map);
+	return lists;
+}
+}

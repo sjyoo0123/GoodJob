@@ -28,6 +28,6 @@
 	</update>
 	<select id="comInfo" parameterType="Integer"
 		resultType="com.goodjob.companymember.model.CompanyMemberDTO">
-		select * from companymember where member_idx=#{idx}
+		select * from companymember,member where companymember.member_idx=member.idx and member_idx=#{idx}
 	</select>
 </mapper>

@@ -1,5 +1,6 @@
 package com.goodjob.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +18,8 @@ import javax.servlet.http.HttpSession;
 import com.goodjob.module.AjaxPageModule;
 import com.goodjob.apply.model.ApplyDAO;
 import com.goodjob.apply.model.ApplyDTO;
+import com.goodjob.companymember.model.CompanyMemberDAO;
+import com.goodjob.companymember.model.CompanyMemberDTO;
 import com.goodjob.notice.model.NoticeDAO;
 import com.goodjob.notice.model.NoticeDTO;
 import java.util.*;
@@ -24,9 +27,34 @@ import java.util.*;
 @Controller
 public class NoticeController {
 
+	@Autowired
 	private NoticeDAO ndao;
+	@Autowired
+	private CompanyMemberDAO cdao;
 	
-	
+public NoticeController() {
+	// TODO Auto-generated constructor stub
+}
+	public NoticeDAO getNdao() {
+		return ndao;
+	}
+
+	public void setNdao(NoticeDAO ndao) {
+		this.ndao = ndao;
+	}
+
+	public CompanyMemberDAO getCdao() {
+		return cdao;
+	}
+
+	public void setCdao(CompanyMemberDAO cdao) {
+		this.cdao = cdao;
+	}
+
+	public NoticeController(CompanyMemberDAO cdao) {
+		super();
+		this.cdao = cdao;
+	}
 	public NoticeController(NoticeDAO ndao) {
 		super();
 		this.ndao = ndao;
@@ -87,7 +115,7 @@ public class NoticeController {
 		return mav;
 	}
 	@RequestMapping("/noticeContent.do")
-	public ModelAndView noticeContent(@RequestParam(value="idx")int nidx) {
+	public ModelAndView noticeContent(@RequestParam(value="idx")int nidx,HttpSession session) {
 		NoticeDTO dto=ndao.noticeContent(nidx);
 		String workday=dto.getWorkday();
 		String yy = "";
@@ -108,15 +136,24 @@ public class NoticeController {
 		}if(workday.charAt(7)=='1') {
 			yy+="무관";
 		}
+		String scategory=null;
+		scategory=(String)session.getAttribute("scategory");
+		int sidx=0;
+		sidx=(int)session.getAttribute("sidx");
 		String starttime1=dto.getStarttime()%100==0?"00":dto.getStarttime()%100+"";
 		String starttime=""+dto.getStarttime()/100+ ":" +starttime1;
 		String endtime1=dto.getFinishtime()%100==0?"00":dto.getFinishtime()%100+"";
 		String endtime=""+dto.getFinishtime()/100+ ":" +endtime1;
 		String startendtime=starttime+" ~ "+endtime;
+		int com_idx=dto.getCom_idx();
+		CompanyMemberDTO cdto=cdao.comInfo(com_idx);
 		ModelAndView mav=new ModelAndView();
+		mav.addObject("cdto", cdto);
 		mav.addObject("dto", dto);
 		mav.addObject("yy", yy);
 		mav.addObject("startendtime", startendtime);
+		mav.addObject("scategory", scategory);
+		mav.addObject("sidx", sidx);
 		mav.setViewName("notice/noticeContent");
 		return mav;
 	}
@@ -189,6 +226,124 @@ public class NoticeController {
 		return mav;
 	}
 	
+	
+
+	@RequestMapping(value="noticeList.do",method = RequestMethod.GET)
+	public ModelAndView noticeList(@RequestParam(value="cp",defaultValue="0")int cp,
+			@RequestParam(value="listWeekday",defaultValue = "")String[] listWeekday,
+			@RequestParam(value="local3",defaultValue = "")String[] local3,
+			@RequestParam(value="local2",defaultValue = "")String[] local2) {
+		ModelAndView mav=new ModelAndView();
+		for(int i=0;i<listWeekday.length;i++) {
+			System.out.println(listWeekday[i]);
+		}
+		if(cp==0) {
+			mav.addObject("page",AjaxPageModule.makePage(0, 10, 5, 1));
+			mav.setViewName("notice/noticeList");
+			return mav;
+		}else {
+			mav.addObject("dtos","{\"1\":\"2\"}{\"1\":\"2\"}");
+			mav.addObject("page", AjaxPageModule.makePage(0, 10, 5, cp));
+			mav.setViewName("goodjobJson");
+			
+			return mav;
+		}
+		
+	}
+	
+	/**관리자 공고 메인 페이지 나중에 함*/
+	/*@RequestMapping("/manNoticeStatusPage.do")
+	public ModelAndView manNoticeStatsuPage(
+			@RequestParam(value="cp")int cp) {
+		
+		
+	}*/
+	/**관리자 공고 승인 대기 페이지*/
+	@RequestMapping("/manNoticeAcceptPage.do")
+	public ModelAndView manNoticeAcceptPage(
+			@RequestParam(value="cp", defaultValue = "1")int cp) {
+		
+		int pageSize=5;
+		int listSize=5;
+		int totalCnt=ndao.manNoticeStatusCnt();
+		
+		String pageStr=com.goodjob.page.module.PageModule.makePage("manNoticeAcceptPage.do", totalCnt, listSize, pageSize, cp);
+		
+		List<NoticeDTO> lists=ndao.manNoticeAcceptList(cp, listSize);
+		
+		ModelAndView mav=new ModelAndView();
+		
+		mav.addObject("lists", lists);
+		mav.addObject("pageStr", pageStr);
+		
+		mav.setViewName("manNotice/manNoticeAcceptPage");
+		
+		return mav;
+	}
+	
+	/**관리자 공고 승인 페이지*/
+	@RequestMapping("/manNoticeAcceptContent.do")
+	public ModelAndView manNoticeAcceptContent(
+			@RequestParam(value = "idx")int idx) {
+		
+		ModelAndView mav=new ModelAndView();
+		
+		NoticeDTO dto=ndao.manNoticeAcceptContent(idx);
+		
+		mav.addObject("dto", dto);
+		
+		mav.setViewName("manNotice/manNoticeAcceptContent");
+	
+		return mav;
+	}
+	/**관리자 공고 삭제 페이지*/
+	@RequestMapping("/manNoticeDelPage.do")
+	public ModelAndView manNoticeDelPage(
+			@RequestParam(value = "cp", defaultValue = "1")int cp) {
+		
+		int pageSize=5;
+		int listSize=5;
+		int totalCnt=ndao.manNoticeCnt();
+		
+		String pageStr=com.goodjob.page.module.PageModule.makePage("manNoticeAcceptPage.do", totalCnt, listSize, pageSize, cp);
+		
+		List<NoticeDTO> lists=ndao.manNoticeDelList(cp, listSize);
+		
+		ModelAndView mav=new ModelAndView();
+		
+		mav.addObject("lists", lists);
+		mav.addObject("pageStr", pageStr);
+		
+		mav.setViewName("manNotice/manNoticeDelPage");
+		
+		return mav;
+	}
+	
+	
+	/**관리자 공고 삭제하기*/
+	@RequestMapping("/manNoticeDel.do")
+	public ModelAndView manNoticeDel(
+			@RequestParam(value = "idx")int idx) {
+		
+		int count=ndao.manNoticeDel(idx);
+		
+		ModelAndView mav=new ModelAndView();
+		
+		if(count>0) {
+			mav.addObject("msg", "삭제에 성공하셨습니다");
+		}else {
+			mav.addObject("msg", "삭제에 실패하셨습니다");
+		}
+		
+			mav.addObject("goUrl", "manNoticeDelPage.do");
+			
+			mav.setViewName("manNotice/manNoticeMsg");
+			
+			return mav;
+		
+		
+			
+	}
 	
 
 }

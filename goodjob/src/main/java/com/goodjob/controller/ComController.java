@@ -15,6 +15,7 @@ import com.goodjob.notice.model.NoticeDAO;
 import com.goodjob.notice.model.NoticeDTO;
 import com.goodjob.offer.model.OfferDAO;
 import com.goodjob.offer.model.OfferDTO;
+import com.goodjob.plan_used_vip.model.Plan_Used_VipDAO;
 
 @Controller
 public class ComController {
@@ -25,7 +26,19 @@ public class ComController {
 	private NoticeDAO ndao;
 	@Autowired
 	private OfferDAO odao;
-
+	@Autowired
+	private Plan_Used_VipDAO vdao;
+	
+	public Plan_Used_VipDAO getVdao() {
+		return vdao;
+	}
+	public void setVdao(Plan_Used_VipDAO vdao) {
+		this.vdao = vdao;
+	}
+	public ComController(Plan_Used_VipDAO vdao) {
+		super();
+		this.vdao = vdao;
+	}
 	public ComController() {
 		// TODO Auto-generated constructor stub
 	}
@@ -81,12 +94,16 @@ public class ComController {
 		if(ndao.noticeTotalCnt(idx)!=0) {
 			ntotalCnt=ndao.noticeTotalCnt(idx);
 		}
+		CompanyMemberDTO cdto=ComDao.comInfo(idx);
 		List<NoticeDTO> nlists=ndao.noticeComList(idx,1,5);
 		int ototalCnt=0;
 		if(odao.offerTotalCnt(idx)!=0) {
 			ototalCnt=odao.offerTotalCnt(idx);
 		}
+		List<NoticeDTO> vlists=vdao.comUsedVIP(idx, 1, 1);
 		List<OfferDTO> olists=odao.ofComList(idx, 1, 5);
+		mav.addObject("cdto", cdto);
+		mav.addObject("vlists", vlists);
 		mav.addObject("ntotalCnt", ntotalCnt);
 		mav.addObject("ototalCnt", ototalCnt);
 		mav.addObject("nlists", nlists);

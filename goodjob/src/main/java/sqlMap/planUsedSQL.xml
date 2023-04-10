@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.goodjob.plan_used_vip">
+  <select id="comUsedVIP" parameterType="Map" resultType="com.goodjob.notice.model.NoticeDTO">
+select * from
+		(select rownum as rnum,a.* from
+		(select plan_used.plan_used_idx idx,plan.plan_name subject,plan_used.plan_start writedate,plan_used.plan_type gender,used_vip.plan_end deadline,used_vip.used_vip_floor grade,trunc(used_vip.plan_end-sysdate) com_idx 
+			from plan_used,used_vip,plan 
+			where plan_used.plan_used_idx=used_vip.plan_used_idx and plan.idx=plan_used.plan_idx and plan_used.member_idx=#{idx}
+			order by plan_used.plan_used_idx desc) a) b
+		where <![CDATA[rnum>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
+  </select>
+  </mapper>
