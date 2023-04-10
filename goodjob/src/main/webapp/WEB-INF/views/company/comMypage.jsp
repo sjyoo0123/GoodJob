@@ -99,7 +99,10 @@ z-index: 1;
 					<div class="col-sm-8">
 						<c:if test="${empty nlists}"><p>등록된 공고가 없습니다.</p></c:if>
 						<c:forEach var="dto" items="${nlists}">
-							<h3><a href="#">${dto.subject}</a></h3>
+						<c:url var="contentUrl" value="noticeContent.do">
+							<c:param name="idx">${dto.idx}</c:param>
+						</c:url>
+							<h3><a href="${contentUrl}">${dto.subject}</a></h3>
 						</c:forEach>
 					</div>
 			</div>

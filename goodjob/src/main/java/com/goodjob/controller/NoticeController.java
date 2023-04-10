@@ -1,5 +1,6 @@
 package com.goodjob.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +18,8 @@ import javax.servlet.http.HttpSession;
 import com.goodjob.module.AjaxPageModule;
 import com.goodjob.apply.model.ApplyDAO;
 import com.goodjob.apply.model.ApplyDTO;
+import com.goodjob.companymember.model.CompanyMemberDAO;
+import com.goodjob.companymember.model.CompanyMemberDTO;
 import com.goodjob.notice.model.NoticeDAO;
 import com.goodjob.notice.model.NoticeDTO;
 import java.util.*;
@@ -24,9 +27,34 @@ import java.util.*;
 @Controller
 public class NoticeController {
 
+	@Autowired
 	private NoticeDAO ndao;
+	@Autowired
+	private CompanyMemberDAO cdao;
 	
-	
+public NoticeController() {
+	// TODO Auto-generated constructor stub
+}
+	public NoticeDAO getNdao() {
+		return ndao;
+	}
+
+	public void setNdao(NoticeDAO ndao) {
+		this.ndao = ndao;
+	}
+
+	public CompanyMemberDAO getCdao() {
+		return cdao;
+	}
+
+	public void setCdao(CompanyMemberDAO cdao) {
+		this.cdao = cdao;
+	}
+
+	public NoticeController(CompanyMemberDAO cdao) {
+		super();
+		this.cdao = cdao;
+	}
 	public NoticeController(NoticeDAO ndao) {
 		super();
 		this.ndao = ndao;
@@ -87,7 +115,7 @@ public class NoticeController {
 		return mav;
 	}
 	@RequestMapping("/noticeContent.do")
-	public ModelAndView noticeContent(@RequestParam(value="idx")int nidx) {
+	public ModelAndView noticeContent(@RequestParam(value="idx")int nidx,HttpSession session) {
 		NoticeDTO dto=ndao.noticeContent(nidx);
 		String workday=dto.getWorkday();
 		String yy = "";
@@ -108,15 +136,24 @@ public class NoticeController {
 		}if(workday.charAt(7)=='1') {
 			yy+="무관";
 		}
+		String scategory=null;
+		scategory=(String)session.getAttribute("scategory");
+		int sidx=0;
+		sidx=(int)session.getAttribute("sidx");
 		String starttime1=dto.getStarttime()%100==0?"00":dto.getStarttime()%100+"";
 		String starttime=""+dto.getStarttime()/100+ ":" +starttime1;
 		String endtime1=dto.getFinishtime()%100==0?"00":dto.getFinishtime()%100+"";
 		String endtime=""+dto.getFinishtime()/100+ ":" +endtime1;
 		String startendtime=starttime+" ~ "+endtime;
+		int com_idx=dto.getCom_idx();
+		CompanyMemberDTO cdto=cdao.comInfo(com_idx);
 		ModelAndView mav=new ModelAndView();
+		mav.addObject("cdto", cdto);
 		mav.addObject("dto", dto);
 		mav.addObject("yy", yy);
 		mav.addObject("startendtime", startendtime);
+		mav.addObject("scategory", scategory);
+		mav.addObject("sidx", sidx);
 		mav.setViewName("notice/noticeContent");
 		return mav;
 	}
