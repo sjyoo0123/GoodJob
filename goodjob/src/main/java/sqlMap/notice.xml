@@ -64,8 +64,8 @@ update notice set status='비활성' where idx=#{idx}
 <select id="manNoticeAcceptList" resultType="com.goodjob.notice.model.NoticeDTO" parameterType="Map">
 	select * from(
 	select rownum as rnum, a.* from(
-	select * from
-	where status='승인'
+	select * from notice
+	where status='대기'
 	)a
 	)b
 	where rnum<![CDATA[>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
@@ -94,11 +94,14 @@ update notice set status='비활성' where idx=#{idx}
 </update>
 <select id="manNoticeDelList" parameterType="Map" resultType="com.goodjob.notice.model.NoticeDTO">
 	select * from(
-	select rownum as rnum, a.*(
+	select rownum as rnum, a.* from(
 	select * from notice
 	order by idx asc
 	)a
 	)b
 	where rnum<![CDATA[>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
+</select>
+<select id="manNoticeCnt" resultType="Integer">
+	select count(*)	from notice
 </select>
   </mapper>

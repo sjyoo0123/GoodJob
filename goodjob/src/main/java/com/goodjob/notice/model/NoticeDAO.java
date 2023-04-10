@@ -14,4 +14,5 @@ public interface NoticeDAO {
 	public int manNoticeAcceptContent_No(int idx);
 	public int manNoticeDel(int idx);
 	public List<NoticeDTO> manNoticeDelList(int cp, int ls);
+	public int manNoticeCnt();
 }

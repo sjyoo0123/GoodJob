@@ -130,4 +130,11 @@ public List<NoticeDTO> manNoticeDelList(int cp, int ls) {
 	
 	return lists;
 }
+@Override
+public int manNoticeCnt() {
+	
+	int count=sqlMap.selectOne("manNoticeCnt");
+	
+	return count;
+}
 }

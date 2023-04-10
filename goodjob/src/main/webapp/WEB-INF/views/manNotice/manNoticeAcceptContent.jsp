@@ -24,11 +24,7 @@
 		<%@include file="/WEB-INF/views/header.jsp" %>
 			<section>
 				<article>
-					<div class="row">
-						<div class="col-sm-6">
-							
-						</div>
-					</div>
+				
 				</article>
 			</section>
 		<%@include file="/WEB-INF/views/footer.jsp" %>

@@ -222,7 +222,7 @@ public class NoticeController {
 		
 		int pageSize=5;
 		int listSize=5;
-		int totalCnt=ndao.manNoticeStatusCnt();
+		int totalCnt=ndao.manNoticeCnt();
 		
 		String pageStr=com.goodjob.page.module.PageModule.makePage("manNoticeAcceptPage.do", totalCnt, listSize, pageSize, cp);
 		
@@ -261,7 +261,7 @@ public class NoticeController {
 			return mav;
 		
 		
-		
+			
 	}
 	
 }

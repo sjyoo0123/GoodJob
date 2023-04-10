@@ -33,7 +33,9 @@
 					<div class="offset-sm-3 col-sm-6">
 						상태관리 | 승인 | 삭제
 					</div>
-					<table class="table"></table>
+					<table class="table">
+						
+					</table>
 				</div>
 				<hr>
 				<br>

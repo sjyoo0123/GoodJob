@@ -31,14 +31,17 @@
 				</div>
 				<div class="row">
 					<div class="offset-sm-3 col-sm-6">
-						승인 | 삭제
+						<a href="manNoticeAcceptPage.do">승인</a> | <a href="manNoticeDelPage.do">삭제</a>
 					</div>
+					<br>
 					<br>
 				<div class="row">
 					<div class="col-sm-4">
-						승인 대기중인 공고
+						<h3>승인 대기중인 공고</h3>
 					</div>
 				</div>
+				<br>
+				<br>
 					<table class="table">
 						<thead>
 							<tr>
@@ -55,7 +58,7 @@
 								</tr>
 							</c:if>
 							<c:forEach var="dto" items="${lists }">
-								<c:url var="contentUrl" value="manNoticeAcceptContent">
+								<c:url var="contentUrl" value="manNoticeAcceptContent.do">
 									<c:param name="idx" value="${dto.idx }"></c:param>
 								</c:url>
 								<tr>
@@ -68,14 +71,11 @@
 						</tbody>
 						<tfoot>
 							<tr>
-								<td>${pageStr }</td>
+								<td colspan="4" align="center">${pageStr }</td>
 							</tr>
 						</tfoot>
 					</table>
-				</div>
-				<hr>
-				<br>
-					
+				</div>	
 				</article>
 			</section>
 		<%@include file="/WEB-INF/views/footer.jsp" %>

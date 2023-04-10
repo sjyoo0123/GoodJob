@@ -10,6 +10,11 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 	<title>Good Job</title>
 </head>
+<style>
+.container{
+
+}
+</style>
 <body>
 	<div class="container">
 	 <%@include file="/WEB-INF/views/header.jsp"%> 
@@ -22,8 +27,9 @@
 				</div>
 				<div class="row">
 					<div class="offset-sm-3 col-sm-6">
-						승인 | 삭제
+						<a href="manNoticeAcceptPage.do">승인</a> | <a href="manNoticeDelPage.do">삭제</a>
 					</div>
+				</div>
 					<br>
 				<div class="row">
 					<div class="col-sm-4">
@@ -56,7 +62,7 @@
 					</tbody>
 					<tfoot>
 						<tr>
-							<td colspan="4">${pageStr }</td>
+							<td colspan="4" align="center">${pageStr }</td>
 						</tr>
 					</tfoot>
 				</table>
