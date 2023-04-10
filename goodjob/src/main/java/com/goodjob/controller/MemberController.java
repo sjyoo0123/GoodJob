@@ -19,6 +19,7 @@ import com.goodjob.companymember.model.CompanyMemberDAO;
 import com.goodjob.companymember.model.CompanyMemberDTO;
 import com.goodjob.member.model.MemberDAO;
 import com.goodjob.member.model.MemberDTO;
+import com.goodjob.module.EmailServiceImpl;
 import com.goodjob.module.Module;
 import com.goodjob.normalmember.model.NormalMemberDAO;
 import com.goodjob.normalmember.model.NormalMemberDTO;
@@ -40,11 +41,10 @@ public class MemberController {
 	@RequestMapping(value = "normalJoin.do", method = RequestMethod.POST)
 	public ModelAndView normalJoin(NormalMemberDTO norDto, String birth_s) {
 		System.out.println(norDto.toString());
-		Module mo = new Module();
-		norDto.setBirth(mo.datePasing(birth_s));
+		norDto.setBirth(Module.datePasing(birth_s));
 		ModelAndView mav = new ModelAndView();
 		MemberDTO memDto = new MemberDTO(0, norDto.getId(), norDto.getPwd(), norDto.getName(), norDto.getEmail(),
-				norDto.getTel(), norDto.getAddr(), null, 0, "개인", "활성");
+				norDto.getTel(), norDto.getAddr(), null, 0, "개인", "대기");
 		int idx = memDao.memberJoin(memDto);
 		if (idx <= 0) {
 			if (idx == -1) {
@@ -56,6 +56,7 @@ public class MemberController {
 			norDto.setMember_idx(idx);
 			int count = norDao.normalJoin(norDto);
 			if (count >= 1) {
+				EmailServiceImpl.sendEmail (norDto.getEmail(), "goodjob회원가입 인증", "http://localhost:9090/goodjob/updateStatus.do?idx="+idx+"&email="+norDto.getEmail());
 				mav.addObject("msg", "alert('이메일 인증해주세요');location.href=index.do;");
 			} else {
 				mav.addObject("msg", "alert('서버오류');");
@@ -71,7 +72,7 @@ public class MemberController {
 		comDto.setCom_birth(mo.datePasing(birth_s));
 		ModelAndView mav = new ModelAndView();
 		MemberDTO memDto = new MemberDTO(0, comDto.getId(), comDto.getPwd(), comDto.getName(), comDto.getEmail(),
-				comDto.getTel(), comDto.getAddr(), null, 0, "기업", "활성");
+				comDto.getTel(), comDto.getAddr(), null, 0, "기업", "대기");
 		int idx = memDao.memberJoin(memDto);
 		if (idx <= 0) {
 			if (idx == -1) {
@@ -82,7 +83,8 @@ public class MemberController {
 		} else {
 			comDto.setMember_idx(idx);
 			int count = comDao.comJoin(comDto);
-			if (count >= 1) {
+			if (count >= 1) {														//서버이름변경필
+				EmailServiceImpl.sendEmail (comDto.getEmail(), "goodjob회원가입 인증", "http://localhost:9090/goodjob/updateStatus.do?idx="+idx+"&email="+comDto.getEmail());
 				mav.addObject("msg", "alert('이메일 인증해주세요');location.href=index.do;");
 			} else {
 				mav.addObject("msg", "alert('서버오류');");
@@ -158,8 +160,9 @@ public class MemberController {
 	public ModelAndView loginSession(MemberDTO dto, HttpServletRequest req, boolean save, HttpServletResponse res) {
 		ModelAndView mav = new ModelAndView();
 		if (dto == null) {
-			mav.addObject("msg", "alert('등록된아이디혹은비밀번호가 없습니다')");
-			mav.setViewName("/member/login");
+			System.out.println(1);
+			mav.addObject("msg", "alert('등록된아이디혹은비밀번호가 없습니다');location.href='login.do';");
+			
 		} else {
 			Cookie ck = new Cookie("sid", dto.getId());
 			Cookie ck2 = new Cookie("sca", dto.getUser_category());
@@ -177,14 +180,23 @@ public class MemberController {
 			session.setAttribute("sname", dto.getName());
 			session.setAttribute("scategory", dto.getUser_category());
 			session.setAttribute("status", dto.getStatus());
-			mav.setViewName("index");
+			mav.addObject("msg","location.href='index.do'");
 		}
+		mav.setViewName("/member/login");
 		return mav;
 	}
-
+	@RequestMapping("findId.do")
 	public ModelAndView memberFindId(String email) {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("");
+		
+		return mav;
+	}
+	@RequestMapping("findPwd.do")
+	public ModelAndView memberFindPwd(String email) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("");
+		
 		return mav;
 	}
 
@@ -199,6 +211,14 @@ public class MemberController {
 		} else {
 			return 0;
 		}
+	}
+	@RequestMapping("updateStatus.do")
+	public ModelAndView updateStatus(MemberDTO dto) {
+		ModelAndView mav=new ModelAndView();
+		String msg=memDao.updateStatus(dto)>0?"alert('인증 완료되었습니다');location.href='index.do'":"alert('만료된 인증입니다');location.href='index.do'";
+		mav.addObject("msg",msg);
+		mav.setViewName("index");
+		return mav;
 	}
 
 }

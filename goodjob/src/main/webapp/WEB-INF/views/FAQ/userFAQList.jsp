@@ -26,18 +26,27 @@
 		<section>
 			<article>
 				<div class="row">
+				<h2 class="text-center">자주찾는질문</h2>
 					<div class="col-8 offset-2">
 						<form id="seachFAQ">
-							<select name="category">
+						<div class="col-6 offset-6 d-flex flex-wrap">
+						<div class="col-4">
+							<select name="category" class="form-select">
 								<option disabled selected="selected">목록</option>
 								<option>개인</option>
 								<option>기업</option>
-							</select> <input type="text" name="subject"> <input type="hidden"
-								name="cp" id="cp"> <input type="hidden" name="bAjax"
+							</select> 
+						</div>
+							<input type="text" name="subject" class=" col-6">
+									<button id="submit" class="btn btn-light text-end col-2"
+										type="button">조회</button>
+									<input type="hidden"
+								name="cp" id="cp"> 
+								<input type="hidden" name="bAjax"
 								value="true">
-							<button id="submi" class="btn btn-light text-end">조회</button>
+						</div>
 						</form>
-						<div class="accordion accordion-flush" id="accordionFlushExample">
+						<div class="accordion accordion-flush mt-1" id="accordionFlushExample">
 							<c:if test="${empty list}">
 								등록된 글이 없습니다
 								</c:if>
@@ -76,11 +85,22 @@
 	 function stopSubmit(e) {
 	        e.preventDefault();
 	    }
+	 $('#submit').click(function() {
+			$('#cp').attr({value:'1'});
+			page();
+		});
+		$(document).on('click','#page button',function(){
+			$('#cp').attr({value:$(this).val()});
+			page();
+		});
+		
 	 function page() {
 		  var para = $('#seachFAQ').serialize();
 		  $.ajax({
 		    url: 'userFAQList.do',
-		    data: para
+		    data: para,
+		    dataType: 'json', 
+		    contentType: "application/json"
 		  }).done(function(data) {
 		    $('#accordionFlushExample').empty();
 		    if (data.list.length === 0) {

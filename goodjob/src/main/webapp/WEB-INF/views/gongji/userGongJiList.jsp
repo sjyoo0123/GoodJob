@@ -29,7 +29,7 @@
 					<div class="col-8 offset-2">
 						<h2 class="text-center">공지사항</h2>
 						<form id="gongji">
-							<input type="hidden" name="cp" value="1"> <input
+							<input type="hidden" name="cp" value="1" id="cp"> <input
 								type="hidden" name="bAjax" value="true"> <input
 								type="text" name="subject">
 							<button type="button" id="submit" class="search">검색</button>
@@ -51,7 +51,7 @@
 								<c:forEach var="dto" items="${list}">
 									<tr>
 										<td scope="row" class="text-center">${dto.idx}</td>
-										<td class="text-center"><a href="#;">${dto.subject}</a></td>
+										<td class="text-center"><a href="userGongJiContent.do?idx=${dto.idx}">${dto.subject}</a></td>
 										<td class="text-end">${dto.writedate}</td>
 									</tr>
 								</c:forEach>
@@ -76,10 +76,14 @@
 	
 		$(document).on('click','#page button',function(){
 			$('#cp').attr({value:$(this).val()});
+			page();
 		});
 	 
 	 $('#submit').on('click',()=>{
 		 $('#cp').attr({value:'1'});
+		 page();
+	 }); 
+		 function page(){
 			$.ajax({
 				url:'userGongJiList.do',
 				data:$('#gongji').serialize()
@@ -87,15 +91,21 @@
 				$('tbody').children().remove();
 				/////////////////////////////////
 				var tbody=$('tbody');
-				if(data.list.length<1){
+				if(data.list.length==0){
 					tbody.append( $('<td>', {colspan: 3}).text('등록된 게시글이 없습니다') );
 				}else{
 					 $.each(data.list, function(i, dto) {
+						 var date = new Date(dto.writedate);
+						  var year = date.getFullYear();
+						  var month = ('0' + (date.getMonth() + 1)).slice(-2);
+						  var day = ('0' + date.getDate()).slice(-2);
+						  var formattedDate = year + '-' + month + '-' + day;
+						  
 						    var tr = $('<tr>').append(
 						      $('<td>', {class: 'text-center', scope: 'row'}).text(dto.idx),
 						      $('<td>', {class: 'text-center'}).append($('<a>', {href: '#'}).text(dto.subject)
 						      ),
-						      $('<td>', {class: 'text-end'}).text(dto.writedate)
+						      $('<td>', {class: 'text-end'}).text(formattedDate)
 						    );
 						    tbody.append(tr);
 						  });
@@ -103,8 +113,8 @@
 				$('#page').children().remove();
 				$('#page').append(data.page);
 				}
-			})
-		}); 
+			})}
+		
 	</script>
 </body>
 </html>

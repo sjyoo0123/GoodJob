@@ -20,7 +20,7 @@
 				</c:if>
 				<c:forEach var="dto" items="${list}">
 				${dto.subject }
-				${dto.ckeck }
+				${dto.check }
 				
 				</c:forEach>
 			</article>

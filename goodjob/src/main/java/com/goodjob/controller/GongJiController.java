@@ -25,6 +25,7 @@ public class GongJiController {
 		int listSize=10;
 		int start = (cp - 1) * listSize+1;
 		int end = cp * listSize;
+		System.out.println(1);
 		mav.addObject("list",gDao.userGongJiList(subject, start, end));
 		mav.addObject("page",AjaxPageModule.makePage(totalCnt, listSize, pageSize, cp));
 		if(bAjax) {
@@ -35,7 +36,7 @@ public class GongJiController {
 		}
 		return mav;
 	}
-	@RequestMapping(value = "gongJiContent.do",method = RequestMethod.GET)
+	@RequestMapping(value = "userGongJiContent.do",method = RequestMethod.GET)
 	public ModelAndView gongjiContent(@RequestParam(value = "idx",defaultValue = "0")int idx) {
 		ModelAndView mav= new ModelAndView();
 		mav.addObject("dto", gDao.gongJiContent(idx));

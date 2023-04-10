@@ -36,12 +36,13 @@ public class GongJiDAOImple implements GongJiDAO {
 	@Override
 	public int userGongJiTotalCnt(String subject) {
 		// TODO Auto-generated method stub
+		
 		return sqlMap.selectOne("userGongJiTotalCnt", mapping(subject));
 	}
 	public Map<String,Object> mapping(String subject){
 		Map<String, Object>map=new HashMap<String, Object>();
-		if(subject.length()>0) {
-			map.put("subject", map);
+		if(subject.length()!=0) {
+			map.put("subject", subject);
 			map.put("sboolean", true);
 		}else {
 			map.put("sboolean", false);

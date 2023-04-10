@@ -7,7 +7,7 @@
 select * from (select rownum as rnum,a. * from (SELECT * FROM gongji
 <if test="sboolean">
  where
- subject like '%'||#{subject}||'%'
+ subject like '%'||${subject}||'%'
 </if>
 ORDER BY idx)a)
 where rnum<![CDATA[>=]]>#{start}
@@ -17,7 +17,7 @@ where rnum<![CDATA[>=]]>#{start}
 select count(*) from gongji
 <if test="sboolean">
  where
-  subject =#{subject}
+  subject like '%'||${subject}||'%'
 </if>
 </select>
 <select id="gongJiContent" resultType="com.goodjob.gongji.model.GongJiDTO" parameterType="Integer">

@@ -59,6 +59,7 @@ public class FAQController {
 			@RequestParam(value = "category", defaultValue = "") String category,
 			@RequestParam(value="bAjax", defaultValue = "false")boolean bAjax,
 			HttpSession session) {
+		System.out.println(bAjax);
 		ModelAndView mav = new ModelAndView();
 		 String scategory = session.getAttribute("scategory") != null ? (String) session.getAttribute("scategory") : "";
 		    if (category.equals("") && !scategory.equals("")) {
@@ -72,6 +73,7 @@ public class FAQController {
 		mav.addObject("list", faqDao.userSearchFAQ(start, end, search, category));
 		mav.addObject("page", AjaxPageModule.makePage(totalCnt, listSize, pageSize, cp));
 		if(bAjax) {
+			System.out.println(1);
 			mav.setViewName("goodjobJson");
 		}else {
 			

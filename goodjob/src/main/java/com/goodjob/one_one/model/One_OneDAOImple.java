@@ -85,6 +85,7 @@ public class One_OneDAOImple implements One_OneDAO {
 		int start=(cp-1)*ls+1;
 		int end=cp*ls;
 		Map<String, Integer> map=new HashMap<String, Integer>();
+		map.put("idx",idx);
 		map.put("start", start);
 		map.put("end", end);
 		

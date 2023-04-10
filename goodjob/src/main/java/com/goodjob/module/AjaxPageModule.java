@@ -7,8 +7,9 @@ public class AjaxPageModule {
 	      if(totalCnt%listSize==0)totalPage--;
 	      int userGroup=cp/pageSize;
 	      if(cp%pageSize==0)userGroup--;
+	      System.out.println(totalPage+"'"+userGroup);
 	      sb.append("<div class='row justify-content-evenly'><button type='button'");
-	      if(userGroup==0){
+	      if(userGroup<=0){
 	    	  sb.append(" disabled");
 	      }else {
 	    	  sb.append(" value='"+((userGroup-1)*pageSize+pageSize)+"'");
@@ -20,13 +21,13 @@ public class AjaxPageModule {
 	        	 sb.append(" disabled");
 	         }
 	        sb.append(" class='btn col-1' value='"+i+"'>"+i+"</button>");
-	         if(i==totalPage)break;
+	         if(i>=totalPage)break;
 	      }
 	      sb.append("<button type='button'");
-	      if(userGroup==(totalPage/pageSize-(totalPage%pageSize==0?1:0))){
-	    	  sb.append(" disabled");
-	      }else {
+	      if(userGroup!=(totalPage/pageSize-(totalPage%pageSize==0?1:0))){
 	    	  sb.append( "value="+((userGroup+1)*pageSize+1)+"'");
+	      }else {
+	    	  sb.append(" disabled");
 	      }
 	      sb.append(" class='btn col-1 next'><i class='bi bi-backspace-reverse-fill'></i></button></div>");
 	      return sb.toString();

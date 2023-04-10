@@ -1,7 +1,10 @@
 package com.goodjob.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.annotations.Param;
@@ -10,19 +13,25 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.HtmlUtils;
 
+import com.goodjob.banner.model.BannerDTO;
 import com.goodjob.module.AjaxPageModule;
+import com.goodjob.module.FileCopy;
 import com.goodjob.one_one.model.One_OneDAO;
 import com.goodjob.one_one.model.One_OneDTO;
+import com.goodjob.totalfile.model.TotalFileDAO;
+import com.goodjob.totalfile.model.TotalFileDTO;
 
 @Controller
 public class One_oneController {
 	
 	@Autowired
 	private One_OneDAO oneDao;
-
+	@Autowired
+	private TotalFileDAO fDao;
 	
 	//일대일문의 들어가기
 	@RequestMapping("/manOneList.do")
@@ -132,19 +141,32 @@ public class One_oneController {
 	@RequestMapping("userOneList.do")
 	public ModelAndView userOneList(HttpSession session,@RequestParam(value="cp",defaultValue = "1")int cp) {
 		ModelAndView mav=new ModelAndView();
-		int idx=Integer.parseInt((String)session.getAttribute("idx"));
+		Integer sIdx=session.getAttribute("sidx")!=null?(Integer)session.getAttribute("sidx"):0;
 		int pazeSize=5;
 		int listSize=15;
 		mav.addObject("page",AjaxPageModule.makePage(0, listSize, pazeSize, cp));
-		mav.addObject("list",oneDao.userOneList(idx, cp, listSize));
+		mav.addObject("list",oneDao.userOneList(sIdx, cp, listSize));
 		mav.setViewName("one/userOneList");
 		return mav;
 	}
 	@RequestMapping(value= "userOneWrite.do",method = RequestMethod.POST)
-	public ModelAndView userOneWrite(One_OneDTO dto) {
+	public ModelAndView userOneWrite(One_OneDTO dto,
+			@RequestParam(value="file",defaultValue = "")MultipartFile file,
+			HttpServletRequest req) {
+		System.out.println(dto.toString());
 		ModelAndView mav=new ModelAndView();
-		mav.addObject("msg",oneDao.userOneWrite(dto));
-		
+		String fcategory="one_one";
+		int idx=oneDao.userOneWrite(dto);
+		System.out.println(idx);
+		if(!file.isEmpty()) {
+			FileCopy fc=new FileCopy();
+			fc.copyInto(fcategory, file, req);
+			Map<String, String>map=new HashMap<String, String>();
+			map.put("category",fcategory);
+			map.put("file", file.getOriginalFilename());
+			map.put("table_name", "one_one");
+			fDao.manFileAdd(map);
+		}
 		return mav;
 	}
 	@RequestMapping("userOneContent.do")
@@ -157,7 +179,7 @@ public class One_oneController {
 	@RequestMapping(value="userOneReWrite.do",method = RequestMethod.POST)
 	public ModelAndView userOneReWrite(One_OneDTO dto) {
 		ModelAndView mav=new ModelAndView();
-		mav.addObject("msg",oneDao.manFAQAnswer(dto));
+		//mav.addObject("msg",oneDao.manOneAnswer(dto));
 		return  mav;
 	}
 	
@@ -185,6 +207,10 @@ public class One_oneController {
 		return mav;
 		
 		
+	}
+	@RequestMapping("userOneWrite.do")
+	public String userOneWriteForm() {
+		return "one/userOneWrite";
 	}
 	
 }

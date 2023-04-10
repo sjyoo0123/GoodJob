@@ -9,18 +9,23 @@ import org.springframework.stereotype.Component;
 @Component
 public class EmailServiceImpl {
 
-    private JavaMailSender mailSender;
+    private static JavaMailSender mailSender;
 
     @Autowired
     public void setMailSender(JavaMailSender mailSender) {
-        this.mailSender = mailSender;
+        EmailServiceImpl.mailSender = mailSender;
     }
 
-    public void sendEmail(String to, String subject, String body) {
+    public static void sendEmail(String to, String subject, String body) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(to);
         message.setSubject(subject);
         message.setText(body);
-        mailSender.send(message);
+        try {
+			mailSender.send(message);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 }
