@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.goodjob.sales">
+	<select id="salesGetPeriod" parameterType="map" resultType="com.goodjob.sales.model.SalesDTO">
+		SELECT SUM(price) as price,TO_CHAR(paydate, 'MM-DD') as paydate
+		FROM payment_log
+		where paydate between #{startdate} and #{enddate}
+		GROUP BY TO_CHAR(paydate, 'MM-DD')
+	</select>
+	<select id="salesGetMonth" parameterType="map" resultType="com.goodjob.sales.model.SalesDTO">
+		SELECT SUM(price) as price,TO_CHAR(paydate, 'YY-MM') as paydate
+		FROM payment_log
+		where paydate between add_months(to_date(#{month1}, 'YYYY-MM'), -6) and to_date(#{month2}, 'YYYY-MM')
+		GROUP BY TO_CHAR(paydate, 'YY-MM')
+	</select>
+  </mapper>

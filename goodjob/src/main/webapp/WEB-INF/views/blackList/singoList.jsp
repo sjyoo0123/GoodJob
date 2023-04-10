@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8"> 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
@@ -16,22 +16,33 @@
 			<article>
 				<div class="form-check form-check-inline">
 					<input type="radio" class="btn-check" name="options" id="normal" autocomplete="off" value="개인" >
-					<label class="btn btn-secondary" for="normal">일반회원</label>
+					<label class="btn btn-outline-primary" for="normal">일반회원</label>
 					<input type="radio" class="btn-check" name="options" id="company" value="기업" autocomplete="off">
-					<label class="btn btn-secondary" for="company">기업회원</label>
+					<label class="btn btn-outline-primary" for="company">기업회원</label>
 				</div>
 				<div id="my-div">
 				</div>
+				<input type="hidden" id="cp" value="1">
+				<div id="page"></div>
 			</article>
 		</section>
 	<%@include file="/WEB-INF/views/footer.jsp"%>
 <script>
 $('input[name=options]').change(function(){
 	$('#my-div').empty();
-	 $.ajax({
+	 showtab();
+	  
+	});
+$(document).on('click','#page button',function(){
+	$('#cp').attr({value:$(this).val()});
+	$('#my-div').empty();
+	showtab();
+});
+function showtab(){
+	$.ajax({
 	      url:'manBlackListSingoListGet.do',
 	      type:'post',
-	      data:{"category":$('.btn-check:checked').val()},//전송데이터
+	      data:{"category":$('.btn-check:checked').val(),"cp":$('#cp').val()},//전송데이터
 	      dataType:'json'
 	      //전송받을타입 json으로 선언하면 json으로 파싱안해도됨
 	   }).done((data)=>{
@@ -63,7 +74,7 @@ $('input[name=options]').change(function(){
 			    // lists가 비어있지 않은 경우 데이터 행 추가
 			    $.each(data.lists, function(index, dto) {
 			      var $dataTr = $('<tr>');
-			      var $td1 = $('<td>').append($('<a>').attr('href', 'manBlackListContentForm.do?idx='+dto.member_idx).text(dto.name));
+			      var $td1 = $('<td>').append($('<a>').attr('href', 'manBlackListContentForm.do?idx='+dto.member_idx+'&status='+dto.status).text(dto.name));
 			      var $td2 = $('<td>').text(dto.singo_count);
 			      var $td3 = $('<td>').text(dto.singo_date ? formatDate(new Date(dto.singo_date)) : 'N/A');
 			      var $td4 = $('<td>').text( (dto.check == 1) ? "확인" : "미확인");
@@ -87,6 +98,8 @@ $('input[name=options]').change(function(){
 			  $table.append($tbody);
 			  
 			  $('#my-div').append($table);
+			  $('#page').children().remove();
+				$('#page').append(data.page);
 			  
 	   }).fail(()=>{
 	      //실패시 실행
@@ -94,8 +107,7 @@ $('input[name=options]').change(function(){
 	      //성공여부 무관 실행
 		   
 	   })
-	  
-	});
+}
 </script>
 </body>
 </html>

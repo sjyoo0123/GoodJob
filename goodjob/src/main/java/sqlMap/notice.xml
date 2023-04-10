@@ -25,7 +25,7 @@ notice
 INNER JOIN plan ON notice.plan_idx = plan.idx
 LEFT JOIN apply ON notice.idx = apply.notice_idx
 WHERE
-notice.com_idx = 7
+notice.com_idx = #{idx} and notice.status=#{status}
 AND notice.status = '활성'
 GROUP BY
 notice.idx,
@@ -39,8 +39,8 @@ notice.idx DESC
 ) a) b
 		where <![CDATA[rnum>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
 </select>
-<select id="noticeTotalCnt" parameterType="Integer" resultType="Integer">
-select count(*) from notice where com_idx=#{idx} and status='활성'
+<select id="noticeTotalCnt" parameterType="Map" resultType="Integer">
+select count(*) from notice where com_idx=#{idx} and status=#{status}
 </select>
 <select id="noticeContent" parameterType="Integer" resultType="com.goodjob.notice.model.NoticeDTO">
 select * from notice where idx=#{idx} and status='활성'
@@ -48,4 +48,138 @@ select * from notice where idx=#{idx} and status='활성'
 <update id="noticeDel" parameterType="Integer">
 update notice set status='비활성' where idx=#{idx}
 </update>
+
+<select id="manNoticeStatusList" resultType="com.goodjob.notice.model.NoticeDTO" parameterType="Map">
+	        select * from(
+        select  rownum as rnum, a.* from(
+        select  *  from notice
+       	where status='활성화'
+        )a
+        ) b
+        where rnum<![CDATA[>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
+</select>
+<select id="manNoticeTotalList" resultType="Integer">
+	select count(*) from notice
+	where status='활성'
+</select>
+<select id="manNoticeAcceptList" resultType="com.goodjob.notice.model.NoticeDTO" parameterType="Map">
+	select * from(
+	select rownum as rnum, a.* from(
+	select * from notice
+	where status='대기'
+	)a
+	)b
+	where rnum<![CDATA[>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
+</select>
+<select id="manNoticeStatusCnt" resultType="Integer">
+	select count(*) from notice
+	where status='대기'
+</select>
+<select id="manNoticeAcceptContent" parameterType="Integer" resultType="com.goodjob.notice.model.NoticeDTO">
+	select * from notice where idx=#{idx}
+</select>
+<update id="manNoticeAcceptContent_Ok" parameterType="com.goodjob.notice.model.NoticeDTO">
+	update notice set
+	status = '활성'
+	where idx=${idx}
+</update>
+<update id="manNoticeAcceptContent_No" parameterType="com.goodjob.notice.model.NoticeDTO">
+	update notice set
+	status = '거부'
+	where idx=${idx}
+</update>
+<update	 id="manNoticeDel" parameterType="com.goodjob.notice.model.NoticeDTO">
+	update notice set
+	status = '비활성'
+	where idx=${idx}
+</update>
+<select id="manNoticeDelList" parameterType="Map" resultType="com.goodjob.notice.model.NoticeDTO">
+	select * from(
+	select rownum as rnum, a.* from(
+	select * from notice
+	order by idx asc
+	)a
+	)b
+	where rnum<![CDATA[>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
+</select>
+<select id="manNoticeCnt" resultType="Integer">
+	select count(*)	from notice
+</select>
+
+<select id="whereNoticeTotalCnt" parameterType="Map"
+	resultType="Integer">
+	SELECT count(*)
+	FROM notice
+	WHERE status = '활성'
+	AND workday like
+	#{workday}
+	<if test="boolean1">
+		AND (
+		<if test="boolean2">
+			local2 IN
+			<foreach item="item" index="index" collection="local2"
+				open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+		<if test="boolean4">
+			OR
+		</if>
+		<if test="boolean3">
+			local3 IN
+			<foreach item="item" index="index" collection="local3"
+				open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+		)
+	</if>
+	<if test="boolean5">
+		AND ( job in
+		<foreach item="item" index="index" collection="job" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+		)
+	</if>
+</select>
+	<select id="whereNoticeList" parameterType="Map"
+		resultType="com.goodjob.notice.model.NoticeDTO">
+		select * from (select rownum as rnum,a. * from (
+		SELECT * FROM notice
+		WHERE status = '활성'
+		AND workday LIKE #{workday}
+		<if test="boolean1.booleanValue()">
+			AND (
+			<if test="boolean2.booleanValue()">
+				local2 IN
+				<foreach item="item" index="index" collection="local2"
+					open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="boolean4.booleanValue()">
+				OR
+			</if>
+			<if test="boolean3.booleanValue()">
+				local3 IN
+				<foreach item="item" index="index" collection="local3"
+					open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			)
+		</if>
+		<if test="boolean5">
+			AND ( job in
+			<foreach item="item" index="index" collection="job" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
+			)
+		</if>
+		ORDER BY ref desc)a)
+		where  <![CDATA[rnum>=]]>#{start}
+		and rnum<![CDATA[<=]]>#{end}
+	</select>
   </mapper>

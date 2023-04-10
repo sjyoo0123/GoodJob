@@ -10,7 +10,7 @@
 	rel="stylesheet"
 	integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
 	crossorigin="anonymous">
-<script
+<script 
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
 	crossorigin="anonymous"></script>
@@ -64,11 +64,12 @@
 								</td>
 								<td class="plan-option">
 									<div  style="display: none;" class="vip-option">
+										등급 :
 										<select class="form-select" name="vip_floor">
 											<option value="다이아">다이아</option>
 											<option value="골드">골드</option>
 											<option value="실버">실버</option>
-										</select>
+										</select>기간 :
 										<select class="form-select" name="plan_period">
 											<option value="1">1일</option>
 											<option value="3">3일</option>

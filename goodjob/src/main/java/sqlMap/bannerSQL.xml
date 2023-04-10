@@ -35,4 +35,7 @@
  		delete from banner
  		where idx=${idx}
  	</delete>
+ 	<select id="mainBanner" resultType="com.goodjob.banner.model.BannerDTO">
+ 	select * from banner where status='활성' order by ref asc
+ 	</select>
  </mapper>

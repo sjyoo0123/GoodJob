@@ -26,4 +26,27 @@ public class KeywordDAOImple implements KeywordDAO {
 		return list;
 	}
 
+	@Override
+	public int manKeywordAdd(KeywordDTO dto) {
+		
+		int count=sqlMap.insert("manKeywordAdd", dto);
+		
+		return count;
+	}
+	
+	@Override
+	public int manKeywordDel(int idx) {
+
+		int count=sqlMap.update("manKeywordDel", idx);
+		
+		return count;
+	}
+	
+	@Override
+	public List<KeywordDTO> manKeywordList() {
+		
+		List<KeywordDTO> lists=sqlMap.selectList("manKeywordList");
+		
+		return lists;
+	}
 }

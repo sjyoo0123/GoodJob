@@ -3,10 +3,50 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.goodjob.gongji">
-<select id="userGongJiList" resultType="List">
-select * from gongji
+<select id="userGongJiList" resultType="com.goodjob.gongji.model.GongJiDTO" parameterType="Map">
+select * from (select rownum as rnum,a. * from (SELECT * FROM gongji
+<if test="sboolean">
+ where
+ subject like '%'||${subject}||'%'
+</if>
+ORDER BY idx)a)
+where rnum<![CDATA[>=]]>#{start}
+		and rnum<![CDATA[<=]]>#{end}
+</select>
+<select id="userGongJiTotalCnt" resultType="Integer" parameterType="Map">
+select count(*) from gongji
+<if test="sboolean">
+ where
+  subject like '%'||${subject}||'%'
+</if>
 </select>
 <select id="gongJiContent" resultType="com.goodjob.gongji.model.GongJiDTO" parameterType="Integer">
 select * from gongji where idx=#{idx}
+</select>
+<insert id="manGongjiInsert" parameterType="com.goodjob.gongji.model.GongJiDTO">
+	insert into gongji
+	values(gongji_idx.nextval,#{subject},#{content},sysdate)
+</insert>
+<update id="manGongjiUpdate" parameterType="com.goodjob.gongji.model.GongJiDTO">
+	update gongji
+	set subject=#{subject},content=#{content}
+	where idx=#{idx}
+</update>
+<delete id="manGongjiDel" parameterType="Integer">
+	delete from gongji
+	where idx=#{idx}
+</delete>
+<select id="manGongjiList" parameterType="map" resultType="com.goodjob.gongji.model.GongJiDTO">
+	select * from
+	(select rownum as rnum, a.* from(
+	select *
+	from gongji
+	 order by idx desc
+	)a )b
+	where rnum <![CDATA[>=]]>#{start} and rnum <![CDATA[<=]]>#{end}
+</select>
+<select id="manGongjiListTotalCnt" resultType="Integer">
+	select count(*)
+	from gongji
 </select>
 </mapper>

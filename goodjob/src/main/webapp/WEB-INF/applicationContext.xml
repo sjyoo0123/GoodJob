@@ -72,6 +72,15 @@
 		class="com.goodjob.keyword.model.KeywordDAOImple">
 		<property name="sqlMap" ref="sqlSessionTemplate"></property>
 	</bean>
+	<bean id="manMemberDao" class="com.goodjob.manmember.model.ManMemberDAOImple">
+		<property name="sqlMap" ref="sqlSessionTemplate"></property>
+	</bean>
+	<bean id="salesDao" class="com.goodjob.sales.model.SalesDAOImple">
+		<property name="sqlMap" ref="sqlSessionTemplate"></property>
+	</bean>
+	<bean id="jobHelperDao" class="com.goodjob.jobhelper.model.JobHelperDAOImple">
+		<property name="sqlMap" ref="sqlSessionTemplate"></property>
+	</bean>
 	<bean id="ResumeDAO"
 		class="com.goodjob.resume.model.ResumeDAOImple">
 		<property name="sqlMap" ref="sqlSessionTemplate"></property>
@@ -95,6 +104,9 @@
 		<property name="sqlMap" ref="sqlSessionTemplate"></property>
 	</bean>
 	<bean id="plan_VipDao" class="com.goodjob.plan_vip.model.Plan_VipDAOImple">
+		<property name="sqlMap" ref="sqlSessionTemplate"></property>
+	</bean>
+	<bean id="plan_used_vipDao" class="com.goodjob.plan_used_vip.model.Plan_Used_VipDAOImple">
 		<property name="sqlMap" ref="sqlSessionTemplate"></property>
 	</bean>
 </beans>

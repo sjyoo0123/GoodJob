@@ -5,7 +5,7 @@ import java.sql.Date;
 public class One_OneDTO {
 
 	private int idx;
-	private int normal_idx;
+	private int member_idx;
 	private Date writedate;
 	private String subject;
 	private String category;
@@ -18,11 +18,11 @@ public class One_OneDTO {
 		super();
 	}
 
-	public One_OneDTO(int idx, int normal_idx, Date writedate, String subject, String category, String content,
+	public One_OneDTO(int idx, int member_idx, Date writedate, String subject, String category, String content,
 			String email, int check, String status) {
 		super();
 		this.idx = idx;
-		this.normal_idx = normal_idx;
+		this.member_idx = member_idx;
 		this.writedate = writedate;
 		this.subject = subject;
 		this.category = category;
@@ -41,11 +41,11 @@ public class One_OneDTO {
 	}
 
 	public int getNormal_idx() {
-		return normal_idx;
+		return member_idx;
 	}
 
 	public void setNormal_idx(int normal_idx) {
-		this.normal_idx = normal_idx;
+		this.member_idx = normal_idx;
 	}
 
 	public Date getWritedate() {
@@ -106,7 +106,7 @@ public class One_OneDTO {
 
 	@Override
 	public String toString() {
-		return "One_OneDTO [idx=" + idx + ", normal_idx=" + normal_idx + ", writedate=" + writedate + ", subject="
+		return "One_OneDTO [idx=" + idx + ", normal_idx=" + member_idx + ", writedate=" + writedate + ", subject="
 				+ subject + ", category=" + category + ", content=" + content + ", email=" + email + ", check=" + check
 				+ ", status=" + status + "]";
 	}

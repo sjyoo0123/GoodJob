@@ -4,6 +4,23 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.goodjob.keyword">
 	<select id="reviewWriteForm" resultType="com.goodjob.keyword.model.KeywordDTO" >
-		select * from keyword  order by idx desc 
+		select * from keyword order by idx desc
 	</select>
+	<select id="manKeywordList" resultType="com.goodjob.keyword.model.KeywordDTO">
+		select * from keyword
+		where status='활성'
+		order by idx asc
+	</select>
+	<insert id="manKeywordAdd" parameterType="com.goodjob.keyword.model.KeywordDTO">
+		insert into keyword
+		values (
+		keyword_idx.nextval,
+		#{content},'활성'
+		)
+	</insert>
+	<update id="manKeywordDel" parameterType="com.goodjob.keyword.model.KeywordDTO">
+		update keyword set
+		status='비활성'
+		where idx=#{idx}
+	</update>
 </mapper>

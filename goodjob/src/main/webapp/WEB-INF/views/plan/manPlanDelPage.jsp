@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<!DOCTYPE html>	
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -29,7 +29,6 @@
 		<%@include file="/WEB-INF/views/header.jsp"%>
 		<section>
 			<article>
-				<form name="manPlanAdd" action="manPlanAdd.do" method="post">
 					<div class="row">
 						<div class="col-sm-6 offset-sm-3">
 							<h2 align="center">요금제 관리</h2>
@@ -41,22 +40,61 @@
 							| <a href="manPlanDelPage.do">삭제</a>
 						</div>
 					</div>
+					<form name="manPlanUpDel" action="manPlanUpDel.do" method="post">
 					<div class="row">
 						<div class="offset-sm-3 col-sm-6">
 							<div class="card">
 								<h3 class="card-title">up 요금제 삭제하기</h3>
 								<table class="table">
-									<tr>
-										<td>요금제 이름 :</td>
-										<td> </td>
-									</tr>
+									<c:if test="${empty lists_up }">
+										<tr>
+											<td colspan="4" align="center">등록된 up요금제가 없습니다.</td>
+										</tr>
+									</c:if>
+									<c:forEach var="dto" items="${lists_up }">
+										<input type="hidden" name="idx" value="${dto.idx }">
+										<tr>
+											<td>요금제 이름 : ${dto.plan_name }</td>
+											<td>업 횟수 : ${dto.count }</td>
+											<td>요금제 가격 : ${dto.plan_price }</td>
+											<td><input type="submit" value="삭제하기"></td>
+										</tr>
+									</c:forEach>
 								</table>
 							</div>
 						</div>
 					</div>
-				</form>
+					</form>
+					<hr>
+					<form name="manPlanVipDel" action="manPlanVipDel.do" method="post">
+					<div class="row">
+						<div class="offset-sm-3 col-sm-6">
+							<div class="card">
+								<h3 class="card-title">vip 요금제 삭제하기</h3>
+								<table class="table">
+									<c:if test="${empty lists_vip }">
+										<tr>
+											<td colspan="5" align="center">등록된 vip요금제가 없습니다.</td>
+										</tr>
+									</c:if>
+									<c:forEach var="dto" items="${lists_vip }">
+										<input type="hidden" name="idx" value="${dto.idx }">
+										<tr>
+											<td>요금제 이름 : ${dto.plan_name }</td>
+											<td>요금제 등급 : ${dto.vip_floor }</td>
+											<td>요금제 가격 : ${dto.plan_price }</td>
+											<td>남은 기간 : ${dto.plan_period }</td>
+											<td><input type="submit" value="삭제하기"></td>
+										</tr>
+									</c:forEach>
+								</table>
+							</div>
+						</div>
+					</div>
+					</form>
 			</article>
 		</section>
+		<%@include file="/WEB-INF/views/footer.jsp" %>
 	</div>
 </body>
 </html>
