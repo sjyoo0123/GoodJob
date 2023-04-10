@@ -15,53 +15,47 @@
 	<%@include file="/WEB-INF/views/header.jsp"%>
 		<section>
 			<article>
-				<table class="table table-hover">
-					<thead>
-						<tr>
-							<th>글번호</th>
-							<th>제목</th>
-							<th>작성일</th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:if test="${empty lists }">
-							<tr>
-							<td colspan="3">작성된 글이 없습니다</td>
-							</tr>
-						</c:if>
-						<c:forEach var="dto" items="${lists}">
-							<c:url var="urlstr" value="manGonjiContent.do">
-								<c:param name="idx" value="${dto.idx }"></c:param>
-							</c:url>
-							<tr>
-								<td>${dto.idx }</td>
-								<td><a href="${urlstr }">${dto.subject }</a></td>
-								<td>${dto.writedate }</td>
-							</tr>
-						</c:forEach>
-					</tbody>
-					<tfoot>
-						<tr>
-							<td colspan="3">
-							${pagestr}
-							</td>
-						</tr>
-						<tr>
-							<td colspan="3">
-							<div>
-							<input type="button" value="글작성" onclick="javascript:location.href='manGongjiInertForm.do'">
-							</div>
-							</td>
-						</tr>
-					</tfoot>
-				</table>
-					
+			<table border="1" width="550" height="600">
+				<thead>
+					<tr>
+						<th>글번호</th>
+						<td>${dto.idx }</td>
+						<th>작성일</th>
+						<td>${dto.writedate}</td>
+					</tr>
+					<tr>
+						<th>제목</th>
+						<td colspan="3">${dto.subject}</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td colspan="4">
+						${dto.content }
+						</td>
+					</tr>
+				</tbody>
+				<tfoot>
+					<tr>
+						<td colspan="4">
+						<div style="text-align: center;">
+						<input type="button" value="수정하기" onclick="javascript:location.href='manGongjiUpdateForm.do?idx=${dto.idx}'">
+						<input type="button" value="삭제하기" onclick="javascript:location.href='manGongjiDel.do?idx=${dto.idx}'">
+						</div>
+						</td>
+					</tr>
+				</tfoot>
+			</table>
 			</article>
 		</section>
 	<%@include file="/WEB-INF/views/footer.jsp"%>
 </div>
 </body>
 </html>
+
+
+
+
 
 
 

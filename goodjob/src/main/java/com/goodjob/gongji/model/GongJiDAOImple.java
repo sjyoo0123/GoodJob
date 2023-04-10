@@ -1,6 +1,7 @@
 package com.goodjob.gongji.model;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
@@ -32,17 +33,27 @@ public class GongJiDAOImple implements GongJiDAO {
 	}
 	@Override
 	public int gongJiInsert(GongJiDTO dto) {
-		int result=sqlMap.insert("gongJiInsert", dto);
+		int result=sqlMap.insert("manGongjiInsert", dto);
 		return result;
 	}
 	@Override
 	public int gongJiUpdate(GongJiDTO dto) {
-		int result=sqlMap.update("gongJiUpdate", dto);
+		int result=sqlMap.update("manGongjiUpdate", dto);
 		return result;
 	}
 	@Override
 	public int gongJiDel(int idx) {
-		int result=sqlMap.delete("gongJiDel", idx);
+		int result=sqlMap.delete("manGongjiDel", idx);
 		return result;
+	}
+	@Override
+	public List<GongJiDTO> manGongjiList(Map map) {
+		List<GongJiDTO> lists=sqlMap.selectList("manGongjiList",map);
+		return lists;
+	}
+	@Override
+	public int manGongjiListTotalCnt() {
+		int total=sqlMap.selectOne("manGongjiListTotalCnt");
+		return total;
 	}
 }
