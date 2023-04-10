@@ -56,7 +56,7 @@ z-index: 1;
 </style>
 </head>
 <body>
-	<div class="container-fluid" >
+	<div class="container" >
 	<%@include file="/WEB-INF/views/header.jsp"%>
 	<div class="row">
 		<div class="col-sm-6 mb-4">
