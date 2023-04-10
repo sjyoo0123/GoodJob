@@ -6,11 +6,11 @@
 	<insert id="memberJoin"
 		parameterType="com.goodjob.member.model.MemberDTO">
 		insert into member
-		values(member_idx.nextval,#{id},#{pwd},#{name},#{email},#{tel},#{addr},sysdate,#{singo_count},#{user_category},#{status})
+		values(member_idx_se.nextval,#{id},#{pwd},#{name},#{email},#{tel},#{addr},sysdate,#{singo_count},#{user_category},#{status})
 	</insert>
 	<select id="memberSelect" parameterType="Map"
 		resultType="com.goodjob.member.model.MemberDTO">
-		select * from member where id=#{id} and pwd=#{pwd} and status='활성'
+		select * from member where id=#{id} and pwd=#{pwd} and status='대기'
 	</select>
 	<select id="login" parameterType="Map"
 		resultType="com.goodjob.member.model.MemberDTO">
@@ -21,7 +21,7 @@
 		select count(*) from member where id=#{id} and status='활성'
 	</select>
 	<select id="emailCheck" parameterType="String" resultType="Integer">
-	select count(*) from member where and email=#{email} and status='활성'
+	select count(*) from member where email=#{email} and status='활성'
 	</select>
 	<update id="memberUpdate" parameterType="map">
 		BEGIN
@@ -34,5 +34,11 @@
 		WHERE member_idx = #{idx};
 
 		END
+	</update>
+	<select id="resumeWriteForm" resultType="com.goodjob.member.model.MemberDTO">
+		select * from member where idx =1 and status = '활성' 
+	</select>
+	<update id="updateStatus" parameterType="com.goodjob.member.model.MemberDTO">
+	update member set status = '활성' where idx=#{idx} and email=#{email} and status = '대기' 
 	</update>
 </mapper>

@@ -56,6 +56,7 @@ public class BlackListController {
 	public ModelAndView manBlackListContentForm(@RequestParam(value="idx")int idx,@RequestParam(value="status", defaultValue = "블랙")String status) {
 		ModelAndView mav=new ModelAndView();
 		String name=bdao.manBlackListGetName(idx);
+		bdao.manBlackListSingoCheckUpdate(idx);
 		mav.addObject("name", name);
 		mav.addObject("status", status);
 		mav.addObject("idx", idx);
@@ -85,21 +86,26 @@ public class BlackListController {
 		return mav;
 	}
 	@RequestMapping(value="/manBlackListDelForm.do")
-	public ModelAndView manBlackListDelForm(int idx,int sort) {
+	public ModelAndView manBlackListDelForm(@RequestParam(value="idx",defaultValue = "0")int idx,@RequestParam(value="sort",defaultValue = "0")int sort,
+			@RequestParam(value = "member_idx",defaultValue = "0")int member_idx) {
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("idx", idx);
 		mav.addObject("sort", sort);
+		mav.addObject("member_idx",member_idx);
 		mav.setViewName("blackList/blackListDel");
 		return mav;
 	}
 	
 	@RequestMapping(value="/manBlackListDel.do")
-	public ModelAndView manBlackListDel(int idx,int sort) {
+	public ModelAndView manBlackListDel(int idx,int member_idx,int sort) {
 		ModelAndView mav=new ModelAndView();
 		String msg="";
 		int result=0;
 		if(sort==1) {
 			result=bdao.manBlackListSingoDel(idx);
+			if(result>0) {
+				result=bdao.manBlackListUpdateSingoCount(member_idx);
+			}
 		}else if(sort==2) {
 			result=bdao.manBlackListDel(idx);
 		}
@@ -140,6 +146,18 @@ public class BlackListController {
 		mav.setViewName("goodjobJson");
 		return mav;
 	}
+	
+	@RequestMapping(value="/manBlackListAdd.do")
+	public ModelAndView manBlackListAdd(int idx) {
+		ModelAndView mav=new ModelAndView();
+		int result=bdao.manBlackListAdd(idx);
+		String msg=result>0?"블랙리스트 추가 완료!":"블랙리스트 추가 실패...";
+		mav.addObject("msg", msg);
+		mav.setViewName("blackList/singoMsg");
+		
+		return mav;
+	}
+	
 }
 
 

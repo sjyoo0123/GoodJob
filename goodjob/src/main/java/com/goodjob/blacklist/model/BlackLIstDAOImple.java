@@ -1,5 +1,6 @@
 package com.goodjob.blacklist.model;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -67,5 +68,23 @@ public class BlackLIstDAOImple implements BlackListDAO {
 	public int manBlackListSingoTotalCnt(String category) {
 		int total=sqlMap.selectOne("manBlackListSingoListTotalCnt", category);
 		return total;
+	}
+	@Override
+	public int manBlackListUpdateSingoCount(int idx) {
+		Map<String,Integer> map=new HashMap<String,Integer>();
+		map.put("num1", idx);
+		map.put("num2", idx);
+		int result=sqlMap.update("manBlackListUpdateSingoCount", map);
+		return result;
+	}
+	@Override
+	public int manBlackListAdd(int idx) {
+		int result=sqlMap.update("manBlackListAdd", idx);
+		return result;
+	}
+	@Override
+	public int manBlackListSingoCheckUpdate(int idx) {
+		int result=sqlMap.update("manBlackListSingoCheckUpdate",idx);
+		return result;
 	}
 }

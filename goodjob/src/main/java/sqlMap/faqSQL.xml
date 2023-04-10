@@ -2,47 +2,98 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
- <mapper namespace="com.goodjob.faq">
-	<insert id="manFAQAdd" parameterType="com.goodjob.faq.model.FAQDTO">
-	insert into faq
-	values(faq_idx.nextval,
-	#{category},
-	#{subject},
-	#{content})
+<mapper namespace="com.goodjob.faq">
+	<insert id="manFAQAdd"
+		parameterType="com.goodjob.faq.model.FAQDTO">
+		insert into faq
+		values(faq_idx.nextval,
+		#{category},
+		#{subject},
+		#{content})
 	</insert>
-	<select id="manFAQList" parameterType="Map" resultType="com.goodjob.faq.model.FAQDTO">
+	<select id="manFAQList" parameterType="Map"
+		resultType="com.goodjob.faq.model.FAQDTO">
 		select * from
 		(select rownum as rnum, a.* from
 		(select * from faq
-		order by idx desc)a )b
-		where rnum<![CDATA[>=]]>#{start} and rnum<![CDATA[<=]]>#{end} 
-	
+		order
+		by idx desc)a )b
+		where rnum<![CDATA[>=]]>#{start}
+		and rnum<![CDATA[<=]]>#{end}
+
 	</select>
-	<select id="manFAQAllCnt" resultType="Integer" >
-		select count(*) from faq
-		
+	<select id="manFAQAllCnt" resultType="Integer">
+		select count(*)
+		from faq
+
 	</select>
-	<select id="manFAQContent" resultType="com.goodjob.faq.model.FAQDTO">
+	<select id="manFAQContent"
+		resultType="com.goodjob.faq.model.FAQDTO">
 		select * from
 		faq where idx=#{idx}
 	</select>
-	<update id="manFAQUpdate" parameterType="com.goodjob.faq.model.FAQDTO">
-		update faq set 
+	<update id="manFAQUpdate"
+		parameterType="com.goodjob.faq.model.FAQDTO">
+		update faq set
 		category= #{category},
 		subject= #{subject},
 		content=#{content}
 		where idx=#{idx}
 	</update>
-	<delete id="manFAQDel" parameterType="com.goodjob.faq.model.FAQDTO">
+	<delete id="manFAQDel"
+		parameterType="com.goodjob.faq.model.FAQDTO">
 		delete from faq
 		where idx=#{idx}
 	</delete>
-	<select id="manFAQSearch" parameterType="Map" resultType="com.goodjob.faq.model.FAQDTO">
+	<select id="manFAQSearch" parameterType="Map"
+		resultType="com.goodjob.faq.model.FAQDTO">
 		select * from
 		(select rownum as rnum, a.* from
 		(select * from faq
-		where subject like '%'||#{search}||'%'
+		where
+		subject like '%'||#{search}||'%'
 		order by idx desc)a )b
-		where rnum<![CDATA[>=]]>#{start} and rnum<![CDATA[<=]]>#{end} 
+
+		where rnum<![CDATA[>=]]>#{start}
+		and rnum<![CDATA[<=]]>#{end}
+
+
+
 	</select>
- </mapper>
+	<select id="userSearchFAQ" resultType="com.goodjob.faq.model.FAQDTO" parameterType="Map">
+		select * from (select rownum as rnum,a. * from (SELECT * FROM faq 
+		<if test="cbollean">
+		where 
+		category = #{category} 
+		</if>
+		<if test="cands">
+		and 
+		</if>
+		<if test="cands2">
+		where
+		</if>
+		<if test="sbollean">
+		subject like '%'||#{search}||'%'
+		</if>
+		ORDER BY idx)a) 
+		where rnum<![CDATA[>=]]>#{start}
+		and rnum<![CDATA[<=]]>#{end}
+
+	</select>
+	<select id="userSearchTotalCntFAQ" resultType="Integer" parameterType="Map">
+		SELECT count(*) FROM faq 
+		<if test="cbollean">
+		where 
+		category = #{category} 
+		</if>
+		<if test="cands">
+		and 
+		</if>
+		<if test="cands2">
+		where
+		</if>
+		<if test="sbollean">
+		subject like '%'||#{search}||'%'
+		</if>
+	</select>
+</mapper>
