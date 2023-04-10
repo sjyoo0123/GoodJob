@@ -7,11 +7,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-<<<<<<< HEAD
 import org.springframework.web.bind.annotation.RequestMethod;
-=======
 import org.springframework.web.bind.annotation.RequestParam;
->>>>>>> bfeff8791efd6d8e7e5305c9bb414dec88165e62
 import org.springframework.web.servlet.ModelAndView;
 
 import com.goodjob.keyword.model.KeywordDAO;
