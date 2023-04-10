@@ -13,7 +13,7 @@
 <title>Insert title here</title>
  
   
-</head>
+</head> 
 <body>
 	<div class="container">
 	<%@include file="/WEB-INF/views/header.jsp"%>

@@ -15,14 +15,12 @@
 	 <%@include file="/WEB-INF/views/header.jsp"%> 
 		<section>
 			<article>
-				<c:if test="${empty list}">
-				작성된 문의가 없습니다
+				<c:if test="${empty dto}">
+				삭제된 게시글 입니다
 				</c:if>
-				<c:forEach var="dto" items="${list}">
 				${dto.subject }
-				${dto.check }
+				${dto.ckeck }
 				
-				</c:forEach>
 			</article>
 		</section>
 	 <%@include file="/WEB-INF/views/footer.jsp"%> 

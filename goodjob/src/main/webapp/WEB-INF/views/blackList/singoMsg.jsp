@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<script>
+<script> 
 window.alert('${msg}');
 opener.location.href="manBlackListSingoList.do"
 window.self.close();
