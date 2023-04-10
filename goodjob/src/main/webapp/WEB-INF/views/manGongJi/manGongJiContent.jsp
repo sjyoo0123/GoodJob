@@ -15,7 +15,7 @@
 	<%@include file="/WEB-INF/views/header.jsp"%>
 		<section>
 			<article>
-			<table border="1" width="550" height="600">
+			<table border="1" style="height: 600px; width: 550px">
 				<thead>
 					<tr>
 						<th>글번호</th>

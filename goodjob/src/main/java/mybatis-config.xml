@@ -23,6 +23,7 @@
   		<mapper resource="sqlMap/plan_upSQL.xml"/>
   		<mapper resource="sqlMap/applySQL.xml"/>
   		<mapper resource="sqlMap/jobSQL.xml"/>
+  		<mapper resource="sqlMap/gongjiSQL.xml"/>
   		<mapper resource="sqlMap/offerSQL.xml"/>
   		<mapper resource="sqlMap/gongjiSQL.xml"/>
   	</mappers>

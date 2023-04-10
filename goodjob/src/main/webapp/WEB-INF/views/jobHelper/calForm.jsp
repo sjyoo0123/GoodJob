@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -194,11 +193,6 @@ input[type=number] {
 			var workday= Math.abs(diffDate / (1000 * 60 * 60 * 24)); // 밀리세컨 * 초 * 분 * 시 = 일
 			
 			var result=avgpay*workday/365*30;
-			console.log(monthprice);
-			console.log(yearsang);
-			console.log(yearcha);
-			console.log(avgpay);
-			console.log(workday);
 			$('#endresult').val(parseInt(result));
 		}
 	</script>

@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8"> 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
@@ -22,16 +22,27 @@
 				</div>
 				<div id="my-div">
 				</div>
+				<input type="hidden" id="cp" value="1">
+				<div id="page"></div>
 			</article>
 		</section>
 	<%@include file="/WEB-INF/views/footer.jsp"%>
 <script>
 $('input[name=options]').change(function(){
 	$('#my-div').empty();
-	 $.ajax({
+	 showtab();
+	  
+	});
+$(document).on('click','#page button',function(){
+	$('#cp').attr({value:$(this).val()});
+	$('#my-div').empty();
+	showtab();
+});
+function showtab(){
+	$.ajax({
 	      url:'manBlackListSingoListGet.do',
 	      type:'post',
-	      data:{"category":$('.btn-check:checked').val()},//전송데이터
+	      data:{"category":$('.btn-check:checked').val(),"cp":$('#cp').val()},//전송데이터
 	      dataType:'json'
 	      //전송받을타입 json으로 선언하면 json으로 파싱안해도됨
 	   }).done((data)=>{
@@ -87,6 +98,8 @@ $('input[name=options]').change(function(){
 			  $table.append($tbody);
 			  
 			  $('#my-div').append($table);
+			  $('#page').children().remove();
+				$('#page').append(data.page);
 			  
 	   }).fail(()=>{
 	      //실패시 실행
@@ -94,8 +107,7 @@ $('input[name=options]').change(function(){
 	      //성공여부 무관 실행
 		   
 	   })
-	  
-	});
+}
 </script>
 </body>
 </html>

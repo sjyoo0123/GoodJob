@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -29,7 +29,8 @@
 			</div>
 			<div id="my-div">
 			</div>
-			
+			<input type="hidden" id="cp" value="1">
+			<div id="page"></div>
 			</article>
 		</section>
 	<%@include file="/WEB-INF/views/footer.jsp"%>
@@ -47,13 +48,18 @@ function deletefun(num){
 $('#addbutton').click(function(){
 	window.open('manBlackListAdd.do?idx='+${idx},'addpopup','width=400,height=400');
 });
+$(document).on('click','#page button',function(){
+	$('#cp').attr({value:$(this).val()});
+	ajaxgo();
+});
 
 function ajaxgo(){
 	$('#my-div').empty();
+
 	 $.ajax({
 	      url:'manBlackListContent.do',
 	      type:'post',
-	      data:{"idx":"${idx}"},//전송데이터
+	      data:{"idx":"${idx}","cp":$('#cp').val()},//전송데이터
 	      dataType:'json'
 	      //전송받을타입 json으로 선언하면 json으로 파싱안해도됨
 	   }).done((data)=>{
@@ -87,6 +93,8 @@ function ajaxgo(){
 				     var day = date.getDate().toString().padStart(2, '0');
 				     return year + '-' + month + '-' + day;
 				   }
+					  $('#page').children().remove();
+						$('#page').append(data.page);
 
 			
 			  

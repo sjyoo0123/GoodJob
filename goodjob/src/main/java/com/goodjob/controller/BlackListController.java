@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.goodjob.blacklist.model.BlackListDAO;
 import com.goodjob.blacklist.model.BlackListDTO;
 import com.goodjob.member.model.MemberDTO;
+import com.goodjob.module.AjaxPageModule;
 
 @Controller
 public class BlackListController {
@@ -38,16 +39,15 @@ public class BlackListController {
 		int totalCnt=bdao.manBlackListTotalCnt(category);
 		int listSize=5;
 		int pageSize=5;
-		String pagestr=com.goodjob.page.module.PageModule.makePage("manBlackList.do", totalCnt, listSize, pageSize, cp);
 		int start=(cp-1)*listSize+1;
 		int end=cp*listSize;
-		Map map=new HashMap();
+		Map<String,Object> map=new HashMap<String,Object>();
 		map.put("start", start);
 		map.put("end", end);
 		map.put("category", category);
 		List<MemberDTO> lists=bdao.manBlackListGet(map);
 		mav.addObject("lists", lists);
-		mav.addObject("pagestr",pagestr);
+		mav.addObject("page", AjaxPageModule.makePage(totalCnt, listSize, pageSize, cp));
 		mav.setViewName("goodjobJson");
 		return mav;
 	}
@@ -72,16 +72,15 @@ public class BlackListController {
 		int totalCnt=bdao.manBlackListContentTotalCnt(idx);
 		int listSize=5;
 		int pageSize=5;
-		String pagestr=com.goodjob.page.module.PageModule.makePage("manBlackList.do", totalCnt, listSize, pageSize, cp);
 		int start=(cp-1)*listSize+1;
 		int end=cp*listSize;
-		Map map=new HashMap();
+		Map<String,Integer> map=new HashMap<String,Integer>();
 		map.put("start", start);
 		map.put("end", end);
 		map.put("idx", idx);
 		List<BlackListDTO> lists=bdao.manBlackListContent(map);
 		mav.addObject("lists", lists);
-		mav.addObject("pagestr",pagestr);
+		mav.addObject("page", AjaxPageModule.makePage(totalCnt, listSize, pageSize, cp));
 		mav.setViewName("goodjobJson");
 		return mav;
 	}
@@ -133,16 +132,15 @@ public class BlackListController {
 		int totalCnt=bdao.manBlackListSingoTotalCnt(category);
 		int listSize=5;
 		int pageSize=5;
-		String pagestr=com.goodjob.page.module.PageModule.makePage("manBlackList.do", totalCnt, listSize, pageSize, cp);
 		int start=(cp-1)*listSize+1;
 		int end=cp*listSize;
-		Map map=new HashMap();
+		Map<String,Object> map=new HashMap<String,Object>();
 		map.put("start", start);
 		map.put("end", end);
 		map.put("category", category);
 		List<BlackListDTO> lists=bdao.manBlackListSingoList(map);
 		mav.addObject("lists", lists);
-		mav.addObject("pagestr",pagestr);
+		mav.addObject("page", AjaxPageModule.makePage(totalCnt, listSize, pageSize, cp));
 		mav.setViewName("goodjobJson");
 		return mav;
 	}

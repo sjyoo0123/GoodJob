@@ -75,4 +75,9 @@ public class BannerDAOImple implements BannerDAO {
 		
 		return count;
 	}
+	@Override
+	public List<BannerDTO> mainBanner() {
+		// TODO Auto-generated method stub
+		return sqlMap.selectList("mainBanner");
+	}
 }

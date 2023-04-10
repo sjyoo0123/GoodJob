@@ -3,6 +3,8 @@ package com.goodjob.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.goodjob.faq.model.FAQDAO;
 import com.goodjob.faq.model.FAQDTO;
+import com.goodjob.module.AjaxPageModule;
 
 @Controller
 public class FAQController {
@@ -49,15 +52,36 @@ public class FAQController {
 		
 		return mav;
 	}
-	@RequestMapping("userFAQList")
-	public ModelAndView userFaqList(@RequestParam(value="cp",defaultValue = "1") int cp) {
-		ModelAndView mav= new ModelAndView();
-		mav.addObject("fList",faqDao.manFAQList(cp, 15));
-		mav.setViewName("FAQ/userFAQList");
+
+	@RequestMapping("userFAQList.do")
+	public ModelAndView userFaqList(@RequestParam(value = "cp", defaultValue = "1") int cp,
+			@RequestParam(value = "subject", defaultValue = "") String search,
+			@RequestParam(value = "category", defaultValue = "") String category,
+			@RequestParam(value="bAjax", defaultValue = "false")boolean bAjax,
+			HttpSession session) {
+		System.out.println(bAjax);
+		ModelAndView mav = new ModelAndView();
+		 String scategory = session.getAttribute("scategory") != null ? (String) session.getAttribute("scategory") : "";
+		    if (category.equals("") && !scategory.equals("")) {
+		        category = scategory;
+		    }
+		int listSize = 10;
+		int pageSize = 5;
+		int start = (cp - 1) * listSize + 1;
+		int end = listSize * cp;
+		int totalCnt = faqDao.userSearchTotalCntFAQ(search, category);
+		mav.addObject("list", faqDao.userSearchFAQ(start, end, search, category));
+		mav.addObject("page", AjaxPageModule.makePage(totalCnt, listSize, pageSize, cp));
+		if(bAjax) {
+			System.out.println(1);
+			mav.setViewName("goodjobJson");
+		}else {
+			
+			mav.setViewName("FAQ/userFAQList");
+		}
 		return mav;
 	}
-
-
+	
 	//FAQ 등록하는 페이지 들어가기
 	@RequestMapping("/manFAQAddPage.do")
 	public String manFAQAddPage() {

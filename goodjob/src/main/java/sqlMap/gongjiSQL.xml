@@ -3,8 +3,22 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.goodjob.gongji">
-<select id="userGongJiList" resultType="com.goodjob.gongji.model.GongJiDTO">
-select * from gongji
+<select id="userGongJiList" resultType="com.goodjob.gongji.model.GongJiDTO" parameterType="Map">
+select * from (select rownum as rnum,a. * from (SELECT * FROM gongji
+<if test="sboolean">
+ where
+ subject like '%'||${subject}||'%'
+</if>
+ORDER BY idx)a)
+where rnum<![CDATA[>=]]>#{start}
+		and rnum<![CDATA[<=]]>#{end}
+</select>
+<select id="userGongJiTotalCnt" resultType="Integer" parameterType="Map">
+select count(*) from gongji
+<if test="sboolean">
+ where
+  subject like '%'||${subject}||'%'
+</if>
 </select>
 <select id="gongJiContent" resultType="com.goodjob.gongji.model.GongJiDTO" parameterType="Integer">
 select * from gongji where idx=#{idx}

@@ -5,7 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 public class Module {
-	public Date datePasing(String birth_s) {
+	public static Date datePasing(String birth_s) {
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		try {
 			java.util.Date date = formatter.parse(birth_s);

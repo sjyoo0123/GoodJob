@@ -13,16 +13,18 @@
 <body>
 	<div class="container">
 	 <%@include file="/WEB-INF/views/header.jsp"%> 
-		<section>
+		<section class="mt-5">
 			<article>
-				<c:if test="${empty list}">
-				작성된 문의가 없습니다
+			<div class="row">
+				<div class="col-10 offset-2 text-start"><a href="userGongJiList.do">목록으로</a></div>
+				<c:if test="${empty dto}">
+				<div class="col-8 offset-2">존재하지않는 게시글 입니다</div>
 				</c:if>
-				<c:forEach var="dto" items="${list}">
-				${dto.subject }
-				${dto.check }
-				
-				</c:forEach>
+				<div class="col-8 offset-2 text-center fs-2 mt-5">제목${dto.subject}</div>
+				<div class="col-1">${dto.writedate}</div>
+				<div class="col-8 offset-2">${dto.content}</div>
+			
+			</div>
 			</article>
 		</section>
 	 <%@include file="/WEB-INF/views/footer.jsp"%> 

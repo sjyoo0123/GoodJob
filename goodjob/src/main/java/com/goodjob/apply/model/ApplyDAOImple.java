@@ -27,7 +27,7 @@ public class ApplyDAOImple implements ApplyDAO {
 	public List<ApplyDTO> apComList(int idx, int cp, int ls) {
 		int start = (cp - 1) * ls + 1;
 		int end = cp * ls;
-		Map map = new HashMap();
+		Map<String,Integer> map = new HashMap<String,Integer>();
 		map.put("start", start);
 		map.put("end", end);
 		map.put("idx", idx);
