@@ -25,7 +25,7 @@ notice
 INNER JOIN plan ON notice.plan_idx = plan.idx
 LEFT JOIN apply ON notice.idx = apply.notice_idx
 WHERE
-notice.com_idx = 7
+notice.com_idx = #{idx}
 AND notice.status = '활성'
 GROUP BY
 notice.idx,
