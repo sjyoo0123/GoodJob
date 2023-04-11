@@ -138,8 +138,8 @@ public NoticeController() {
 		}
 		String scategory=null;
 		scategory=(String)session.getAttribute("scategory");
-		int sidx=0;
-		sidx=(int)session.getAttribute("sidx");
+		int sidx = session.getAttribute("sidx") != null ? (int) session.getAttribute("sidx") :0;
+		
 		String starttime1=dto.getStarttime()%100==0?"00":dto.getStarttime()%100+"";
 		String starttime=""+dto.getStarttime()/100+ ":" +starttime1;
 		String endtime1=dto.getFinishtime()%100==0?"00":dto.getFinishtime()%100+"";
@@ -147,6 +147,7 @@ public NoticeController() {
 		String startendtime=starttime+" ~ "+endtime;
 		int com_idx=dto.getCom_idx();
 		CompanyMemberDTO cdto=cdao.comInfo(com_idx);
+		System.out.println(cdto.toString());
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("cdto", cdto);
 		mav.addObject("dto", dto);
@@ -228,28 +229,6 @@ public NoticeController() {
 	
 	
 
-	@RequestMapping(value="noticeList.do",method = RequestMethod.GET)
-	public ModelAndView noticeList(@RequestParam(value="cp",defaultValue="0")int cp,
-			@RequestParam(value="listWeekday",defaultValue = "")String[] listWeekday,
-			@RequestParam(value="local3",defaultValue = "")String[] local3,
-			@RequestParam(value="local2",defaultValue = "")String[] local2) {
-		ModelAndView mav=new ModelAndView();
-		for(int i=0;i<listWeekday.length;i++) {
-			System.out.println(listWeekday[i]);
-		}
-		if(cp==0) {
-			mav.addObject("page",AjaxPageModule.makePage(0, 10, 5, 1));
-			mav.setViewName("notice/noticeList");
-			return mav;
-		}else {
-			mav.addObject("dtos","{\"1\":\"2\"}{\"1\":\"2\"}");
-			mav.addObject("page", AjaxPageModule.makePage(0, 10, 5, cp));
-			mav.setViewName("goodjobJson");
-			
-			return mav;
-		}
-		
-	}
 	
 	/**관리자 공고 메인 페이지 나중에 함*/
 	/*@RequestMapping("/manNoticeStatusPage.do")

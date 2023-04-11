@@ -41,4 +41,13 @@
 	<update id="updateStatus" parameterType="com.goodjob.member.model.MemberDTO">
 	update member set status = '활성' where idx=#{idx} and email=#{email} and status = '대기' 
 	</update>
+	<select id="findId" parameterType="String" resultType="String">
+	select id from member where email=#{email}
+	</select>
+	<select id="findPwd" parameterType="Map" resultType="Integer">
+	select idx from member where email=#{email} and id=#{id}
+	</select>
+	<update id="updatePwd" parameterType="Map">
+	update member set pwd=#{pwd} where idx=#{idx}
+	</update>
 </mapper>

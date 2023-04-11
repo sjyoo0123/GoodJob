@@ -44,7 +44,7 @@
 							<c:forEach var="dto" items="${list}">
 								<tr>
 									<td scope="row">${dto.idx }</td>
-									<td>${dto.subject }</td>
+									<td><a href="userOneContent.do?idx=${dto.idx}">${dto.subject}</a></td>
 									<td>${dto.writedate}</td>
 									<c:if test="${dto.check==0 }">
 										<td>대기</td>

@@ -1,5 +1,8 @@
 package com.goodjob.controller;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,10 +23,23 @@ public class IndexController {
 	@RequestMapping("/index.do")
 	public ModelAndView index() {
 		ModelAndView mav=new ModelAndView();
-		mav.addObject("dieList",nDao);
-		mav.addObject("goldList",nDao);
-		mav.addObject("silList",nDao);
-		mav.addObject("gList",gDao.userGongJiList("", 1, 3));
+		final int SILVER7 =4;
+		final int SILVER15=5;
+		final int SILVER30=6;
+		final int GOLD7=7;
+		final int GOLD15=8;
+		final int GOLD30=9;
+		final int DIAMOND7=10;
+		final int DIAMOND15=11;
+		final int DIAMOND30=12;
+		List<Map<String,Object>>list=nDao.mainPlan(SILVER7,SILVER15,SILVER30);
+		for(int i=0;i<list.size();i++) {
+			System.out.println(list.get(i).get("file"));
+		}
+		mav.addObject("dieList",nDao.mainPlan(DIAMOND7,DIAMOND15,DIAMOND30));
+		mav.addObject("goldList",nDao.mainPlan(GOLD7,GOLD15,GOLD30));
+		mav.addObject("silList",nDao.mainPlan(SILVER7,SILVER15,SILVER30));
+		mav.addObject("gList",gDao.userGongJiList("", 1, 4));
 		mav.addObject("banner", bDao.mainBanner());
 		
 		mav.setViewName("index");

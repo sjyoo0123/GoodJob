@@ -24,7 +24,6 @@ import com.goodjob.one_one.model.One_OneDAO;
 import com.goodjob.one_one.model.One_OneDTO;
 import com.goodjob.totalfile.model.TotalFileDAO;
 import com.goodjob.totalfile.model.TotalFileDTO;
-
 @Controller
 public class One_oneController {
 	
@@ -36,6 +35,8 @@ public class One_oneController {
 	//일대일문의 들어가기
 	@RequestMapping("/manOneList.do")
 	public ModelAndView manOneList(@RequestParam(value = "cp", defaultValue = "1")int cp) {
+		
+		
 		
 		ModelAndView mav=new ModelAndView();
 		
@@ -66,11 +67,7 @@ public class One_oneController {
 		One_OneDTO dto=oneDao.manOneContent(idx);
 
 		
-		String str_a=dto.getContent();
-		String str_b=str_a.replace("ABCD", "");
-		
-		dto.setContent(str_b);
-		
+	
 		mav.addObject("dto", dto);
 		
 		
@@ -95,10 +92,7 @@ public class One_oneController {
 		
 		One_OneDTO dto=oneDao.manOneContent(idx);
 		
-		String str_a=dto.getContent()+"ABCD";
-		String str_b=str_a.replace("ABCD", "&#10;---------------------------------------&#10;");
 		
-		dto.setContent(str_b);
 		
 		mav.addObject("dto", dto);
 		mav.setViewName("one/manOneAnswerPage");
@@ -113,17 +107,13 @@ public class One_oneController {
 		
 		ModelAndView mav=new ModelAndView();
 		
-
-			
+			String unEncoding=dto.getContent();
+			dto.setContent(unEncoding.replaceAll("&#10;", "\r\n"));
 			int count=oneDao.manOneAnswer(dto);	
 			
 			if(count>0) {
 				
-				String str_a=dto.getContent();
-				String str_b=str_a.replace("&#10;---------------------------------------&#10;", "ABCD");
 				
-				dto.setContent(str_b);
-		
 				
 				mav.addObject("msg", "수정에 성공하셨습니다");
 				mav.addObject("goUrl", "manOneList.do");
@@ -157,14 +147,16 @@ public class One_oneController {
 	}
 	@RequestMapping(value= "userOneWrite.do",method = RequestMethod.POST)
 	public ModelAndView userOneWrite(One_OneDTO dto,
-			@RequestParam(value="file",defaultValue = "")MultipartFile file,
-			HttpServletRequest req) {
-		System.out.println(dto.toString());
+			MultipartFile file,
+			HttpServletRequest req,HttpSession session) {
 		ModelAndView mav=new ModelAndView();
 		String fcategory="one_one";
+		dto.setContent("질문:"+dto.getContent());
 		int idx=oneDao.userOneWrite(dto);
-		System.out.println(idx);
-		if(!file.isEmpty()) {
+		Integer sIdx=(Integer)session.getAttribute("sidx");
+		int sidx=sIdx==null?0:sIdx;
+		dto.setMember_idx(sidx);
+		if(file!=null) {
 			FileCopy fc=new FileCopy();
 			fc.copyInto(fcategory, file, req);
 			Map<String, String>map=new HashMap<String, String>();
@@ -178,14 +170,27 @@ public class One_oneController {
 	@RequestMapping("userOneContent.do")
 	public ModelAndView userOneContent(int idx) {
 		ModelAndView mav=new ModelAndView();
-		mav.addObject("dto",oneDao.manOneContent(idx));
+		One_OneDTO dto=oneDao.manOneContent(idx);
+		String []content=null;
+		if(dto.getContent()!=null) {
+			content=dto.getContent().split("\r\n---------------------------------------\r\n");
+		}
+		for(int i=0;i<content.length;i++) {
+			System.out.println(content[i]);
+		}
+		
+		mav.addObject("dto",dto);
+		mav.addObject("content",content);
 		mav.setViewName("one/userOneContent");
 		return  mav;
 	}
 	@RequestMapping(value="userOneReWrite.do",method = RequestMethod.POST)
-	public ModelAndView userOneReWrite(One_OneDTO dto) {
-		ModelAndView mav=new ModelAndView();
-		//mav.addObject("msg",oneDao.manOneAnswer(dto));
+	public ModelAndView userOneReWrite(One_OneDTO dto,@RequestParam(value="plusContent")String plusContent) {
+		String content=dto.getContent();
+		dto.setContent(content+"\r\n---------------------------------------\r\n질문:"+plusContent);
+		String msg=oneDao.userOneReWrite(dto)>0?"문의 재작성 성공":"재작성 실패";
+		ModelAndView mav=userOneContent(dto.getIdx());
+		mav.addObject("msg",msg);
 		return  mav;
 	}
 	
