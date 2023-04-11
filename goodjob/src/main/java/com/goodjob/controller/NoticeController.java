@@ -228,36 +228,31 @@ public NoticeController() {
 	
 	
 
-	@RequestMapping(value="noticeList.do",method = RequestMethod.GET)
-	public ModelAndView noticeList(@RequestParam(value="cp",defaultValue="0")int cp,
-			@RequestParam(value="listWeekday",defaultValue = "")String[] listWeekday,
-			@RequestParam(value="local3",defaultValue = "")String[] local3,
-			@RequestParam(value="local2",defaultValue = "")String[] local2) {
+	
+	/**관리자 공고 메인 페이지*/
+	@RequestMapping("/manNoticeStatusPage.do")
+	public ModelAndView manNoticeStatusPage(
+			@RequestParam(value="cp", defaultValue = "1")int cp) {
+		
 		ModelAndView mav=new ModelAndView();
-		for(int i=0;i<listWeekday.length;i++) {
-			System.out.println(listWeekday[i]);
-		}
-		if(cp==0) {
-			mav.addObject("page",AjaxPageModule.makePage(0, 10, 5, 1));
-			mav.setViewName("notice/noticeList");
-			return mav;
-		}else {
-			mav.addObject("dtos","{\"1\":\"2\"}{\"1\":\"2\"}");
-			mav.addObject("page", AjaxPageModule.makePage(0, 10, 5, cp));
-			mav.setViewName("goodjobJson");
-			
-			return mav;
-		}
+		
+		int pageSize=5;
+		int listSize=5;
+		int totlaCnt=ndao.manNoticeTotalCnt();
+		
+		List<NoticeDTO> lists=ndao.manNoticeStatusList(cp, listSize);
+		
+		String pageStr=com.goodjob.page.module.PageModule.makePage("manNoticeStatusPage.do", totlaCnt, listSize, pageSize, cp);
+		
+		mav.addObject("lists", lists);
+		mav.addObject("pageStr", pageStr);
+		
+		mav.setViewName("manNotice/manNoticeStatusPage");
+		
+		return mav;
+		
 		
 	}
-	
-	/**관리자 공고 메인 페이지 나중에 함*/
-	/*@RequestMapping("/manNoticeStatusPage.do")
-	public ModelAndView manNoticeStatsuPage(
-			@RequestParam(value="cp")int cp) {
-		
-		
-	}*/
 	/**관리자 공고 승인 대기 페이지*/
 	@RequestMapping("/manNoticeAcceptPage.do")
 	public ModelAndView manNoticeAcceptPage(
@@ -292,10 +287,53 @@ public NoticeController() {
 		
 		mav.addObject("dto", dto);
 		
-		mav.setViewName("manNotice/manNoticeAcceptContent");
+		mav.setViewName("notice/noticeContent");
 	
 		return mav;
 	}
+	
+	/**관리자 공고 승인하기*/
+	@RequestMapping("/manNoticeAccept_Ok.do")
+	public ModelAndView manNoticeAccept_Ok(
+			@RequestParam(value = "idx")int idx) {
+		
+		ModelAndView mav=new ModelAndView();
+		
+		int count=ndao.manNoticeAcceptContent_Ok(idx);
+		
+		if(count>0) {
+			mav.addObject("msg", "승인이 완료되었습니다.");	
+		}else {
+			mav.addObject("msg", "승인이 실패하였습니다.");
+		}
+		mav.addObject("goUrl", "manNoticeAcceptPage.do");
+		mav.setViewName("manNotice/manNoticeMsg");
+		return mav;
+	}
+	
+	/**관리자 공고 거부하기*/
+	@RequestMapping("/manNoticeAccept_No.do")
+	public ModelAndView manNoticeAccept_No(
+			@RequestParam(value = "idx")int idx) {
+		
+		ModelAndView mav=new ModelAndView();
+		
+		int count=ndao.manNoticeAcceptContent_No(idx);
+		
+		if(count>0) {
+			mav.addObject("msg", "거부가 완료되었습니다.");	
+		}else {
+			mav.addObject("msg", "거부가 실패하였습니다.");
+		}
+		mav.addObject("goUrl", "manNoticeAcceptPage.do");
+		mav.setViewName("manNotice/manNoticeMsg");
+		
+		return mav;
+		}
+		
+		
+	
+	
 	/**관리자 공고 삭제 페이지*/
 	@RequestMapping("/manNoticeDelPage.do")
 	public ModelAndView manNoticeDelPage(
@@ -340,10 +378,33 @@ public NoticeController() {
 			mav.setViewName("manNotice/manNoticeMsg");
 			
 			return mav;
-		
-		
-			
 	}
 	
-
+	/**관리자 공고 비활성화하기*/
+	@ResponseBody
+	@RequestMapping("/manNoticeStatus_No.do")
+	public ModelAndView manNoticeStatus_No(
+			@RequestParam(value = "idx", defaultValue = "0")int idx
+			,@RequestParam(value = "button")String button) {
+		
+		ModelAndView mav=new ModelAndView();
+		
+		int count=0;
+		System.out.println(idx);
+		System.out.println(button);
+		
+		if(button.equals("비활성화하기")) {
+			count=ndao.manNoticeUpdate_No(idx);
+		}else if(button.equals("활성화하기")){
+			count=ndao.manNoticeUpdate_Ok(idx);
+		}
+		
+		mav.addObject("count", count);
+		
+		
+		mav.setViewName("goodjobJson");
+		
+		
+		return mav;
+	}
 }

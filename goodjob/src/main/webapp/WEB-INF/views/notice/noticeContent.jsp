@@ -34,7 +34,7 @@
 <input type="hidden" id="y" value="${dto.y}">
 <div class="container">
 <div class="btn-group btn-group-lg" role="group" aria-label="Large button group">
-<button class="btn btn-outline-dark"><span>수정</span></button>
+<button class="btn btn-outline-dark" ><span>수정</span></button>
 <button class="btn btn-outline-dark"><span>삭제</span></button>
 </div>
 <c:if test="${sidx!=dto.com_idx}">
@@ -47,8 +47,8 @@
 </c:if>
 <c:if test="${scategory=='관리자'}">
 <div class="btn-group btn-group-lg" role="group" aria-label="Large button group">
-<button class="btn btn-outline-info"><span>승인</span></button>
-<button class="btn btn-outline-info"><span>거부</span></button>
+<button class="btn btn-outline-info"  onclick="location.href='manNoticeAccept_Ok.do?idx=${dto.idx}'"><span>승인</span></button>
+<button class="btn btn-outline-info"  onclick="location.href='manNoticeAccept_No.do?idx=${dto.idx}'"><span>거부</span></button>
 </div>
 </c:if>
 	<div class="container px-4 px-lg-5">

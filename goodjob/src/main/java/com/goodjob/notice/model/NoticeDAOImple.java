@@ -192,4 +192,25 @@ public int manNoticeCnt() {
 		return map;
 	}
 
+	@Override
+	public int manNoticeTotalCnt() {
+		
+		int count=sqlMap.selectOne("manNoticeTotalCnt");
+		
+		return count;
+	}
+	@Override
+	public int manNoticeUpdate_No(int idx) {
+		
+		int count=sqlMap.update("manNoticeUpdate_No", idx);
+		
+		return count;
+	}
+	@Override
+	public int manNoticeUpdate_Ok(int idx) {
+		
+		int count=sqlMap.update("manNoticeUpdate_Ok", idx);
+		
+		return count;
+	}
 }
