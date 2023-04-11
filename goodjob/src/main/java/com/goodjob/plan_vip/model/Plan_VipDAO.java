@@ -19,4 +19,7 @@ public interface Plan_VipDAO {
 	public int manPlanVipUpdate_a(Plan_VipDTO dto);
 	
 	public int manPlanVipUpdate_b(Plan_VipDTO dto);
+	
+	public List<Plan_VipDTO> planInfoVip(String floor);
+	public List<Plan_VipDTO> planInfoVipPeriod(int period,String floor);
 }
