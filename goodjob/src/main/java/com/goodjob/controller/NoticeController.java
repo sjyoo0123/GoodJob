@@ -301,7 +301,7 @@ public NoticeController() {
 		}
 	}
 	
-	
+
 	/**관리자 공고 승인 대기 페이지*/
 	@RequestMapping("/manNoticeAcceptPage.do")
 	public ModelAndView manNoticeAcceptPage(

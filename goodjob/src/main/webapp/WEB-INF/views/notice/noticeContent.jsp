@@ -33,6 +33,7 @@
 <input type="hidden" id="x" value="${dto.x}">
 <input type="hidden" id="y" value="${dto.y}">
 <div class="container">
+	<%@include file="/WEB-INF/views/header.jsp"%>
 <div class="btn-group btn-group-lg" role="group" aria-label="Large button group">
 <button class="btn btn-outline-dark" ><span>수정</span></button>
 <button class="btn btn-outline-dark"><span>삭제</span></button>
@@ -158,7 +159,7 @@ infowindow.open(map, marker);
 <div>
 <h2>상세내용</h2>
 <div>
-<img src="${filepath}">
+<img src="${filepath}" class="col-12">
 ${dto.content}
 </div>
 </div>
