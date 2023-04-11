@@ -81,7 +81,7 @@
 						<td>${dto.writedate}~${dto.deadline}<br>(잔여일:${dto.com_idx}일)</td>
 						<td>${dto.subject}</td>
 						<td>${dto.grade}</td>
-						<td><button type="button" class="btn btn-primary btn-lg">
+						<td><button type="button" class="btn btn-primary btn-lg" onclick="location.href='planInfo.do'">
 								<span>연장</span>
 							</button></td>
 					</tr>
@@ -90,7 +90,7 @@
 			<tfoot>
 				<tr>
 					<td colspan="4" align="center">${pageStr}</td>
-					<td><button class="btn btn-primary btn-icon-split btn-lg" onclick="location.href='#'">
+					<td><button class="btn btn-primary btn-icon-split btn-lg" onclick="location.href='planInfo.do'">
     <span class="icon text-white-50">
         <i class="bi bi-cart4"></i>
     </span>

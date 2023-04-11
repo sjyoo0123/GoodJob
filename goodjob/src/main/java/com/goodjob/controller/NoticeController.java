@@ -272,7 +272,6 @@ public NoticeController() {
 		}
 	}
 	
-	
 	/**관리자 공고 메인 페이지 나중에 함*/
 	/*@RequestMapping("/manNoticeStatusPage.do")
 	public ModelAndView manNoticeStatsuPage(

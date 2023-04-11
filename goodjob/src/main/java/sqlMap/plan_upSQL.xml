@@ -53,4 +53,10 @@
  		count=#{count}
  		where plan_idx=#{idx}
  	</update>
+ 	<select id="planInfoUp" resultType="com.goodjob.plan_up.model.Plan_UpDTO">
+ 		select plan.idx,plan.plan_name,plan.plan_price,plan_up.count from plan , plan_up where plan.idx=plan_up.plan_idx and plan.plan_type='UP' and plan.status='활성'
+ 	</select>
+ 	<select id="planInfoUpIdx" resultType="com.goodjob.plan_up.model.Plan_UpDTO">
+ 		select plan.idx,plan.plan_name,plan.plan_price,plan_up.count from plan , plan_up where plan.idx=plan_up.plan_idx and plan.plan_type='UP' and plan.status='활성' and plan_up.count=#{count}
+ 	</select>
  </mapper>
