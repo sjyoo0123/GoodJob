@@ -91,11 +91,11 @@ public class ComController {
 			idx=(int)session.getAttribute("sidx");
 		}
 		int ntotalCnt=0;
-		if(ndao.noticeTotalCnt(idx)!=0) {
-			ntotalCnt=ndao.noticeTotalCnt(idx);
+		if(ndao.noticeTotalCnt(idx,"활성")!=0) {
+			ntotalCnt=ndao.noticeTotalCnt(idx,"활성");
 		}
 		CompanyMemberDTO cdto=ComDao.comInfo(idx);
-		List<NoticeDTO> nlists=ndao.noticeComList(idx,1,5);
+		List<NoticeDTO> nlists=ndao.noticeComList(idx,1,5,"활성");
 		int ototalCnt=0;
 		if(odao.offerTotalCnt(idx)!=0) {
 			ototalCnt=odao.offerTotalCnt(idx);
