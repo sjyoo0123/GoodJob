@@ -24,7 +24,7 @@ public class JobHelperController {
 	@Autowired
 	JobHelperDAO jdao;
 	
-	@RequestMapping("jobHelperTong.do")
+	@RequestMapping("/jobHelperTong.do")
 	public ModelAndView jobHelperTongForm() {
 		ModelAndView mav=new ModelAndView();
 		
@@ -83,7 +83,7 @@ public class JobHelperController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+			
 		mav.setViewName("goodjobJson");
 		return mav;
 		

@@ -34,6 +34,30 @@ public class GongJiDAOImple implements GongJiDAO {
 		return sqlMap.selectOne("gongJiContent", idx);
 	}
 	@Override
+	public int gongJiInsert(GongJiDTO dto) {
+		int result=sqlMap.insert("manGongjiInsert", dto);
+		return result;
+	}
+	@Override
+	public int gongJiUpdate(GongJiDTO dto) {
+		int result=sqlMap.update("manGongjiUpdate", dto);
+		return result;
+	}
+	@Override
+	public int gongJiDel(int idx) {
+		int result=sqlMap.delete("manGongjiDel", idx);
+		return result;
+	}
+	@Override
+	public List<GongJiDTO> manGongjiList(Map map) {
+		List<GongJiDTO> lists=sqlMap.selectList("manGongjiList",map);
+		return lists;
+	}
+	@Override
+	public int manGongjiListTotalCnt() {
+		int total=sqlMap.selectOne("manGongjiListTotalCnt");
+		return total;
+	}
 	public int userGongJiTotalCnt(String subject) {
 		// TODO Auto-generated method stub
 		

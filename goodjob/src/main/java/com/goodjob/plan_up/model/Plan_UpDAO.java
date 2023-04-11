@@ -22,4 +22,6 @@ public interface Plan_UpDAO {
 	
 	public int 	manPlanUpUpdate_b(Plan_UpDTO dto);
 
+	public List<Plan_UpDTO> planInfoUp();
+	public List<Plan_UpDTO> planInfoUpIdx(int count);
 }

@@ -31,22 +31,29 @@ public class NoticeDAOImple implements NoticeDAO {
 		return result;
 	}
 
-@Override
-public List<NoticeDTO> noticeComList(int idx,int cp,int ls) {
-	int start=(cp-1)*ls+1;
-	int end=cp*ls;
-	Map map=new HashMap();
-	map.put("start", start);
-	map.put("end", end);
-	map.put("idx", idx);
-	List<NoticeDTO> lists=sqlMap.selectList("comNoticeList",map);
-	return lists;
-}
-@Override
-public int noticeTotalCnt(int idx) {
-	int count=sqlMap.selectOne("noticeTotalCnt",idx);
-	return count;
-}
+
+	@Override
+	public List<NoticeDTO> noticeComList(int idx, int cp, int ls,String status) {
+		int start = (cp - 1) * ls + 1;
+		int end = cp * ls;
+		Map map = new HashMap();
+		map.put("start", start);
+		map.put("end", end);
+		map.put("idx", idx);
+		map.put("status", status);
+		List<NoticeDTO> lists = sqlMap.selectList("comNoticeList", map);
+		return lists;
+	}
+
+	@Override
+	public int noticeTotalCnt(int idx,String status) {
+		Map map = new HashMap();
+		map.put("idx", idx);
+		map.put("status", status);
+		int count = sqlMap.selectOne("noticeTotalCnt", map);
+		return count;
+	}
+
 @Override
 public NoticeDTO noticeContent(int idx) {
 	NoticeDTO dto=sqlMap.selectOne("noticeContent",idx);

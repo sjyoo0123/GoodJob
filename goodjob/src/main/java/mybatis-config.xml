@@ -27,5 +27,6 @@
   		<mapper resource="sqlMap/offerSQL.xml"/>
   		<mapper resource="sqlMap/planUsedSQL.xml"/>
   		<mapper resource="sqlMap/singoSQL.xml"/>
+  		<mapper resource="sqlMap/paymentSQL.xml"/>
   	</mappers>
   </configuration>

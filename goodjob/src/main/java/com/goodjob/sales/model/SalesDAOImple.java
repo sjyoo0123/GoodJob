@@ -21,15 +21,24 @@ public class SalesDAOImple implements SalesDAO {
 	}
 
 	@Override
-	public List<SalesDTO> salesGetPeriod(Map map) {
+	public List<SalesDTO> salesGetPeriod(Map<String,String> map) {
 		List<SalesDTO> lists=sqlMap.selectList("salesGetPeriod",map);
 		return lists;
 	}
 	
 	@Override
-	public List<SalesDTO> salesGetMonth(Map map) {
+	public List<SalesDTO> salesGetMonth(Map<String,String> map) {
 		List<SalesDTO> lists=sqlMap.selectList("salesGetMonth", map);
 		return lists;
 	}
-
+	@Override
+	public List<SalesListDTO> salesGetPayList(Map<String, Object> map) {
+		List<SalesListDTO> lists=sqlMap.selectList("salesGetPayList", map);
+		return lists;
+	}
+	@Override
+	public int salesPayListTotalCnt(Map<String, Object> map) {
+		int result=sqlMap.selectOne("salesPayListTotalCnt", map);
+		return result;
+	}
 }

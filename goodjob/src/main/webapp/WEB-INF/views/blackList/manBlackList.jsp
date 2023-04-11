@@ -10,7 +10,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div class="container">
+<div class="container">
 	<%@include file="/WEB-INF/views/header.jsp"%>
 		<section>
 			<article>
@@ -22,17 +22,30 @@
 				</div>
 				<div id="my-div">
 				</div>
+				<input type="hidden" id="cp" value="1">
+				<div id="page"></div>
 			</article>
 		</section>
 	<%@include file="/WEB-INF/views/footer.jsp"%>
-	</div>
+</div>
 <script>
 $('input[name=options]').change(function(){
 	$('#my-div').empty();
-	 $.ajax({
+	showtab();
+	});
+
+
+$(document).on('click','#page button',function(){
+	$('#cp').attr({value:$(this).val()});
+	$('#my-div').empty();
+	showtab();
+});
+
+function showtab(){
+	$.ajax({
 	      url:'manBlackListGet.do',
 	      type:'post',
-	      data:{"category":$('.btn-check:checked').val()},//전송데이터
+	      data:{"category":$('.btn-check:checked').val(),"cp":$('#cp').val()},//전송데이터
 	      dataType:'json'
 	      //전송받을타입 json으로 선언하면 json으로 파싱안해도됨
 	   }).done((data)=>{
@@ -88,6 +101,8 @@ $('input[name=options]').change(function(){
 			  $table.append($tbody);
 			  
 			  $('#my-div').append($table);
+			  $('#page').children().remove();
+				$('#page').append(data.page);
 			  
 	   }).fail(()=>{
 	      //실패시 실행
@@ -95,8 +110,7 @@ $('input[name=options]').change(function(){
 	      //성공여부 무관 실행
 		   
 	   })
-	  
-	});
+}
 </script>
 </body>
 </html>
