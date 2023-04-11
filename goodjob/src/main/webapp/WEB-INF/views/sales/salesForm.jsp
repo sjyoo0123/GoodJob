@@ -119,6 +119,7 @@ function periodSearch(){
     }
 }
 function monthSearch(){
+	
 	$.ajax({
 	     url:'salesGetMonth.do',
 	     type:'post',

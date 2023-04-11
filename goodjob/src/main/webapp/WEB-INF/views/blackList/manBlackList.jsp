@@ -10,7 +10,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div class="container">
+<div class="container">
 	<%@include file="/WEB-INF/views/header.jsp"%>
 		<section>
 			<article>
@@ -27,7 +27,7 @@
 			</article>
 		</section>
 	<%@include file="/WEB-INF/views/footer.jsp"%>
-	</div>
+</div>
 <script>
 $('input[name=options]').change(function(){
 	$('#my-div').empty();
