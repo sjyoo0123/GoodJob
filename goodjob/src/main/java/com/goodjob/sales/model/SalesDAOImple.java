@@ -31,5 +31,14 @@ public class SalesDAOImple implements SalesDAO {
 		List<SalesDTO> lists=sqlMap.selectList("salesGetMonth", map);
 		return lists;
 	}
-
+	@Override
+	public List<SalesListDTO> salesGetPayList(Map<String, Object> map) {
+		List<SalesListDTO> lists=sqlMap.selectList("salesGetPayList", map);
+		return lists;
+	}
+	@Override
+	public int salesPayListTotalCnt(Map<String, Object> map) {
+		int result=sqlMap.selectOne("salesPayListTotalCnt", map);
+		return result;
+	}
 }
