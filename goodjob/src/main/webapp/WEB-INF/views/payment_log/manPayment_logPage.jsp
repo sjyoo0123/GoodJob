@@ -9,48 +9,40 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 	<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
-	<script>
+	<script>	
+	
 var IMP = window.IMP; // 생략 가능
 IMP.init("imp82514218"); // 예: imp00000000a
 
-function requestPay() {
+function requestPay(pg= '테스트 PG.INIpayTest') {
     IMP.request_pay({
-      pg: "inicis.{INIBillTst}",
+      pg: "inicis.{INIpayTest}",
       pay_method: "card",
-      merchant_uid: "ORD20180131-0000011",   // 주문번호 DB저장 필요
+      merchant_uid: ${str},   // 주문번호
       name: "노르웨이 회전 의자",
-      amount: 64900,                         // 숫자 타입
+      amount: 100,                         // 숫자 타입
       buyer_email: "gildong@gmail.com",
       buyer_name: "홍길동",
       buyer_tel: "010-4242-4242",
-      buyer_addr: "서울특별시 강남x구 신사동",
+      buyer_addr: "서울특별시 강남구 신사동",	
       buyer_postcode: "01181"
     }, function (rsp) { // callback
       if (rsp.success) {
-    	  IMP.request_pay({ /** 요청 객체를 추가해주세요 */ },
-    			  function (rsp) {
-    			    if (rsp.success) {
-    			      // 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
-    			      // jQuery로 HTTP 요청
-    			      jQuery.ajax({
-    			        url: "manPayment_logEnd.do", 
-    			        method: "POST",
-    			        headers: { "Content-Type": "application/json" },
-    			        data: {
-    			          imp_uid: rsp.imp_uid,            // 결제 고유번호
-    			          merchant_uid: rsp.merchant_uid   // 주문번호
-    			        }
-    			      }).done(function (data) {
-    			        // 가맹점 서버 결제 API 성공시 로직
-    			        alert('결제에 성공하셨습니다');
-    			      })
-    			    } else {
-    			      alert("결제에 실패하였습니다. 에러 내용: " + rsp.error_msg);
-    			    }
-    			  });
+        // 결제 성공 시 로직	
+	      jQuery.ajax({
+	        url: "manPayment_logEnd.do", 
+	        method: "POST",
+	        headers: { "Content-Type": "application/json" },
+	        data:rsp
+	      }).done(function (data) {
+	        // 가맹점 서버 결제 API 성공시 로직
+	       		
+	      })
+    	  console.log(rsp);
       } else {
-        //결제 실패시
-    	  alert("결제에 실패하였습니다. 에러 내용: " + rsp.error_msg);
+        // 결제 실패 시 로직
+        	
+    	  console.log(rsp);
       }
     });
   }
@@ -89,12 +81,6 @@ function requestPay() {
 					<div class="col-sm-2">
 						총 합 :
 					</div>
-				</div>
-				<div class="row">
-					<div class="col-sm-4">
-						<h3>결제 방법</h3>
-					</div>
-					<input type="radio" value="이니시스">이니시스
 				</div>
 				<div class="row">
 					<div class="offset-sm-8 col-sm-3">
