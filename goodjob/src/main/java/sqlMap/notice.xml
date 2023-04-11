@@ -25,7 +25,7 @@ notice
 INNER JOIN plan ON notice.plan_idx = plan.idx
 LEFT JOIN apply ON notice.idx = apply.notice_idx
 WHERE
-notice.com_idx = #{idx}
+notice.com_idx = #{idx} and notice.status=#{status}
 AND notice.status = '활성'
 GROUP BY
 notice.idx,
@@ -39,8 +39,8 @@ notice.idx DESC
 ) a) b
 		where <![CDATA[rnum>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
 </select>
-<select id="noticeTotalCnt" parameterType="Integer" resultType="Integer">
-select count(*) from notice where com_idx=#{idx} and status='활성'
+<select id="noticeTotalCnt" parameterType="Map" resultType="Integer">
+select count(*) from notice where com_idx=#{idx} and status=#{status}
 </select>
 <select id="noticeContent" parameterType="Integer" resultType="com.goodjob.notice.model.NoticeDTO">
 select * from notice where idx=#{idx} and status='활성'

@@ -92,7 +92,7 @@ $(document).ready(function() {
 	  });
 	});
 $(document).ready(function() {
-	  $('input[type="submit"]').click(function() {
+	  $('input[name="checkboxworkday"]').click(function() {
 	    var selectedDays = '';
 	    $('input[name="checkboxworkday"]').each(function() {
 	      if($(this).is(':checked')) {
@@ -108,10 +108,10 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
-<h1>요금제<input type="text" name="plan_idx" value="1"></h1>
-<h1>기업idx</h1><input type="text" name="com_idx" value="7">
 	<h1>공고 등록</h1>
-	<form action="noticeWrite.do" method="post" id="writeForm">
+	<form action="noticeWrite.do" method="post" id="writeForm" enctype="multipart/form-data">
+<h1>요금제<input type="text" name="plan_idx" value="1"></h1>
+<h1>기업idx<input type="text" name="com_idx" value="7"></h1>
 	<div class="container px-4 px-lg-5">
 	<div class="row gx-4 gx-lg-5 justify-content-center">
 	<div class="col-md-12 col-lg-9 col-xl-8">
@@ -413,6 +413,10 @@ $(document).ready(function() {
 		<div class="card bg-primary bg-opacity-10">
 								<div class="card-body">
 			<h2 class="card-title">상세정보</h2>
+			<div class="mb-3">
+  <label for="formFileMultiple" class="form-label">파일 등록</label>
+  <input class="form-control" type="file" id="formFileMultiple" name="formFileMultiple" multiple>
+</div>
 			<textarea rows="30" cols="50" name="content"></textarea>
 		</div>
 		<button type="submit" class="btn btn-primary btn-icon-split btn-lg">

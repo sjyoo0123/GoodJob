@@ -158,6 +158,7 @@ infowindow.open(map, marker);
 <div>
 <h2>상세내용</h2>
 <div>
+<img src="${filepath}">
 ${dto.content}
 </div>
 </div>

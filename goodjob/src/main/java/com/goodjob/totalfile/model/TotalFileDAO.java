@@ -10,5 +10,7 @@ public interface TotalFileDAO {
 	public int manFileUpdate(TotalFileDTO dto);
 	
 	public int manFileDel(int idx);
+	
+	public String noticeFile(int idx);
 }
 

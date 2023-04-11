@@ -52,4 +52,10 @@ public class TotalFileDAOImple implements TotalFileDAO {
 		
 		return count;
 	}
+	
+	@Override
+	public String noticeFile(int idx) {
+		String path=sqlMap.selectOne("noticeFile",idx);
+		return path;
+	}
 }

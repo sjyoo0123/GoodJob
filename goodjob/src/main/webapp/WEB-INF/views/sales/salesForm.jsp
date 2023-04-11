@@ -95,10 +95,10 @@ function periodSearch(){
     	var jsonData = listdata;
     	var jsonData = JSON.parse(listdata.lists);
         var data = new google.visualization.DataTable();
-        data.addColumn('date', 'Date');
+        data.addColumn('string', 'Date');
         data.addColumn('number', 'Price');
         for(var i=0; i<jsonData.length; i++) {
-          var date = new Date(jsonData[i].date);
+        	var date = jsonData[i].date;
           data.addRow([date, jsonData[i].price]);
         }
         var options = {
@@ -142,10 +142,10 @@ function monthSearch(){
    	var jsonData = listdata;
    	var jsonData = JSON.parse(listdata.lists);
        var data = new google.visualization.DataTable();
-       data.addColumn('date', 'Date');
+       data.addColumn('string', 'date');
        data.addColumn('number', 'Price');
        for(var i=0; i<jsonData.length; i++) {
-         var date = new Date(jsonData[i].date);
+         var date = jsonData[i].date;
          data.addRow([date, jsonData[i].price]);
        }
 
