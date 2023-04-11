@@ -227,29 +227,6 @@ public NoticeController() {
 	}
 	
 	
-
-	@RequestMapping(value="noticeList.do",method = RequestMethod.GET)
-	public ModelAndView noticeList(@RequestParam(value="cp",defaultValue="0")int cp,
-			@RequestParam(value="listWeekday",defaultValue = "")String[] listWeekday,
-			@RequestParam(value="local3",defaultValue = "")String[] local3,
-			@RequestParam(value="local2",defaultValue = "")String[] local2) {
-		ModelAndView mav=new ModelAndView();
-		for(int i=0;i<listWeekday.length;i++) {
-			System.out.println(listWeekday[i]);
-		}
-		if(cp==0) {
-			mav.addObject("page",AjaxPageModule.makePage(0, 10, 5, 1));
-			mav.setViewName("notice/noticeList");
-			return mav;
-		}else {
-			mav.addObject("dtos","{\"1\":\"2\"}{\"1\":\"2\"}");
-			mav.addObject("page", AjaxPageModule.makePage(0, 10, 5, cp));
-			mav.setViewName("goodjobJson");
-			
-			return mav;
-		}
-		
-	}
 	
 	/**관리자 공고 메인 페이지 나중에 함*/
 	/*@RequestMapping("/manNoticeStatusPage.do")

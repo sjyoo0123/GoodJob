@@ -4,38 +4,38 @@ import java.sql.Date;
 
 public class Payment_LogDTO {
 
-	private int idx;
-	private int com_idx;
+	private String merchant_uid;
+	private int member_idx;
 	private String name;
 	private int price;
-	private Date paydate;
+	private Date patdate;
 	private String imp_uid;
-	private String merchant_uid;
+	private String suc_check;
 	public Payment_LogDTO() {
 		super();
 	}
-	public Payment_LogDTO(int idx, int com_idx, String name, int price, Date paydate, String imp_uid,
-			String merchant_uid) {
+	public Payment_LogDTO(String merchant_uid, int member_idx, String name, int price, Date patdate, String imp_uid,
+			String suc_check) {
 		super();
-		this.idx = idx;
-		this.com_idx = com_idx;
+		this.merchant_uid = merchant_uid;
+		this.member_idx = member_idx;
 		this.name = name;
 		this.price = price;
-		this.paydate = paydate;
+		this.patdate = patdate;
 		this.imp_uid = imp_uid;
+		this.suc_check = suc_check;
+	}
+	public String getMerchant_uid() {
+		return merchant_uid;
+	}
+	public void setMerchant_uid(String merchant_uid) {
 		this.merchant_uid = merchant_uid;
 	}
-	public int getIdx() {
-		return idx;
+	public int getMember_idx() {
+		return member_idx;
 	}
-	public void setIdx(int idx) {
-		this.idx = idx;
-	}
-	public int getCom_idx() {
-		return com_idx;
-	}
-	public void setCom_idx(int com_idx) {
-		this.com_idx = com_idx;
+	public void setMember_idx(int member_idx) {
+		this.member_idx = member_idx;
 	}
 	public String getName() {
 		return name;
@@ -49,11 +49,11 @@ public class Payment_LogDTO {
 	public void setPrice(int price) {
 		this.price = price;
 	}
-	public Date getPaydate() {
-		return paydate;
+	public Date getPatdate() {
+		return patdate;
 	}
-	public void setPaydate(Date paydate) {
-		this.paydate = paydate;
+	public void setPatdate(Date patdate) {
+		this.patdate = patdate;
 	}
 	public String getImp_uid() {
 		return imp_uid;
@@ -61,17 +61,14 @@ public class Payment_LogDTO {
 	public void setImp_uid(String imp_uid) {
 		this.imp_uid = imp_uid;
 	}
-	public String getMerchant_uid() {
-		return merchant_uid;
+	public String getSuc_check() {
+		return suc_check;
 	}
-	public void setMerchant_uid(String merchant_uid) {
-		this.merchant_uid = merchant_uid;
+	public void setSuc_check(String suc_check) {
+		this.suc_check = suc_check;
 	}
-	@Override
-	public String toString() {
-		return "Payment_LogDTO [idx=" + idx + ", com_idx=" + com_idx + ", name=" + name + ", price=" + price
-				+ ", paydate=" + paydate + ", imp_uid=" + imp_uid + ", merchant_uid=" + merchant_uid + "]";
-	}
+	
+	
 	
 	
 }
