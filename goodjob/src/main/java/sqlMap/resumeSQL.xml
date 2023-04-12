@@ -38,11 +38,11 @@
 	</select>
 	<select id="resumeContent"
 		resultType="com.goodjob.resume.model.ResumeDTO" parameterType="Integer" >
-		select * from resume where member_idx = #{idx} and status ='활성'
+		select * from resume where idx = #{idx} and status ='활성'
 	</select>
 	<select id="resumeCareerDown" 
 		resultType="com.goodjob.career.model.CareerDTO" parameterType="Integer" >
-		select * from career where idx = #{idx}
+		select * from career where resume_idx = #{idx} and status='활성'
 	</select>
 	<update id="resumeUpdate"
 		parameterType="com.goodjob.resume.model.ResumeDTO">
@@ -81,6 +81,6 @@
 		where resume_idx = #{idx}
 	</update>
 	<select id="injaeList" resultType="com.goodjob.resume.model.ResumeDTO" >
-		select member_idx, name, age, gender, job from resume where "CHECK" = 1 and status = '활성'  order by idx
+		select idx,  member_idx, name, age, gender, job from resume where "CHECK" = 1 and status = '활성'  order by idx
 	</select>
 </mapper>

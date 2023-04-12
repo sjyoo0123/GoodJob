@@ -1,6 +1,8 @@
 package com.goodjob.review.model;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,7 +68,7 @@ public class ReviewDAOImple implements ReviewDAO {
 		return count;
 	}
 	
-	@Override
+	@Override //인재정보
 	public List<ReviewDTO> injaeList() {
 		List<ReviewDTO> list = sqlMap.selectList("injaeList");
 		return list;
@@ -76,5 +78,13 @@ public class ReviewDAOImple implements ReviewDAO {
 	public List<ReviewDTO> myReview(int member_idx) {
 		List<ReviewDTO> list = sqlMap.selectList("myReview" , member_idx);
 		return list;
+	}
+	@Override	//리뷰 삭제
+	public int reviewDel(int member_idx, int review_num) {
+		Map map = new HashMap();
+		map.put("member_idx", member_idx);
+		map.put("review_num", review_num);
+		int count =sqlMap.update("reviewDel", map);
+		return count;
 	}
 }
