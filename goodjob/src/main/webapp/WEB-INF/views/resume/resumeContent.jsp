@@ -66,12 +66,85 @@
 .addrtest1 {
 	width: 400px;
 }
+
 </style>
 </head>
 <body>
+	<%@include file="/WEB-INF/views/header.jsp"%>
 	<h1>이력서</h1>
 	<hr>
 	<div>
+	<c:if test="${sessionScope.scategory=='기업'}">
+	<button class="btn btn-danger btn-icon-split btn-lg col-4 "  data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <span class="icon text-white-50">
+        <i class="bi bi-clipboard-heart"></i>
+    </span>
+    <span class="text">제안보내기</span>
+</button>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">제안보내기</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3 row">
+            <label for="resume_info" class="col-form-label">이력서작성자정보</label>
+          <label for="resume_info" class="col-sm-2 col-form-label">작성자</label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control-plaintext" id="resume_info" value="${dto.name}">
+    </div>
+    <label for="resume_info1" class="col-sm-2 col-form-label">성별</label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control-plaintext" id="resume_info1" value="${dto.gender}">
+    </div>
+    <label for="resume_info2" class="col-sm-2 col-form-label">나이</label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control-plaintext" id="resume_info2" value="${dto.age}">
+    </div>
+          </div>
+          <div class="mb-3">
+            <label for="comNotice" class="col-form-label">내 공고 리스트</label><input type="hidden" id="com_idx" value="${sessionScope.sidx}">
+            <input type="text" id="noticeIdx"><div id="noticeList"></div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+        <button type="button" class="btn btn-primary" onclick="offerSubmit()">보내기</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</c:if>
+<script>
+$(document).ready(function() {
+	    $.ajax({
+	      url: "comNoticeSubject.do",
+	      method: "POST",
+	      data: { idx: $("#com_idx").val()},
+	      success: function(data) {
+	        var select = $("<select>").addClass("form-control").attr("id", "comNotice");
+	        var defaultOption = $("<option>").val("").text("공고를 선택해주세요.").attr("selected", true);
+	        select.append(defaultOption);
+	        for (var i = 0; i < data.length; i++) {
+	          if (data[i] && data[i].subject) {
+	            var option = $("<option>").val(data[i].idx).text(data[i].subject);
+	            select.append(option);
+	          }
+	        }
+	        $("#noticeList").append(select);
+	        $("#noticeList select").on("change", function() {
+                $("#noticeIdx").val($(this).val());
+            });
+	      }
+	    });
+	});
+
+</script>
 		<table>
 			<c:if test="${empty dto }">
 				<tr>

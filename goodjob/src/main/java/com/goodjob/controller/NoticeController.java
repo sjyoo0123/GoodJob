@@ -196,7 +196,6 @@ public NoticeController() {
 		CompanyMemberDTO cdto=cdao.comInfo(com_idx);
 		ModelAndView mav=new ModelAndView();
 		int atoNum =  adao.apNorButtonHide(nidx, sidx);
-		System.out.println(atoNum);
 		String filepath=totalFileDao.noticeFile(nidx);
 		mav.addObject("filepath", filepath);
 		mav.addObject("cdto", cdto);

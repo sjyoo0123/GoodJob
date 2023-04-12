@@ -1,5 +1,7 @@
 package com.goodjob.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.goodjob.career.model.CareerDTO;
@@ -14,6 +17,8 @@ import com.goodjob.member.model.MemberDAO;
 import com.goodjob.member.model.MemberDTO;
 import com.goodjob.module.Module;
 import com.goodjob.normalmember.model.NormalMemberDAO;
+import com.goodjob.notice.model.NoticeDAO;
+import com.goodjob.notice.model.NoticeDTO;
 import com.goodjob.resume.model.ResumeDAO;
 import com.goodjob.resume.model.ResumeDTO;
 import com.goodjob.review.model.ReviewDTO;
@@ -30,6 +35,9 @@ public class ResumeController {
 	@Autowired
 	public NormalMemberDAO normalmemberDao;
 
+	@Autowired
+	private NoticeDAO ndao;
+	
 	public ResumeController(MemberDAO memberDao) {
 		super();
 		this.memberDao = memberDao;
@@ -227,5 +235,11 @@ public class ResumeController {
 		return mav;
 	}
 	
+	@RequestMapping(value="/comNoticeSubject.do",method=RequestMethod.POST)
+	@ResponseBody
+	public List<NoticeDTO> comNoticeSubject(@RequestParam("idx")int idx){
+		List<NoticeDTO> data=ndao.comNoticeSubject(idx);
+		return data;
+	}
 
 }
