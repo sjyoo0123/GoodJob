@@ -29,17 +29,15 @@ public class KeywordController {
 			String msg="로그인 후 이용바랍니다.";
 			String goUrl="index.do";
 			mav.addObject("msg", msg);
+			mav.addObject("goUrl", goUrl);
 			mav.setViewName("notice/noticeMsg");
 			return mav;
 		}else {
 			idx=(int)session.getAttribute("sidx");
 		}
 		
-		
-		
 		List<KeywordDTO> list = keyworddao.reviewWriteForm();
 		mav.addObject("dto", list);
-		System.out.println("키워드컨트롤러="+list);
 		mav.setViewName("review/reviewWrite");
 		return mav;
 	}

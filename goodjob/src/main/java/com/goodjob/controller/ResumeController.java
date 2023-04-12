@@ -197,7 +197,7 @@ public class ResumeController {
 	}
 	
 	/**이력서 컨텐츠*/
-	@RequestMapping("/resumeContent")
+	@RequestMapping("/resumeContent.do")
 	public ModelAndView resumeContent(HttpSession session, 
 			@RequestParam(value="idx")int ridx) {
 		ModelAndView mav = new ModelAndView();

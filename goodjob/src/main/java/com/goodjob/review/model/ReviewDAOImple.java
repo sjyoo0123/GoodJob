@@ -73,8 +73,8 @@ public class ReviewDAOImple implements ReviewDAO {
 	}
 	/**나의 후기*/
 	@Override
-	public List<ReviewDTO> myReview() {
-		List<ReviewDTO> list = sqlMap.selectList("myReview");
+	public List<ReviewDTO> myReview(int member_idx) {
+		List<ReviewDTO> list = sqlMap.selectList("myReview" , member_idx);
 		return list;
 	}
 }

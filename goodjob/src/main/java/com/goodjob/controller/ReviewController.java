@@ -43,7 +43,6 @@ public class ReviewController {
 	/**키워드 작성*/
 	@RequestMapping(value = "/reviewWrite.do", method = RequestMethod.POST)
 	public ModelAndView reviewWriteSumbmit(HttpSession session, ReviewDTO dto) {
-		System.out.println("처음");
 		ModelAndView mav = new ModelAndView();
 		int idx = 0;
 
@@ -78,17 +77,31 @@ public class ReviewController {
 	}
 	/**나의 후기*/
 	@RequestMapping(value = "myReview.do", method = RequestMethod.GET)
-	public ModelAndView myReview() {
+	public ModelAndView myReview(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		List<ReviewDTO> list = reviewDao.myReview();
 		Map map =new HashMap();
+		int idx =0 ;
+		if (session.getAttribute("sidx") == null || session.getAttribute("sidx") == "") {
+			String msg = "로그인 후 이용바랍니다.";
+			String goUrl = "index.do";
+			mav.addObject("msg", msg);
+			mav.addObject("url", "reviewList.do");
+			mav.setViewName("notice/noticeMsg");
+			return mav;
+		} else {
+			idx = (int) session.getAttribute("sidx");
+		}
+		
+		List<ReviewDTO> list = reviewDao.myReview(idx);
+		
 		for(int i=0; i<list.size();i++) {
 			ResumeDTO dto =  reviewDao.reviewList2(list.get(i).getCom_name());
+			dto.setWritedate(list.get(i).getWritedate());
 			map.put(list.get(i).getCom_name(), dto);
 		}
 		mav.addObject("map", map);
 		mav.addObject("list", list);
-		mav.setViewName("review/reviewList");
+		mav.setViewName("review/myReview");
 		
 		return mav;
 		

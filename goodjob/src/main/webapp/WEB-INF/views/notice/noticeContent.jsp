@@ -45,6 +45,12 @@
     <span class="text">신고하기</span>
 </button>
 </c:if>
+<c:if test="${atoNum == 0 }" >
+    <input type="button" value="지원하기" onclick="location.href='apNorInsert.do?notice_idx=${dto.idx}'">
+</c:if>
+ <c:if test="${atoNum != 0 }" >
+    <input type="button" value="이미 지원함" >
+ </c:if>
 <c:if test="${scategory=='관리자'}">
 <div class="btn-group btn-group-lg" role="group" aria-label="Large button group">
 <button class="btn btn-outline-info"><span>승인</span></button>

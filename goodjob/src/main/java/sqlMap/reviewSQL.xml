@@ -45,7 +45,8 @@
 		WHERE rnum <![CDATA[<]]>= 3
 		GROUP BY com_name, keyword_count
 	</select>
-	<select id="myReview" resultType="com.goodjob.review.model.ReviewDTO">
-		select * from review
+	<select id="myReview" resultType="com.goodjob.review.model.ReviewDTO" parameterType="Integer">
+		select * from review where member_idx = #{member_idx} and status='활성'
 	</select>
+
 </mapper>

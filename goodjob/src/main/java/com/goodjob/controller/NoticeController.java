@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.goodjob.apply.model.ApplyDAO;
+import com.goodjob.apply.model.ApplyDTO;
 import com.goodjob.companymember.model.CompanyMemberDAO;
 import com.goodjob.companymember.model.CompanyMemberDTO;
 import com.goodjob.module.AjaxPageModule;
@@ -34,6 +36,8 @@ public class NoticeController {
 	private CompanyMemberDAO cdao;
 	@Autowired
 	private TotalFileDAO totalFileDao;
+	@Autowired
+	private ApplyDAO adao;
 public TotalFileDAO getTotalFileDao() {
 		return totalFileDao;
 	}
@@ -142,7 +146,7 @@ public NoticeController() {
 		return mav;
 	}
 	@RequestMapping("/noticeContent.do")
-	public ModelAndView noticeContent(@RequestParam(value="idx")int nidx,HttpSession session) {
+	public ModelAndView noticeContent(@RequestParam(value="idx")int nidx,HttpSession session, ApplyDTO ato) {
 		NoticeDTO dto=ndao.noticeContent(nidx);
 		String workday=dto.getWorkday();
 		String yy = "";
@@ -173,6 +177,8 @@ public NoticeController() {
 		int com_idx=dto.getCom_idx();
 		CompanyMemberDTO cdto=cdao.comInfo(com_idx);
 		ModelAndView mav=new ModelAndView();
+		int atoNum =  adao.apNorButtonHide(nidx, sidx);
+		System.out.println(atoNum);
 		String filepath=totalFileDao.noticeFile(nidx);
 		mav.addObject("filepath", filepath);
 		mav.addObject("cdto", cdto);
@@ -181,6 +187,7 @@ public NoticeController() {
 		mav.addObject("startendtime", startendtime);
 		mav.addObject("scategory", scategory);
 		mav.addObject("sidx", sidx);
+		mav.addObject("atoNum", atoNum);
 		mav.setViewName("notice/noticeContent");
 		return mav;
 	}

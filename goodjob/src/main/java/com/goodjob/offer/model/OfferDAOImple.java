@@ -1,8 +1,12 @@
 package com.goodjob.offer.model;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
+
+import com.goodjob.notice.model.NoticeDTO;
 
 
 public class OfferDAOImple implements OfferDAO {
@@ -42,5 +46,29 @@ public class OfferDAOImple implements OfferDAO {
 		int count=sqlMap.selectOne("offerTotalCnt",idx);
 		return count;
 	}
-
+	@Override // 제안받은 개인
+	public List<NoticeDTO> ofNorList(int member_idx, int cp, int ls) {
+		int start = (cp - 1) * ls + 1;
+		int end = cp * ls;
+		Map map = new HashMap();
+		map.put("member_idx", member_idx);
+		map.put("start", start);
+		map.put("end", end);
+		List<NoticeDTO> list = sqlMap.selectList("ofNorList",map);
+		return list;
+	}
+	
+	@Override //개인용 total조회
+	public int offerNorTotalCnt(int member_idx) {
+		int count=sqlMap.selectOne("offerNorTotalCnt",member_idx);		
+		return count;
+	}
+	@Override
+	public int ofNorGetCheck(int member_idx, int offer_idx) {
+		Map map = new HashMap();
+		map.put("member_idx", member_idx);
+		map.put("offer_idx", offer_idx);
+		int count = sqlMap.update("ofNorGetCheck", map);
+		return count;
+	}
 }

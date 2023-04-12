@@ -66,12 +66,12 @@
 				<div class="card bg-secondary bg-opacity-10">
 					<div class="card-body">
 						<h1 class="card-title">
-							<a href="#">구직</a>
+							<a href="">구직</a>
 						</h1>
 						<br>
 						<div class="row">
 							<div class="col-sm-12">
-								<h5>신청한 아르바이트</h5>
+								<a href ="apNorList.do"><h5>신청한 아르바이트</h5></a>
 								<h6>1</h6>
 								<h6>2</h6>
 								<h6>3</h6>
@@ -80,7 +80,7 @@
 							</div>
 							<br>
 							<div class="col-sm-12">
-								<h5>받은 제안</h5>
+								<a href="ofNorList.do"><h5>받은 제안</h5></a>
 								<h6>1</h6>
 								<h6>2</h6>
 								<h6>3</h6>

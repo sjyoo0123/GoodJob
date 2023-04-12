@@ -12,10 +12,24 @@
  <select id="applyTotalCnt" parameterType="Integer" resultType="Integer">
 select count(*) from apply where notice_idx=#{idx} and status='활성'
 </select>
- <select id="apNorList" parameterType="Map" resultType="com.goodjob.notice.model.NoticeDTO">
- select * from
-		(select rownum as rnum,a.* from
-		(select apply.applydate writedate,apply.normal_name subject,TRUNC((sysdate-apply.normal_birth)/365) plan_idx,normalmember.gender,member.addr local1,apply."CHECK" min_age,apply.member_idx com_idx  from apply,normalmember,member where apply.member_idx=normalmember.member_idx and normalmember.member_idx=member.idx and apply.notice_idx=#{idx} and apply.status='활성') a) b
-		where <![CDATA[rnum>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
+ <insert id="apNorInsert" parameterType="com.goodjob.apply.model.ApplyDTO">
+ 	insert into apply values (apply_idx.nextval, #{notice_idx}, #{member_idx} , sysdate, #{normal_name}, #{normal_birth} , 0, '활성')
+ </insert>
+ <select id="apNorGet" resultType="com.goodjob.normalmember.model.NormalMemberDTO" parameterType="Integer">
+ 	select * from member m, normalmember n where m.idx = n.member_idx and m.idx = #{member_idx}
  </select>
+ <select id="apNorButtonHide" resultType="Integer" parameterType="map">
+ 	select count(*) from apply where notice_idx = #{notice_idx} and member_idx = #{member_idx}
+ </select>
+  <select id="apNorList" parameterType="Integer" resultType="com.goodjob.notice.model.NoticeDTO">
+  select * from	
+  (select rownum as rnum,a.* from
+ 	(select n.idx,n.subject, n.com_name, n.period, n.writedate, n.pay_hour , n.starttime, n.finishtime , a."CHECK" AS ref 
+	from notice n, apply a 
+	where n.idx = a.notice_idx and member_idx =#{member_idx} and a.status='활성') a) b
+where <![CDATA[rnum>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
+ </select>
+ <select id="applyNorTotalCnt" parameterType="Integer" resultType="Integer">
+select count(*) from apply where member_idx=#{idx} and status='활성'
+</select>
  </mapper>

@@ -16,6 +16,6 @@ public interface ReviewDAO {
 
 	public List<ReviewDTO> injaeList();
 	
-	public List<ReviewDTO> myReview();
+	public List<ReviewDTO> myReview(int membber_idx);
 	
 }
