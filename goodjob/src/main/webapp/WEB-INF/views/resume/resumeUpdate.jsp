@@ -69,7 +69,7 @@
 </style>
 </head>
 <body>
-	<h1>이력서 작성</h1>
+	<h1>이력서 수정</h1>
 	<form id="resumeUpdate" name="resumeUpdate" action="resumeUpdate.do" method="post">
 		<hr>
 		<div>
@@ -107,6 +107,7 @@
 						<div><input type="text" name="subject" class="form-control form-control-lg" value=${dto.subject }></div>
 					</td>
 				</tr>
+				<div><input type="hidden" name="member_idx" value="${dto.member_idx}"> </div>
 				<tr>
 					<th>학력</th>
 					<td>
