@@ -1,7 +1,6 @@
 package com.goodjob.totalfile.model;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public interface TotalFileDAO {
 	
@@ -12,5 +11,7 @@ public interface TotalFileDAO {
 	public int manFileDel(int idx);
 	
 	public String noticeFile(int idx);
+	
+	public int noticeFileUpdate(Map map);
 }
 

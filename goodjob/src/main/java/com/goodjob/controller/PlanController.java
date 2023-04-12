@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.goodjob.plan_up.model.Plan_UpDAO;
@@ -250,4 +251,35 @@ public class PlanController {
 		return mav;
 		
 	}	
+	
+	@RequestMapping("/planInfo.do")
+	public ModelAndView planInfo() {
+		ModelAndView mav=new ModelAndView();
+		mav.setViewName("plan/planInfo");
+		return mav;
+	}
+	
+	@RequestMapping(value="/planInfoUp.do",method=RequestMethod.POST)
+	@ResponseBody
+	public List<Plan_UpDTO> planInfoUp(@RequestParam(value="count",defaultValue ="0")int count){
+		List<Plan_UpDTO> data=null;
+		if(count!=0) {
+			data=plan_UpDao.planInfoUpIdx(count);
+		}else {
+			data=plan_UpDao.planInfoUp();
+		}
+		return data;
+	}
+	
+	@RequestMapping(value="/planInfoVip.do",method=RequestMethod.POST)
+	@ResponseBody
+	public List<Plan_VipDTO> planInfoVip(@RequestParam(value="period",defaultValue ="0")int period,@RequestParam(value="floor")String floor){
+		List<Plan_VipDTO> vipdata=null;
+		if(period!=0) {
+			vipdata=plan_VipDao.planInfoVipPeriod(period,floor);
+		}else {
+			vipdata=plan_VipDao.planInfoVip(floor);
+		}
+		return vipdata;
+	}
 }

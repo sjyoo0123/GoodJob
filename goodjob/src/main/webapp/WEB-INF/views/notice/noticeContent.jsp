@@ -33,6 +33,7 @@
 <input type="hidden" id="x" value="${dto.x}">
 <input type="hidden" id="y" value="${dto.y}">
 <div class="container">
+	<%@include file="/WEB-INF/views/header.jsp"%>
 <div class="btn-group btn-group-lg" role="group" aria-label="Large button group">
 <button class="btn btn-outline-dark"><span>수정</span></button>
 <button class="btn btn-outline-dark"><span>삭제</span></button>
@@ -45,6 +46,12 @@
     <span class="text">신고하기</span>
 </button>
 </c:if>
+<c:if test="${atoNum == 0 }" >
+    <input type="button" value="지원하기" onclick="location.href='apNorInsert.do?notice_idx=${dto.idx}'">
+</c:if>
+ <c:if test="${atoNum != 0 }" >
+    <input type="button" value="이미 지원함" >
+ </c:if>
 <c:if test="${scategory=='관리자'}">
 <div class="btn-group btn-group-lg" role="group" aria-label="Large button group">
 <button class="btn btn-outline-info"><span>승인</span></button>
@@ -158,7 +165,7 @@ infowindow.open(map, marker);
 <div>
 <h2>상세내용</h2>
 <div>
-<img src="${filepath}">
+<img src="${filepath}" class="col-12">
 ${dto.content}
 </div>
 </div>
