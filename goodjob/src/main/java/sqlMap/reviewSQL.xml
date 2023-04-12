@@ -48,5 +48,10 @@
 	<select id="myReview" resultType="com.goodjob.review.model.ReviewDTO" parameterType="Integer">
 		select * from review where member_idx = #{member_idx} and status='활성'
 	</select>
-
+		<update id="reviewDel" parameterType="Integer">
+		update review set status = '미활성' where member_idx = #{member_idx} and review_num = #{review_num}
+	</update>
+<!-- 	<select>
+		select 
+	</select> -->
 </mapper>

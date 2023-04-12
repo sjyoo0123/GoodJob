@@ -18,4 +18,5 @@ public interface ReviewDAO {
 	
 	public List<ReviewDTO> myReview(int membber_idx);
 	
+	public int reviewDel(int member_idx, int review_num);
 }

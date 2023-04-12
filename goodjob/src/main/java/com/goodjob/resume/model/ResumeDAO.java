@@ -12,6 +12,7 @@ public interface ResumeDAO {
 	public int resumeWrite2(ResumeDTO dto, CareerDTO cto);
 	public ResumeDTO resumeDown(int idx);
 	public CareerDTO resumeCarrerDown(int idx);
+	public ResumeDTO resumeContent(int idx);
 	public int resumeUpdate(ResumeDTO dto);
 	public int careerUpdate(ResumeDTO dto, CareerDTO cto);
 	

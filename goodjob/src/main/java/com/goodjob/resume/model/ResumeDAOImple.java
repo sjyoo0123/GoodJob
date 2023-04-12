@@ -58,6 +58,11 @@ public class ResumeDAOImple implements ResumeDAO {
 		return dto;
 	}
 	@Override
+	public ResumeDTO resumeContent(int idx) {
+		ResumeDTO dto = sqlMap.selectOne("resumeContent", idx);
+		return dto;
+	}
+	@Override
 	public int resumeUpdate(ResumeDTO dto) {
 		int count = sqlMap.update("resumeUpdate", dto);
 		return count;
