@@ -58,4 +58,9 @@ public class TotalFileDAOImple implements TotalFileDAO {
 		String path=sqlMap.selectOne("noticeFile",idx);
 		return path;
 	}
+	@Override
+	public int noticeFileUpdate(Map map) {
+		int result=sqlMap.update("noticeFileUpdate", map);
+		return result;
+	}
 }

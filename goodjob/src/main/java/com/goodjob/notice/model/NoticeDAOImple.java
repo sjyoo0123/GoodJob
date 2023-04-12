@@ -198,5 +198,10 @@ public int manNoticeCnt() {
 		map.put("job", job);
 		return map;
 	}
+	@Override
+	public int noticeUpdate(NoticeDTO dto) {
+		int result=sqlMap.update("noticeUpdate", dto);
+		return result;
+	}
 
 }
