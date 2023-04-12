@@ -213,7 +213,7 @@ public class ResumeController {
 			idx=(int)session.getAttribute("sidx");
 		}
 		/////
-		ResumeDTO rto = resumeDao.resumeDown(ridx);
+		ResumeDTO rto = resumeDao.resumeDown(idx);
 		String yy = "";
 		if (rto.getH_workday().charAt(0) == '1') {
 			yy += "월";

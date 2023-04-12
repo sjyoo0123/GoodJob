@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -25,6 +26,8 @@ import com.goodjob.companymember.model.CompanyMemberDTO;
 import com.goodjob.module.AjaxPageModule;
 import com.goodjob.notice.model.NoticeDAO;
 import com.goodjob.notice.model.NoticeDTO;
+import com.goodjob.plan_used_vip.model.Plan_Used_VipDAO;
+import com.goodjob.plan_used_vip.model.Plan_Used_VipDTO;
 import com.goodjob.totalfile.model.TotalFileDAO;
 
 @Controller
@@ -38,6 +41,8 @@ public class NoticeController {
 	private TotalFileDAO totalFileDao;
 	@Autowired
 	private ApplyDAO adao;
+	@Autowired
+	private Plan_Used_VipDAO plandao;
 public TotalFileDAO getTotalFileDao() {
 		return totalFileDao;
 	}
@@ -76,9 +81,21 @@ public NoticeController() {
 		this.ndao = ndao;
 	}
 
-	@RequestMapping(value="/noticeWrite.do", method=RequestMethod.GET)
-	public ModelAndView noticeWriteForm() {
+	@RequestMapping(value="/noticeWrite.do")
+	public ModelAndView noticeWriteForm(HttpSession session) {
 		ModelAndView mav=new ModelAndView();
+		int idx=0;
+		if(session.getAttribute("sidx")==null||session.getAttribute("sidx")=="") {
+			String msg="잘못된 접근입니다";
+			String goUrl="index.do";
+			mav.addObject("msg", msg);
+			mav.addObject("goUrl", goUrl);
+			mav.setViewName("notice/noticeMsg");
+			return mav;
+		}else {
+			idx=(int)session.getAttribute("sidx");
+		}
+		mav.addObject("idx", idx);
 		mav.setViewName("notice/noticeWrite");
 		return mav;
 	}
@@ -407,6 +424,17 @@ public NoticeController() {
 		
 			
 	}
-	
+	@RequestMapping(value="/usedVipCount.do",method=RequestMethod.POST)
+	@ResponseBody
+	public int usedVipCount(int idx) {
+		int count=plandao.usedVipCount(idx);
+		return count;
+	}
+	@RequestMapping(value="/usedVipCon.do",method=RequestMethod.POST)
+	@ResponseBody
+	public Plan_Used_VipDTO usedVipCon(int idx) {
+		Plan_Used_VipDTO dto = plandao.usedVipCon(idx);
+		return dto;
+	}
 
 }

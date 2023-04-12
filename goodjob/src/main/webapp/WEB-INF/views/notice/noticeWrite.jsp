@@ -110,8 +110,7 @@ $(document).ready(function() {
 <body>
 	<h1>공고 등록</h1>
 	<form action="noticeWrite.do" method="post" id="writeForm" enctype="multipart/form-data">
-<h1>요금제<input type="text" name="plan_idx" value="1"></h1>
-<h1>기업idx<input type="text" name="com_idx" value="7"></h1>
+<h1>기업idx<input type="text" name="com_idx" value="${idx}" id="com_idx"></h1>
 	<div class="container px-4 px-lg-5">
 	<div class="row gx-4 gx-lg-5 justify-content-center">
 	<div class="col-md-12 col-lg-9 col-xl-8">
@@ -419,7 +418,15 @@ $(document).ready(function() {
 </div>
 			<textarea rows="30" cols="50" name="content"></textarea>
 		</div>
-		<button type="submit" class="btn btn-primary btn-icon-split btn-lg">
+		</div>
+		<hr class="my-4">
+		<div class="card bg-primary bg-opacity-10">
+								<div class="card-body">
+			<h2 class="card-title">요금제 정보</h2>
+			<input type="hidden" name="plan_idx" id="plan_idx"><div id="planUse"></div>
+		</div>
+		</div>
+		<button type="submit" class="btn btn-primary btn-icon-split btn-lg col-12">
     <span class="icon text-white-50">
         <i class="bi bi-check-lg"></i>
     </span>
@@ -428,8 +435,38 @@ $(document).ready(function() {
 		</div>
 		</div>
 		</div>
-		</div>
 	</form>
+<script>
+$(document).ready(function() {
+    $.ajax({
+        url: "usedVipCount.do",
+        method: "POST",
+        data: {idx: $('#com_idx').val()},
+        success: function(data) {
+        	if (data === 0) {
+        		 $("#planUse").append("<h5>사용중인 요금제가 없습니다.(무료요금제만 사용가능)</h5>");
+        		 $('#plan_idx').val(13);
+        	    } else {
+        	    	$.ajax({
+                        url: "usedVipCon.do",
+                        method: "POST",
+                        data: {idx: $('#com_idx').val()},
+                        success: function(data2) {
+                        	var planidx=data2.plan_idx
+                        	$('#plan_idx').val(planidx);
+                        	var start_date = new Date(parseInt(data2.plan_start));
+                        	var end_date = new Date(parseInt(data2.plan_end));
 
+                        	var start_str = start_date.getFullYear() + "년 " + (start_date.getMonth()+1) + "월 " + start_date.getDate() + "일";
+                        	var end_str = end_date.getFullYear() + "년 " + (end_date.getMonth()+1) + "월 " + end_date.getDate() + "일";
+
+							$("#planUse").append("<div class='row'><div class='col-12'><h3>"+data2.plan_type+"</h3></div>"+"<div class='col-5'><h6>요금제시작일</h6>"+start_str+"</div><div class='col-5'><h6>요금제종료일</h6>"+end_str+"</div><div class='col-2'><h6>남은사용일"+data2.idx+"일</h6></div></div>");
+                        }
+                    });
+        	    }
+        }
+    });
+});
+</script>
 </body>
 </html>
