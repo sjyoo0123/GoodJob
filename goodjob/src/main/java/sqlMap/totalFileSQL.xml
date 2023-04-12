@@ -25,4 +25,7 @@
 	<select id="noticeFile" parameterType="Integer" resultType="String">
 		select "FILE" from totalfile where category='notice' and table_idx=#{idx}
 	</select>
+	<update id="noticeFileUpdate" parameterType="Map">
+		update totalfile set "FILE"=#{file} where table_idx=#{table_idx}
+	</update>
 </mapper>

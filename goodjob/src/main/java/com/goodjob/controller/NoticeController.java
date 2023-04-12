@@ -85,7 +85,7 @@ public NoticeController() {
 	}
 	
 	@RequestMapping(value="/noticeWrite.do", method=RequestMethod.POST)
-	public ModelAndView noticeWriteSubmit(NoticeDTO dto,String workstarttime1,String workstarttime2,String workendtime1,String workendtime2,@RequestParam("formFileMultiple")MultipartFile file,HttpServletRequest req) {
+	public ModelAndView noticeWriteSubmit(NoticeDTO dto,String workstarttime1,String workstarttime2,String workendtime1,String workendtime2,int pay_hour1,@RequestParam("formFileMultiple")MultipartFile file,HttpServletRequest req) {
 		ModelAndView mav=new ModelAndView();
 		String starttime=workstarttime1+workstarttime2;
 		dto.setStarttime(Integer.parseInt(starttime));
@@ -95,6 +95,7 @@ public NoticeController() {
 			int pay_month=(dto.getFinishtime()-dto.getStarttime())*dto.getPay_hour();
 			dto.setPay_month(pay_month);
 		}else if(dto.getPay_category().equals("월급")) {
+			dto.setPay_hour(pay_hour1);
 			int pay_month=(dto.getFinishtime()-dto.getStarttime())*dto.getPay_hour()*dto.getWorktime();
 			dto.setPay_month(pay_month);
 		}else if(dto.getPay_category().equals("협의")) {
@@ -102,7 +103,7 @@ public NoticeController() {
 		}
 		int result=ndao.noticeWrite(dto);
 		Map map=new HashMap();
-		String path ="notice"+"/"+file.getOriginalFilename();
+		String path ="/goodjob/notice"+"/"+file.getOriginalFilename();
 		String filest=file.getOriginalFilename();
 		map.put("file", path);
 		map.put("category", "notice");
@@ -247,14 +248,52 @@ public NoticeController() {
 	public ModelAndView noticeUpdateForm(@RequestParam(value="idx")int nidx) {
 		ModelAndView mav=new ModelAndView();
 		NoticeDTO dto=ndao.noticeContent(nidx);
-		
+		int workstarttime1 = dto.getStarttime()/100;
+		int workstarttime2 = dto.getStarttime()%100;
+		int workendtime1 = dto.getFinishtime()/100;
+		int workendtime2 = dto.getFinishtime()%100;
+		mav.addObject("dto", dto);
+		mav.addObject("workstarttime1", workstarttime1);
+		mav.addObject("workstarttime2", workstarttime2);
+		mav.addObject("workendtime1", workendtime1);
+		mav.addObject("workendtime2", workendtime2);
+		mav.setViewName("notice/noticeUpdate");
 		return mav;
 	}
 	@RequestMapping(value="/noticeUpdate.do",method=RequestMethod.POST)
-	public ModelAndView noticeUpdateSubmit(NoticeDTO dto) {
-
+	public ModelAndView noticeUpdateSubmit(NoticeDTO dto,String workstarttime1,String workstarttime2,String workendtime1,String workendtime2,int pay_hour1,@RequestParam("formFileMultiple")MultipartFile file,HttpServletRequest req) {
 		ModelAndView mav=new ModelAndView();
-		
+		String starttime=workstarttime1+workstarttime2;
+		dto.setStarttime(Integer.parseInt(starttime));
+		String finishtime=workendtime1+workendtime2;
+		dto.setFinishtime(Integer.parseInt(finishtime));
+		if(dto.getPay_category().equals("시급")) {
+			int pay_month=(dto.getFinishtime()-dto.getStarttime())*dto.getPay_hour();
+			dto.setPay_month(pay_month);
+		}else if(dto.getPay_category().equals("월급")) {
+			dto.setPay_hour(pay_hour1);
+			int pay_month=(dto.getFinishtime()-dto.getStarttime())*dto.getPay_hour()*dto.getWorktime();
+			dto.setPay_month(pay_month);
+		}else if(dto.getPay_category().equals("협의")) {
+			dto.setPay_month(0);
+		}
+		System.out.println(dto);
+		int result=ndao.noticeUpdate(dto);
+		Map map=new HashMap();
+		if(file!=null) {
+		String path ="/goodjob/notice"+"/"+file.getOriginalFilename();
+		String filest=file.getOriginalFilename();
+		map.put("file", path);
+		map.put("category", "notice");
+		map.put("table_name", "notice");
+		map.put("table_idx", dto.getIdx());
+		int count=totalFileDao.noticeFileUpdate(map);
+		copyInto("notice", file, req);
+		}
+		String msg=result>0?"수정완료":"수정실패";
+		mav.addObject("msg", msg);
+		mav.addObject("goUrl", "/goodjob/company.do");
+		mav.setViewName("notice/noticeMsg");
 		return mav;
 	}
 	public void copyInto(String category, MultipartFile file,HttpServletRequest req) {
