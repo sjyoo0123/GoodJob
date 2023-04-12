@@ -1,27 +1,27 @@
-package com.goodjob.payment_log.model;
+package com.goodjob.sales.model;
 
 import java.sql.Date;
 
-public class Payment_LogDTO {
+public class SalesListDTO {
 
 	private String merchant_uid;
-	private int member_idx;
+	private	String username;
 	private String name;
 	private int price;
-	private Date patdate;
+	private Date paydate;
 	private String imp_uid;
 	private String suc_check;
-	public Payment_LogDTO() {
+	public SalesListDTO() {
 		super();
 	}
-	public Payment_LogDTO(String merchant_uid, int member_idx, String name, int price, Date patdate, String imp_uid,
+	public SalesListDTO(String merchant_uid, String username, String name, int price, Date paydate, String imp_uid,
 			String suc_check) {
 		super();
 		this.merchant_uid = merchant_uid;
-		this.member_idx = member_idx;
+		this.username = username;
 		this.name = name;
 		this.price = price;
-		this.patdate = patdate;
+		this.paydate = paydate;
 		this.imp_uid = imp_uid;
 		this.suc_check = suc_check;
 	}
@@ -31,11 +31,11 @@ public class Payment_LogDTO {
 	public void setMerchant_uid(String merchant_uid) {
 		this.merchant_uid = merchant_uid;
 	}
-	public int getMember_idx() {
-		return member_idx;
+	public String getUsername() {
+		return username;
 	}
-	public void setMember_idx(int member_idx) {
-		this.member_idx = member_idx;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	public String getName() {
 		return name;
@@ -49,11 +49,11 @@ public class Payment_LogDTO {
 	public void setPrice(int price) {
 		this.price = price;
 	}
-	public Date getPatdate() {
-		return patdate;
+	public Date getPaydate() {
+		return paydate;
 	}
-	public void setPatdate(Date patdate) {
-		this.patdate = patdate;
+	public void setPaydate(Date paydate) {
+		this.paydate = paydate;
 	}
 	public String getImp_uid() {
 		return imp_uid;
@@ -67,8 +67,6 @@ public class Payment_LogDTO {
 	public void setSuc_check(String suc_check) {
 		this.suc_check = suc_check;
 	}
-	
-	
 	
 	
 }
