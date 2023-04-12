@@ -116,6 +116,7 @@
 				<input type="hidden" name="tel" value="${dto.tel }">
 				<input type="hidden" name="age" value="${nto.review_num }">
 				<input type="hidden" name="member_idx" value="${dto.idx}"> 
+			
 				</div>
 					<th><h2>이력서제목</h2></th>
 					<td>

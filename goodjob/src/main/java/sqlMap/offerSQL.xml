@@ -12,4 +12,17 @@
  <select id="offerTotalCnt" parameterType="Integer" resultType="Integer">
  select count(*) from offer where commember_idx=#{idx} and status='활성'
  </select>
+ <select id="ofNorList" resultType="com.goodjob.notice.model.NoticeDTO" parameterType="Map">
+ select * from 	
+ 	(select o.idx as plan_idx , n.idx,n.subject, n.com_name, n.period, n.writedate, n.pay_hour , n.starttime, n.finishtime , "CHECK" as ref
+	from notice n, offer o
+	where n.idx = o.notice_idx and o.normember_idx = #{member_idx})
+		where <![CDATA[rownum>=]]>#{start} and <![CDATA[rownum<=]]>#{end}
+</select>
+<select id="offerNorTotalCnt" parameterType="Integer" resultType="Integer">
+ select count(*) from offer where normember_idx=#{member_idx} and status='활성'
+ </select>
+ <update id="ofNorGetCheck" parameterType="map">
+ 	update offer set "CHECK"=1 where normember_idx = #{member_idx} and idx = #{offer_idx}
+ </update>
  </mapper>

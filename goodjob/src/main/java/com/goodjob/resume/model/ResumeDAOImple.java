@@ -3,6 +3,8 @@ package com.goodjob.resume.model;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.goodjob.career.model.CareerDTO;
+import com.goodjob.member.model.MemberDTO;
+import com.goodjob.review.model.ReviewDTO;
 
 public class ResumeDAOImple implements ResumeDAO {
 
@@ -18,7 +20,19 @@ public class ResumeDAOImple implements ResumeDAO {
 	public void setSqlMap(SqlSessionTemplate sqlMap) {
 		this.sqlMap = sqlMap;
 	}
-
+	
+	@Override
+	public MemberDTO resumeWriteForm(int idx) {
+		MemberDTO dto = sqlMap.selectOne("resumeWriteForm", idx);
+		return dto;
+	}
+	
+	@Override
+	public ReviewDTO resumeWriteForm1(int idx) {
+		ReviewDTO dto = sqlMap.selectOne("resumeWriteForm1", idx);
+		return dto;
+	}
+	
 	@Override
 	public int resumeWrite(ResumeDTO dto) {
 
@@ -34,13 +48,13 @@ public class ResumeDAOImple implements ResumeDAO {
 	}
 
 	@Override
-	public ResumeDTO resumeDown() {
-		ResumeDTO dto = sqlMap.selectOne("resumeDown");
+	public ResumeDTO resumeDown(int idx) {
+		ResumeDTO dto = sqlMap.selectOne("resumeDown", idx);
 		return dto;
 	}
 	@Override
-	public CareerDTO resumeCarrerDown() {
-		CareerDTO dto = sqlMap.selectOne("resumeCareerDown");
+	public CareerDTO resumeCarrerDown(int idx) {
+		CareerDTO dto = sqlMap.selectOne("resumeCareerDown", idx);
 		return dto;
 	}
 	@Override
@@ -51,7 +65,7 @@ public class ResumeDAOImple implements ResumeDAO {
 	@Override
 	public int careerUpdate(ResumeDTO dto, CareerDTO cto) {
 		int count = sqlMap.update("resumeUpdate" , dto);
-		count += sqlMap.update("careerUpdate", cto);
+		count += sqlMap.update("careerUpdate" , cto);
 		return count;
 	}
 }

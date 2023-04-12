@@ -1,12 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%
-	 
-	response.setHeader("Content-Disposition", "attachment;filename=member.doc");
-  response.setHeader("Content-Description", "JSP Generated Data");
-  response.setContentType("application/vnd.ms-word");
-	%>
 <!DOCTYPE html>
 <html>
 <head>
