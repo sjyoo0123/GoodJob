@@ -43,9 +43,9 @@
 					<th>희망직종</th>
 				</tr>
 				<c:url var="contentUrl" value="resumeContent.do">
-					<c:param name="idx">${list.member_idx }</c:param>
+					<c:param name="idx">${list.idx }</c:param>
 				</c:url>
-				<td><a href="${contentUrl}">${list.name }</td>
+				<td><a href="${contentUrl}">${list.name }</a></td>
 				<td>${list.age }</td>
 				<td>${list.gender }</td>
 				<td>${list.job }</td>

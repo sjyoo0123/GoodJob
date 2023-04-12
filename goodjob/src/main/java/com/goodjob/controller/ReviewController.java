@@ -104,6 +104,12 @@ public class ReviewController {
 		mav.setViewName("review/myReview");
 		
 		return mav;
+	}
+	/**리뷰 삭제*/
+	@RequestMapping(value="reviewDel.do", method = RequestMethod.POST) 
+	public ModelAndView reviewDel(HttpSession session) {
+		ModelAndView mav = new ModelAndView();
 		
+		return mav;
 	}
 }

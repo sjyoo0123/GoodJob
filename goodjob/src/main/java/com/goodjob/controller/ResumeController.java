@@ -126,17 +126,6 @@ public class ResumeController {
 		return mav;
 	}
 
-	/** 이력서 수정페이지 이동 */
-	/*
-	 * public ModelAndView resumeUpdateForm(@RequestParam(value="member_idx")int
-	 * midx) { ModelAndView mav = new ModelAndView();
-	 * 
-	 * ResumeDTO rto = resumeDao.resumeDown(midx); if
-	 * (rto.getCareer_check().equals("경력")) { CareerDTO cto =
-	 * resumeDao.resumeCarrerDown(); mav.addObject("cto", cto); }
-	 * mav.addObject("dto", rto); mav.setViewName("resume/resumeUpdate"); return
-	 * mav; }
-	 */
 	@RequestMapping(value = "resumeUpdate.do", method = RequestMethod.GET)
 	public ModelAndView resumeUpdateForm(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
@@ -198,22 +187,11 @@ public class ResumeController {
 	
 	/**이력서 컨텐츠*/
 	@RequestMapping("/resumeContent.do")
-	public ModelAndView resumeContent(HttpSession session, 
-			@RequestParam(value="idx")int ridx) {
+	public ModelAndView resumeContent(@RequestParam(value="idx")int ridx) {
 		ModelAndView mav = new ModelAndView();
-		/////
 		int idx=0;
-		if(session.getAttribute("sidx")==null||session.getAttribute("sidx")=="") {
-			String msg="로그인 후 이용바랍니다.";
-			String goUrl="index.do";
-			mav.addObject("msg", msg);
-			mav.setViewName("notice/noticeMsg");
-			return mav;
-		}else {
-			idx=(int)session.getAttribute("sidx");
-		}
-		/////
-		ResumeDTO rto = resumeDao.resumeDown(idx);
+		ResumeDTO rto = resumeDao.resumeContent(ridx);
+		int ridx2 =  rto.getIdx();
 		String yy = "";
 		if (rto.getH_workday().charAt(0) == '1') {
 			yy += "월";
@@ -240,7 +218,7 @@ public class ResumeController {
 			yy += "무관";
 		}
 		if (rto.getCareer_check().equals("경력")) {
-			CareerDTO cto = resumeDao.resumeCarrerDown(idx);
+			CareerDTO cto = resumeDao.resumeCarrerDown(ridx2);
 			mav.addObject("cto", cto);
 		}
 		mav.addObject("yy", yy);
