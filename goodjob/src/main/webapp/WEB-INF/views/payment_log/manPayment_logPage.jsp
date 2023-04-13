@@ -10,6 +10,8 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 	<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 	<script>	
+
+	
 var IMP = window.IMP; // 생략 가능
 IMP.init("imp82514218"); // 예: imp00000000a
 	
@@ -48,11 +50,12 @@ function requestPay(pg= '테스트 PG.INIpayTest') {
     	  console.log(rsp);
       } else {
         // 결제 실패 시 로직
-        	alert("결제에 실패하셨습니다.");
-    	  console.log(rsp);
+    	  alert("결제에 실패하였습니다. 에러 내용: " + rsp.error_msg);
       }
     });
   }
+  
+
 </script>
 
 	<title>Good Job</title>
