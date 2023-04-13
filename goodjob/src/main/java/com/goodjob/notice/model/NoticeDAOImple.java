@@ -207,6 +207,10 @@ public int manNoticeCnt() {
 		map.put("three", three);
 		List<Map<String, Object>>list= sqlMap.selectList("mainPlan", map);
 		return list;
+		}
+	public int noticeUpdate(NoticeDTO dto) {
+		int result=sqlMap.update("noticeUpdate", dto);
+		return result;
 	}
 
 }

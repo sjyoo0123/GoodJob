@@ -1,9 +1,12 @@
 package com.goodjob.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.goodjob.career.model.CareerDTO;
@@ -34,10 +37,22 @@ public class ResumeController {
 
 	/** 이력서 조회 */
 	@RequestMapping(value = "/writeForm.do", method = RequestMethod.GET)
-	public ModelAndView resumeWriteForm() {
+	public ModelAndView resumeWriteForm(HttpSession session) {
+		
 		ModelAndView mav = new ModelAndView();
-		MemberDTO dto = memberDao.resumeWriteForm();
-		ReviewDTO nto = normalmemberDao.resumeWriteForm1();
+		
+		int idx=0;
+		if(session.getAttribute("sidx")==null||session.getAttribute("sidx")=="") {
+			String msg="로그인 후 이용바랍니다.";
+			String goUrl="index.do";
+			mav.addObject("msg", msg);
+			mav.setViewName("notice/noticeMsg");
+			return mav;
+		}else {
+			idx=(int)session.getAttribute("sidx");
+		}
+		MemberDTO dto = resumeDao.resumeWriteForm(idx);
+		ReviewDTO nto = resumeDao.resumeWriteForm1(idx);
 		mav.addObject("dto", dto);
 		mav.addObject("nto", nto);
 		mav.setViewName("resume/resumeWrite");
@@ -46,16 +61,18 @@ public class ResumeController {
 
 	/** 이력서 작성 */
 	@RequestMapping(value = "/resumeWrite.do", method = RequestMethod.POST)
-	public ModelAndView resumeWriteSubmit(ResumeDTO dto, CareerDTO cto, String startday_s, String endday_s,
-			MemberDTO mto) {
+	public ModelAndView resumeWriteSubmit(@RequestParam(value="member_idx")int midx,
+			ResumeDTO dto, CareerDTO cto, String startday_s, String endday_s,
+			MemberDTO mto ) {
 		ModelAndView mav = new ModelAndView();
 		int result = 0;
 		Module mo = new Module();
-		ResumeDTO getridx = resumeDao.resumeDown();
+		ResumeDTO getridx = resumeDao.resumeDown(midx);
 
 		if (dto.getCareer_check().equals("신입")) {
 			result = resumeDao.resumeWrite(dto);
 		} else {
+			System.out.println(getridx.getIdx());
 			cto.setResume_idx(getridx.getIdx());
 			System.out.println("resumeidx=" + cto.getResume_idx());
 			cto.setStartday(mo.datePasing(startday_s));
@@ -69,11 +86,11 @@ public class ResumeController {
 		return mav;
 	}
 
-	/** 이력서 다운로드 */
+	/** 이력서 다운로드  업데이트 후 다시 한 번 보기*/
 	@RequestMapping(value = "resumeDown.do", method = RequestMethod.GET)
-	public ModelAndView resumeDown() {
+	public ModelAndView resumeDown(@RequestParam(value="member_idx")int ridx ) {
 		ModelAndView mav = new ModelAndView();
-		ResumeDTO rto = resumeDao.resumeDown();
+		ResumeDTO rto = resumeDao.resumeDown(ridx);
 		String yy = "";
 		if (rto.getH_workday().charAt(0) == '1') {
 			yy += "월";
@@ -100,7 +117,7 @@ public class ResumeController {
 			yy += "무관";
 		}
 		if (rto.getCareer_check().equals("경력")) {
-			CareerDTO cto = resumeDao.resumeCarrerDown();
+			CareerDTO cto = resumeDao.resumeCarrerDown(ridx);
 			mav.addObject("cto", cto);
 		}
 		mav.addObject("yy", yy);
@@ -109,14 +126,26 @@ public class ResumeController {
 		return mav;
 	}
 
-	/** 이력서 수정페이지 이동 */
 	@RequestMapping(value = "resumeUpdate.do", method = RequestMethod.GET)
-	public ModelAndView resumeUpdateForm() {
+	public ModelAndView resumeUpdateForm(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		
-		ResumeDTO rto = resumeDao.resumeDown();
+		
+		int idx=0;
+		if(session.getAttribute("sidx")==null||session.getAttribute("sidx")=="") {
+			String msg="로그인 후 이용바랍니다.";
+			String goUrl="index.do";
+			mav.addObject("msg", msg);
+			mav.setViewName("notice/noticeMsg");
+			return mav;
+		}else {
+			idx=(int)session.getAttribute("sidx");
+		}
+		ResumeDTO rto = resumeDao.resumeDown(idx);
+		
+		
 		if (rto.getCareer_check().equals("경력")) {
-			CareerDTO cto = resumeDao.resumeCarrerDown();
+			CareerDTO cto = resumeDao.resumeCarrerDown(idx);
 			mav.addObject("cto", cto);
 		}
 		mav.addObject("dto", rto);
@@ -125,57 +154,78 @@ public class ResumeController {
 	}
 	/**이력서 수정*/
 	@RequestMapping(value = "resumeUpdate.do", method = RequestMethod.POST)
-	public ModelAndView resumeUpdate(ResumeDTO dto, CareerDTO cto, String startday_s, String endday_s) {
+	public ModelAndView resumeUpdate(@RequestParam(value="member_idx")int midx, ResumeDTO dto, CareerDTO cto, 
+			String startday_s, String endday_s) {
 		ModelAndView mav = new ModelAndView();
 		int result = 0;
 		Module mo = new Module();
-		System.out.println("11");
+		ResumeDTO getridx = resumeDao.resumeDown(midx);
+		System.out.println(getridx.toString());
 		if (dto.getCareer_check().equals("신입")) {
-		result = resumeDao.resumeUpdate(dto);
+			result = resumeDao.resumeUpdate(dto);
 		} else {
+			cto.setResume_idx(getridx.getIdx());
+			System.out.println("resumeidx=" + cto.getResume_idx());
 			cto.setStartday(mo.datePasing(startday_s));
 			cto.setEndday(mo.datePasing(endday_s));
 			result = resumeDao.careerUpdate(dto, cto);
 		}
-		System.out.println("2");
 		String msg = result > 0 ? "이력서 수정 성공" : "이력서 수정 실패";
 		mav.addObject("msg", msg);
 		mav.setViewName("review/reviewMsg");
-		System.out.println("33");
 		return mav;
 	}
-	/**이력서 수정 테스트*/
-	@RequestMapping(value = "resumeUpdateTest.do", method = RequestMethod.POST)
-	public ModelAndView resumeUpdateTest(ResumeDTO dto) {
-		ModelAndView mav = new ModelAndView();
-		int result = 0;
-		result = resumeDao.resumeUpdate(dto);
-		String msg = result > 0 ? "이력서 수정 성공" : "이력서 수정 실패";
-		mav.addObject("msg", msg);
-		mav.setViewName("review/reviewMsg");
-		System.out.println("33");
-		return mav;
-	}
-	/**이력서 테스트 폼*/
-	@RequestMapping("/resumeUpdateTest.do")
-	public ModelAndView resumeUpdateTestForm() {
-		ModelAndView mav = new ModelAndView();
-		
-		ResumeDTO rto = resumeDao.resumeDown();
-		if (rto.getCareer_check().equals("경력")) {
-			CareerDTO cto = resumeDao.resumeCarrerDown();
-			mav.addObject("cto", cto);
-		}
-		mav.addObject("dto", rto);
-		mav.setViewName("resume/resumeUpdateTest");
-		return mav;
-	}
-
+	
+	
+	/**업종 관련*/
 	@RequestMapping("/resumeJobList.do")
 	public ModelAndView h_jobForm() {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("resume/resumeJobList");
 		return mav;
 	}
+	
+	/**이력서 컨텐츠*/
+	@RequestMapping("/resumeContent.do")
+	public ModelAndView resumeContent(@RequestParam(value="idx")int ridx) {
+		ModelAndView mav = new ModelAndView();
+		int idx=0;
+		ResumeDTO rto = resumeDao.resumeContent(ridx);
+		int ridx2 =  rto.getIdx();
+		String yy = "";
+		if (rto.getH_workday().charAt(0) == '1') {
+			yy += "월";
+		}
+		if (rto.getH_workday().charAt(1) == '1') {
+			yy += "화";
+		}
+		if (rto.getH_workday().charAt(2) == '1') {
+			yy += "수";
+		}
+		if (rto.getH_workday().charAt(3) == '1') {
+			yy += "목";
+		}
+		if (rto.getH_workday().charAt(4) == '1') {
+			yy += "금";
+		}
+		if (rto.getH_workday().charAt(5) == '1') {
+			yy += "토";
+		}
+		if (rto.getH_workday().charAt(6) == '1') {
+			yy += "일";
+		}
+		if (rto.getH_workday().charAt(7) == '1') {
+			yy += "무관";
+		}
+		if (rto.getCareer_check().equals("경력")) {
+			CareerDTO cto = resumeDao.resumeCarrerDown(ridx2);
+			mav.addObject("cto", cto);
+		}
+		mav.addObject("yy", yy);
+		mav.addObject("dto", rto);
+		mav.setViewName("resume/resumeContent");
+		return mav;
+	}
+	
 
 }

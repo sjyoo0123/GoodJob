@@ -1,12 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%
-	 
-	response.setHeader("Content-Disposition", "attachment;filename=member.doc");
-  response.setHeader("Content-Description", "JSP Generated Data");
-  response.setContentType("application/vnd.ms-word");
-	%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -90,7 +84,7 @@
 				<td></td>
 			</tr>
 			<tr>
-				<th>${dto.name}/${dto.gender} / ${dto.age}</th>
+				<th>${dto.name}/${dto.gender}/ ${dto.age}</th>
 				<td></td>
 			</tr>
 			<tr>
@@ -109,9 +103,7 @@
 
 				<hr>
 				<th><h2>이력서제목</h2></th>
-				<td>
-					${dto.subject }
-				</td>
+				<td>${dto.subject }</td>
 			</tr>
 			<tr>
 				<th>학력</th>
@@ -133,27 +125,29 @@
 			</tr>
 			<tr>
 				<th></th>
-				<td><div id="carrer1" style="display: none;">
-						<table>
-							<h5>나의 경력</h5>
-							<tr>
-								<th>회사명</th>
-								<td>${cto.com_name }</td>
-							</tr>
-							<tr>
-								<th>근무기간</th>
-								<td><span>${cto.startday } </span><span>${cto.endday }</span></td>
-							</tr>
-							<tr>
-								<th>담당업무</th>
-								<td>${cto.part }></td>
-							<tr>
-							<tr>
-								<th>서비스타입</th>
-								<td>${cto.service_type }</td>
-							<tr>
-						</table>
-					</div></td>
+				<c:if test="${dto.career_check =='경력' }" >
+				<div id="carrer1">
+					<table>
+						<h5>나의 경력</h5>
+						<tr>
+							<th>회사명</th>
+							<td>${cto.com_name }</td>
+						</tr>
+						<tr>
+							<th>근무기간</th>
+							<td><span>${cto.startday } </span> ~ <span>${cto.endday }</span></td>
+						</tr>
+						<tr>
+							<th>담당업무</th>
+							<td>${cto.part }></td>
+						<tr>
+						<tr>
+							<th>서비스타입</th>
+							<td>${cto.service_type }</td>
+						<tr>
+					</table>
+				</div>
+				</c:if>
 			</tr>
 
 			<hr>
@@ -165,7 +159,7 @@
 
 			<tr>
 				<th>희망 근무지</th>
-				<td>${dto.h_local1 } ${dto.h_local2 }</td>
+				<td>${dto.h_local1 }${dto.h_local2 }</td>
 			</tr>
 			<tr>
 				<th>직종</th>
@@ -179,7 +173,7 @@
 				<th>근무요일</th>
 				<td>${yy }</td>
 			</tr>
-			
+
 			<tr>
 				<th>희망하는 근무시간</th>
 				<td>${dto.h_worktime }</td>

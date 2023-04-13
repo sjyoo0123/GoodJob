@@ -49,7 +49,7 @@ public class GongJiController {
 		return mav;
 	}
 	
-	@RequestMapping(value="manGongjiList.do")
+	@RequestMapping(value="/manGongjiList.do")
 	public ModelAndView manGongjiList(@RequestParam(value="cp",defaultValue = "1")int cp) {
 		ModelAndView mav=new ModelAndView();
 		int totalCnt=gDao.manGongjiListTotalCnt();

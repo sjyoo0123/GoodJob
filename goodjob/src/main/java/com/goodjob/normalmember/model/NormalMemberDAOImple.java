@@ -4,8 +4,6 @@ package com.goodjob.normalmember.model;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
-import com.goodjob.review.model.ReviewDTO;
-
 
 public class NormalMemberDAOImple implements NormalMemberDAO {
 	private SqlSessionTemplate sqlMap;
@@ -33,15 +31,12 @@ public class NormalMemberDAOImple implements NormalMemberDAO {
 		
 		return sqlMap.selectOne("getNorMember", idx);
 	}
-	@Override
-	public  ReviewDTO resumeWriteForm1() {
-		
-		return sqlMap.selectOne("resumeWriteForm1");
-	}
+
 	@Override
 	public int norUpdate(NormalMemberDTO dto) {
 		// TODO Auto-generated method stub
 		int count= sqlMap.update("norUpdate", dto);
 		return count;
 	}
+
 }

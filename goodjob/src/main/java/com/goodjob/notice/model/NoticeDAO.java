@@ -18,4 +18,5 @@ public interface NoticeDAO {
 	public int whereNoticeTotalCnt(String workday,String[] local2,String[] local3,String[] job);
 	public List<NoticeDTO> whereNoticeList(String workday,String[] local2,String[] local3,String[] job,int start,int end);
 	public List<Map<String,Object>>mainPlan(int one,int two,int three);
+	public int noticeUpdate(NoticeDTO dto);
 }
