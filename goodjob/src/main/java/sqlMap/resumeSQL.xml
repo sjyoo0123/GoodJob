@@ -88,7 +88,7 @@
 		#{resume_idx}, #{startday}, #{endday}
 		,#{com_name},#{part},#{service_type},'활성')
 	</insert>
-	<update id="careerDel" parameterType="Integer">
-		update career set status = '비활성' where status ='활성', idx =#{idx} 
+	<update id="careerDelete" parameterType="Integer">
+		update career set status = '비활성' where idx = #{idx} and status ='활성'
 	</update>
 </mapper>

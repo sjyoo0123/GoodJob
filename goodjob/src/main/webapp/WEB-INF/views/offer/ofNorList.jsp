@@ -33,12 +33,6 @@
 		<h1></h1>
 		<div class="btn-group btn-group-lg" role="group"
 			aria-label="Large button group">
-			<button class="btn btn-outline-dark">
-				<span>수정</span>
-			</button>
-			<button class="btn btn-outline-dark">
-				<span>삭제</span>
-			</button>
 		</div>
 		<form>
 			<div class="input-group mb-3">

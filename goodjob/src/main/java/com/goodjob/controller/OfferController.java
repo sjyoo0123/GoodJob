@@ -43,7 +43,7 @@ public class OfferController {
 		return mav;
 	}
 	@RequestMapping(value="ofNorList.do", method = RequestMethod.GET )
-	public ModelAndView ofNorList(HttpSession session,@RequestParam(value="cp",defaultValue="1")int cp) {
+	public ModelAndView ofNorList(HttpSession session, @RequestParam(value="cp",defaultValue="1")int cp) {
 		ModelAndView mav=new ModelAndView();
 		int member_idx = 0;
 		if(session.getAttribute("sidx")!=null) {
@@ -53,8 +53,8 @@ public class OfferController {
 		int listSize=5;
 		int pageSize=5;
 		
-		String pageStr=com.goodjob.page.module.PageModule.makePage("ofComList.do", totalCnt, listSize, pageSize, cp);
-		List<NoticeDTO> list = odao.ofNorList(member_idx,  cp, listSize );
+		String pageStr=com.goodjob.page.module.PageModule.makePage("ofNorList.do", totalCnt, listSize, pageSize, cp);
+		List<NoticeDTO> list = odao.ofNorList(member_idx, cp, listSize );
 		mav.addObject("pageStr", pageStr);
 		mav.addObject("lists", list);
 		mav.setViewName("offer/ofNorList");

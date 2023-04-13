@@ -54,7 +54,7 @@ public class OfferDAOImple implements OfferDAO {
 		map.put("member_idx", member_idx);
 		map.put("start", start);
 		map.put("end", end);
-		List<NoticeDTO> list = sqlMap.selectList("ofNorList",map);
+		List<NoticeDTO> list = sqlMap.selectList("ofNorList", map);
 		return list;
 	}
 	

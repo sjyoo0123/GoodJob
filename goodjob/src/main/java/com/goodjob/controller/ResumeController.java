@@ -88,10 +88,12 @@ public class ResumeController {
 			resumeDao.resumeWrite2(dto, list);
 
 		}
+		String msg = result > 0 ? "이력서 작성 성공" : "이력서 작성 실패";
+		String goUrl = "norMyPage/norMyPage";
+		mav.addObject("msg", msg);
+		mav.addObject("goUrl", goUrl);
 
-		 String msg = result > 0 ? "이력서 작성 성공" : "이력서 작성 실패";
-		 mav.addObject("msg", msg);
-		 mav.setViewName("review/reviewMsg");
+		mav.setViewName("notice/noticeMsg");
 
 		return mav;
 	}
@@ -145,22 +147,13 @@ public class ResumeController {
 		ModelAndView mav = new ModelAndView();
 
 		int idx = 0;
-		if (session.getAttribute("sidx") == null || session.getAttribute("sidx") == "") {
-			String msg = "로그인 후 이용바랍니다.";
-			String goUrl = "index.do";
-			mav.addObject("msg", msg);
-			mav.setViewName("notice/noticeMsg");
-			return mav;
-		} else {
 			idx = (int) session.getAttribute("sidx");
-		}
 		ResumeDTO rto = resumeDao.resumeDown(idx);
-
-		if (rto.getCareer_check().equals("경력")) {
+//		if (rto.getCareer_check().equals("경력")) {
 			int ridx = rto.getIdx();
 			List<CareerDTO> list = resumeDao.resumeCarrerDown(ridx);
 			mav.addObject("list", list);
-		}
+//		}
 		mav.addObject("dto", rto);
 		mav.setViewName("resume/resumeUpdate");
 		return mav;
@@ -169,37 +162,44 @@ public class ResumeController {
 	/** 이력서 수정 */
 	@RequestMapping(value = "resumeUpdate.do", method = RequestMethod.POST)
 	public ModelAndView resumeUpdate(@RequestParam(value = "member_idx") int midx, ResumeDTO dto, String[] com_name,
-			String[] part, String[] service_type, String[] startday_s, String[] endday_s, MemberDTO mto,int[] cidx) {
-			System.out.println(dto.getIdx());
+			String[] part, String[] service_type, String[] startday_s, String[] endday_s, MemberDTO mto, int[] cidx) {
+		System.out.println(dto.getIdx());
 		ModelAndView mav = new ModelAndView();
 		int result = 0;
 		ResumeDTO getridx = resumeDao.resumeDown(midx);
 
 		if (dto.getCareer_check().equals("신입")) {
 			result = resumeDao.resumeUpdate(dto);
+			for (int i = 0; i < com_name.length; i++) {
+				CareerDTO temp = new CareerDTO(cidx[i], dto.getIdx(), Module.datePasing(startday_s[i]),
+						Module.datePasing(endday_s[i]), com_name[i], part[i], service_type[i], "");
+				System.out.println("resume_idx" + getridx.getIdx());
+				temp.setResume_idx(getridx.getIdx());
+				resumeDao.carrInsert(temp);
+				System.out.println(temp.toString());
+			}
 		} else {
 			result = resumeDao.resumeUpdate(dto);
 			for (int i = 0; i < com_name.length; i++) {
-				CareerDTO temp = new CareerDTO(cidx[i], dto.getIdx(), Module.datePasing(startday_s[i]), Module.datePasing(endday_s[i]),
-						com_name[i], part[i], service_type[i], "");
-				System.out.println("resume_idx"+getridx.getIdx());
-				if(temp.getIdx()==0) {
-					//insert
+				CareerDTO temp = new CareerDTO(cidx[i], dto.getIdx(), Module.datePasing(startday_s[i]),
+						Module.datePasing(endday_s[i]), com_name[i], part[i], service_type[i], "");
+				System.out.println("resume_idx" + getridx.getIdx());
+				if (temp.getIdx() == 0) {
+					// insert
 					temp.setResume_idx(getridx.getIdx());
 					resumeDao.carrInsert(temp);
 					System.out.println(temp.toString());
-				}else {
-					//update
+				} else {
+					// update
 					System.out.println(temp.toString());
 					resumeDao.careerUpdate(temp);
 				}
-				
-				
+
 			}
-			
+
 		}
 		String msg = result > 0 ? "수정성공" : "수정실패";
-		String goUrl = "norMyPage/norMyPage.do";
+		String goUrl = "norMyPage.do";
 		mav.addObject("msg", msg);
 		mav.addObject("goUrl", goUrl);
 		mav.setViewName("notice/noticeMsg");
@@ -256,22 +256,30 @@ public class ResumeController {
 		mav.setViewName("resume/resumeContent");
 		return mav;
 	}
-	/**커리어 삭제 폼*/
-	@RequestMapping(value="careerDel.do", method = RequestMethod.GET)
-	public ModelAndView careerDeleteForm() {
+
+	/** 커리어 삭제 폼 */
+	@RequestMapping(value = "careerDel.do", method = RequestMethod.GET)
+	public ModelAndView careerDeleteForm(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		
+		////////////
+		int idx = (int) session.getAttribute("sidx");
+		ResumeDTO rto = resumeDao.resumeDown(idx);
+		int ridx = rto.getIdx();
+		List<CareerDTO> list = resumeDao.resumeCarrerDown(ridx);
+		mav.addObject("list", list);
+		///////////
 		mav.setViewName("resume/careerDel");
 		return mav;
 	}
-	/**커리어 삭제*/
-	@RequestMapping(value="careerDel.do", method = RequestMethod.POST)
-	public ModelAndView careerDel() {
+
+	/** 커리어 삭제 */
+	@RequestMapping(value = "careerDel.do", method = RequestMethod.POST)
+	public ModelAndView careerDel(@RequestParam(value = "cidx") int cidx) {
 		ModelAndView mav = new ModelAndView();
-		
-		mav.setViewName("resume/resumeList");
+		System.out.println(cidx);
+		int result = resumeDao.careerDelete(cidx);
+		mav.setViewName("resume/resumeUpdate");
 		return mav;
 	}
-	
 
 }

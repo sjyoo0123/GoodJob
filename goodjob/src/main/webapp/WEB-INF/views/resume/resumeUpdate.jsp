@@ -171,7 +171,6 @@
 							</c:forEach>
 							<hr>
 									<div><input type="button" class = "chooga" value = "추가"></div>
-									<span><input type="button" class="" value="경력사항제거" onclick="careerDelete()"></span>
 						</div></td>
 				</tr>
 
@@ -295,14 +294,6 @@
 		<input type="submit" value="수정">
 	</form>
 	<script>
-	function careerDelete() {
-
-		var url = "careerDel.do";
-		var name = "careerDel";
-		var option = "width=500, heigt = 500, top=500, left =200";
-		window.open(url, name, option);
-
-	}
 	$.ajax({
 		url:'https://grpc-proxy-server-mkvo6j4wsq-du.a.run.app/v1/regcodes?regcode_pattern=*00000000',
 	      type:'get',
@@ -447,7 +438,7 @@
 	});
 	$('.chooga').on('click',function(){
 		$("#career").append('<tr><th>회사명</th><td><input type="text" name="com_name"></td></tr>');
-		$("#career").append('<tr><th>근무기간</th><td><input type="text" id="date" name="startday_s" placeholder="근무시작일">&nbsp;<input type="text" id="date2" name="endday_s" placeholder="근무종료일"></td></tr>');
+		$("#career").append('<tr><th>근무기간</th><td><input type="text" id="date" name="startday_s" placeholder="시작일YYYY-MM-DD">&nbsp;<input type="text" id="date2" name="endday_s" placeholder="종료일YYYY-MM-DD"></td></tr>');
 		$("#career").append('<tr><th>담당업무</th><td><input type="text" name="service_type"><input type="hidden" name="cidx" value="0"></td></tr>');
 		$("#career").append('<tr><th>서비스타입</th><td><select name="part" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example"><option value="아르바이트">아르바이트</option><option value="정직원">정직원</option></select></td></tr>');
 	})

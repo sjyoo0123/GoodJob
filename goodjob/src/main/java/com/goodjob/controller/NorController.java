@@ -26,11 +26,12 @@ public class NorController {
 	public ApplyDAO applyDao;
 	@Autowired
 	public OfferDAO offerDao;
-
-	@RequestMapping("/norMyPage.do")
+	/**마이페이지 폼*/
+	@RequestMapping("/norMyPage.do") 
 	public ModelAndView mypage(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		int idx = 0;
+		String scategory = "";
 		if (session.getAttribute("sidx") == null || session.getAttribute("sidx") == "") {
 			String msg = "로그인 후 이용바랍니다.";
 			String goUrl = "index.do";
@@ -40,8 +41,9 @@ public class NorController {
 			return mav;
 		} else {
 			idx = (int) session.getAttribute("sidx");
+			scategory = (String) session.getAttribute("scategory");
 		}
-		ResumeDTO rto = resumeDao.resumeDown(idx);
+		ResumeDTO rto = resumeDao.resumeDown(idx); // 이력서 select* 
 		MemberDTO dto = resumeDao.resumeWriteForm(idx);
 		ReviewDTO nto = resumeDao.resumeWriteForm1(idx);
 		String addr = dto.getAddr();
@@ -54,8 +56,12 @@ public class NorController {
 		mav.addObject("nto", nto);
 		mav.addObject("rto", rto);
 		mav.addObject("dto", dto);
+		mav.addObject("scategory", scategory);
+		mav.addObject("idx", idx);
 		mav.setViewName("norMyPage/norMyPage");
 		return mav;
 	}
-
+	
+	
+	
 }
