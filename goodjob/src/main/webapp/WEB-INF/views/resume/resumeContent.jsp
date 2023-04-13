@@ -106,8 +106,8 @@
     </div>
           </div>
           <div class="mb-3">
-            <label for="comNotice" class="col-form-label">내 공고 리스트</label><input type="hidden" id="com_idx" value="${sessionScope.sidx}">
-            <input type="text" id="noticeIdx"><div id="noticeList"></div>
+            <label for="comNotice" class="col-form-label">내 공고 리스트</label><input type="hidden" id="norIdx" value="${dto.member_idx}"><input type="hidden" id="com_idx" value="${sessionScope.sidx}">
+            <input type="hidden" id="noticeIdx"><input type="hidden" id="noticeSubject"><input type="hidden" id="normal_birth" value="${normaldto.birth}"><div id="noticeList"></div>
           </div>
         </form>
       </div>
@@ -139,11 +139,34 @@ $(document).ready(function() {
 	        $("#noticeList").append(select);
 	        $("#noticeList select").on("change", function() {
                 $("#noticeIdx").val($(this).val());
+                $("#noticeSubject").val($(this).find(":selected").text());
             });
 	      }
 	    });
 	});
-
+function offerSubmit(){
+	$.ajax({
+	      url: "offerSubmit.do",
+	      method: "POST",
+	      data: {
+              notice_idx: $("#noticeIdx").val(),
+              normal_idx: $("#norIdx").val(),
+              com_idx: $("#com_idx").val(),
+              normal_name: $("#resume_info").val(),
+              notice_subject: $("#noticeSubject").val(),
+              normal_gender: $("#resume_info1").val(),
+              normal_birth: $("#normal_birth").val()
+          },
+	      success: function(data) {
+	    	  if (data === 0) {
+	    	        alert('실패');
+	    	      } else if (data === 1) {
+	    	    	alert('전송완료');
+	    	        location.reload(); // reload the page
+	    	      }
+	      }
+	    });
+}
 </script>
 		<table>
 			<c:if test="${empty dto }">

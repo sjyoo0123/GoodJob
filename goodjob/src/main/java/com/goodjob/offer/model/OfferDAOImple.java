@@ -71,4 +71,9 @@ public class OfferDAOImple implements OfferDAO {
 		int count = sqlMap.update("ofNorGetCheck", map);
 		return count;
 	}
+	@Override
+	public int offerSubmit(OfferDTO dto) {
+		int result=sqlMap.insert("offerSubmit", dto);
+		return result;
+	}
 }

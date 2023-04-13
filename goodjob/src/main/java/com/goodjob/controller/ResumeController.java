@@ -17,6 +17,7 @@ import com.goodjob.member.model.MemberDAO;
 import com.goodjob.member.model.MemberDTO;
 import com.goodjob.module.Module;
 import com.goodjob.normalmember.model.NormalMemberDAO;
+import com.goodjob.normalmember.model.NormalMemberDTO;
 import com.goodjob.notice.model.NoticeDAO;
 import com.goodjob.notice.model.NoticeDTO;
 import com.goodjob.resume.model.ResumeDAO;
@@ -197,9 +198,10 @@ public class ResumeController {
 	@RequestMapping("/resumeContent.do")
 	public ModelAndView resumeContent(@RequestParam(value="idx")int ridx) {
 		ModelAndView mav = new ModelAndView();
-		int idx=0;
 		ResumeDTO rto = resumeDao.resumeContent(ridx);
 		int ridx2 =  rto.getIdx();
+		int normalidx=rto.getMember_idx();
+		NormalMemberDTO normaldto=normalmemberDao.getNorMember(normalidx);
 		String yy = "";
 		if (rto.getH_workday().charAt(0) == '1') {
 			yy += "월";
@@ -231,6 +233,7 @@ public class ResumeController {
 		}
 		mav.addObject("yy", yy);
 		mav.addObject("dto", rto);
+		mav.addObject("normaldto", normaldto);
 		mav.setViewName("resume/resumeContent");
 		return mav;
 	}

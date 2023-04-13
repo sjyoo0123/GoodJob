@@ -40,8 +40,8 @@ public int usedVipCount(int idx) {
 	return count;
 }
 @Override
-public Plan_Used_VipDTO usedVipCon(int idx) {
-	Plan_Used_VipDTO dto=sqlMap.selectOne("usedVipCon",idx);
-	return dto;
+public List<Plan_Used_VipDTO> usedVipCon(int idx) {
+	List<Plan_Used_VipDTO> list=sqlMap.selectList("usedVipCon",idx);
+	return list;
 }
 }

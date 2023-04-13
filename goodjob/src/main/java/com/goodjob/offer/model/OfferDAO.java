@@ -12,4 +12,5 @@ public interface OfferDAO {
 	public List<NoticeDTO> ofNorList(int member_idx, int cp, int ls);
 	public int offerNorTotalCnt(int member_idx);
 	public int ofNorGetCheck(int member_idx, int offer_idx);
+	public int offerSubmit(OfferDTO dto);
 }
