@@ -37,7 +37,7 @@ public class MemberDAOImple implements MemberDAO {
 	synchronized public int memberJoin(MemberDTO dto) {
 		// TODO Auto-generated method stub
 		int idCheck = idCheck(dto.getId());
-		int emailCheck=emailCheck(dto.getEmail());
+		int emailCheck=emailCheck(dto.getEmail())==null?0:1;
 		
 		if (idCheck == 0) {
 			if(emailCheck==0) {
@@ -94,7 +94,7 @@ public class MemberDAOImple implements MemberDAO {
 		}
 		return sqlMap.update("memberUpdate", map);
 	}@Override
-	public int emailCheck(String email) {
+	public MemberDTO emailCheck(String email) {
 		return sqlMap.selectOne("emailCheck",email);
 	}@Override
 	public int idCheck(String id) {
@@ -120,4 +120,33 @@ public class MemberDAOImple implements MemberDAO {
 		int count =sqlMap.update("updateStatus",dto);
 		return count;
 	}
+	
+	@Override
+	public String findId(String email) {
+		String id=sqlMap.selectOne("findId", email);
+		return id;
+	}
+	@Override
+	public int findPwd(String id,String email) {
+		int idx=0;
+		Map<String, String>map=new HashMap<String, String>();
+		map.put("id", id);
+		map.put("email", email);
+		Integer idxs=sqlMap.selectOne("findPwd", map);
+		if(idxs!=null) {
+			idx=idxs;
+		}else {
+			idx=0;
+		}
+		return idx;
+	}
+	@Override
+	public int updatePwd(String pwd, String idx) {
+		Map<String, String>map=new HashMap<String, String>();
+		map.put("pwd",pwd);
+		map.put("idx", idx);
+		int count=sqlMap.update("updatePwd", map);
+		return count;
+	}
+	
 }

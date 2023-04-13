@@ -1,6 +1,7 @@
 package com.goodjob.banner.model;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,8 +77,9 @@ public class BannerDAOImple implements BannerDAO {
 		return count;
 	}
 	@Override
-	public List<BannerDTO> mainBanner() {
+	public List<Banner_totalFileDTO> mainBanner() {
 		// TODO Auto-generated method stub
-		return sqlMap.selectList("mainBanner");
+		List<Banner_totalFileDTO>list =sqlMap.selectList("mainBanner");
+		return list;
 	}
 }

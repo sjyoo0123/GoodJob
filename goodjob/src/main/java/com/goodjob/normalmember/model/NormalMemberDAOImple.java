@@ -31,4 +31,12 @@ public class NormalMemberDAOImple implements NormalMemberDAO {
 		
 		return sqlMap.selectOne("getNorMember", idx);
 	}
+
+	@Override
+	public int norUpdate(NormalMemberDTO dto) {
+		// TODO Auto-generated method stub
+		int count= sqlMap.update("norUpdate", dto);
+		return count;
+	}
+
 }

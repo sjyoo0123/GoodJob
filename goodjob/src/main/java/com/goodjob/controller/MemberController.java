@@ -32,11 +32,13 @@ public class MemberController {
 	private CompanyMemberDAO comDao;
 	@Autowired
 	private MemberDAO memDao;
-
+	private String hostName="http://localhost:9090/goodjob";
+	
 	@RequestMapping(value = "join.do", method = RequestMethod.GET)
 	public String join() {
 		return "/member/join";
 	}
+	
 
 	@RequestMapping(value = "normalJoin.do", method = RequestMethod.POST)
 	public ModelAndView normalJoin(NormalMemberDTO norDto, String birth_s) {
@@ -56,7 +58,7 @@ public class MemberController {
 			norDto.setMember_idx(idx);
 			int count = norDao.normalJoin(norDto);
 			if (count >= 1) {
-				EmailServiceImpl.sendEmail (norDto.getEmail(), "goodjob회원가입 인증", "http://localhost:9090/goodjob/updateStatus.do?idx="+idx+"&email="+norDto.getEmail());
+				EmailServiceImpl.sendEmail (norDto.getEmail(), "goodjob회원가입 인증", hostName+"/updateStatus.do?idx="+idx+"&email="+norDto.getEmail());
 				mav.addObject("msg", "alert('이메일 인증해주세요');location.href=index.do;");
 			} else {
 				mav.addObject("msg", "alert('서버오류');");
@@ -68,8 +70,7 @@ public class MemberController {
 
 	@RequestMapping(value = "comJoin.do", method = RequestMethod.POST)
 	public ModelAndView comJoin(CompanyMemberDTO comDto, String birth_s) {
-		Module mo = new Module();
-		comDto.setCom_birth(mo.datePasing(birth_s));
+		comDto.setCom_birth(Module.datePasing(birth_s));
 		ModelAndView mav = new ModelAndView();
 		MemberDTO memDto = new MemberDTO(0, comDto.getId(), comDto.getPwd(), comDto.getName(), comDto.getEmail(),
 				comDto.getTel(), comDto.getAddr(), null, 0, "기업", "대기");
@@ -84,7 +85,7 @@ public class MemberController {
 			comDto.setMember_idx(idx);
 			int count = comDao.comJoin(comDto);
 			if (count >= 1) {														//서버이름변경필
-				EmailServiceImpl.sendEmail (comDto.getEmail(), "goodjob회원가입 인증", "http://localhost:9090/goodjob/updateStatus.do?idx="+idx+"&email="+comDto.getEmail());
+				EmailServiceImpl.sendEmail (comDto.getEmail(), "goodjob회원가입 인증",hostName+"/updateStatus.do?idx="+idx+"&email="+comDto.getEmail());
 				mav.addObject("msg", "alert('이메일 인증해주세요');location.href=index.do;");
 			} else {
 				mav.addObject("msg", "alert('서버오류');");
@@ -97,8 +98,8 @@ public class MemberController {
 	@RequestMapping(value = "updateMember.do", method = RequestMethod.GET)
 	public ModelAndView updateMember(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		int idx = Integer.parseInt((String) session.getAttribute("sidx"));
-		String category = (String) session.getAttribute("scategory");
+		Integer idx=session.getAttribute("sidx")==null?0:(Integer)session.getAttribute("sidx");
+		String category=session.getAttribute("scategory")==null?"":(String)session.getAttribute("scategory");
 		if (category.equals("개인")) {
 			mav.addObject("dto", norDao.getNorMember(idx));
 		} else if (category.equals("기업")) {
@@ -111,14 +112,19 @@ public class MemberController {
 	@RequestMapping(value = "normalUpdate.do", method = RequestMethod.POST)
 	public ModelAndView normalUpdate(NormalMemberDTO dto) {
 		ModelAndView mav = new ModelAndView();
-		memDao.memberUpdate(dto);
+		System.out.println(dto.toString());
+		MemberDTO mdto=new MemberDTO(dto.getMember_idx(), "", dto.getPwd(), dto.getName(), "", dto.getTel(), dto.getAddr(), null, 0, "", "");
+		memDao.memberUpdate(mdto);
+		norDao.norUpdate(dto);
 		return mav;
 	}
 
 	@RequestMapping(value = "comUpdate.do", method = RequestMethod.POST)
 	public ModelAndView comUpdate(CompanyMemberDTO dto) {
 		ModelAndView mav = new ModelAndView();
-		memDao.memberUpdate(dto);
+		MemberDTO mdto=new MemberDTO(dto.getMember_idx(), "", dto.getPwd(), dto.getName(), "", dto.getTel(), dto.getAddr(), null, 0, "", "");
+		memDao.memberUpdate(mdto);
+		comDao.comUpdate(dto);
 		return mav;
 	}
 
@@ -160,7 +166,6 @@ public class MemberController {
 	public ModelAndView loginSession(MemberDTO dto, HttpServletRequest req, boolean save, HttpServletResponse res) {
 		ModelAndView mav = new ModelAndView();
 		if (dto == null) {
-			System.out.println(1);
 			mav.addObject("msg", "alert('등록된아이디혹은비밀번호가 없습니다');location.href='login.do';");
 			
 		} else {
@@ -185,19 +190,32 @@ public class MemberController {
 		mav.setViewName("/member/login");
 		return mav;
 	}
+	
+	@ResponseBody
 	@RequestMapping("findId.do")
-	public ModelAndView memberFindId(String email) {
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("");
-		
-		return mav;
+	public int memberFindId(@RequestParam(value="email",defaultValue = "")String email) {
+		String id=memDao.findId(email);
+		int count=0;
+		if(id != null && !id.isEmpty()) {
+			EmailServiceImpl.sendEmail(email,"goodjob아이디찾기","고객님의 아이디는 "+id+" 입니다");	
+			count=1;
+		}
+		return count;
 	}
+	
+	@ResponseBody
 	@RequestMapping("findPwd.do")
-	public ModelAndView memberFindPwd(String email) {
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("");
-		
-		return mav;
+	public int memberFindPwd(@RequestParam(value="id",defaultValue = "")String id,
+			@RequestParam(value="email",defaultValue = "")String email) {
+		int idx=0;
+		int count=0;
+		idx=memDao.findPwd(id, email);
+		if(idx>0) {
+			EmailServiceImpl.sendEmail(email, "goodjob비밀번호찾기",
+					"goodjob비밀번호 찾기입니다 url를 통해 비밀번호를 변경해주세요 "+hostName+"/pwdUpdate.do?idx="+idx);
+			count=1;
+		}
+		return count;
 	}
 
 	@ResponseBody
@@ -207,7 +225,7 @@ public class MemberController {
 		if ((!id.equals("")) && (!id.equals(null))) {
 			return memDao.idCheck(id);
 		} else if ((!email.equals("")) && (!email.equals(null))) {
-			return memDao.emailCheck(email);
+			return memDao.emailCheck(email)==null?0:1;
 		} else {
 			return 0;
 		}
@@ -218,6 +236,26 @@ public class MemberController {
 		String msg=memDao.updateStatus(dto)>0?"alert('인증 완료되었습니다');location.href='index.do'":"alert('만료된 인증입니다');location.href='index.do'";
 		mav.addObject("msg",msg);
 		mav.setViewName("index");
+		return mav;
+	}
+	@RequestMapping(value="pwdUpdate.do",method = RequestMethod.GET)
+	public ModelAndView pwdUpdateForm(@RequestParam(value="idx",defaultValue = "0")int idx) {
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("idx", idx);
+		mav.setViewName("member/pwdUpdate");
+		return mav;
+	}
+	@RequestMapping(value="pwdUpdate.do",method = RequestMethod.POST)
+	public ModelAndView pwdUpdate(@RequestParam(value="idx",defaultValue = "0")int idx,
+			@RequestParam(value="pwd",defaultValue = "")String pwd) {
+		ModelAndView mav=new ModelAndView();
+		int count=memDao.updatePwd(pwd, idx+"");
+		if(count>0) {
+			mav.addObject("msg","alert('비밀번호가 변경되었습니다');location.href='index.do'");
+		}else {
+			mav.addObject("msg","alert('변경 실패하였습니다');location.href='index.do'");
+		}
+		mav.setViewName("member/pwdUpdate");
 		return mav;
 	}
 
