@@ -112,4 +112,7 @@
 	<bean id="paymentDao" class="com.goodjob.payment_log.model.Payment_LogDAOImple">
 		<property name="sqlMap" ref="sqlSessionTemplate"></property>
 	</bean>
+	<bean id="injaeDao" class="com.goodjob.injaelist.model.InjaeListDAOImple">
+		<property name="sqlMap" ref="sqlSessionTemplate"></property>
+	</bean>
 </beans>
