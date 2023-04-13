@@ -7,7 +7,7 @@ public class InjaeListDTO {
 	private String name;
 	private int age;
 	private String gender;
-	private String h_job;
+	private String job;
 	public InjaeListDTO() {
 		// TODO Auto-generated constructor stub
 	}
@@ -18,7 +18,7 @@ public class InjaeListDTO {
 		this.name = name;
 		this.age = age;
 		this.gender = gender;
-		this.h_job = h_job;
+		this.job = h_job;
 	}
 	public int getIdx() {
 		return idx;
@@ -50,16 +50,16 @@ public class InjaeListDTO {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	public String getH_job() {
-		return h_job;
+	public String getJob() {
+		return job;
 	}
-	public void setH_job(String h_job) {
-		this.h_job = h_job;
+	public void setJob(String job) {
+		this.job = job;
 	}
 	@Override
 	public String toString() {
 		return "InjaeListDTO [idx=" + idx + ", member_idx=" + member_idx + ", name=" + name + ", age=" + age
-				+ ", gender=" + gender + ", h_job=" + h_job + "]";
+				+ ", gender=" + gender + ", job=" + job + "]";
 	}
 	
 }

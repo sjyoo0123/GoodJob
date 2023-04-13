@@ -66,7 +66,8 @@ public class JobHelperController {
 	@ResponseBody
 	public ModelAndView helperLocalGet(@RequestParam(value = "local")String local) {
 		ModelAndView mav=new ModelAndView();
-		List<JobHelperDTO> lists=jdao.helperLocalGet(local);
+		String clocal=com.goodjob.module.Module.local1change(local);
+		List<JobHelperDTO> lists=jdao.helperLocalGet(clocal);
 		List<Map<String, Object>> jsonData = new ArrayList<>();
 		for (JobHelperDTO helper : lists) {
 		    Map<String, Object> helperData = new HashMap<>();
