@@ -16,7 +16,7 @@
  select * from 	
  	(select o.idx as plan_idx , n.idx,n.subject, n.com_name, n.period, n.writedate, n.pay_hour , n.starttime, n.finishtime , "CHECK" as ref
 	from notice n, offer o
-	where n.idx = o.notice_idx and o.normember_idx = #{member_idx})
+	where n.idx = o.notice_idx and o.normember_idx = #{member_idx} order by o."CHECK" asc , o.offerdate desc)
 		where <![CDATA[rownum>=]]>#{start} and <![CDATA[rownum<=]]>#{end}
 </select>
 <select id="offerNorTotalCnt" parameterType="Integer" resultType="Integer">

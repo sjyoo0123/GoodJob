@@ -1,5 +1,7 @@
 package com.goodjob.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,17 +9,26 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.goodjob.apply.model.ApplyDAO;
+import com.goodjob.member.model.MemberDTO;
+import com.goodjob.notice.model.NoticeDTO;
+import com.goodjob.offer.model.OfferDAO;
 import com.goodjob.resume.model.ResumeDAO;
 import com.goodjob.resume.model.ResumeDTO;
+import com.goodjob.review.model.ReviewDTO;
 
 @Controller
 public class NorController {
 
 	@Autowired
 	public ResumeDAO resumeDao;
+	@Autowired
+	public ApplyDAO applyDao;
+	@Autowired
+	public OfferDAO offerDao;
 
 	@RequestMapping("/norMyPage.do")
-	public ModelAndView mypage(HttpSession session/* , @RequestParam(value = "idx") int ridx */) {
+	public ModelAndView mypage(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		int idx = 0;
 		if (session.getAttribute("sidx") == null || session.getAttribute("sidx") == "") {
@@ -30,7 +41,18 @@ public class NorController {
 		} else {
 			idx = (int) session.getAttribute("sidx");
 		}
-		ResumeDTO dto = resumeDao.resumeDown(idx);
+		ResumeDTO rto = resumeDao.resumeDown(idx);
+		MemberDTO dto = resumeDao.resumeWriteForm(idx);
+		ReviewDTO nto = resumeDao.resumeWriteForm1(idx);
+		String addr = dto.getAddr();
+		String getAddr = addr.replaceAll(",", " ");
+		dto.setAddr(getAddr);
+		List<NoticeDTO> alist = applyDao.apNorlist(idx, 1, 5);
+		List<NoticeDTO> olist = offerDao.ofNorList(idx, 1, 5);
+		mav.addObject("alist", alist);
+		mav.addObject("olist", olist);
+		mav.addObject("nto", nto);
+		mav.addObject("rto", rto);
 		mav.addObject("dto", dto);
 		mav.setViewName("norMyPage/norMyPage");
 		return mav;

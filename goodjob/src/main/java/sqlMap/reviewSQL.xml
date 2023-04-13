@@ -51,7 +51,4 @@
 		<update id="reviewDel" parameterType="Integer">
 		update review set status = '미활성' where member_idx = #{member_idx} and review_num = #{review_num}
 	</update>
-<!-- 	<select>
-		select 
-	</select> -->
 </mapper>

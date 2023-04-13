@@ -6,6 +6,5 @@ public interface MemberDAO {
 	public int memberUpdate(Object dto);
 	public int idCheck(String id);
 	public int emailCheck(String email);
-	public MemberDTO resumeWriteForm();
 	public int updateStatus(MemberDTO dto);
 }

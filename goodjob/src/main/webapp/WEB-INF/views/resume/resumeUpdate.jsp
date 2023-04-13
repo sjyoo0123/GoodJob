@@ -71,6 +71,7 @@
 <body>
 	<h1>이력서 수정</h1>
 	<form id="resumeUpdate" name="resumeUpdate" action="resumeUpdate.do" method="post">
+	<input type="hidden" name="idx" value="${dto.idx}">
 		<hr>
 		<div>
 			<table>
@@ -133,76 +134,44 @@
 				<tr>
 					<th>경력구분</th>
 					<td>
-						<input type="radio" value="신입" class="btn-check" id="career_check1" name="career_check" autocomplete="off" checked>
-						<label class="btn btn-outline-primary" for="career_check1">신입</label>
-
-						<input type="radio" value="경력" class="btn-check" id="career_check" 	name="career_check" autocomplete="off"> 
-						<label class="btn btn-outline-primary" for="career_check">경력</label>
+						<input type="hidden" name="career_check" value="${dto.career_check }">
 					</td>
 				</tr>
 				<tr>
 					<th></th>
-					<td><div id="carrer1" style="display: none;">
-							<table>
-								<h5>나의 경력</h5>
-								<hr>
+					 <!-- style="display: none;" -->
+					<h5>나의 경력</h5>
+					<td><div id="carrer1">
+						<c:forEach var="list" items="${list}">
+								<input type="hidden" name="cidx" value="${list.idx}">
+							<table id="career" >
 								<tr>
 									<th>회사명</th>
-									<td><input type="text" name="com_name" value="${cto.com_name }"></td>
+									<td><input type="text" name="com_name" value="${list.com_name }" ></td>
 								</tr>
 								<tr>
 									<th>근무기간</th>
-									<td><input type="text" id="date" name="startday_s" value="${cto.startday }">
+									<td><input type="text" id="date" name="startday_s" value="${list.startday }">
 									&nbsp;
-									<input type="text" id="date2" name="endday_s" value="${cto.endday }"></td>
+									<input type="text" id="date2" name="endday_s" value="${list.endday }"></td>
 								</tr>
-
-
-								<script>
-									$('#date').datepicker({
-										format : 'yyyy-mm-dd', //데이터 포맷 형식(yyyy : 년 mm : 월 dd : 일 )
-										autoclose : true, //사용자가 날짜를 클릭하면 자동 캘린더가 닫히는 옵션
-										templates : {
-											leftArrow : '&laquo;',
-											rightArrow : '&raquo;',
-										}, //다음달 이전달로 넘어가는 화살표 모양 커스텀 마이징
-										showWeekDays : true, // 위에 요일 보여주는 옵션 기본값 : true
-										title : '생년월일', //캘린더 상단에 보여주는 타이틀
-										todayHighlight : true, //오늘 날짜에 하이라이팅 기능 기본값 :false
-										toggleActive : true, //이미 선택된 날짜 선택하면 기본값 : false인경우 그대로 유지 true인 경우 날짜 삭제
-										language : 'ko', //달력의 언어 선택, 그에 맞는 js로 교체해줘야한다.
-									}).on('changeDate', function(e) {
-										alert($('#date').val());
-										console.log(e);
-									});
-									$('#date2').datepicker({
-										format : 'yyyy-mm-dd', //데이터 포맷 형식(yyyy : 년 mm : 월 dd : 일 )
-										autoclose : true, //사용자가 날짜를 클릭하면 자동 캘린더가 닫히는 옵션
-										templates : {
-											leftArrow : '&laquo;',
-											rightArrow : '&raquo;',
-										}, //다음달 이전달로 넘어가는 화살표 모양 커스텀 마이징
-										showWeekDays : true, // 위에 요일 보여주는 옵션 기본값 : true
-										title : '생년월일', //캘린더 상단에 보여주는 타이틀
-										todayHighlight : true, //오늘 날짜에 하이라이팅 기능 기본값 :false
-										toggleActive : true, //이미 선택된 날짜 선택하면 기본값 : false인경우 그대로 유지 true인 경우 날짜 삭제
-										language : 'ko', //달력의 언어 선택, 그에 맞는 js로 교체해줘야한다.
-									}).on('changeDate', function(e) {
-										alert($('#date2').val());
-										console.log(e);
-									});
-								</script>
 								<tr>
 									<th>담당업무</th>
-									<td><input type="text" name="part" value="${cto.part }"></td>
+									<td><input type="text" name="part" value="${list.part }"></td>
 								<tr>
 								<tr>
 									<th>서비스타입</th>
-									<td><input type="text" name="service_type" value="${cto.service_type }"></td>
+									<td><select name="service_type" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" }">
+										<option value="아르바이트">아르바이트</option>
+										<option value="정직원">정직원</option>
+									</select></td>
 								<tr>
 							</table>
-								<div><input type="button" value = "추가(미완)"></div>
+							
+							</c:forEach>
 							<hr>
+									<div><input type="button" class = "chooga" value = "추가"></div>
+									<span><input type="button" class="" value="경력사항제거" onclick="careerDelete()"></span>
 						</div></td>
 				</tr>
 
@@ -326,6 +295,14 @@
 		<input type="submit" value="수정">
 	</form>
 	<script>
+	function careerDelete() {
+
+		var url = "careerDel.do";
+		var name = "careerDel";
+		var option = "width=500, heigt = 500, top=500, left =200";
+		window.open(url, name, option);
+
+	}
 	$.ajax({
 		url:'https://grpc-proxy-server-mkvo6j4wsq-du.a.run.app/v1/regcodes?regcode_pattern=*00000000',
 	      type:'get',
@@ -436,6 +413,44 @@
 		    $('#h_workday').val(selectedDays);
 		  });
 		});
+	$('#date').datepicker({
+		format : 'yyyy-mm-dd', //데이터 포맷 형식(yyyy : 년 mm : 월 dd : 일 )
+		autoclose : true, //사용자가 날짜를 클릭하면 자동 캘린더가 닫히는 옵션
+		templates : {
+			leftArrow : '&laquo;',
+			rightArrow : '&raquo;',
+		}, //다음달 이전달로 넘어가는 화살표 모양 커스텀 마이징
+		showWeekDays : true, // 위에 요일 보여주는 옵션 기본값 : true
+		title : '생년월일', //캘린더 상단에 보여주는 타이틀
+		todayHighlight : true, //오늘 날짜에 하이라이팅 기능 기본값 :false
+		toggleActive : true, //이미 선택된 날짜 선택하면 기본값 : false인경우 그대로 유지 true인 경우 날짜 삭제
+		language : 'ko', //달력의 언어 선택, 그에 맞는 js로 교체해줘야한다.
+	}).on('changeDate', function(e) {
+		alert($('#date').val());
+		console.log(e);
+	});
+	$('#date2').datepicker({
+		format : 'yyyy-mm-dd', //데이터 포맷 형식(yyyy : 년 mm : 월 dd : 일 )
+		autoclose : true, //사용자가 날짜를 클릭하면 자동 캘린더가 닫히는 옵션
+		templates : {
+			leftArrow : '&laquo;',
+			rightArrow : '&raquo;',
+		}, //다음달 이전달로 넘어가는 화살표 모양 커스텀 마이징
+		showWeekDays : true, // 위에 요일 보여주는 옵션 기본값 : true
+		title : '생년월일', //캘린더 상단에 보여주는 타이틀
+		todayHighlight : true, //오늘 날짜에 하이라이팅 기능 기본값 :false
+		toggleActive : true, //이미 선택된 날짜 선택하면 기본값 : false인경우 그대로 유지 true인 경우 날짜 삭제
+		language : 'ko', //달력의 언어 선택, 그에 맞는 js로 교체해줘야한다.
+	}).on('changeDate', function(e) {
+		alert($('#date2').val());
+		console.log(e);
+	});
+	$('.chooga').on('click',function(){
+		$("#career").append('<tr><th>회사명</th><td><input type="text" name="com_name"></td></tr>');
+		$("#career").append('<tr><th>근무기간</th><td><input type="text" id="date" name="startday_s" placeholder="근무시작일">&nbsp;<input type="text" id="date2" name="endday_s" placeholder="근무종료일"></td></tr>');
+		$("#career").append('<tr><th>담당업무</th><td><input type="text" name="service_type"><input type="hidden" name="cidx" value="0"></td></tr>');
+		$("#career").append('<tr><th>서비스타입</th><td><select name="part" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example"><option value="아르바이트">아르바이트</option><option value="정직원">정직원</option></select></td></tr>');
+	})
 	</script>
 </body>
 </html>

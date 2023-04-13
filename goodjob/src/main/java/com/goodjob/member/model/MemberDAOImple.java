@@ -110,11 +110,6 @@ public class MemberDAOImple implements MemberDAO {
 	}
 	
 	@Override
-	public MemberDTO resumeWriteForm() {
-		MemberDTO dto= sqlMap.selectOne("resumeWriteForm");
-		return dto;
-	}
-	@Override
 	public int updateStatus(MemberDTO dto) {
 		// TODO Auto-generated method stub
 		int count =sqlMap.update("updateStatus",dto);

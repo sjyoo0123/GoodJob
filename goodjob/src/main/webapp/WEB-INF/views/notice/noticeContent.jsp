@@ -34,10 +34,12 @@
 <input type="hidden" id="y" value="${dto.y}">
 <div class="container">
 	<%@include file="/WEB-INF/views/header.jsp"%>
+	<c:if test="${scategory == '기업' && sidx==dto.com_idx }">
 <div class="btn-group btn-group-lg" role="group" aria-label="Large button group">
 <button class="btn btn-outline-dark"><span>수정</span></button>
 <button class="btn btn-outline-dark"><span>삭제</span></button>
 </div>
+</c:if>
 <c:if test="${sidx!=dto.com_idx}">
 <button class="btn btn-danger btn-icon-split btn-lg">
     <span class="icon text-white-50">
@@ -46,12 +48,19 @@
     <span class="text">신고하기</span>
 </button>
 </c:if>
+<c:choose>
+<c:when test="${scategory == '개인' }">
 <c:if test="${atoNum == 0 }" >
     <input type="button" value="지원하기" onclick="location.href='apNorInsert.do?notice_idx=${dto.idx}'">
 </c:if>
  <c:if test="${atoNum != 0 }" >
     <input type="button" value="이미 지원함" >
  </c:if>
+ </c:when>
+ <c:otherwise>
+ 	
+ </c:otherwise>
+ </c:choose>
 <c:if test="${scategory=='관리자'}">
 <div class="btn-group btn-group-lg" role="group" aria-label="Large button group">
 <button class="btn btn-outline-info"><span>승인</span></button>
