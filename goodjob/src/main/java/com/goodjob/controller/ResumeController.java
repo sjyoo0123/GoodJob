@@ -1,6 +1,8 @@
 package com.goodjob.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -20,6 +22,7 @@ import com.goodjob.normalmember.model.NormalMemberDAO;
 import com.goodjob.normalmember.model.NormalMemberDTO;
 import com.goodjob.notice.model.NoticeDAO;
 import com.goodjob.notice.model.NoticeDTO;
+import com.goodjob.offer.model.OfferDAO;
 import com.goodjob.resume.model.ResumeDAO;
 import com.goodjob.resume.model.ResumeDTO;
 import com.goodjob.review.model.ReviewDTO;
@@ -38,6 +41,9 @@ public class ResumeController {
 
 	@Autowired
 	private NoticeDAO ndao;
+	
+	@Autowired
+	private OfferDAO odao;
 	
 	public ResumeController(MemberDAO memberDao) {
 		super();
@@ -196,11 +202,21 @@ public class ResumeController {
 	
 	/**이력서 컨텐츠*/
 	@RequestMapping("/resumeContent.do")
-	public ModelAndView resumeContent(@RequestParam(value="idx")int ridx) {
+	public ModelAndView resumeContent(@RequestParam(value="idx")int ridx,HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		ResumeDTO rto = resumeDao.resumeContent(ridx);
 		int ridx2 =  rto.getIdx();
 		int normalidx=rto.getMember_idx();
+		String scategory_resume = session.getAttribute("scategory") != null ? (String) session.getAttribute("scategory") : "";
+		int sidx_resume = session.getAttribute("sidx") != null ? (int) session.getAttribute("sidx") : 0;
+		int ofcount=0;
+		if(scategory_resume.equals("기업")) {
+			Map map=new HashMap();
+			map.put("com_idx", sidx_resume);
+			map.put("nor_idx", normalidx);
+			ofcount=odao.offerCount(map);
+		}
+		mav.addObject("offCount", ofcount);
 		NormalMemberDTO normaldto=normalmemberDao.getNorMember(normalidx);
 		String yy = "";
 		if (rto.getH_workday().charAt(0) == '1') {

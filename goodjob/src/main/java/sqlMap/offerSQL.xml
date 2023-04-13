@@ -28,4 +28,7 @@
  <insert id="offerSubmit" parameterType="com.goodjob.offer.model.OfferDTO">
  	insert into offer values(offer_idx.nextval,#{notice_idx},#{normal_idx},#{com_idx},sysdate,#{com_name},#{normal_name},#{notice_subject},#{normal_gender},#{normal_birth},0,'활성')
  </insert>
+ <select id="offerCount" parameterType="Map" resultType="Integer">
+ 	select count(*) from offer where normember_idx=#{nor_idx} and commember_idx=#{com_idx}
+ </select>
  </mapper>

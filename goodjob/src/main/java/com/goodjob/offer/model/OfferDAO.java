@@ -1,6 +1,6 @@
 package com.goodjob.offer.model;
 
-import java.util.List;
+import java.util.*;
 
 import com.goodjob.notice.model.NoticeDTO;
 
@@ -13,4 +13,5 @@ public interface OfferDAO {
 	public int offerNorTotalCnt(int member_idx);
 	public int ofNorGetCheck(int member_idx, int offer_idx);
 	public int offerSubmit(OfferDTO dto);
+	public int offerCount(Map map);
 }

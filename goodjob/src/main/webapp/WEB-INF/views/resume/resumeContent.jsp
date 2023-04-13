@@ -75,6 +75,7 @@
 	<hr>
 	<div>
 	<c:if test="${sessionScope.scategory=='기업'}">
+	<c:if test="${offCount==0}">
 	<button class="btn btn-danger btn-icon-split btn-lg col-4 "  data-bs-toggle="modal" data-bs-target="#exampleModal">
     <span class="icon text-white-50">
         <i class="bi bi-clipboard-heart"></i>
@@ -118,7 +119,15 @@
     </div>
   </div>
 </div>
-
+</c:if>
+<c:if test="${offCount!=0}">
+<button class="btn btn-danger btn-icon-split btn-lg col-4" disabled>
+    <span class="icon text-white-50">
+        <i class="bi bi-clipboard-heart"></i>
+    </span>
+    <span class="text">이미 제안을 보낸 이력서입니다.</span>
+</button>
+</c:if>
 </c:if>
 <script>
 $(document).ready(function() {
