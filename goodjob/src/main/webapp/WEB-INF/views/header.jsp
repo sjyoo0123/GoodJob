@@ -152,7 +152,7 @@ a:hover {
 						</ul>
 					</div>
 					<div class="col-2">
-						<a href="#" class=""><label class="menu_title">인재정보</label></a>
+						<a href="injaeListForm.do" class=""><label class="menu_title">인재정보</label></a>
 						<ul class="nav position-absolute">
 							<li class="col-12"><a href="#"><label class="menu_title">지역별</label></a></li>
 							<li class="col-12"><a href="#"><label class="menu_title">업종별</label></a></li>

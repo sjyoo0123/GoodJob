@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.goodjob.injaeList">
+  <select id="injaeListGet" parameterType="map" resultType="com.goodjob.injaelist.model.InjaeListDTO">
+	select * from
+		(select rownum as rnum, a.* from(
+		select *
+		from resume
+		where "CHECK"=1 
+		<if test="sort==0">
+		</if>
+		<if test="sort==1">
+		and job=#{keyword}
+		</if>
+		<if test="sort==2">
+		and h_local1=#{keyword}
+		</if>
+		)a )b
+		where rnum <![CDATA[>=]]>#{start} and rnum <![CDATA[<=]]>#{end}
+  </select>
+  <select id="injaeListTotalCnt" parameterType="map" resultType="Integer">
+  	select count(*)
+  	from resume
+  		<if test="sort==0">
+		</if>
+		<if test="sort==1">
+		where job=#{keyword}
+		</if>
+		<if test="sort==2">
+		where h_local1=#{keyword}
+		</if>
+  </select>
+  </mapper>

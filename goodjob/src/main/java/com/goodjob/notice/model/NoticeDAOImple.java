@@ -253,4 +253,9 @@ public int manNoticeCnt() {
 		
 		return result;
 	}
+	public List<NoticeDTO> comNoticeSubject(int idx) {
+		List<NoticeDTO> list=sqlMap.selectList("comNoticeSubject",idx);
+		return list;
+
+	}
 }

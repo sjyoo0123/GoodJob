@@ -29,5 +29,6 @@
   		<mapper resource="sqlMap/singoSQL.xml"/>
   		<mapper resource="sqlMap/paymentSQL.xml"/>
   		<mapper resource="sqlMap/planUsedUpSQL.xml"/>
+  		<mapper resource="sqlMap/injaeSQL.xml"/>
   	</mappers>
   </configuration>
