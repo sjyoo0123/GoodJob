@@ -5,54 +5,75 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
-	crossorigin="anonymous">
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-	integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
-	crossorigin="anonymous"></script>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<title>Insert title here</title>
 </head>
 <body>
-	<h1>인재정보</h1>
-	<article>
-		<h1>내가보낸제안</h1>
-		<table>
-			<c:if test="${empty list }">
-			등록된 글이 없습니다
-		</c:if>
-			<c:forEach var="list" items="${list }">
-				<tr>
-					<th>이름</th>
-					<th>나이</th>
-					<th>성별</th>
-					<th>희망직종</th>
-				</tr>
-				<c:url var="contentUrl" value="resumeContent.do">
-					<c:param name="idx">${list.idx }</c:param>
-				</c:url>
-				<td><a href="${contentUrl}">${list.name }</a></td>
-				<td>${list.age }</td>
-				<td>${list.gender }</td>
-				<td>${list.job }</td>
-				</tr>
-			</c:forEach>
-		</table>
-
-	</article>
+<div class="container">
+	<%@include file="/WEB-INF/views/header.jsp"%>
+		<section>
+			<article>
+			<h1>인재 정보</h1>
+				<div class="row">
+					<div class="col-5 offset-7">
+					<input type="text">
+					</div>
+				</div>
+				<div id="my-div"></div>
+				<input type="hidden" id="cp" value="1">
+				<div id="page"></div>
+			</article>
+		</section>
+	<%@include file="/WEB-INF/views/footer.jsp"%>
+</div>
+<script>
+function getList(){
+	$('#my-div').empty();
+	$.ajax({
+	      url:'manBlackListGet.do',
+	      type:'post',
+	      data:{"category":$('.btn-check:checked').val(),"cp":$('#cp').val()},//전송데이터
+	      dataType:'json'
+	      //전송받을타입 json으로 선언하면 json으로 파싱안해도됨
+	   }).done((data)=>{
+	      //성공시 실행
+		   if (data.lists.length == 0) {
+			   $('<div>').text('글이 없습니다').appendTo($('#my-div'));
+			 } else {
+			   data.lists.forEach(function(dto) {
+				   var card = $('<div>').addClass('card').appendTo($('#my-div'));
+				   var headerList = $('<ul>').addClass('nav nav-pills nav-fill card-header-pills');
+				   $('<li>').addClass('nav-item').appendTo(headerList).append(
+				     $('<p>').addClass('text-start').text(dto.subject)
+				   );
+				   $('<li>').addClass('nav-item').appendTo(headerList).append(
+				     $('<p>').addClass('text-end').text(dto.singo_date ? formatDate(new Date(dto.singo_date)) : 'N/A')
+				   );
+				   $('<div>').addClass('card-header').append(headerList).appendTo(card);
+				   var body = $('<div>').addClass('card-body').appendTo(card);
+				   $('<h5>').addClass('card-title').text(dto.singo_content).appendTo(body);
+				   var row = $('<div>').addClass('row').appendTo(body);
+				   $('<div>').addClass('col-5').appendTo(row).append(
+				     $('<p>').addClass('card-text').text(dto.name)
+				   );
+				   $('<div>').addClass('offset-3 col-4').appendTo(row).append(
+				     $('<a>').addClass('btn btn-primary').attr('href', '#').text('삭제').on('click', function() {deletefun(dto.idx);})
+				   );
+			  
+			  $('#my-div').append($table);
+			  $('#page').children().remove();
+				$('#page').append(data.page);
+			  
+	   }).fail(()=>{
+	      //실패시 실행
+	   }).always(()=>{
+	      //성공여부 무관 실행
+		   
+	   })
+}
+</script>
 </body>
 </html>
