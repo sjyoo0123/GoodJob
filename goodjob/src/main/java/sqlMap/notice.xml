@@ -179,8 +179,17 @@ update notice set status='비활성' where idx=#{idx}
 			)
 		</if>
 		ORDER BY ref desc)a)
-		where  <![CDATA[rnum>=]]>#{start}
+		where rnum <![CDATA[>=]]>#{start}
 		and rnum<![CDATA[<=]]>#{end}
+	</select>
+	<select id="mainPlan" parameterType="Map" resultType="Map">
+	SELECT n.*, f."FILE"
+	FROM notice n
+	LEFT OUTER JOIN totalfile f ON n.idx = f.table_idx AND f.category = 'notice'
+	WHERE n.plan_idx = #{one} AND n.writedate <![CDATA[>=]]> SYSDATE - 7
+  	 OR n.plan_idx = #{two} AND n.writedate <![CDATA[>=]]> SYSDATE - 15
+  	 OR n.plan_idx = #{three} AND n.writedate <![CDATA[>=]]> SYSDATE - 30
+	ORDER BY n.writedate ASC
 	</select>
 	<update id="noticeUpdate" parameterType="com.goodjob.notice.model.NoticeDTO">
 		update notice set subject=#{subject}, gender=#{gender}, min_age=#{min_age}, max_age=#{max_age}, grade=#{grade}, job=#{job}, service_type=#{service_type}, recruit=#{recruit}, period=#{period}, workday=#{workday}, starttime=#{starttime}, finishtime=#{finishtime}, pay_category=#{pay_category}, pay_hour=#{pay_hour}, pay_month=#{pay_month}, worktime=#{worktime}, local1=#{local1}, local2=#{local2}, local3=#{local3}, detail_addr=#{detail_addr}, x=#{x}, y=#{y}, com_name=#{com_name}, manager_name=#{manager_name}, manager_tel=#{manager_tel}, manager_email=#{manager_email}, content=#{content} where idx=#{idx}

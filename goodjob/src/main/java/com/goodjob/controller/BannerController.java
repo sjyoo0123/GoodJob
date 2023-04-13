@@ -90,7 +90,7 @@ public class BannerController {
 				ref=bannerDao.manBannerRef();
 				bannerData=bannerDao.manBannerAdd(dto);
 				int idx=dto.getIdx();
-				dto2.setFile(filestr);
+				dto2.setFile("/goodjob/bannerImg/"+filestr);
 				dto2.setTable_idx(idx);
 				dto2.setCategory(category);
 				copyInto(category, file,req);
@@ -215,8 +215,7 @@ public class BannerController {
 	/**파일복사관련메서드*/
 	public void copyInto(String category, MultipartFile file,HttpServletRequest req) {
 		
-		System.out.println("카테고리:"+category);
-		System.out.println("파일명:"+file.getOriginalFilename());
+		
 		String path = req.getSession().getServletContext().getRealPath("/bannerImg");
 		try {
 			byte bytes[]=file.getBytes(); //원본가져오기

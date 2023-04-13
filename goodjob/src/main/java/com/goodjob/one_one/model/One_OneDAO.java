@@ -22,5 +22,5 @@ public interface One_OneDAO {
 	public One_OneDTO userOneContent(int idx);
 	
 	public int userOneReWrite(One_OneDTO dto);
-
+	public int userOneTotalCnt(int idx);
 }
