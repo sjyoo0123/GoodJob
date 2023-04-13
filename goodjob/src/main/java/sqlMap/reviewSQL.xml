@@ -7,8 +7,6 @@
 		resultType="com.goodjob.review.model.ReviewDTO">
 		select com_name from review group by com_name
 	</select>
-	<!-- <select id="reviewList" resultType="com.goodjob.review.model.ReviewDTO"> 
-		select com_name, count(*) as member_idx from review group by com_name </select> -->
 	<insert id="reviewWrite"
 		parameterType="com.goodjob.review.model.ReviewDTO">
 		insert into review values(review_idx.nextval,
@@ -51,7 +49,4 @@
 		<update id="reviewDel" parameterType="Integer">
 		update review set status = '미활성' where member_idx = #{member_idx} and review_num = #{review_num}
 	</update>
-<!-- 	<select>
-		select 
-	</select> -->
 </mapper>
