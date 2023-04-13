@@ -117,7 +117,12 @@
 	<td>${startendtime}</td>
 </tr>
 </table>
-<button><span>통계페이지로</span></button>
+<button class="btn btn-primary btn-icon-split btn-lg" onclick="window.open('jobHelperTong.do')">
+    <span class="icon text-white-50">
+        <i class="bi bi-bar-chart-line-fill"></i>
+    </span>
+    <span class="text">통계페이지 열기</span>
+</button>
 </div>
 </div>
 <hr class="my-4">
