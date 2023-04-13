@@ -40,12 +40,12 @@ public class One_OneDTO {
 		this.idx = idx;
 	}
 
-	public int getNormal_idx() {
+	public int getMember_idx() {
 		return member_idx;
 	}
 
-	public void setNormal_idx(int normal_idx) {
-		this.member_idx = normal_idx;
+	public void setMember_idx(int member_idx) {
+		this.member_idx = member_idx;
 	}
 
 	public Date getWritedate() {
@@ -106,7 +106,7 @@ public class One_OneDTO {
 
 	@Override
 	public String toString() {
-		return "One_OneDTO [idx=" + idx + ", normal_idx=" + member_idx + ", writedate=" + writedate + ", subject="
+		return "One_OneDTO [idx=" + idx + ", member_idx=" + member_idx + ", writedate=" + writedate + ", subject="
 				+ subject + ", category=" + category + ", content=" + content + ", email=" + email + ", check=" + check
 				+ ", status=" + status + "]";
 	}

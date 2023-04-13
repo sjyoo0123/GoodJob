@@ -12,7 +12,6 @@ select * from
 			order by plan_used.plan_used_idx desc) a) b
 		where <![CDATA[rnum>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
   </select>
-
   <insert id="manPlanUsedAdd_vip" parameterType="Map">
   	insert into used_vip
   	values(
@@ -38,4 +37,10 @@ select * from
   	)
   	
   </insert>
+  <select id="usedVipCount" parameterType="Integer" resultType="Integer">
+ 	select count(*) from plan_used where plan_type='VIP' and status='활성' and member_idx=#{idx}
+  </select>
+  <select id="usedVipCon" parameterType="Integer" resultType="com.goodjob.plan_used_vip.model.Plan_Used_VipDTO">
+ 	select plan_used.plan_idx,plan.plan_name plan_type,plan_used.plan_start,used_vip.plan_end,trunc(used_vip.plan_end-sysdate) idx from plan,plan_used,used_vip where plan.idx=plan_used.plan_idx and plan_used.plan_used_idx=used_vip.plan_used_idx and plan_used.status='활성' and plan_used.member_idx=#{idx}
+  </select>
   </mapper>

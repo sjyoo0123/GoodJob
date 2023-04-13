@@ -12,4 +12,8 @@ public interface Plan_Used_VipDAO {
 	public int manPlanUsedIdx_Currval();
 	
 	public int manPlanUsedAdd_two(Map map);
+
+	public int usedVipCount(int idx);
+	public Plan_Used_VipDTO usedVipCon(int idx);
+
 }

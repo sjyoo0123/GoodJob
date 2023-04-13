@@ -33,6 +33,7 @@ public List<NoticeDTO> comUsedVIP(int idx, int cp, int ls) {
 	List<NoticeDTO> lists=sqlMap.selectList("comUsedVIP",map);
 	return lists;
 }
+
 @Override
 public int manPlanUsedAdd_vip(Map map) {
 	
@@ -53,5 +54,16 @@ public int manPlanUsedAdd_two(Map map) {
 	int result=sqlMap.selectOne("manPlanUsedAdd_two", map);
 	
 	return result;
+}
+
+@Override
+public int usedVipCount(int idx) {
+	int count=sqlMap.selectOne("usedVipCount",idx);
+	return count;
+}
+@Override
+public Plan_Used_VipDTO usedVipCon(int idx) {
+	Plan_Used_VipDTO dto=sqlMap.selectOne("usedVipCon",idx);
+	return dto;
 }
 }

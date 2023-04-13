@@ -26,6 +26,7 @@
   		<mapper resource="sqlMap/gongjiSQL.xml"/>
   		<mapper resource="sqlMap/offerSQL.xml"/>
   		<mapper resource="sqlMap/planUsedSQL.xml"/>
+  		<mapper resource="sqlMap/singoSQL.xml"/>
   		<mapper resource="sqlMap/paymentSQL.xml"/>
   		<mapper resource="sqlMap/planUsedUpSQL.xml"/>
   	</mappers>

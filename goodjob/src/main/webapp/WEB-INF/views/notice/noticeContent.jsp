@@ -33,19 +33,26 @@
 <input type="hidden" id="x" value="${dto.x}">
 <input type="hidden" id="y" value="${dto.y}">
 <div class="container">
+
 	<%@include file="/WEB-INF/views/header.jsp"%>
 <div class="btn-group btn-group-lg" role="group" aria-label="Large button group">
 <button class="btn btn-outline-dark" ><span>수정</span></button>
 <button class="btn btn-outline-dark"><span>삭제</span></button>
 </div>
 <c:if test="${sidx!=dto.com_idx}">
-<button class="btn btn-danger btn-icon-split btn-lg">
-    <span class="icon text-white-50">
-        <i class="bi bi-clipboard-check-fill"></i>
-    </span>
-    <span class="text">신고하기</span>
+
+<button class="btn btn-danger btn-icon-split btn-lg text-white-50" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        <i class="bi bi-clipboard-check-fill icon"></i>
+    신고하기
 </button>
+
 </c:if>
+<c:if test="${atoNum == 0 }" >
+    <input type="button" value="지원하기" onclick="location.href='apNorInsert.do?notice_idx=${dto.idx}'">
+</c:if>
+ <c:if test="${atoNum != 0 }" >
+    <input type="button" value="이미 지원함" >
+ </c:if>
 <c:if test="${scategory=='관리자'}">
 <div class="btn-group btn-group-lg" role="group" aria-label="Large button group">
 <button class="btn btn-outline-info"  onclick="location.href='manNoticeAccept_Ok.do?idx=${dto.idx}'"><span>승인</span></button>
@@ -220,5 +227,80 @@ ${dto.content}
 </div>
 </div>
 </div>
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">신고하기</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+       <c:if test="${empty logIdx }">
+       <div>로그인후 이용가능합니다</div>
+       </c:if>
+       <c:if test="${!empty logIdx }">
+       <form  id="singo">
+       <div class="row">
+       <input type="hidden" name="member_idx" value="${cdto.member_idx }">
+       <input type="hidden" name="category" value="기업">
+       <select class="form-select" name="singo_type">
+		<option selected disabled="disabled">카테고리</option>
+		<option>거짓 공고</option>
+		<option>부적절한 단어사용</option>
+		<option>도영님</option>
+		</select>
+       
+       
+       <div class="form-floating mb-3 col-8 offset-2">
+		<input type="text" class="form-control" id="floatingInput" name="subject" placeholder="subject"> 
+		<label for="floatingInput">제목</label>
+		</div>
+		<div class="form-floating mb-3 col-8 offset-2">
+		<textarea class="form-control" name="singo_content" id="floatingTextarea"></textarea>
+		<label for="floatingTextarea">내용</label>
+		</div>
+		<div class=" form-floating mb-3  col-8 offset-2">
+		<label for="formFile" class="form-label"></label>
+		 <input class="form-control" type="file" id="formFile">
+		</div>
+       </div>
+       </form>
+       </c:if>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+        <button type="button" class="btn btn-danger singoing">신고하기</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script> 
+$('.singoing').on('click',()=>{
+    var formData = new FormData();
+    formData.append('subject', $('#floatingInput').val());
+    formData.append('singo_content', $('#floatingTextarea').val());
+    formData.append('file', $('#formFile')[0].files[0]);
+    formData.append('category',$('input[name="category"]').val());
+    formData.append('member_idx',$('input[name="member_idx"]').val() || 0);
+    formData.append('singo_type',$('select[name="singo_type"]').val());
+
+    $.ajax({
+        url:'sinGo.do',
+        type:'post',
+        contentType: false,
+        processData: false,
+        data: formData
+    }).done((data)=>{
+        if(data>0){
+        alert('정상 등록되었습니다');
+        $('#staticBackdrop').modal('hide');
+        }else{
+        	alert('서버와의 접속이 원활하지 않습니다 다시시도해주세요');
+        }
+    }).fail((xhr, status, error) => {
+        // Handle error response
+    });
+});
+</script>
 </body>
 </html>

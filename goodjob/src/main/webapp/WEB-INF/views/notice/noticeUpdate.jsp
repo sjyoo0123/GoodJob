@@ -104,13 +104,29 @@ $(document).ready(function() {
 	    $('#workday').val(selectedDays);
 	  });
 	});
+$(document).ready(function() {
+	  var workday = document.getElementById("workday").value;
+	  var days = ["mon", "tue", "wed", "thu", "fri", "sat", "sun", "moo"];
 
+	  for (var i = 0; i < workday.length; i++) {
+	    if (workday[i] === '1') {
+	      $("#" + days[i]).prop("checked", true);
+	    }
+	  }
+
+	  $("#workday").val(workday);
+	});
 </script>
 </head>
 <body>
 	<h1>공고 등록</h1>
-	<form action="noticeWrite.do" method="post" id="writeForm" enctype="multipart/form-data">
-<h1>기업idx<input type="text" name="com_idx" value="${idx}" id="com_idx"></h1>
+	<form action="noticeUpdate.do" method="post" id="writeForm" enctype="multipart/form-data">
+<h1>요금제<input type="text" name="plan_idx" value="1"></h1>
+<h1>기업idx<input type="text" name="com_idx" value="7"></h1>
+<h1>writedate</h1><input type="text" name="writedate" value="${dto.writedate}">
+<h1>deadline<input type="text" name="deadline" value="${dto.deadline}"></h1>
+<h1>status<input type="text" name="status" value="${dto.status}"></h1>
+<h1>nidx<input type="text" name="idx" value="${dto.idx}"></h1>
 	<div class="container px-4 px-lg-5">
 	<div class="row gx-4 gx-lg-5 justify-content-center">
 	<div class="col-md-12 col-lg-9 col-xl-8">
@@ -118,7 +134,7 @@ $(document).ready(function() {
 				<div class="card-body">
 			<h2 class="card-title">공고제목</h2>
 			<input type="text" name="subject"
-				class="form-control form-control-lg">
+				class="form-control form-control-lg" value="${dto.subject}">
 		</div>
 		</div>
 		<hr class="my-4">
@@ -131,24 +147,24 @@ $(document).ready(function() {
 					<td><select name="gender"
 						class="form-select form-select-lg mb-3"
 						aria-label=".form-select-lg example">
-							<option value="남자">남자</option>
-							<option value="여자">여자</option>
+							<option value="남자" <c:if test="${dto.gender=='남자'}">checked</c:if>>남자</option>
+							<option value="여자" <c:if test="${dto.gender=='여자'}">checked</c:if>>여자</option>
 					</select></td>
 				</tr>
 				<tr>
 					<th>연령</th>
 					<td><input type="radio" value="연령지정" name="age" id="age"
-						class="btn-check" autocomplete="off" checked><label
+						class="btn-check" autocomplete="off" <c:if test="${dto.max_age!=0}">checked</c:if>><label
 						class="btn btn-outline-primary" for="age">연령지정</label> <input
 						type="radio" value="연령미지정" name="age" id="age1" class="btn-check"
-						autocomplete="off"><label class="btn btn-outline-primary"
+						autocomplete="off" <c:if test="${dto.max_age==0}">checked</c:if>><label class="btn btn-outline-primary"
 						for="age1">연령미지정</label></td>
 				</tr>
 				<tr>
 					<th></th>
 					<td><div id="minmaxage" style="display: none;">
-							연령최소<input type="number" name="min_age" value="0"> ~ 연령최대<input
-								type="number" name="max_age" value="0">
+							연령최소<input type="number" name="min_age" value="<c:if test="${dto.min_age==0}">0</c:if><c:if test="${dto.min_age!=0}">${dto.min_age}</c:if>"> ~ 연령최대<input
+								type="number" name="max_age" value="<c:if test="${dto.max_age==0}">0</c:if><c:if test="${dto.max_age!=0}">${dto.max_age}</c:if>">
 						</div></td>
 				</tr>
 				<tr>
@@ -156,29 +172,29 @@ $(document).ready(function() {
 					<td><select name="grade"
 						class="form-select form-select-lg mb-3"
 						aria-label=".form-select-lg example">
-							<option value="중졸">중졸이상</option>
-							<option value="고졸">고졸이상</option>
-							<option value="초대졸">초대졸이상</option>
-							<option value="대졸">대졸이상</option>
-							<option value="학력">학력무관</option>
+							<option value="중졸" <c:if test="${dto.grade=='중졸'}">selected</c:if>>중졸이상</option>
+							<option value="고졸" <c:if test="${dto.grade=='고졸'}">selected</c:if>>고졸이상</option>
+							<option value="초대졸" <c:if test="${dto.grade=='초대졸'}">selected</c:if>>초대졸이상</option>
+							<option value="대졸" <c:if test="${dto.grade=='대졸'}">selected</c:if>>대졸이상</option>
+							<option value="학력" <c:if test="${dto.grade=='학력'}">selected</c:if>>학력무관</option>
 					</select></td>
 				</tr>
 				<tr>
 					<th>직종</th>
-					<td><input type="button" value="직종" onclick="openjoblist()"><input type="text" value="직종" name="job" id="job" readonly></td>
+					<td><input type="button" value="직종" onclick="openjoblist()"><input type="text" value="${dto.job}" name="job" id="job" readonly></td>
 				</tr>
 				<tr>
 					<th>근무형태</th>
 					<td><select name="service_type"
 						class="form-select form-select-lg mb-3"
 						aria-label=".form-select-lg example">
-							<option value="아르바이트">아르바이트</option>
-							<option value="정규직">정규직</option>
+							<option value="아르바이트" <c:if test="${dto.service_type=='아르바이트'}">selected</c:if>>아르바이트</option>
+							<option value="정규직" <c:if test="${dto.service_type=='정규직'}">selected</c:if>>정규직</option>
 					</select></td>
 				</tr>
 				<tr>
 					<th>모집인원</th>
-					<td><input type="text" name="recruit"></td>
+					<td><input type="text" name="recruit" value="${dto.recruit}"></td>
 				</tr>
 			</table>
 		</div>
@@ -191,37 +207,37 @@ $(document).ready(function() {
 				<tr>
 					<th>근무기간</th>
 					<td><input type="radio" name="period" value="하루"
-						class="btn-check" id="period" autocomplete="off" checked><label
+						class="btn-check" id="period" autocomplete="off" <c:if test="${dto.period=='하루'}">checked</c:if>><label
 						class="btn btn-outline-primary" for="period">하루</label> <input
 						type="radio" name="period" value="일주일이하" class="btn-check"
-						id="period1" autocomplete="off"><label
+						id="period1" autocomplete="off" <c:if test="${dto.period=='일주일이하'}">checked</c:if>><label
 						class="btn btn-outline-primary" for="period1">일주일이하</label> <input
 						type="radio" name="period" value="1주일~1개월" class="btn-check"
-						id="period2" autocomplete="off"><label
+						id="period2" autocomplete="off" <c:if test="${dto.period=='1주일~1개월'}">checked</c:if>><label
 						class="btn btn-outline-primary" for="period2">1주일~1개월</label> <input
 						type="radio" name="period" value="1개월~3개월" class="btn-check"
-						id="period3" autocomplete="off"><label
+						id="period3" autocomplete="off" <c:if test="${dto.period=='1개월~3개월'}">checked</c:if>><label
 						class="btn btn-outline-primary" for="period3">1개월~3개월</label> <input
 						type="radio" name="period" value="3개월~6개월" class="btn-check"
-						id="period4" autocomplete="off"><label
+						id="period4" autocomplete="off" <c:if test="${dto.period=='3개월~6개월'}">checked</c:if>><label
 						class="btn btn-outline-primary" for="period4">3개월~6개월</label> <input
 						type="radio" name="period" value="6개월~1년" class="btn-check"
-						id="period5" autocomplete="off"><label
+						id="period5" autocomplete="off" <c:if test="${dto.period=='6개월~1년'}">checked</c:if>><label
 						class="btn btn-outline-primary" for="period5">6개월~1년</label> <input
 						type="radio" name="period" value="1년이상" class="btn-check"
-						id="period6" autocomplete="off"><label
+						id="period6" autocomplete="off" <c:if test="${dto.period=='1년이상'}">checked</c:if>><label
 						class="btn btn-outline-primary" for="period6">1년이상</label> <input
 						type="radio" name="period" value="추후협의" class="btn-check"
-						id="period7" autocomplete="off"><label
+						id="period7" autocomplete="off" <c:if test="${dto.period=='추후협의'}">checked</c:if>><label
 						class="btn btn-outline-primary" for="period7">추후협의</label></td>
 				</tr>
 				<tr>
 					<th>근무요일</th>
 					<td><input type="radio" value="요일지정" class="btn-check"
-						id="selectworkday" name="selectworkday" autocomplete="off" checked><label
+						id="selectworkday" name="selectworkday" autocomplete="off" <c:if test="${dto.workday!='00000001'}">checked</c:if>><label
 						class="btn btn-outline-primary" for="selectworkday">요일지정</label> <input
 						type="radio" value="시간협의" class="btn-check" id="selectworkday1"
-						name="selectworkday" autocomplete="off"><label
+						name="selectworkday" autocomplete="off" <c:if test="${dto.workday=='00000001'}">checked</c:if>><label
 						class="btn btn-outline-primary" for="selectworkday1">시간협의</label></td>
 				</tr>
 				<tr>
@@ -249,17 +265,17 @@ $(document).ready(function() {
 								class="btn-check" id="sun"><label
 								class="btn btn-outline-dark" for="sun">일</label> <input
 								type="checkbox" name="checkboxworkday" value="moo"
-								class="btn-check" id="moo" checked><label
+								class="btn-check" id="moo"><label
 								class="btn btn-outline-dark" for="moo">무관</label>
-						</div><input type="text" id="workday" name="workday"></td>
+						</div><input type="text" id="workday" name="workday" value="${dto.workday}"></td>
 				</tr>
 				<tr>
 					<th>근무시간</th>
 					<td><input type="radio" value="시간지정" class="btn-check"
-						id="workdaytime" name="workdaytime" autocomplete="off" checked><label
+						id="workdaytime" name="workdaytime" autocomplete="off" <c:if test="${dto.finishtime!='000'}">checked</c:if>><label
 						class="btn btn-outline-primary" for="workdaytime">시간지정</label> <input
 						type="radio" value="시간협의" class="btn-check" id="workdaytime1"
-						name="workdaytime" autocomplete="off"><label
+						name="workdaytime" autocomplete="off" <c:if test="${dto.finishtime=='000'}">checked</c:if>><label
 						class="btn btn-outline-primary" for="workdaytime1">시간협의</label></td>
 				</tr>
 				<tr>
@@ -267,27 +283,28 @@ $(document).ready(function() {
 					<td><div id="checkworktime" style="display: none;">
 					근무시작시간<select name="workstarttime1">
 					<c:forEach var="i" begin="0" end="23" step="1">
-						<option value="${i}">${i}</option>
+						<option value="${i}" <c:if test="${workstarttime1==i}">selected</c:if>>${i}</option>
 					</c:forEach>
-					</select> : <select name="workstarttime2"><option value="00">0</option><option value="30">30</option></select> ~ 근무종료시간
+					</select> : <select name="workstarttime2"><option value="00" <c:if test="${workstarttime2==0}">selected</c:if>>0</option><option value="30" <c:if test="${workstarttime2==30}">selected</c:if>>30</option></select> ~ 근무종료시간
 					<select name="workendtime1">
 					<c:forEach var="i" begin="0" end="48" step="1">
-						<option value="${i}">${i}</option>
+						<option value="${i}" <c:if test="${workendtime1==i}">selected</c:if>>${i}</option>
 					</c:forEach>
-					</select> : <select name="workendtime2"><option value="00">0</option><option value="30">30</option></select>
+					</select> : <select name="workendtime2"><option value="00" <c:if test="${workendtime2==0}">selected</c:if>>0</option><option value="30" <c:if test="${workendtime2==30}">selected</c:if>>30</option></select>
 					</div></td>
 				</tr>
 				<tr>
 					<th>급여</th>
 					<td><input type="radio" value="시급" class="btn-check" id="pay_category"
-						name="pay_category" autocomplete="off" checked><label
+						name="pay_category" autocomplete="off" <c:if test="${dto.pay_category=='시급'}">checked</c:if>><label
 						class="btn btn-outline-primary" for="pay_category">시급</label> <input
 						type="radio" value="월급" class="btn-check" id="pay_category1" name="pay_category"
-						autocomplete="off"><label class="btn btn-outline-primary"
+						autocomplete="off" <c:if test="${dto.pay_category=='월급'}">checked</c:if>><label class="btn btn-outline-primary"
 						for="pay_category1">월급</label> <input
 						type="radio" value="협의" class="btn-check" id="pay_category2" name="pay_category"
-						autocomplete="off"><label class="btn btn-outline-primary"
-						for="pay_category2">협의</label><br><div id="hourworktime" style="display: none;"><input type="text" name="pay_hour" value="0">원</div> <div id="weekworktime" style="display: none;"><input type="text" name="pay_hour1" value="0">원 1주 근무시간<input type="number" name="worktime" value="0"></div></td>
+						autocomplete="off" <c:if test="${dto.pay_category=='협의'}">checked</c:if>><label class="btn btn-outline-primary"
+						for="pay_category2">협의</label><br><div id="hourworktime" style="display: none;"><input type="text" name="pay_hour" value="<c:if test="${dto.pay_category=='시급'}">${dto.pay_hour}</c:if><c:if test="${dto.pay_category!='시급'}">0</c:if>">원</div>
+						 <div id="weekworktime" style="display: none;"><input type="text" name="pay_hour1" value="<c:if test="${dto.pay_category=='월급'}">${dto.pay_hour}</c:if><c:if test="${dto.pay_category!='월급'}">0</c:if>">원 1주 근무시간<input type="number" name="worktime" value="0"></div></td>
 				</tr>
 			</table>
 		</div>
@@ -300,17 +317,17 @@ $(document).ready(function() {
 				<table>
 					<tr>
 						<th>근무지주소</th>
-						<td><input type="text" id="searchadd" readonly placeholder="주소 검색을 해주세요."> <input
+						<td><input type="text" id="searchadd" readonly placeholder="주소 검색을 해주세요." value="${dto.local1} ${dto.local2} ${dto.local3}"> <input
 							type="button" onclick="sample5_execDaumPostcode()" value="주소 검색">
-							<input type="hidden" name="x" id="x">
-							<input type="hidden" name="y" id="y">
-							<input type="hidden" id="sido" name="local1">
-							<input type="hidden" id="sigungu" name="local2">
-							<input type="hidden" id="query" name="local3"></td>
+							<input type="hidden" name="x" id="x" value="${dto.x}">
+							<input type="hidden" name="y" id="y" value="${dto.y}">
+							<input type="hidden" id="sido" name="local1" value="${dto.local1}">
+							<input type="hidden" id="sigungu" name="local2" value="${dto.local2}">
+							<input type="hidden" id="query" name="local3" value="${dto.local3}"></td>
 					</tr>
 					<tr>
 						<th>상세주소</th>
-						<td><input type="text" name="detail_addr"></td>
+						<td><input type="text" name="detail_addr" value="${dto.detail_addr}"></td>
 					</tr>
 				</table>
 					<div id="map" style="width:100%;height:400px;margin-top:10px;display:none"></div>
@@ -382,7 +399,7 @@ $(document).ready(function() {
 			<table>
 				<tr>
 					<th>근무회사명</th>
-					<td><input type="text" name="com_name"></td>
+					<td><input type="text" name="com_name" value="${dto.com_name}"></td>
 				</tr>
 			</table>
 		</div>
@@ -395,15 +412,15 @@ $(document).ready(function() {
 			<table>
 				<tr>
 					<th>담당자명</th>
-					<td><input type="text" name="manager_name"></td>
+					<td><input type="text" name="manager_name" value="${dto.manager_name}"></td>
 				</tr>
 				<tr>
 					<th>연락처</th>
-					<td><input type="text" name="manager_tel"></td>
+					<td><input type="text" name="manager_tel" value="${dto.manager_tel}"></td>
 				</tr>
 				<tr>
 					<th>이메일</th>
-					<td><input type="text" name="manager_email"></td>
+					<td><input type="text" name="manager_email" value="${dto.manager_email}"></td>
 				</tr>
 			</table>
 		</div>
@@ -416,17 +433,9 @@ $(document).ready(function() {
   <label for="formFileMultiple" class="form-label">파일 등록</label>
   <input class="form-control" type="file" id="formFileMultiple" name="formFileMultiple" multiple>
 </div>
-			<textarea rows="30" cols="50" name="content"></textarea>
+			<textarea rows="30" cols="50" name="content">${dto.content}</textarea>
 		</div>
-		</div>
-		<hr class="my-4">
-		<div class="card bg-primary bg-opacity-10">
-								<div class="card-body">
-			<h2 class="card-title">요금제 정보</h2>
-			<input type="hidden" name="plan_idx" id="plan_idx"><div id="planUse"></div>
-		</div>
-		</div>
-		<button type="submit" class="btn btn-primary btn-icon-split btn-lg col-12">
+		<button type="submit" class="btn btn-primary btn-icon-split btn-lg">
     <span class="icon text-white-50">
         <i class="bi bi-check-lg"></i>
     </span>
@@ -435,38 +444,8 @@ $(document).ready(function() {
 		</div>
 		</div>
 		</div>
+		</div>
 	</form>
-<script>
-$(document).ready(function() {
-    $.ajax({
-        url: "usedVipCount.do",
-        method: "POST",
-        data: {idx: $('#com_idx').val()},
-        success: function(data) {
-        	if (data === 0) {
-        		 $("#planUse").append("<h5>사용중인 요금제가 없습니다.(무료요금제만 사용가능)</h5>");
-        		 $('#plan_idx').val(13);
-        	    } else {
-        	    	$.ajax({
-                        url: "usedVipCon.do",
-                        method: "POST",
-                        data: {idx: $('#com_idx').val()},
-                        success: function(data2) {
-                        	var planidx=data2.plan_idx
-                        	$('#plan_idx').val(planidx);
-                        	var start_date = new Date(parseInt(data2.plan_start));
-                        	var end_date = new Date(parseInt(data2.plan_end));
 
-                        	var start_str = start_date.getFullYear() + "년 " + (start_date.getMonth()+1) + "월 " + start_date.getDate() + "일";
-                        	var end_str = end_date.getFullYear() + "년 " + (end_date.getMonth()+1) + "월 " + end_date.getDate() + "일";
-
-							$("#planUse").append("<div class='row'><div class='col-12'><h3>"+data2.plan_type+"</h3></div>"+"<div class='col-5'><h6>요금제시작일</h6>"+start_str+"</div><div class='col-5'><h6>요금제종료일</h6>"+end_str+"</div><div class='col-2'><h6>남은사용일"+data2.idx+"일</h6></div></div>");
-                        }
-                    });
-        	    }
-        }
-    });
-});
-</script>
 </body>
 </html>

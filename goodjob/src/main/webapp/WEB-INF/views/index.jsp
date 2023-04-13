@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <script type="text/javascript">
-${msg}
+	${msg}
 </script>
 <head>
 <meta charset="UTF-8">
@@ -25,7 +25,7 @@ ${msg}
 <title>Good Job</title>
 <style>
 .carousel-item img {
-	max-height: 200px;
+	max-height: 150px;
 	width: auto;
 }
 </style>
@@ -38,7 +38,7 @@ ${msg}
 			<article>
 				<div class="row banner">
 					<div class="card col-2 offset-1">
-						<ul class="list-group list-group-flush">
+						<ul class="list-group list-group-flush gongji">
 							<c:if test="${empty gList }">
 								<li>등록된 공지가 없습니다</li>
 							</c:if>
@@ -51,21 +51,18 @@ ${msg}
 						<div id="carouselExampleControls" class="carousel slide"
 							data-bs-ride="carousel">
 							<div class="carousel-inner">
-								<c:forEach var="bdto" items="${baaner }" varStatus="status">
-									<c:if test="${status.first}">
-										<div class="carousel-item active">
-											<img src="http://localhost:9090/goodjob/img/logo.png"
-												class="d-block w-100" alt="...">
-										</div>
-									</c:if>
-									<c:if test="${!(status.first)}">
-										<div class="carousel-item">
-											<img src=""
-												class="d-block w-100" alt="...">
-										</div>
-									</c:if>
+								<c:forEach var="bdto" items="${banner }" varStatus="status">
+								<c:if test="${status.first}">
+									<div class="carousel-item active">
+										<a href="${bdto.link }"><img src="${bdto.file }" class="w-100"  alt="${bdto.subject }"></a>
+									</div>
+								</c:if>
+								<c:if test="${!(status.first)}">
+									<div class="carousel-item">
+										<a href="https://${bdto.link }"><img src="${bdto.file }" class="w-100" alt="${bdto.subject }"></a>
+									</div>
+								</c:if>
 								</c:forEach>
-
 							</div>
 							<button class="carousel-control-prev" type="button"
 								data-bs-target="#carouselExampleControls" data-bs-slide="prev">
@@ -79,7 +76,49 @@ ${msg}
 							</button>
 						</div>
 					</div>
-					<div class="card col-2"></div>
+					<div class="card col-2 menu"></div>
+				</div>
+				<div class="cardgroup col-10 offset-1 mt-3">
+				
+				<!-- die -->
+				<div class="row mb-5 row-cols-4 g-4">
+				<c:forEach var="dDto" items="${dieList}">
+				<div class="col">
+				<div class="card">
+  				<img src="..." class="card-img-top" alt="...">
+  				<div class="card-body">
+  				  <p class="card-text">${dDto.DETAIL_ADDR }</p>
+				</div>
+ 				 </div>
+				</div>
+				</c:forEach>
+				</div>
+				<!-- gold -->
+				<div class="row mb-5 row-cols-4 g-4">
+				<c:forEach var="gDto" items="${goldList}">
+				<div class="col">
+				<div class="card">
+  				<img src="..." class="card-img-top" alt="...">
+  				<div class="card-body">
+  				  <p class="card-text">${gDto.DETAIL_ADDR }</p>
+ 				 </div>
+				</div>
+				</div>
+				</c:forEach>
+				</div>
+				<!-- sil -->
+				<div class="row mb-5  row-cols-4 g-4">
+				<c:forEach var="sDto" items="${silList}">
+				<div class="col">
+				<div class="card">
+  				<img src="..." class="card-img-top" alt="...">
+  				<div class="card-body">
+  				  <p class="card-text">${sDto.DETAIL_ADDR }3</p>
+ 				 </div>
+				</div>
+				</div>
+				</c:forEach>
+				</div>
 				</div>
 			</article>
 		</section>

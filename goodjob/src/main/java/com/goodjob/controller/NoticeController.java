@@ -1,9 +1,17 @@
 package com.goodjob.controller;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -11,24 +19,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import com.goodjob.module.AjaxPageModule;
 import com.goodjob.apply.model.ApplyDAO;
 import com.goodjob.apply.model.ApplyDTO;
 import com.goodjob.companymember.model.CompanyMemberDAO;
 import com.goodjob.companymember.model.CompanyMemberDTO;
+import com.goodjob.module.AjaxPageModule;
 import com.goodjob.notice.model.NoticeDAO;
 import com.goodjob.notice.model.NoticeDTO;
+import com.goodjob.plan_used_vip.model.Plan_Used_VipDAO;
+import com.goodjob.plan_used_vip.model.Plan_Used_VipDTO;
 import com.goodjob.totalfile.model.TotalFileDAO;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.*;
 
 @Controller
 public class NoticeController {
@@ -39,6 +39,10 @@ public class NoticeController {
 	private CompanyMemberDAO cdao;
 	@Autowired
 	private TotalFileDAO totalFileDao;
+	@Autowired
+	private ApplyDAO adao;
+	@Autowired
+	private Plan_Used_VipDAO plandao;
 public TotalFileDAO getTotalFileDao() {
 		return totalFileDao;
 	}
@@ -77,15 +81,27 @@ public NoticeController() {
 		this.ndao = ndao;
 	}
 
-	@RequestMapping(value="/noticeWrite.do", method=RequestMethod.GET)
-	public ModelAndView noticeWriteForm() {
+	@RequestMapping(value="/noticeWrite.do")
+	public ModelAndView noticeWriteForm(HttpSession session) {
 		ModelAndView mav=new ModelAndView();
+		int idx=0;
+		if(session.getAttribute("sidx")==null||session.getAttribute("sidx")=="") {
+			String msg="잘못된 접근입니다";
+			String goUrl="index.do";
+			mav.addObject("msg", msg);
+			mav.addObject("goUrl", goUrl);
+			mav.setViewName("notice/noticeMsg");
+			return mav;
+		}else {
+			idx=(int)session.getAttribute("sidx");
+		}
+		mav.addObject("idx", idx);
 		mav.setViewName("notice/noticeWrite");
 		return mav;
 	}
 	
 	@RequestMapping(value="/noticeWrite.do", method=RequestMethod.POST)
-	public ModelAndView noticeWriteSubmit(NoticeDTO dto,String workstarttime1,String workstarttime2,String workendtime1,String workendtime2,@RequestParam("formFileMultiple")MultipartFile file,HttpServletRequest req) {
+	public ModelAndView noticeWriteSubmit(NoticeDTO dto,String workstarttime1,String workstarttime2,String workendtime1,String workendtime2,int pay_hour1,@RequestParam("formFileMultiple")MultipartFile file,HttpServletRequest req) {
 		ModelAndView mav=new ModelAndView();
 		String starttime=workstarttime1+workstarttime2;
 		dto.setStarttime(Integer.parseInt(starttime));
@@ -95,6 +111,7 @@ public NoticeController() {
 			int pay_month=(dto.getFinishtime()-dto.getStarttime())*dto.getPay_hour();
 			dto.setPay_month(pay_month);
 		}else if(dto.getPay_category().equals("월급")) {
+			dto.setPay_hour(pay_hour1);
 			int pay_month=(dto.getFinishtime()-dto.getStarttime())*dto.getPay_hour()*dto.getWorktime();
 			dto.setPay_month(pay_month);
 		}else if(dto.getPay_category().equals("협의")) {
@@ -102,7 +119,7 @@ public NoticeController() {
 		}
 		int result=ndao.noticeWrite(dto);
 		Map map=new HashMap();
-		String path ="notice"+"/"+file.getOriginalFilename();
+		String path ="/goodjob/notice"+"/"+file.getOriginalFilename();
 		String filest=file.getOriginalFilename();
 		map.put("file", path);
 		map.put("category", "notice");
@@ -147,7 +164,7 @@ public NoticeController() {
 		return mav;
 	}
 	@RequestMapping("/noticeContent.do")
-	public ModelAndView noticeContent(@RequestParam(value="idx")int nidx,HttpSession session) {
+	public ModelAndView noticeContent(@RequestParam(value="idx")int nidx,HttpSession session, ApplyDTO ato) {
 		NoticeDTO dto=ndao.noticeContent(nidx);
 		String workday=dto.getWorkday();
 		String yy = "";
@@ -168,6 +185,7 @@ public NoticeController() {
 		}if(workday.charAt(7)=='1') {
 			yy+="무관";
 		}
+
 		String scategory = session.getAttribute("scategory") != null ? (String) session.getAttribute("scategory") : "";
 		int sidx = session.getAttribute("sidx") != null ? (int) session.getAttribute("sidx") : 0;
 		String starttime1=dto.getStarttime()%100==0?"00":dto.getStarttime()%100+"";
@@ -177,7 +195,10 @@ public NoticeController() {
 		String startendtime=starttime+" ~ "+endtime;
 		int com_idx=dto.getCom_idx();
 		CompanyMemberDTO cdto=cdao.comInfo(com_idx);
+		System.out.println(cdto.toString());
 		ModelAndView mav=new ModelAndView();
+		int atoNum =  adao.apNorButtonHide(nidx, sidx);
+		System.out.println(atoNum);
 		String filepath=totalFileDao.noticeFile(nidx);
 		mav.addObject("filepath", filepath);
 		mav.addObject("cdto", cdto);
@@ -186,6 +207,7 @@ public NoticeController() {
 		mav.addObject("startendtime", startendtime);
 		mav.addObject("scategory", scategory);
 		mav.addObject("sidx", sidx);
+		mav.addObject("atoNum", atoNum);
 		mav.setViewName("notice/noticeContent");
 		return mav;
 	}
@@ -247,14 +269,52 @@ public NoticeController() {
 	public ModelAndView noticeUpdateForm(@RequestParam(value="idx")int nidx) {
 		ModelAndView mav=new ModelAndView();
 		NoticeDTO dto=ndao.noticeContent(nidx);
-		
+		int workstarttime1 = dto.getStarttime()/100;
+		int workstarttime2 = dto.getStarttime()%100;
+		int workendtime1 = dto.getFinishtime()/100;
+		int workendtime2 = dto.getFinishtime()%100;
+		mav.addObject("dto", dto);
+		mav.addObject("workstarttime1", workstarttime1);
+		mav.addObject("workstarttime2", workstarttime2);
+		mav.addObject("workendtime1", workendtime1);
+		mav.addObject("workendtime2", workendtime2);
+		mav.setViewName("notice/noticeUpdate");
 		return mav;
 	}
 	@RequestMapping(value="/noticeUpdate.do",method=RequestMethod.POST)
-	public ModelAndView noticeUpdateSubmit(NoticeDTO dto) {
-
+	public ModelAndView noticeUpdateSubmit(NoticeDTO dto,String workstarttime1,String workstarttime2,String workendtime1,String workendtime2,int pay_hour1,@RequestParam("formFileMultiple")MultipartFile file,HttpServletRequest req) {
 		ModelAndView mav=new ModelAndView();
-		
+		String starttime=workstarttime1+workstarttime2;
+		dto.setStarttime(Integer.parseInt(starttime));
+		String finishtime=workendtime1+workendtime2;
+		dto.setFinishtime(Integer.parseInt(finishtime));
+		if(dto.getPay_category().equals("시급")) {
+			int pay_month=(dto.getFinishtime()-dto.getStarttime())*dto.getPay_hour();
+			dto.setPay_month(pay_month);
+		}else if(dto.getPay_category().equals("월급")) {
+			dto.setPay_hour(pay_hour1);
+			int pay_month=(dto.getFinishtime()-dto.getStarttime())*dto.getPay_hour()*dto.getWorktime();
+			dto.setPay_month(pay_month);
+		}else if(dto.getPay_category().equals("협의")) {
+			dto.setPay_month(0);
+		}
+		System.out.println(dto);
+		int result=ndao.noticeUpdate(dto);
+		Map map=new HashMap();
+		if(file!=null) {
+		String path ="/goodjob/notice"+"/"+file.getOriginalFilename();
+		String filest=file.getOriginalFilename();
+		map.put("file", path);
+		map.put("category", "notice");
+		map.put("table_name", "notice");
+		map.put("table_idx", dto.getIdx());
+		int count=totalFileDao.noticeFileUpdate(map);
+		copyInto("notice", file, req);
+		}
+		String msg=result>0?"수정완료":"수정실패";
+		mav.addObject("msg", msg);
+		mav.addObject("goUrl", "/goodjob/company.do");
+		mav.setViewName("notice/noticeMsg");
 		return mav;
 	}
 	
@@ -428,6 +488,7 @@ public NoticeController() {
 			
 			return mav;
 	}
+
 	
 	/**관리자 공고 비활성화하기*/
 	@ResponseBody
@@ -456,6 +517,21 @@ public NoticeController() {
 		
 		return mav;
 	}
+
+
+	@RequestMapping(value="/usedVipCount.do",method=RequestMethod.POST)
+	@ResponseBody
+	public int usedVipCount(int idx) {
+		int count=plandao.usedVipCount(idx);
+		return count;
+	}
+	@RequestMapping(value="/usedVipCon.do",method=RequestMethod.POST)
+	@ResponseBody
+	public Plan_Used_VipDTO usedVipCon(int idx) {
+		Plan_Used_VipDTO dto = plandao.usedVipCon(idx);
+		return dto;
+	}
+
 	/**관리자 공고 페이지 검색하기*/
 	@RequestMapping("/manNoticeSearch.do")
 	public ModelAndView manNoticeSearch(

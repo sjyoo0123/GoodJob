@@ -20,20 +20,14 @@
 	<select id="idCheck" parameterType="String" resultType="Integer">
 		select count(*) from member where id=#{id} and status='활성'
 	</select>
-	<select id="emailCheck" parameterType="String" resultType="Integer">
-	select count(*) from member where email=#{email} and status='활성'
+	<select id="emailCheck" parameterType="String" resultType="com.goodjob.member.model.MemberDTO">
+	select * from member where email=#{email} and status='활성'
 	</select>
-	<update id="memberUpdate" parameterType="map">
-		BEGIN
+	<update id="memberUpdate" parameterType="com.goodjob.member.model.MemberDTO">
 		UPDATE member
-		SET pwd = #{pwd} , tel=#{tel} , addr=#{addr}
+		SET 
+		pwd = #{pwd} , tel=#{tel} , addr=#{addr}
 		WHERE idx = #{idx};
-
-		UPDATE ${tebleName}
-		SET ${qurey}
-		WHERE member_idx = #{idx};
-
-		END
 	</update>
 	<select id="resumeWriteForm" resultType="com.goodjob.member.model.MemberDTO">
 		select * from member where idx =1 and status = '활성' 
@@ -45,4 +39,13 @@
 		select * from member
 		where idx=#{idx}
 	</select>
+	<select id="findId" parameterType="String" resultType="String">
+	select id from member where email=#{email}
+	</select>
+	<select id="findPwd" parameterType="Map" resultType="Integer">
+	select idx from member where email=#{email} and id=#{id}
+	</select>
+	<update id="updatePwd" parameterType="Map">
+	update member set pwd=#{pwd} where idx=#{idx}
+	</update>
 </mapper>
