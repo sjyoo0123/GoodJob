@@ -194,4 +194,7 @@ update notice set status='비활성' where idx=#{idx}
 	<update id="noticeUpdate" parameterType="com.goodjob.notice.model.NoticeDTO">
 		update notice set subject=#{subject}, gender=#{gender}, min_age=#{min_age}, max_age=#{max_age}, grade=#{grade}, job=#{job}, service_type=#{service_type}, recruit=#{recruit}, period=#{period}, workday=#{workday}, starttime=#{starttime}, finishtime=#{finishtime}, pay_category=#{pay_category}, pay_hour=#{pay_hour}, pay_month=#{pay_month}, worktime=#{worktime}, local1=#{local1}, local2=#{local2}, local3=#{local3}, detail_addr=#{detail_addr}, x=#{x}, y=#{y}, com_name=#{com_name}, manager_name=#{manager_name}, manager_tel=#{manager_tel}, manager_email=#{manager_email}, content=#{content} where idx=#{idx}
 	</update>
+	<select id="comNoticeSubject" parameterType="Integer" resultType="com.goodjob.notice.model.NoticeDTO">
+		select idx,subject from notice where status='활성' and com_idx=#{idx} order by idx desc
+	</select>
   </mapper>

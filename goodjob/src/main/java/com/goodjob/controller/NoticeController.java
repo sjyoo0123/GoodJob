@@ -198,7 +198,6 @@ public NoticeController() {
 		System.out.println(cdto.toString());
 		ModelAndView mav=new ModelAndView();
 		int atoNum =  adao.apNorButtonHide(nidx, sidx);
-		System.out.println(atoNum);
 		String filepath=totalFileDao.noticeFile(nidx);
 		mav.addObject("filepath", filepath);
 		mav.addObject("cdto", cdto);
@@ -434,9 +433,9 @@ public NoticeController() {
 	}
 	@RequestMapping(value="/usedVipCon.do",method=RequestMethod.POST)
 	@ResponseBody
-	public Plan_Used_VipDTO usedVipCon(int idx) {
-		Plan_Used_VipDTO dto = plandao.usedVipCon(idx);
-		return dto;
+	public List<Plan_Used_VipDTO> usedVipCon(int idx) {
+		List<Plan_Used_VipDTO> list = plandao.usedVipCon(idx);
+		return list;
 	}
 
 }

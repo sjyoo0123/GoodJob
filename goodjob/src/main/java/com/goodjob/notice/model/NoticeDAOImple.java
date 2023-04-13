@@ -213,4 +213,9 @@ public int manNoticeCnt() {
 		return result;
 	}
 
+	@Override
+	public List<NoticeDTO> comNoticeSubject(int idx) {
+		List<NoticeDTO> list=sqlMap.selectList("comNoticeSubject",idx);
+		return list;
+	}
 }
