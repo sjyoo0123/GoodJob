@@ -50,10 +50,12 @@ update notice set status='비활성' where idx=#{idx}
 </update>
 
 <select id="manNoticeStatusList" resultType="com.goodjob.notice.model.NoticeDTO" parameterType="Map">
-	        select * from(
+	 	        select * from(
         select  rownum as rnum, a.* from(
-        select  *  from notice
-       	where status='활성화'
+        select  *
+        from  notice 
+        where status in ('활성','비활성')
+        order by idx asc
         )a
         ) b
         where rnum<![CDATA[>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
@@ -76,22 +78,22 @@ update notice set status='비활성' where idx=#{idx}
 	where status='대기'
 </select>
 <select id="manNoticeAcceptContent" parameterType="Integer" resultType="com.goodjob.notice.model.NoticeDTO">
-	select * from notice where idx=#{idx}
+	select * from notice where idx=#{idx} and status='대기'
 </select>
 <update id="manNoticeAcceptContent_Ok" parameterType="com.goodjob.notice.model.NoticeDTO">
 	update notice set
 	status = '활성'
-	where idx=${idx}
+	where idx=#{idx}
 </update>
 <update id="manNoticeAcceptContent_No" parameterType="com.goodjob.notice.model.NoticeDTO">
 	update notice set
 	status = '거부'
-	where idx=${idx}
+	where idx=#{idx}
 </update>
 <update	 id="manNoticeDel" parameterType="com.goodjob.notice.model.NoticeDTO">
 	update notice set
 	status = '비활성'
-	where idx=${idx}
+	where idx=#{idx}
 </update>
 <select id="manNoticeDelList" parameterType="Map" resultType="com.goodjob.notice.model.NoticeDTO">
 	select * from(
@@ -182,6 +184,54 @@ update notice set status='비활성' where idx=#{idx}
 		where rnum <![CDATA[>=]]>#{start}
 		and rnum<![CDATA[<=]]>#{end}
 	</select>
+	<select id="manNoticeTotalCnt" resultType="Integer">
+	select count(*) from notice
+	where status in ('활성','비활성')
+</select>
+<update id="manNoticeUpdate_Ok" parameterType="com.goodjob.notice.model.NoticeDTO">
+	update notice set
+	status='활성'
+	where idx=#{idx}
+</update>
+<update id="manNoticeUpdate_No" parameterType="com.goodjob.notice.model.NoticeDTO">
+	update notice set
+	status='비활성'
+	where idx=#{idx}
+</update>
+<select id="manNoticeSearch" resultType="com.goodjob.notice.model.NoticeDTO" parameterType="Map">
+	select * from(
+	select rownum as rnum, a.* from(
+	select * from notice
+	where
+	<if test="category == 'com_name'">
+	com_name like '%'||#{keyword}||'%'
+	</if>
+	<if test="category == 'subject'">
+	subject like '%'||#{keyword}||'%'
+	</if>
+	<if test="category == 'subjectContent'">
+	subject like '%'||#{keyword}||'%'
+	and content like '%'||#{keyword}||'%'
+	</if>
+	order by idx asc
+	)a
+	)b
+	where rnum <![CDATA[>=]]> #{start} and rnum <![CDATA[<=]]> #{end}
+</select>
+<select id="manNoticeSearchCnt" resultType="Integer" parameterType="Map">
+	select count(*) from notice
+	where
+	<if test="category == 'com_name'">
+	com_name like '%'||#{keyword}||'%'
+	</if>
+	<if test="category == 'subject'">
+	subject like '%'||#{keyword}||'%'
+	</if>
+	<if test="category == 'subjectContent'">
+	subject like '%'||#{keyword}||'%'
+	and content like '%'||#{keyword}||'%'
+	</if>
+</select>
 	<select id="mainPlan" parameterType="Map" resultType="Map">
 	SELECT n.*, f."FILE"
 	FROM notice n
