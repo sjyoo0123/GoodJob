@@ -71,6 +71,8 @@
 <body>
 	<h1>이력서</h1>
 	<hr>
+	<div class = "container">
+<%@include file="/WEB-INF/views/header.jsp"%>
 	<div>
 		<table>
 			<c:if test="${empty dto }">
@@ -194,10 +196,12 @@
 	</div>
 
 	<hr>
-
+	
 	<div>
 		<h2>자기소개서</h2>
 		<textarea rows="30" cols="50" name="content">${dto.content }</textarea>
 	</div>
+	<%@include file="/WEB-INF/views/footer.jsp"%>
+</div>
 </body>
 </html>

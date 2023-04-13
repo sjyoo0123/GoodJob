@@ -26,14 +26,24 @@ public class ReviewController {
 	
 	/**키워드 리스트 조회*/
 	@RequestMapping(value = "/review.do", method = RequestMethod.GET)
-	public ModelAndView reivewListForm() {
+	public ModelAndView reivewListForm(HttpSession session, @RequestParam(value="cp",defaultValue="1")int cp) {
 		ModelAndView mav = new ModelAndView();
+		int idx = (int) session.getAttribute("sidx");
+		int totalCnt=reviewDao.reviewTotalCnt(idx);
+		System.out.println(totalCnt);
+		int listSize=5;
+		int pageSize=5;
+		String pageStr=com.goodjob.page.module.PageModule.makePage("review.do", totalCnt, listSize, pageSize, cp);
+		
+		
+		
 		List<ReviewDTO> list = reviewDao.reviewList();
 		Map map =new HashMap();
 		for(int i=0; i<list.size();i++) {
-			ResumeDTO dto =  reviewDao.reviewList2(list.get(i).getCom_name());
+			ResumeDTO dto =  reviewDao.reviewList2(list.get(i).getCom_name(),idx, cp, listSize);
 			map.put(list.get(i).getCom_name(), dto);
 		}
+		mav.addObject("pageStr", pageStr);
 		mav.addObject("map", map);
 		mav.addObject("list", list);
 		mav.setViewName("review/reviewList");
@@ -97,7 +107,7 @@ public class ReviewController {
 		List<ReviewDTO> list = reviewDao.myReview(idx);
 		
 		for(int i=0; i<list.size();i++) {
-			ResumeDTO dto =  reviewDao.reviewList2(list.get(i).getCom_name());
+			ResumeDTO dto =  reviewDao.myReviewList(list.get(i).getCom_name());
 			dto.setWritedate(list.get(i).getWritedate());
 			dto.setAge(list.get(i).getReview_num());
 			map.put(list.get(i).getCom_name(), dto);
