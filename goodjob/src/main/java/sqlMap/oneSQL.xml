@@ -21,7 +21,7 @@
   	<update id="manOneAnswer" parameterType="com.goodjob.one_one.model.One_OneDTO">
   		update one_one set
   		subject=#{subject},
-  		content=#{content}||'ABCD',
+  		content=#{content},
   		"CHECK"=1
   		where idx=#{idx}
   	</update>
@@ -29,14 +29,14 @@
 		resultType="com.goodjob.one_one.model.One_OneDTO" parameterType="Map">
 		select * from (select rownum as rnum,a. * from (
 		select * from one_one where member_idx=#{idx} and status='활성'
-		ORDER BY idx)a)
+		ORDER BY idx desc)a)
 		where rnum <![CDATA[>=]]>
 		#{start} and rnum <![CDATA[<=]]>
 		#{end}
 	</select>
 	<select id="userOneCnt" resultType="Integer"
 		parameterType="Integer">
-		select count(*) from one_one where idx=#{idx} and
+		select count(*) from one_one where member_idx=#{idx} and
 		status='활성'
 	</select>
 	<insert id="userOneWrite" parameterType="com.goodjob.one_one.model.One_OneDTO" >
@@ -44,8 +44,8 @@
 </insert>
 	<update id="userOneReWrite" parameterType="com.goodjob.one_one.model.One_OneDTO">
 	update one_one set
-  	subject=#{subject},
   	content=#{content},
+  	"CHECK"=0
  	where idx=#{idx}
 	</update>
   	<select id="manOneSearch" resultType="com.goodjob.one_one.model.One_OneDTO" parameterType="Map">
@@ -56,5 +56,5 @@
   		order by idx desc)a)b
   		where rnum <![CDATA[>=]]>#{start} and rnum<![CDATA[<=]]> #{end}
   	</select>
- 
+
   </mapper>

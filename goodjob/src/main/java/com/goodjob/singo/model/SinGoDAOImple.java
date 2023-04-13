@@ -20,6 +20,6 @@ public class SinGoDAOImple implements SinGoDAO {
 public int sinGoWrite(SinGoDTO dto) {
 	// TODO Auto-generated method stub
 		
-	return sqlMap.insert("sinGoWrite");
+	return sqlMap.insert("sinGoWrite",dto);
 }
 }

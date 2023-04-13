@@ -199,6 +199,15 @@ public int manNoticeCnt() {
 		return map;
 	}
 	@Override
+	public List<Map<String, Object>> mainPlan(int one, int two, int three) {
+		// TODO Auto-generated method stub
+		Map<String,Integer>map=new HashMap<String, Integer>();
+		map.put("one", one);
+		map.put("two", two);
+		map.put("three", three);
+		List<Map<String, Object>>list= sqlMap.selectList("mainPlan", map);
+		return list;
+		}
 	public int noticeUpdate(NoticeDTO dto) {
 		int result=sqlMap.update("noticeUpdate", dto);
 		return result;

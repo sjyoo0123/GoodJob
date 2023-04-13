@@ -45,5 +45,11 @@ public class CompanyMemberDAOImple implements CompanyMemberDAO {
 		CompanyMemberDTO dto=sqlMap.selectOne("comInfo", idx);
 		return dto;
 	}
+	@Override
+	public int comUpdate(CompanyMemberDTO dto) {
+		// TODO Auto-generated method stub
+		int count =sqlMap.update("comUpdate", dto);
+		return count;
+	}
 
 }

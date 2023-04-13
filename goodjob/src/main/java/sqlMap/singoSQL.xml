@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.goodjob.singo">
-<insert id="sinGoWrite">
-insert into singo values(singo_idx.nextval,#{notice_idx},#{normal_idx},#{subject},#{category},#{singo_type},#{singo_content},sysdate,0,'활성')
+<insert id="sinGoWrite" parameterType="com.goodjob.singo.model.SinGoDTO">
+insert into singo values(singo_idx.nextval,#{member_idx},#{subject},#{category},#{singo_type},#{singo_content},sysdate,0,'활성')
 </insert>
 </mapper>

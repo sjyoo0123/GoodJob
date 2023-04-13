@@ -13,35 +13,21 @@
 </head>
 <body>
 	<div class="container">
-		<%@include file="/WEB-INF/views/header.jsp"%>
+	 <%@include file="/WEB-INF/views/header.jsp"%> 
 		<section>
 			<article>
-			<div class="row">
-					<c:if test="${empty dto}">
-				삭제된 게시글 입니다
-				</c:if>
-					${dto.subject}
-					<c:forEach var="arr" items="${content}">
-						<c:if test="${arr.startsWith('답변:')}">
-							<div class="text-start col-12">${arr}</div>
-						</c:if>
-						<c:if test="${arr.startsWith('질문:')}">
-							<div class="text-end col-12">${arr}</div>
-						</c:if>
-					</c:forEach>
-					<c:if test="${dto.check ==1}">
-						<form action="userOneReWrite.do" method="post">
-							추가답변
-							<textarea rows="" cols="" name="plusContent"></textarea>
-							<input type="hidden" name="idx" value="${dto.idx}"> <input
-								type="hidden" name="content" value="${dto.content}"> <input
-								type="submit" name="전송">
-						</form>
-					</c:if>
-				</div>
+			<h2>비밀번호 변경</h2>
+				<form action="pwdUpdate.do" method="post">
+				<div class="form-floating">
+ 			 <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+  				<label for="floatingPassword">비밀번호</label>
+					</div>
+					<input type="submit" value="변경">
+					<input type="hidden" value="${idx}" name="idx">
+				</form>
 			</article>
 		</section>
-		<%@include file="/WEB-INF/views/footer.jsp"%> 
+	 <%@include file="/WEB-INF/views/footer.jsp"%> 
 	</div>
 </body>
 </html>

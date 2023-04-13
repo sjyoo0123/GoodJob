@@ -185,6 +185,7 @@ public NoticeController() {
 		}if(workday.charAt(7)=='1') {
 			yy+="무관";
 		}
+
 		String scategory = session.getAttribute("scategory") != null ? (String) session.getAttribute("scategory") : "";
 		int sidx = session.getAttribute("sidx") != null ? (int) session.getAttribute("sidx") : 0;
 		String starttime1=dto.getStarttime()%100==0?"00":dto.getStarttime()%100+"";
@@ -194,6 +195,7 @@ public NoticeController() {
 		String startendtime=starttime+" ~ "+endtime;
 		int com_idx=dto.getCom_idx();
 		CompanyMemberDTO cdto=cdao.comInfo(com_idx);
+		System.out.println(cdto.toString());
 		ModelAndView mav=new ModelAndView();
 		int atoNum =  adao.apNorButtonHide(nidx, sidx);
 		String filepath=totalFileDao.noticeFile(nidx);

@@ -16,11 +16,7 @@
 	width: 960px;
 }
 </style>
-<script>
-let textareaValue = document.getElementById('myTextarea').value; // textarea의 값 가져오기
-let replacedValue = textareaValue.replace(/\n/g, '<br>'); // 개행 문자열을 <br>로 대체하기
 
-</script>
 <body>
 <div class="container">
 <%@include file="/WEB-INF/views/header.jsp" %>
@@ -48,9 +44,7 @@ let replacedValue = textareaValue.replace(/\n/g, '<br>'); // 개행 문자열을
 				</tr>
 				<tr>
 					<td>
-						<textarea cols="50" rows="20" name="content" id=>
-							${dto.content}
-						</textarea>
+						<textarea cols="50" rows="20" name="content">${dto.content}&#10;---------------------------------------&#10;답변:</textarea>
 					</td>
 				</tr>
 				<tr>
