@@ -4,5 +4,7 @@ public interface Payment_LogDAO {
 
 
 	public String paymentCallUid();
+	
+	public int manPaymentAdd(Payment_LogDTO dto);
 
 }

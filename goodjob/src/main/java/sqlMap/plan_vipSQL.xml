@@ -60,4 +60,9 @@
  	<select id="planInfoVipPeriod" parameterType="Map" resultType="com.goodjob.plan_vip.model.Plan_VipDTO">
  		select plan.idx,plan.plan_name,plan.plan_price,plan_vip.vip_floor,plan_vip.plan_period from plan,plan_vip where plan.idx=plan_vip.plan_idx and plan.plan_type='VIP' and plan.status='활성' and plan_vip.vip_floor=#{floor} and plan_vip.plan_period=#{period}
  	</select>
+ 	<select id="manPlanPayment_vip" resultType="com.goodjob.plan_vip.model.Plan_VipDTO">
+ 			select * from plan,plan_vip
+ 		where plan.idx=plan_vip.plan_idx
+ 		and plan.idx=#{idx}
+ 	</select>
  </mapper>

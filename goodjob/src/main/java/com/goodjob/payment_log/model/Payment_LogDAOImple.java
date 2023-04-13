@@ -32,5 +32,13 @@ public class Payment_LogDAOImple implements Payment_LogDAO {
 		str=todaystr+str;
 		return str;
 	}
+	
+	@Override
+	public int manPaymentAdd(Payment_LogDTO dto) {
+		
+		int count=sqlMap.insert("manPaymentAdd", dto);
+		
+		return count;
+	}
 
 }

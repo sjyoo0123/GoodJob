@@ -33,4 +33,25 @@ public List<NoticeDTO> comUsedVIP(int idx, int cp, int ls) {
 	List<NoticeDTO> lists=sqlMap.selectList("comUsedVIP",map);
 	return lists;
 }
+@Override
+public int manPlanUsedAdd_vip(Map map) {
+	
+	int result=sqlMap.insert("manPlanUsedAdd_vip", map);
+	
+	return result;
+}
+@Override
+public int manPlanUsedIdx_Currval() {
+	
+	int result=sqlMap.selectOne("manPlanUsedIdx_Currval");
+	
+	return result;
+}
+@Override
+public int manPlanUsedAdd_two(Map map) {
+
+	int result=sqlMap.selectOne("manPlanUsedAdd_two", map);
+	
+	return result;
+}
 }

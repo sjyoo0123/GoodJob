@@ -120,4 +120,11 @@ public class MemberDAOImple implements MemberDAO {
 		int count =sqlMap.update("updateStatus",dto);
 		return count;
 	}
+	@Override
+	public MemberDTO selectIdx(int idx) {
+		
+		MemberDTO dto=sqlMap.selectOne("selectIdx", idx);
+		
+		return dto;
+	}
 }

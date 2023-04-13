@@ -220,4 +220,23 @@ public int manNoticeCnt() {
 		
 		return count;
 	}
+	
+	@Override
+	public List<NoticeDTO> manNoticeSearch(Map map) {
+		
+		
+		List<NoticeDTO> lists=sqlMap.selectList("manNoticeSearch", map);
+		
+		return lists;
+	}
+	
+	@Override
+	public int manNoticeSearchCnt(Map map) {
+		
+		int result=sqlMap.selectOne("manNoticeSearchCnt", map);
+		
+		result=result==0?1:result;
+		
+		return result;
+	}
 }

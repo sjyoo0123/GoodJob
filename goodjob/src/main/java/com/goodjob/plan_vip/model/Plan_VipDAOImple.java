@@ -95,4 +95,12 @@ public class Plan_VipDAOImple implements Plan_VipDAO {
 		List<Plan_VipDTO> list=sqlMap.selectList("planInfoVipPeriod",map);
 		return list;
 	}
+	
+	@Override
+	public Plan_VipDTO manPlanPayment_vip(int idx) {
+		
+		Plan_VipDTO dto=sqlMap.selectOne("manPlanPayment_vip",idx);
+		
+		return dto;
+	}
 }

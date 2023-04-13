@@ -8,4 +8,5 @@ public interface MemberDAO {
 	public int emailCheck(String email);
 	public MemberDTO resumeWriteForm();
 	public int updateStatus(MemberDTO dto);
+	public MemberDTO selectIdx(int idx);
 }

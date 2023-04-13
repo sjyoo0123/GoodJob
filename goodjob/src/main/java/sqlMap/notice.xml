@@ -198,4 +198,38 @@ update notice set status='비활성' where idx=#{idx}
 	status='비활성'
 	where idx=#{idx}
 </update>
+<select id="manNoticeSearch" resultType="com.goodjob.notice.model.NoticeDTO" parameterType="Map">
+	select * from(
+	select rownum as rnum, a.* from(
+	select * from notice
+	where
+	<if test="category == 'com_name'">
+	com_name like '%'||#{keyword}||'%'
+	</if>
+	<if test="category == 'subject'">
+	subject like '%'||#{keyword}||'%'
+	</if>
+	<if test="category == 'subjectContent'">
+	subject like '%'||#{keyword}||'%'
+	and content like '%'||#{keyword}||'%'
+	</if>
+	order by idx asc
+	)a
+	)b
+	where rnum <![CDATA[>=]]> #{start} and rnum <![CDATA[<=]]> #{end}
+</select>
+<select id="manNoticeSearchCnt" resultType="Integer" parameterType="Map">
+	select count(*) from notice
+	where
+	<if test="category == 'com_name'">
+	com_name like '%'||#{keyword}||'%'
+	</if>
+	<if test="category == 'subject'">
+	subject like '%'||#{keyword}||'%'
+	</if>
+	<if test="category == 'subjectContent'">
+	subject like '%'||#{keyword}||'%'
+	and content like '%'||#{keyword}||'%'
+	</if>
+</select>
   </mapper>

@@ -22,4 +22,6 @@ public interface Plan_VipDAO {
 	
 	public List<Plan_VipDTO> planInfoVip(String floor);
 	public List<Plan_VipDTO> planInfoVipPeriod(int period,String floor);
+	
+	public Plan_VipDTO manPlanPayment_vip(int idx);
 }

@@ -456,4 +456,44 @@ public NoticeController() {
 		
 		return mav;
 	}
+	/**관리자 공고 페이지 검색하기*/
+	@RequestMapping("/manNoticeSearch.do")
+	public ModelAndView manNoticeSearch(
+			@RequestParam(value="cp", defaultValue = "1")int cp,
+			@RequestParam(value="category", defaultValue = "")String category,
+			@RequestParam(value="search", defaultValue = "")String search
+			) {
+		
+	
+		
+		Map map=new HashMap();
+
+		map.put("category", category);
+		map.put("keyword", search);
+		
+		int pazeSize=5;
+		int listSize=5;
+		int searchCnt=ndao.manNoticeSearchCnt(map);
+		
+		int start=(cp-1)*listSize+1;
+		int end=cp*listSize;
+		
+		map.put("start", start);
+		map.put("end", end);
+		
+		String pageStr=com.goodjob.page.module.PageModule.makePage("manNoticeSearch.do", searchCnt, listSize, pazeSize, cp, category, search);
+		
+		ModelAndView mav=new ModelAndView();
+	
+	
+		List<NoticeDTO> lists=ndao.manNoticeSearch(map);
+	
+		mav.addObject("lists", lists);
+		mav.addObject("pageStr", pageStr);
+		
+		mav.setViewName("manNotice/manNoticeSearch");
+		
+		return mav;
+		
+	}
 }
