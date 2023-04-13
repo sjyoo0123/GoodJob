@@ -2,6 +2,7 @@ package com.goodjob.controller;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -11,17 +12,27 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.goodjob.member.model.MemberDAO;
+import com.goodjob.member.model.MemberDTO;
+
+
 
 @Controller
+@RequestMapping("/oauth")
 public class KakaoController {
+	
+	@Autowired
+	MemberDAO mdao;
 	String clientId="61dcf9dc3f066d3fdbf620ba80e181cd";
+	
+	@RequestMapping(value="/getToken.do",method = RequestMethod.GET)
 	public String kakaojoin(String code, HttpSession session) throws JsonMappingException, JsonProcessingException {
-	    System.out.println(code);
 	    RestTemplate restTemplate = new RestTemplate();
 
 	    String url = "https://kauth.kakao.com/oauth/token";
@@ -54,13 +65,23 @@ public class KakaoController {
 	    String nickname = rootNode.path("properties").path("nickname").asText();
 
 	    // Store user information in session or database
-	    session.setAttribute("kakaoId", kakaoId);
-	    session.setAttribute("email", email);
-	    session.setAttribute("nickname", nickname);
 
-	    return "redirect:/member/kakaojoin";
+	    System.out.println(email);
+	   MemberDTO dto= mdao.emailCheck(email);
+	   if(dto==null) {
+		    session.setAttribute("kakaoId", kakaoId);
+		    session.setAttribute("email", email);
+		    session.setAttribute("nickname", nickname);
+		    return "redirect:kakaojoin.do";
+	   }else {
+		   session.setAttribute("sidx", dto.getIdx());
+			session.setAttribute("sname", dto.getName());
+			session.setAttribute("scategory", dto.getUser_category());
+			session.setAttribute("status", dto.getStatus());
+			return "redirect:/index.do";
+	   }
 	}
-	@RequestMapping(value="/oauth/getToken.do",method = RequestMethod.POST)
+	@RequestMapping(value="/getToken.do",method = RequestMethod.POST)
 	public String login(String accessToken){
 		System.out.println(accessToken);
 		return "index"; 

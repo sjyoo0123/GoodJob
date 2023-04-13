@@ -98,8 +98,8 @@ public class MemberController {
 	@RequestMapping(value = "updateMember.do", method = RequestMethod.GET)
 	public ModelAndView updateMember(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		int idx = Integer.parseInt((String) session.getAttribute("sidx"));
-		String category = (String) session.getAttribute("scategory");
+		Integer idx=session.getAttribute("sidx")==null?0:(Integer)session.getAttribute("sidx");
+		String category=session.getAttribute("scategory")==null?"":(String)session.getAttribute("scategory");
 		if (category.equals("개인")) {
 			mav.addObject("dto", norDao.getNorMember(idx));
 		} else if (category.equals("기업")) {
@@ -112,14 +112,19 @@ public class MemberController {
 	@RequestMapping(value = "normalUpdate.do", method = RequestMethod.POST)
 	public ModelAndView normalUpdate(NormalMemberDTO dto) {
 		ModelAndView mav = new ModelAndView();
-		memDao.memberUpdate(dto);
+		System.out.println(dto.toString());
+		MemberDTO mdto=new MemberDTO(dto.getMember_idx(), "", dto.getPwd(), dto.getName(), "", dto.getTel(), dto.getAddr(), null, 0, "", "");
+		memDao.memberUpdate(mdto);
+		norDao.norUpdate(dto);
 		return mav;
 	}
 
 	@RequestMapping(value = "comUpdate.do", method = RequestMethod.POST)
 	public ModelAndView comUpdate(CompanyMemberDTO dto) {
 		ModelAndView mav = new ModelAndView();
-		memDao.memberUpdate(dto);
+		MemberDTO mdto=new MemberDTO(dto.getMember_idx(), "", dto.getPwd(), dto.getName(), "", dto.getTel(), dto.getAddr(), null, 0, "", "");
+		memDao.memberUpdate(mdto);
+		comDao.comUpdate(dto);
 		return mav;
 	}
 
@@ -220,7 +225,7 @@ public class MemberController {
 		if ((!id.equals("")) && (!id.equals(null))) {
 			return memDao.idCheck(id);
 		} else if ((!email.equals("")) && (!email.equals(null))) {
-			return memDao.emailCheck(email);
+			return memDao.emailCheck(email)==null?0:1;
 		} else {
 			return 0;
 		}

@@ -38,4 +38,10 @@ public class NormalMemberDAOImple implements NormalMemberDAO {
 		
 		return sqlMap.selectOne("resumeWriteForm1");
 	}
+	@Override
+	public int norUpdate(NormalMemberDTO dto) {
+		// TODO Auto-generated method stub
+		int count= sqlMap.update("norUpdate", dto);
+		return count;
+	}
 }

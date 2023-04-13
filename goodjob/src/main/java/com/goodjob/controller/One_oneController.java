@@ -161,8 +161,8 @@ public class One_oneController {
 			fc.copyInto(fcategory, file, req);
 			Map<String, String>map=new HashMap<String, String>();
 			map.put("category",fcategory);
-			map.put("file", file.getOriginalFilename());
-			map.put("table_name", "one_one");
+			map.put("file",fcategory+"/"+ file.getOriginalFilename());
+			map.put("table_name", fcategory);
 			fDao.manFileAdd(map);
 		}
 		return mav;
@@ -175,10 +175,6 @@ public class One_oneController {
 		if(dto.getContent()!=null) {
 			content=dto.getContent().split("\r\n---------------------------------------\r\n");
 		}
-		for(int i=0;i<content.length;i++) {
-			System.out.println(content[i]);
-		}
-		
 		mav.addObject("dto",dto);
 		mav.addObject("content",content);
 		mav.setViewName("one/userOneContent");

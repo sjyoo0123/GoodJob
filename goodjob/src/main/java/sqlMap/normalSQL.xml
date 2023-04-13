@@ -13,8 +13,7 @@
 		select * from member,normalmember where
 		member.idx=normalmember.member_idx and member.idx=#{idx}
 	</select>
-	<select id="resumeWriteForm1" resultType="com.goodjob.review.model.ReviewDTO">
-		select TRUNC((sysdate-birth)/365) as review_num, gender as status from member, normalmember where
-		member.idx=normalmember.member_idx and member.idx=1
-	</select>
+	<update id="norUpdate" parameterType="com.goodjob.normalmember.model.NormalMemberDTO">
+	update normalmember set birth=#{birth} ,gender=#{gender} where nor_idx=#{nor_idx}
+	</update>
 </mapper>

@@ -41,8 +41,8 @@ public class SinGoController {
 			fc.copyInto(fcategory, file, req);
 			Map<String, String>map=new HashMap<String, String>();
 			map.put("category",fcategory);
-			map.put("file", file.getOriginalFilename());
-			map.put("table_name", "singo");
+			map.put("file",fcategory+"/"+ file.getOriginalFilename());
+			map.put("table_name", fcategory);
 			fDao.manFileAdd(map);
 		}
 		

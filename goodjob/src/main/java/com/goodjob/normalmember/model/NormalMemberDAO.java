@@ -8,4 +8,6 @@ public interface NormalMemberDAO {
 	public NormalMemberDTO getNorMember(int idx);
 
 	public ReviewDTO resumeWriteForm1();
+	
+	public int norUpdate(NormalMemberDTO dto);
 }
