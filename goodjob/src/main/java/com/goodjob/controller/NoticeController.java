@@ -158,6 +158,7 @@ public NoticeController() {
 		
 		String pageStr=com.goodjob.page.module.PageModule.makePage("noticeComList.do", totalCnt, listSize, pageSize, cp);
 		List<NoticeDTO> lists=ndao.noticeComList(idx,cp,listSize,status1);
+		mav.addObject("status1", status1);
 		mav.addObject("pageStr", pageStr);
 		mav.addObject("lists", lists);
 		mav.setViewName("notice/noticeComList");
@@ -436,6 +437,12 @@ public NoticeController() {
 	public List<Plan_Used_VipDTO> usedVipCon(int idx) {
 		List<Plan_Used_VipDTO> list = plandao.usedVipCon(idx);
 		return list;
+	}
+	@RequestMapping(value="/refUp.do",method=RequestMethod.POST)
+	@ResponseBody
+	public int refUp(int idx) {
+		int count=ndao.refUp(idx);
+		return count;
 	}
 
 }

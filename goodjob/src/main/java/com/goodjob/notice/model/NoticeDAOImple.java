@@ -218,4 +218,9 @@ public int manNoticeCnt() {
 		List<NoticeDTO> list=sqlMap.selectList("comNoticeSubject",idx);
 		return list;
 	}
+	@Override
+	public int refUp(int idx) {
+		int count=sqlMap.update("refUp",idx);
+		return count;
+	}
 }

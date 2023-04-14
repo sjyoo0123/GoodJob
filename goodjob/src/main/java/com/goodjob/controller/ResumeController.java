@@ -205,7 +205,6 @@ public class ResumeController {
 	public ModelAndView resumeContent(@RequestParam(value="idx")int ridx,HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		ResumeDTO rto = resumeDao.resumeContent(ridx);
-		int ridx2 =  rto.getIdx();
 		int normalidx=rto.getMember_idx();
 		String scategory_resume = session.getAttribute("scategory") != null ? (String) session.getAttribute("scategory") : "";
 		int sidx_resume = session.getAttribute("sidx") != null ? (int) session.getAttribute("sidx") : 0;
@@ -244,7 +243,7 @@ public class ResumeController {
 			yy += "무관";
 		}
 		if (rto.getCareer_check().equals("경력")) {
-			CareerDTO cto = resumeDao.resumeCarrerDown(ridx2);
+			CareerDTO cto = resumeDao.resumeCarrerDown(ridx);
 			mav.addObject("cto", cto);
 		}
 		mav.addObject("yy", yy);
