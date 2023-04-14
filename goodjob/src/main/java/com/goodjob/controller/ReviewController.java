@@ -78,16 +78,6 @@ public class ReviewController {
 		mav.setViewName("review/reviewMsg");
 		return mav;
 	}
-	/**인재정보*/
-	@RequestMapping(value = "/injaeList.do", method = RequestMethod.GET)
-	public ModelAndView injaeList(HttpSession session, ReviewDTO dto) {
-		ModelAndView mav = new ModelAndView();
-
-		List<ReviewDTO> list = reviewDao.injaeList();
-		mav.addObject("list", list);
-		mav.setViewName("injaeInfo/injaeList");
-		return mav;
-	}
 	/**나의 후기*/
 	@RequestMapping(value = "myReview.do", method = RequestMethod.GET)
 	public ModelAndView myReview(HttpSession session) {

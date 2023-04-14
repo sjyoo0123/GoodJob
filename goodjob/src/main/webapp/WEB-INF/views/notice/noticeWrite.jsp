@@ -110,8 +110,7 @@ $(document).ready(function() {
 <body>
 	<h1>공고 등록</h1>
 	<form action="noticeWrite.do" method="post" id="writeForm" enctype="multipart/form-data">
-<h1>요금제<input type="text" name="plan_idx" value="1"></h1>
-<h1>기업idx<input type="text" name="com_idx" value="7"></h1>
+<h1>기업idx<input type="text" name="com_idx" value="${idx}" id="com_idx"></h1>
 	<div class="container px-4 px-lg-5">
 	<div class="row gx-4 gx-lg-5 justify-content-center">
 	<div class="col-md-12 col-lg-9 col-xl-8">
@@ -288,7 +287,7 @@ $(document).ready(function() {
 						for="pay_category1">월급</label> <input
 						type="radio" value="협의" class="btn-check" id="pay_category2" name="pay_category"
 						autocomplete="off"><label class="btn btn-outline-primary"
-						for="pay_category2">협의</label><br><div id="hourworktime" style="display: none;"><input type="text" name="pay" value="0">원</div> <div id="weekworktime" style="display: none;"><input type="text" name="pay" value="0">원 1주 근무시간<input type="number" name="worktime" value="0"></div></td>
+						for="pay_category2">협의</label><br><div id="hourworktime" style="display: none;"><input type="text" name="pay_hour" value="0">원</div> <div id="weekworktime" style="display: none;"><input type="text" name="pay_hour1" value="0">원 1주 근무시간<input type="number" name="worktime" value="0"></div></td>
 				</tr>
 			</table>
 		</div>
@@ -419,7 +418,15 @@ $(document).ready(function() {
 </div>
 			<textarea rows="30" cols="50" name="content"></textarea>
 		</div>
-		<button type="submit" class="btn btn-primary btn-icon-split btn-lg">
+		</div>
+		<hr class="my-4">
+		<div class="card bg-primary bg-opacity-10">
+								<div class="card-body">
+			<h2 class="card-title">요금제 정보</h2>
+			<input type="hidden" name="plan_idx" id="plan_idx"><div id="planUse"></div>
+		</div>
+		</div>
+		<button type="submit" class="btn btn-primary btn-icon-split btn-lg col-12">
     <span class="icon text-white-50">
         <i class="bi bi-check-lg"></i>
     </span>
@@ -428,8 +435,42 @@ $(document).ready(function() {
 		</div>
 		</div>
 		</div>
-		</div>
 	</form>
-
+<script>
+$(document).ready(function() {
+    $.ajax({
+        url: "usedVipCount.do",
+        method: "POST",
+        data: {idx: $('#com_idx').val()},
+        success: function(data) {
+        	if (data === 0) {
+        		 $("#planUse").append("<h5>사용중인 요금제가 없습니다.(무료요금제만 사용가능)</h5>");
+        		 $('#plan_idx').val(13);
+        	    } else {
+        	    	$.ajax({
+                        url: "usedVipCon.do",
+                        method: "POST",
+                        data: {idx: $('#com_idx').val()},
+                        success: function(data2) {
+        					var select = $("<select>").addClass("form-control").attr("id", "planType");
+        					select.append("<option selected disabled>요금제를 선택해주세요.</option>");
+                        	for (var i = 0; i < data2.length; i++) {
+                        		 var planEndDate = new Date(data2[i].plan_end);
+                                 var planEndDateStr = planEndDate.getFullYear() + "년 " + (planEndDate.getMonth()+1) + "월 " + planEndDate.getDate() + "일";
+                        		var option = $("<option>").val(data2[i].plan_idx).text(data2[i].plan_type+" ("+planEndDateStr+"까지) 잔여 "+data2[i].idx+"일");
+        						select.append(option);
+                            }
+                        	$("#planUse").append(select);
+                        	$("#planType").on("change", function() {
+                                var planIdx = $(this).val();
+                                $("#plan_idx").val(planIdx);
+                            });
+                        }
+                    });
+        	    }
+        }
+    });
+});
+</script>
 </body>
 </html>

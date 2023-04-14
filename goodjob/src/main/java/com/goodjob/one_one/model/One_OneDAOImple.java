@@ -88,7 +88,6 @@ public class One_OneDAOImple implements One_OneDAO {
 		map.put("idx",idx);
 		map.put("start", start);
 		map.put("end", end);
-		
 		return sqlMap.selectList("userOneList", map);
 	}
 	@Override
@@ -107,6 +106,10 @@ public class One_OneDAOImple implements One_OneDAO {
 		return sqlMap.update("userOneReWrite", dto);
 	}
 	
-
+@Override
+public int userOneTotalCnt(int idx) {
+	// TODO Auto-generated method stub
+	return sqlMap.selectOne("userOneCnt",idx);
+}
 	
 }

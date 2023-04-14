@@ -5,8 +5,7 @@ import java.sql.Date;
 public class SinGoDTO {
 
 	private int idx;
-	private int notice_idx;
-	private int normal_idx;
+	private int member_idx;
 	private String subject;
 	private String category;
 	private String singo_type;
@@ -17,12 +16,11 @@ public class SinGoDTO {
 	public SinGoDTO() {
 		super();
 	}
-	public SinGoDTO(int idx, int notice_idx, int normal_idx, String subject, String category, String singo_type,
+	public SinGoDTO(int idx, int member_idx, String subject, String category, String singo_type,
 			String singo_content, Date singo_date, int check, String status) {
 		super();
 		this.idx = idx;
-		this.notice_idx = notice_idx;
-		this.normal_idx = normal_idx;
+		this.member_idx = member_idx;
 		this.subject = subject;
 		this.category = category;
 		this.singo_type = singo_type;
@@ -37,17 +35,12 @@ public class SinGoDTO {
 	public void setIdx(int idx) {
 		this.idx = idx;
 	}
-	public int getNotice_idx() {
-		return notice_idx;
+
+	public int getMember_idx() {
+		return member_idx;
 	}
-	public void setNotice_idx(int notice_idx) {
-		this.notice_idx = notice_idx;
-	}
-	public int getNormal_idx() {
-		return normal_idx;
-	}
-	public void setNormal_idx(int normal_idx) {
-		this.normal_idx = normal_idx;
+	public void setMember_idx(int member_idx) {
+		this.member_idx = member_idx;
 	}
 	public String getSubject() {
 		return subject;
@@ -93,7 +86,7 @@ public class SinGoDTO {
 	}
 	@Override
 	public String toString() {
-		return "SingoDTO [idx=" + idx + ", notice_idx=" + notice_idx + ", normal_idx=" + normal_idx + ", subject="
+		return "SingoDTO [idx=" + idx + ", member_idx=" + member_idx +  ", subject="
 				+ subject + ", category=" + category + ", singo_type=" + singo_type + ", singo_content=" + singo_content
 				+ ", singo_date=" + singo_date + ", check=" + check + ", status=" + status + "]";
 	}

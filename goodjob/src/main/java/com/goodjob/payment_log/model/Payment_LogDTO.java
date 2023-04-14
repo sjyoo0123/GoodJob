@@ -8,7 +8,8 @@ public class Payment_LogDTO {
 	private int member_idx;
 	private String name;
 	private int price;
-	private Date patdate;
+	
+	private Date paydate;
 	private String imp_uid;
 	private String suc_check;
 	public Payment_LogDTO() {
@@ -21,7 +22,7 @@ public class Payment_LogDTO {
 		this.member_idx = member_idx;
 		this.name = name;
 		this.price = price;
-		this.patdate = patdate;
+		this.paydate = patdate;
 		this.imp_uid = imp_uid;
 		this.suc_check = suc_check;
 	}
@@ -49,11 +50,12 @@ public class Payment_LogDTO {
 	public void setPrice(int price) {
 		this.price = price;
 	}
-	public Date getPatdate() {
-		return patdate;
+	
+	public Date getPaydate() {
+		return paydate;
 	}
-	public void setPatdate(Date patdate) {
-		this.patdate = patdate;
+	public void setPaydate(Date paydate) {
+		this.paydate = paydate;
 	}
 	public String getImp_uid() {
 		return imp_uid;

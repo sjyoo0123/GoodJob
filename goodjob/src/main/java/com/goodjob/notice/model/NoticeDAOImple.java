@@ -198,5 +198,64 @@ public int manNoticeCnt() {
 		map.put("job", job);
 		return map;
 	}
+	@Override
+	public List<Map<String, Object>> mainPlan(int one, int two, int three) {
+		// TODO Auto-generated method stub
+		Map<String,Integer>map=new HashMap<String, Integer>();
+		map.put("one", one);
+		map.put("two", two);
+		map.put("three", three);
+		List<Map<String, Object>>list= sqlMap.selectList("mainPlan", map);
+		return list;
+		}
+	public int noticeUpdate(NoticeDTO dto) {
+		int result=sqlMap.update("noticeUpdate", dto);
+		return result;
+	}
 
+	@Override
+	public int manNoticeTotalCnt() {
+		
+		int count=sqlMap.selectOne("manNoticeTotalCnt");
+		
+		return count;
+	}
+	@Override
+	public int manNoticeUpdate_No(int idx) {
+		
+		int count=sqlMap.update("manNoticeUpdate_No", idx);
+		
+		return count;
+	}
+	@Override
+	public int manNoticeUpdate_Ok(int idx) {
+		
+		int count=sqlMap.update("manNoticeUpdate_Ok", idx);
+		
+		return count;
+	}
+	
+	@Override
+	public List<NoticeDTO> manNoticeSearch(Map map) {
+		
+		
+		List<NoticeDTO> lists=sqlMap.selectList("manNoticeSearch", map);
+		
+		return lists;
+	}
+	
+	@Override
+	public int manNoticeSearchCnt(Map map) {
+		
+		int result=sqlMap.selectOne("manNoticeSearchCnt", map);
+		
+		result=result==0?1:result;
+		
+		return result;
+	}
+	public List<NoticeDTO> comNoticeSubject(int idx) {
+		List<NoticeDTO> list=sqlMap.selectList("comNoticeSubject",idx);
+		return list;
+
+	}
 }

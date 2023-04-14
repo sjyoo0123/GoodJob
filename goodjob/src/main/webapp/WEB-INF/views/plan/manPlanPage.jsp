@@ -53,12 +53,12 @@
 								<td>
 									<div class="form-check">
 										<input type="radio" name="plan_type" id="plan_up"
-											class="form-check-input" value="up요금제"> <label for="plan_up"
+											class="form-check-input" value="Up"> <label for="plan_up"
 											class="form-check-label"> up 요금제 </label>
 									</div>
 									<div class="form-check">
 										<input type="radio" name="plan_type" id="plan_vip"
-											class="form-check-input" value="vip요금제"> <label for="plan_vip"
+											class="form-check-input" value="Vip"> <label for="plan_vip"
 											class="form-check-label"> vip 요금제 </label>
 									</div>
 								</td>

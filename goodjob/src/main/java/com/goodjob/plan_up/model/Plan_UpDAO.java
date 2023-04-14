@@ -24,4 +24,8 @@ public interface Plan_UpDAO {
 
 	public List<Plan_UpDTO> planInfoUp();
 	public List<Plan_UpDTO> planInfoUpIdx(int count);
+	
+	public Plan_UpDTO manPlanSelect(int idx);
+	
+	public Plan_UpDTO manPlanPayment_up(int idx);
 }

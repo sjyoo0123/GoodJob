@@ -7,7 +7,6 @@ public class AjaxPageModule {
 	      if(totalCnt%listSize==0)totalPage--;
 	      int userGroup=cp/pageSize;
 	      if(cp%pageSize==0)userGroup--;
-	      System.out.println(totalPage+"'"+userGroup);
 	      sb.append("<div class='row justify-content-evenly'><button type='button'");
 	      if(userGroup<=0){
 	    	  sb.append(" disabled");

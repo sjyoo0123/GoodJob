@@ -325,19 +325,19 @@ $(document).ready(function() {
 });
 function BuyUp(){
 	var idx=document.getElementById("upIdx").value;
-	location.href='manPayment_logPage?idx='+idx;
+	location.href='manPayment_logPage.do?idx='+idx;
 }
 function Buys_vip(){
 	var idx=document.getElementById("s_vipIdx").value;
-	location.href='manPayment_logPage?idx='+idx;
+	location.href='manPayment_logPage.do?idx='+idx;
 }
 function Buyg_vip(){
 	var idx=document.getElementById("g_vipIdx").value;
-	location.href='manPayment_logPage?idx='+idx;
+	location.href='manPayment_logPage.do?idx='+idx;
 }
 function Buyd_vip(){
 	var idx=document.getElementById("d_vipIdx").value;
-	location.href='manPayment_logPage?idx='+idx;
+	location.href='manPayment_logPage.do?idx='+idx;
 }
 </script>
 </body>

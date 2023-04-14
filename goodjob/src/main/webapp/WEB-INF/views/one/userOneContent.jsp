@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
+<script>${msg}</script>
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,18 +13,35 @@
 </head>
 <body>
 	<div class="container">
-	 <%@include file="/WEB-INF/views/header.jsp"%> 
+		<%@include file="/WEB-INF/views/header.jsp"%>
 		<section>
 			<article>
-				<c:if test="${empty dto}">
+			<div class="row">
+					<c:if test="${empty dto}">
 				삭제된 게시글 입니다
 				</c:if>
-				${dto.subject }
-				${dto.ckeck }
-				
+					${dto.subject}
+					<c:forEach var="arr" items="${content}">
+						<c:if test="${arr.startsWith('답변:')}">
+							<div class="text-start col-12">${arr}</div>
+						</c:if>
+						<c:if test="${arr.startsWith('질문:')}">
+							<div class="text-end col-12">${arr}</div>
+						</c:if>
+					</c:forEach>
+					<c:if test="${dto.check ==1}">
+						<form action="userOneReWrite.do" method="post">
+							추가답변
+							<textarea rows="" cols="" name="plusContent"></textarea>
+							<input type="hidden" name="idx" value="${dto.idx}"> <input
+								type="hidden" name="content" value="${dto.content}"> <input
+								type="submit" name="전송">
+						</form>
+					</c:if>
+				</div>
 			</article>
 		</section>
-	 <%@include file="/WEB-INF/views/footer.jsp"%> 
+		<%@include file="/WEB-INF/views/footer.jsp"%> 
 	</div>
 </body>
 </html>

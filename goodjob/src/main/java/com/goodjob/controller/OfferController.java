@@ -4,21 +4,26 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.goodjob.companymember.model.CompanyMemberDAO;
+import com.goodjob.companymember.model.CompanyMemberDTO;
 import com.goodjob.notice.model.NoticeDTO;
 import com.goodjob.offer.model.OfferDAO;
 import com.goodjob.offer.model.OfferDTO;
 
 @Controller
 public class OfferController {
-
+	@Autowired
 	private OfferDAO odao;
-
+	@Autowired
+	private CompanyMemberDAO cdao;
 	public OfferController(OfferDAO odao) {
 		super();
 		this.odao = odao;
@@ -68,6 +73,16 @@ public class OfferController {
 		}
 		int offer_idx = oidx;
 		int result = odao.ofNorGetCheck(member_idx, offer_idx);
+		return result;
+	}
+	@RequestMapping(value="/offerSubmit.do", method = RequestMethod.POST)
+	@ResponseBody
+	public int offerSubmit(OfferDTO dto) {
+		int comidx=dto.getCom_idx();
+		CompanyMemberDTO cdto=cdao.comInfo(comidx);
+		String com_name=cdto.getCom_name();
+		dto.setCom_name(com_name);
+		int result=odao.offerSubmit(dto);
 		return result;
 	}
 }
