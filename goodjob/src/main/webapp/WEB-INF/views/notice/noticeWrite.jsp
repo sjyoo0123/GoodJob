@@ -452,15 +452,19 @@ $(document).ready(function() {
                         method: "POST",
                         data: {idx: $('#com_idx').val()},
                         success: function(data2) {
-                        	var planidx=data2.plan_idx
-                        	$('#plan_idx').val(planidx);
-                        	var start_date = new Date(parseInt(data2.plan_start));
-                        	var end_date = new Date(parseInt(data2.plan_end));
-
-                        	var start_str = start_date.getFullYear() + "년 " + (start_date.getMonth()+1) + "월 " + start_date.getDate() + "일";
-                        	var end_str = end_date.getFullYear() + "년 " + (end_date.getMonth()+1) + "월 " + end_date.getDate() + "일";
-
-							$("#planUse").append("<div class='row'><div class='col-12'><h3>"+data2.plan_type+"</h3></div>"+"<div class='col-5'><h6>요금제시작일</h6>"+start_str+"</div><div class='col-5'><h6>요금제종료일</h6>"+end_str+"</div><div class='col-2'><h6>남은사용일"+data2.idx+"일</h6></div></div>");
+        					var select = $("<select>").addClass("form-control").attr("id", "planType");
+        					select.append("<option selected disabled>요금제를 선택해주세요.</option>");
+                        	for (var i = 0; i < data2.length; i++) {
+                        		 var planEndDate = new Date(data2[i].plan_end);
+                                 var planEndDateStr = planEndDate.getFullYear() + "년 " + (planEndDate.getMonth()+1) + "월 " + planEndDate.getDate() + "일";
+                        		var option = $("<option>").val(data2[i].plan_idx).text(data2[i].plan_type+" ("+planEndDateStr+"까지) 잔여 "+data2[i].idx+"일");
+        						select.append(option);
+                            }
+                        	$("#planUse").append(select);
+                        	$("#planType").on("change", function() {
+                                var planIdx = $(this).val();
+                                $("#plan_idx").val(planIdx);
+                            });
                         }
                     });
         	    }

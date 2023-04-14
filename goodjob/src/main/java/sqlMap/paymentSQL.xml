@@ -7,4 +7,17 @@
 		select payment_log_idx.nextval 
 		from dual
 		</select>
+	<insert id="manPaymentAdd" parameterType="com.goodjob.payment_log.model.Payment_LogDTO">
+    insert into payment_log 
+    values (
+        #{merchant_uid},
+        #{member_idx},
+        #{name},
+        #{price},
+        #{paydate},
+        #{imp_uid},
+        #{suc_check}
+    )
+	</insert>
+	
 	</mapper>

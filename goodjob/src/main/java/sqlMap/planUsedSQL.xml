@@ -12,6 +12,31 @@ select * from
 			order by plan_used.plan_used_idx desc) a) b
 		where <![CDATA[rnum>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
   </select>
+  <insert id="manPlanUsedAdd_vip" parameterType="Map">
+  	insert into used_vip
+  	values(
+  	used_vip_idx.nextval,
+  	plan_used_idx_se.currval,
+  	#{member_idx},
+  	sysdate+#{plan_end},
+  	#{used_vip_floor}
+  	)
+  </insert>
+  <select id="manPlanUsedIdx_Currval" resultType="Integer">
+  	select plan_used_idx_se.currval from dual
+  </select>
+<insert id="manPlanUsedAdd_two" parameterType="Map">
+  	insert into plan_used
+  	values(
+  	plan_used_idx_se.nextval,
+  	#{plan_idx},
+  	#{member_idx},
+  	#{plan_date},
+  	#{plan_type},
+  	'활성'
+  	)
+  	
+  </insert>
   <select id="usedVipCount" parameterType="Integer" resultType="Integer">
  	select count(*) from plan_used where plan_type='VIP' and status='활성' and member_idx=#{idx}
   </select>

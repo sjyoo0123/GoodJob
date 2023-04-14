@@ -19,5 +19,14 @@ public class Module {
 
 	}
 	
+	public static String local1change(String local) {
+		String clocal="";
+		if(local.length()==4) {
+			clocal=local.substring(0, 1)+local.substring(2, 3);
+		}else {
+			clocal=local.substring(0,2);
+		}
+		return clocal;
+	}
 	
 }
