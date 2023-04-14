@@ -258,5 +258,9 @@ public class MemberController {
 		mav.setViewName("member/pwdUpdate");
 		return mav;
 	}
+	@RequestMapping(value="kakaoJoin.do")
+	public String kakaoJoin() {
+		return "member/kakaoJoin";
+	}
 
 }
