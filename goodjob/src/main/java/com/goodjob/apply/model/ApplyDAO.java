@@ -13,4 +13,5 @@ public interface ApplyDAO {
 	public int apNorButtonHide(int notice_idx, int member_idx);
 	public List<NoticeDTO>  apNorlist(int member_idx, int cp,int ls);
 	public int applyNorTotalCnt(int member_idx);
+	public int applyCheck(int idx);
 }
