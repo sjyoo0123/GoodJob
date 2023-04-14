@@ -28,6 +28,7 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 </head>
 <body>
+		<%@include file="/WEB-INF/views/header.jsp"%>
 <h1>지원자리스트페이지</h1>
 <article>
 <h1>${subject}</h1>
@@ -56,10 +57,7 @@
 	<c:forEach var="dto" items="${lists}">
 		<tr>
 			<td>${dto.writedate}</td>
-			<c:url var="contentUrl" value="applyContent.do">
-				<c:param name="idx">${dto.com_idx}</c:param>
-			</c:url>
-			<td><a href="${contentUrl}">${dto.subject}</a></td>
+			<td><a href="resumeContent.do?idx=${dto.com_idx}" class="resume-link" data-max-age="${dto.max_age}">${dto.subject}</a></td>
 			<td>${dto.plan_idx}</td>
 			<td>${dto.gender}</td>
 			<td>${dto.local1}</td>			
@@ -84,6 +82,23 @@
 		</tr>
 </tfoot>
 </table>
+<script>
+	$(document).ready(function() {
+		  $('.resume-link').click(function(e) {
+		    var idx = $(this).data('max-age');
+		    $.ajax({
+		      url: 'applyCheck.do',
+		      type: 'POST',
+		      data: { idx: idx },
+		      success: function(response) {
+		          window.location.href = "resumeContent.do?idx=" + idx;
+		      }
+		    });
+		  });
+		});
+
+	</script>
 </article>
+		<%@include file="/WEB-INF/views/footer.jsp"%>
 </body>
 </html>

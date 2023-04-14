@@ -29,8 +29,9 @@
 	<%@include file="/WEB-INF/views/header.jsp"%>
 		<section>
 			<article>
+			<h1><i class="bi bi-person-fill-x"></i>블랙리스트</h1>
 				<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-				  <input type="radio" class="btn-check" name="options" id="normal" autocomplete="off" value="개인" >
+				  <input type="radio" class="btn-check" name="options" id="normal" autocomplete="off" value="개인" checked="checked">
 					<label class="btn btn-outline-primary" for="normal">일반회원</label>
 					<input type="radio" class="btn-check" name="options" id="company" value="기업" autocomplete="off">
 					<label class="btn btn-outline-primary" for="company">기업회원</label>
@@ -44,6 +45,7 @@
 	<%@include file="/WEB-INF/views/footer.jsp"%>
 </div>
 <script>
+showtab();
 $('input[name=options]').change(function(){
 	$('#my-div').empty();
 	showtab();

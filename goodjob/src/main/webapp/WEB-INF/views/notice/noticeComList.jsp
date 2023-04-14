@@ -36,13 +36,13 @@
 	<div class="row">
 		<div class="btn-group btn-group-lg col-4" role="group"
 			aria-label="Large button group">
-			<button class="btn btn-outline-dark" onclick="location.href='noticeComList.do?status=0'">
+			<button class="btn btn-<c:if test="${status1!='활성'}">outline-</c:if>dark" onclick="location.href='noticeComList.do?status=0'">
 				<span>진행중</span>
 			</button>
-			<button class="btn btn-outline-dark" onclick="location.href='noticeComList.do?status=1'">
+			<button class="btn btn-<c:if test="${status1!='대기'}">outline-</c:if>dark" onclick="location.href='noticeComList.do?status=1'">
 				<span>승인대기</span>
 			</button>
-			<button class="btn btn-outline-dark" onclick="location.href='noticeComList.do?status=2'">
+			<button class="btn btn-<c:if test="${status1!='비활성'}">outline-</c:if>dark" onclick="location.href='noticeComList.do?status=2'">
 				<span>마감</span>
 			</button>
 		</div>
@@ -92,7 +92,7 @@
 						<td>${dto.period}</td>
 						<td><button type="button"
 								class="btn btn-primary position-relative"
-								onclick="location.href='apComList.do?noticeidx=${dto.idx}&subject=${dto.subject}'">
+								onclick="location.href='apComList.do?idx=${dto.idx}&subject=${dto.subject}'">
 								${dto.ref}명
 								<c:if test="${dto.recruit!=0}">
 									<span
@@ -101,7 +101,7 @@
 								</c:if>
 
 							</button></td>
-						<td><button type="button" class="btn btn-primary btn-lg">
+						<td><button type="button" class="btn btn-primary btn-lg" id="refUpbtn" data-idx="${dto.idx}" data-com_idx="${dto.com_idx}" data-subject="${dto.subject}">
 								<span>UP</span>
 							</button></td>
 					</tr>
@@ -116,6 +116,43 @@
 				</tr>
 			</tfoot>
 		</table>
+<script>
+$(document).on("click", "#refUpbtn", function() {
+  var com_idx=$(this).data("com_idx");
+  var idx = $(this).data("idx");
+  var subject = $(this).data("subject");
+  $.ajax({
+    url: "comUpCount.do",
+    type: "POST",
+    data: {idx: com_idx},
+    success: function(response) {
+      var count=response;
+      if (confirm('잔여 UP횟수: '+count+' 회'+'\n공고제목:'+subject +'\n게시물을 UP 하시겠습니까?')) {
+        $.ajax({
+          url: "refUp.do",
+          type: "POST",
+          data: {idx: idx},
+          success: function(response1) {
+            alert('UP 완료~');
+            $.ajax({
+              url: "comUpCountUse.do",
+              type: "POST",
+              data: {idx: com_idx},
+              success: function(response2) {
+                alert('\n잔여 UP횟수 : '+(count-1)+'회 남음');
+                setTimeout(function() {
+                  location.reload();
+                }, 1000); // 1초 대기 후 리로드
+              }
+            });
+          }
+        });
+      }
+    }
+  });
+});
+</script>
+
 		</div>
 		</div>
 		</div>

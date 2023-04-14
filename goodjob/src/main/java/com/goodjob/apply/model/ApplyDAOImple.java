@@ -84,5 +84,10 @@ public class ApplyDAOImple implements ApplyDAO {
 		int count = sqlMap.selectOne("applyNorTotalCnt", member_idx);
 		return count;
 	}
+	@Override
+	public int applyCheck(int idx) {
+		int count = sqlMap.update("applyCheck",idx);
+		return count;
+	}
 	
 }

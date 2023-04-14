@@ -25,4 +25,5 @@ public interface NoticeDAO {
 	public List<Map<String,Object>>mainPlan(int one,int two,int three);
 	public int noticeUpdate(NoticeDTO dto);
 	public List<NoticeDTO> comNoticeSubject(int idx);
+	public int refUp(int idx);
 }

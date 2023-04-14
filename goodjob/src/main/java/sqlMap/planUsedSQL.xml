@@ -43,4 +43,19 @@ select * from
   <select id="usedVipCon" parameterType="Integer" resultType="com.goodjob.plan_used_vip.model.Plan_Used_VipDTO">
  	select plan_used.plan_idx,plan.plan_name plan_type,plan_used.plan_start,used_vip.plan_end,trunc(used_vip.plan_end-sysdate) idx from plan,plan_used,used_vip where plan.idx=plan_used.plan_idx and plan_used.plan_used_idx=used_vip.plan_used_idx and plan_used.status='활성' and plan_used.member_idx=#{idx}
   </select>
+  <select id="comUpCount" parameterType="Integer" resultType="Integer">
+  	select used_count from used_up where member_idx=#{idx}
+  </select>
+  <update id="comUpCountUse" parameterType="Integer">
+  	update used_up set used_count=used_count-1 where member_idx=#{idx}
+  </update>
+    <select id="comUsedUP" parameterType="Map" resultType="com.goodjob.notice.model.NoticeDTO">
+select * from
+		(select rownum as rnum,a.* from
+		(select plan_used.plan_used_idx idx,plan.plan_name subject,plan_used.plan_start writedate,plan_used.plan_type gender,used_up.used_count com_idx
+            from plan_used,used_up,plan
+            where plan_used.plan_used_idx=used_up.plan_used_idx and plan.idx=plan_used.plan_idx and plan_used.member_idx=#{idx}
+            order by plan_used.plan_used_idx desc) a) b
+		where <![CDATA[rnum>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
+  </select>
   </mapper>
