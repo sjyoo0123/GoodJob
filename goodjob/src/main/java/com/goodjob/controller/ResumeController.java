@@ -1,5 +1,9 @@
 package com.goodjob.controller;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.goodjob.career.model.CareerDTO;
@@ -14,6 +19,10 @@ import com.goodjob.member.model.MemberDAO;
 import com.goodjob.member.model.MemberDTO;
 import com.goodjob.module.Module;
 import com.goodjob.normalmember.model.NormalMemberDAO;
+import com.goodjob.normalmember.model.NormalMemberDTO;
+import com.goodjob.notice.model.NoticeDAO;
+import com.goodjob.notice.model.NoticeDTO;
+import com.goodjob.offer.model.OfferDAO;
 import com.goodjob.resume.model.ResumeDAO;
 import com.goodjob.resume.model.ResumeDTO;
 import com.goodjob.review.model.ReviewDTO;
@@ -30,6 +39,12 @@ public class ResumeController {
 	@Autowired
 	public NormalMemberDAO normalmemberDao;
 
+	@Autowired
+	private NoticeDAO ndao;
+	
+	@Autowired
+	private OfferDAO odao;
+	
 	public ResumeController(MemberDAO memberDao) {
 		super();
 		this.memberDao = memberDao;
@@ -187,11 +202,21 @@ public class ResumeController {
 	
 	/**이력서 컨텐츠*/
 	@RequestMapping("/resumeContent.do")
-	public ModelAndView resumeContent(@RequestParam(value="idx")int ridx) {
+	public ModelAndView resumeContent(@RequestParam(value="idx")int ridx,HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		int idx=0;
 		ResumeDTO rto = resumeDao.resumeContent(ridx);
-		int ridx2 =  rto.getIdx();
+		int normalidx=rto.getMember_idx();
+		String scategory_resume = session.getAttribute("scategory") != null ? (String) session.getAttribute("scategory") : "";
+		int sidx_resume = session.getAttribute("sidx") != null ? (int) session.getAttribute("sidx") : 0;
+		int ofcount=0;
+		if(scategory_resume.equals("기업")) {
+			Map map=new HashMap();
+			map.put("com_idx", sidx_resume);
+			map.put("nor_idx", normalidx);
+			ofcount=odao.offerCount(map);
+		}
+		mav.addObject("offCount", ofcount);
+		NormalMemberDTO normaldto=normalmemberDao.getNorMember(normalidx);
 		String yy = "";
 		if (rto.getH_workday().charAt(0) == '1') {
 			yy += "월";
@@ -218,14 +243,21 @@ public class ResumeController {
 			yy += "무관";
 		}
 		if (rto.getCareer_check().equals("경력")) {
-			CareerDTO cto = resumeDao.resumeCarrerDown(ridx2);
+			CareerDTO cto = resumeDao.resumeCarrerDown(ridx);
 			mav.addObject("cto", cto);
 		}
 		mav.addObject("yy", yy);
 		mav.addObject("dto", rto);
+		mav.addObject("normaldto", normaldto);
 		mav.setViewName("resume/resumeContent");
 		return mav;
 	}
 	
+	@RequestMapping(value="/comNoticeSubject.do",method=RequestMethod.POST)
+	@ResponseBody
+	public List<NoticeDTO> comNoticeSubject(@RequestParam("idx")int idx){
+		List<NoticeDTO> data=ndao.comNoticeSubject(idx);
+		return data;
+	}
 
 }

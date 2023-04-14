@@ -35,13 +35,35 @@ public List<NoticeDTO> comUsedVIP(int idx, int cp, int ls) {
 }
 
 @Override
+public int manPlanUsedAdd_vip(Map map) {
+	
+	int result=sqlMap.insert("manPlanUsedAdd_vip", map);
+	
+	return result;
+}
+@Override
+public int manPlanUsedIdx_Currval() {
+	
+	int result=sqlMap.selectOne("manPlanUsedIdx_Currval");
+	
+	return result;
+}
+@Override
+public int manPlanUsedAdd_two(Map map) {
+
+	int result=sqlMap.selectOne("manPlanUsedAdd_two", map);
+	
+	return result;
+}
+
+@Override
 public int usedVipCount(int idx) {
 	int count=sqlMap.selectOne("usedVipCount",idx);
 	return count;
 }
 @Override
-public Plan_Used_VipDTO usedVipCon(int idx) {
-	Plan_Used_VipDTO dto=sqlMap.selectOne("usedVipCon",idx);
-	return dto;
+public List<Plan_Used_VipDTO> usedVipCon(int idx) {
+	List<Plan_Used_VipDTO> list=sqlMap.selectList("usedVipCon",idx);
+	return list;
 }
 }

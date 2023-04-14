@@ -11,9 +11,6 @@
 	<title>Good Job</title>
 </head>
 <style>
-.container{
-
-}
 </style>
 <body>
 	<div class="container">

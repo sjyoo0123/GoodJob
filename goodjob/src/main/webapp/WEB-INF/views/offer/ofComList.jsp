@@ -28,14 +28,33 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 </head>
 <body>
-<h1>제안리스트페이지</h1>
 <article>
+<div class="container">
+		<%@include file="/WEB-INF/views/header.jsp"%>
+<div class="row">
 <h1>내가보낸제안</h1>
-<div class="btn-group btn-group-lg" role="group" aria-label="Large button group">
-<button class="btn btn-outline-dark"><span>수정</span></button>
-<button class="btn btn-outline-dark"><span>삭제</span></button>
-</div>
-<form><div class="input-group mb-3"><input type="text" name="searchNotice" class="form-control" aria-describedby="button-addon2"><input type="submit" value="검색"  class="btn btn-outline-secondary" type="button" id="button-addon2"></div></form>
+			<hr class="my-4">
+		<div class="btn-group btn-group-lg col-4" role="group"
+			aria-label="Large button group">
+			<button class="btn btn-outline-dark"><span>수정</span></button>
+			<button class="btn btn-outline-dark"><span>삭제</span></button>
+		</div>
+				<div class="col-5"></div>
+						<div class="col-3">
+		<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+			<div class="input-group">
+				<input type="text"
+					class="form-control bg-secondary bg-opacity-10 border-primary small"
+					placeholder="Search for..." aria-label="Search"
+					aria-describedby="basic-addon2" name="searchNotice">
+				<button class="btn btn-primary" type="submit">
+					<i class="bi bi-search"></i>
+				</button>
+			</div>
+		</form>
+			</div>
+					</div>
+
 <table class="table table-hover">
 <thead>
 <tr>
@@ -91,6 +110,8 @@
 		</tr>
 </tfoot>
 </table>
+</div>
 </article>
+		<%@include file="/WEB-INF/views/footer.jsp"%>
 </body>
 </html>

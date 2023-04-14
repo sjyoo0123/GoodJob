@@ -1,5 +1,7 @@
 package com.goodjob.controller;
 
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +14,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -32,7 +33,7 @@ public class KakaoController {
 	String clientId="61dcf9dc3f066d3fdbf620ba80e181cd";
 	
 	@RequestMapping(value="/getToken.do",method = RequestMethod.GET)
-	public String kakaojoin(String code, HttpSession session) throws JsonMappingException, JsonProcessingException {
+	public String kakaojoin(String code, HttpSession session,HttpServletRequest req) throws JsonMappingException, JsonProcessingException {
 	    RestTemplate restTemplate = new RestTemplate();
 
 	    String url = "https://kauth.kakao.com/oauth/token";
@@ -63,18 +64,18 @@ public class KakaoController {
 	    String kakaoId = rootNode.path("id").asText();
 	    String email = rootNode.path("kakao_account").path("email").asText();
 	    String nickname = rootNode.path("properties").path("nickname").asText();
-
+	    System.out.println(rootNode.toString());
 	    // Store user information in session or database
 
 	    System.out.println(email);
 	   MemberDTO dto= mdao.emailCheck(email);
 	   if(dto==null) {
-		    session.setAttribute("kakaoId", kakaoId);
-		    session.setAttribute("email", email);
-		    session.setAttribute("nickname", nickname);
-		    return "redirect:kakaojoin.do";
+		    req.setAttribute("id",kakaoId);
+		    req.setAttribute("email",email);
+		    req.setAttribute("nickname", nickname);
+		    return "redirect:/kakaoJoin.do";
 	   }else {
-		   session.setAttribute("sidx", dto.getIdx());
+		   	session.setAttribute("sidx", dto.getIdx());
 			session.setAttribute("sname", dto.getName());
 			session.setAttribute("scategory", dto.getUser_category());
 			session.setAttribute("status", dto.getStatus());

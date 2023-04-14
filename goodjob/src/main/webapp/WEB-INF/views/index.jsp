@@ -28,6 +28,29 @@
 	max-height: 150px;
 	width: auto;
 }
+.cardgroup a img{
+min-width: max(100%);
+max-width: max(100%);
+min-height: 150px;
+max-height: 150px;
+}
+/*호버하면 크기 1.05배 박스쉐도우*/
+.d{
+   box-shadow: 0px 0px 0px grey;
+   transition: box-shadow 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+.srd:hover{
+   box-shadow:  10px 10px 10px grey;
+   transform: scale(1.05);
+}
+/*호버하면 박스쉐도우*/
+.ard{
+box-shadow: 0px 0px 0px grey;
+}
+.ard:hover{
+ box-shadow:  10px 10px 10px grey;
+}
+
 </style>
 </head>
 
@@ -84,10 +107,12 @@
 				<div class="row mb-5 row-cols-4 g-4">
 				<c:forEach var="dDto" items="${dieList}">
 				<div class="col">
-				<div class="card">
-  				<img src="..." class="card-img-top" alt="...">
+				<div class="card dcard">
+  				<a href="noticeContent.do?idx=${dDto.IDX}"><img src="${dDto.FILE}" class="card-img-top" alt="..."></a>
   				<div class="card-body">
-  				  <p class="card-text">${dDto.DETAIL_ADDR }</p>
+  				  <p class="card-text">${dDto.COM_NAME}</p>
+  				  <p class="card-text"><a href="noticeContent.do?idx=${dDto.IDX}">${dDto.SUBJECT}</a></p>
+  				  <p class="card-text">${dDto.LOCAL1}${dDto.LOCAL2}</p>
 				</div>
  				 </div>
 				</div>
@@ -96,11 +121,13 @@
 				<!-- gold -->
 				<div class="row mb-5 row-cols-4 g-4">
 				<c:forEach var="gDto" items="${goldList}">
-				<div class="col">
+				<div class="col gcard">
 				<div class="card">
-  				<img src="..." class="card-img-top" alt="...">
+  				<a href="noticeContent.do?idx=${gDto.IDX}"><img src="${gDto.FILE}" class="card-img-top" alt="..."></a>
   				<div class="card-body">
-  				  <p class="card-text">${gDto.DETAIL_ADDR }</p>
+  				  <p class="card-text">${gDto.COM_NAME}</p>
+  				  <p class="card-text"><a href="noticeContent.do?idx=${gDto.IDX}">${gDto.SUBJECT}</a></p>
+  				  <p class="card-text">${gDto.LOCAL1}${gDto.LOCAL2}</p>
  				 </div>
 				</div>
 				</div>
@@ -110,10 +137,12 @@
 				<div class="row mb-5  row-cols-4 g-4">
 				<c:forEach var="sDto" items="${silList}">
 				<div class="col">
-				<div class="card">
-  				<img src="..." class="card-img-top" alt="...">
+				<div class="card scard border-info">
+  				<a href="noticeContent.do?idx=${sDto.IDX}"><img src="${sDto.FILE}" class="card-img-top" alt="${sDto.SUBJECT}"></a>
   				<div class="card-body">
-  				  <p class="card-text">${sDto.DETAIL_ADDR }3</p>
+  				  <div class="fs-6 col-6">${sDto.COM_NAME}</div>
+  				  <div class="fs-5"><a href="noticeContent.do?idx=${sDto.IDX}">${sDto.SUBJECT}</a></div>
+  				  <div class="fs-6 ">${sDto.LOCAL1} ${sDto.LOCAL2}</div>
  				 </div>
 				</div>
 				</div>
