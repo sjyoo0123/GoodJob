@@ -1,5 +1,6 @@
 package com.goodjob.plan_used_up.model;
 
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +22,7 @@ public class Plan_Used_UpDAOImple implements Plan_Used_UpDAO {
 		this.sqlMap = sqlMap;
 	}
 
+
 	public SqlSessionTemplate getSqlMap() {
 		return sqlMap;
 	}
@@ -29,6 +31,7 @@ public class Plan_Used_UpDAOImple implements Plan_Used_UpDAO {
 		this.sqlMap = sqlMap;
 	}
 	
+
 	@Override
 	public int comUpCount(int idx) {
 		int count=sqlMap.selectOne("comUpCount",idx);
@@ -49,5 +52,22 @@ public class Plan_Used_UpDAOImple implements Plan_Used_UpDAO {
 		map.put("idx", idx);
 		List<NoticeDTO> lists=sqlMap.selectList("comUsedUP",map);
 		return lists;
+	}
+	
+	@Override
+	public int manPlanUsedAdd(Map map) {
+		
+		int count=sqlMap.insert("manPlanUsedAdd", map);
+		
+		return count;
+	}
+	
+	@Override
+	public int manPlanUsedAdd_up(Map map) {
+		
+		int result=sqlMap.insert("manPlanUsedAdd_up", map);
+		
+		return result;
+
 	}
 }

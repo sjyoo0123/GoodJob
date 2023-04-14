@@ -317,6 +317,35 @@ public NoticeController() {
 		mav.setViewName("notice/noticeMsg");
 		return mav;
 	}
+	
+	
+
+	
+	/**관리자 공고 메인 페이지*/
+	@RequestMapping("/manNoticeStatusPage.do")
+	public ModelAndView manNoticeStatusPage(
+			@RequestParam(value="cp", defaultValue = "1")int cp) {
+		
+		ModelAndView mav=new ModelAndView();
+		
+		int pageSize=5;
+		int listSize=5;
+		int totlaCnt=ndao.manNoticeTotalCnt();
+		
+		List<NoticeDTO> lists=ndao.manNoticeStatusList(cp, listSize);
+		
+		String pageStr=com.goodjob.page.module.PageModule.makePage("manNoticeStatusPage.do", totlaCnt, listSize, pageSize, cp);
+		
+		mav.addObject("lists", lists);
+		mav.addObject("pageStr", pageStr);
+		
+		mav.setViewName("manNotice/manNoticeStatusPage");
+		
+		return mav;
+		
+		
+	}
+
 	public void copyInto(String category, MultipartFile file,HttpServletRequest req) {
 		String path = req.getSession().getServletContext().getRealPath("/"+category);
 		try {
@@ -333,13 +362,6 @@ public NoticeController() {
 	}
 	
 
-	/**관리자 공고 메인 페이지 나중에 함*/
-	/*@RequestMapping("/manNoticeStatusPage.do")
-	public ModelAndView manNoticeStatsuPage(
-			@RequestParam(value="cp")int cp) {
-		
-		
-	}*/
 	/**관리자 공고 승인 대기 페이지*/
 	@RequestMapping("/manNoticeAcceptPage.do")
 	public ModelAndView manNoticeAcceptPage(
@@ -374,10 +396,53 @@ public NoticeController() {
 		
 		mav.addObject("dto", dto);
 		
-		mav.setViewName("manNotice/manNoticeAcceptContent");
+		mav.setViewName("notice/noticeContent");
 	
 		return mav;
 	}
+	
+	/**관리자 공고 승인하기*/
+	@RequestMapping("/manNoticeAccept_Ok.do")
+	public ModelAndView manNoticeAccept_Ok(
+			@RequestParam(value = "idx")int idx) {
+		
+		ModelAndView mav=new ModelAndView();
+		
+		int count=ndao.manNoticeAcceptContent_Ok(idx);
+		
+		if(count>0) {
+			mav.addObject("msg", "승인이 완료되었습니다.");	
+		}else {
+			mav.addObject("msg", "승인이 실패하였습니다.");
+		}
+		mav.addObject("goUrl", "manNoticeAcceptPage.do");
+		mav.setViewName("manNotice/manNoticeMsg");
+		return mav;
+	}
+	
+	/**관리자 공고 거부하기*/
+	@RequestMapping("/manNoticeAccept_No.do")
+	public ModelAndView manNoticeAccept_No(
+			@RequestParam(value = "idx")int idx) {
+		
+		ModelAndView mav=new ModelAndView();
+		
+		int count=ndao.manNoticeAcceptContent_No(idx);
+		
+		if(count>0) {
+			mav.addObject("msg", "거부가 완료되었습니다.");	
+		}else {
+			mav.addObject("msg", "거부가 실패하였습니다.");
+		}
+		mav.addObject("goUrl", "manNoticeAcceptPage.do");
+		mav.setViewName("manNotice/manNoticeMsg");
+		
+		return mav;
+		}
+		
+		
+	
+	
 	/**관리자 공고 삭제 페이지*/
 	@RequestMapping("/manNoticeDelPage.do")
 	public ModelAndView manNoticeDelPage(
@@ -422,10 +487,38 @@ public NoticeController() {
 			mav.setViewName("manNotice/manNoticeMsg");
 			
 			return mav;
-		
-		
-			
 	}
+
+	
+	/**관리자 공고 비활성화하기*/
+	@ResponseBody
+	@RequestMapping("/manNoticeStatus_No.do")
+	public ModelAndView manNoticeStatus_No(
+			@RequestParam(value = "idx", defaultValue = "0")int idx
+			,@RequestParam(value = "button")String button) {
+		
+		ModelAndView mav=new ModelAndView();
+		
+		int count=0;
+		System.out.println(idx);
+		System.out.println(button);
+		
+		if(button.equals("비활성화하기")) {
+			count=ndao.manNoticeUpdate_No(idx);
+		}else if(button.equals("활성화하기")){
+			count=ndao.manNoticeUpdate_Ok(idx);
+		}
+		
+		mav.addObject("count", count);
+		
+		
+		mav.setViewName("goodjobJson");
+		
+		
+		return mav;
+	}
+
+
 	@RequestMapping(value="/usedVipCount.do",method=RequestMethod.POST)
 	@ResponseBody
 	public int usedVipCount(int idx) {
@@ -445,4 +538,44 @@ public NoticeController() {
 		return count;
 	}
 
+	/**관리자 공고 페이지 검색하기*/
+	@RequestMapping("/manNoticeSearch.do")
+	public ModelAndView manNoticeSearch(
+			@RequestParam(value="cp", defaultValue = "1")int cp,
+			@RequestParam(value="category", defaultValue = "")String category,
+			@RequestParam(value="search", defaultValue = "")String search
+			) {
+		
+	
+		
+		Map map=new HashMap();
+
+		map.put("category", category);
+		map.put("keyword", search);
+		
+		int pazeSize=5;
+		int listSize=5;
+		int searchCnt=ndao.manNoticeSearchCnt(map);
+		
+		int start=(cp-1)*listSize+1;
+		int end=cp*listSize;
+		
+		map.put("start", start);
+		map.put("end", end);
+		
+		String pageStr=com.goodjob.page.module.PageModule.makePage("manNoticeSearch.do", searchCnt, listSize, pazeSize, cp, category, search);
+		
+		ModelAndView mav=new ModelAndView();
+	
+	
+		List<NoticeDTO> lists=ndao.manNoticeSearch(map);
+	
+		mav.addObject("lists", lists);
+		mav.addObject("pageStr", pageStr);
+		
+		mav.setViewName("manNotice/manNoticeSearch");
+		
+		return mav;
+		
+	}
 }
