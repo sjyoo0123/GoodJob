@@ -323,23 +323,44 @@ public NoticeController() {
 	/**관리자 공고 메인 페이지*/
 	@RequestMapping("/manNoticeStatusPage.do")
 	public ModelAndView manNoticeStatusPage(
-			@RequestParam(value="cp", defaultValue = "1")int cp) {
+			@RequestParam(value="cp", defaultValue = "1")int cp,@RequestParam(value="bAjax" ,defaultValue = "false")boolean bAjax,
+			@RequestParam(value="category",defaultValue = "")String category,
+			@RequestParam(value="search", defaultValue = "")String search) {
 		
 		ModelAndView mav=new ModelAndView();
 		
+		
+		int totalCnt=0;
 		int pageSize=5;
 		int listSize=5;
-		int totlaCnt=ndao.manNoticeTotalCnt();
+		int start=(cp-1)*listSize+1;
+		int end=cp*listSize;
+		List<NoticeDTO>lists=null;
+		if(category.length()==0 || search.length()==0) {
+			totalCnt=ndao.manNoticeTotalCnt();
+			lists=ndao.manNoticeStatusList(cp, listSize);
+		}else {
+			
+			Map<String,Object> map=new HashMap<String, Object>();
+			map.put("category", category);
+			map.put("keyword", search);
+			map.put("start", start);
+			map.put("end", end);
+			totalCnt=ndao.manNoticeSearchCnt(map);
+			lists=ndao.manNoticeSearch(map);
+		}
 		
-		List<NoticeDTO> lists=ndao.manNoticeStatusList(cp, listSize);
 		
-		String pageStr=com.goodjob.page.module.PageModule.makePage("manNoticeStatusPage.do", totlaCnt, listSize, pageSize, cp);
 		
+		String page=AjaxPageModule.makePage(totalCnt, listSize, pageSize, cp);
 		mav.addObject("lists", lists);
-		mav.addObject("pageStr", pageStr);
+		mav.addObject("page", page);
 		
+		if(bAjax) {
+		mav.setViewName("goodjobJson");	
+		}else {
 		mav.setViewName("manNotice/manNoticeStatusPage");
-		
+		}
 		return mav;
 		
 		
