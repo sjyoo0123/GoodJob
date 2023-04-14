@@ -1,6 +1,7 @@
 package com.goodjob.controller;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -27,27 +28,51 @@ public class ReviewController {
 	/**키워드 리스트 조회*/
 	@RequestMapping(value = "/review.do", method = RequestMethod.GET)
 	public ModelAndView reivewListForm(HttpSession session, @RequestParam(value="cp",defaultValue="1")int cp, 
-			@RequestParam(value = "com_name", defaultValue = "")String keyword) {
+			@RequestParam(value = "keyword", defaultValue = "")String keyword) {
 		ModelAndView mav = new ModelAndView();
-		int idx = (int) session.getAttribute("sidx");
+		int idx = 0;
+		if (session.getAttribute("sidx") == null || session.getAttribute("sidx") == "") {
+			String msg = "로그인 후 이용바랍니다.";
+			String goUrl = "index.do";
+			mav.addObject("msg", msg);
+			mav.addObject("gourl", goUrl);
+			mav.setViewName("notice/noticeMsg");
+			return mav;
+		} else {
+			idx = (int) session.getAttribute("sidx");
+		}
 		int totalCnt=reviewDao.reviewTotalCnt(keyword);
 		System.out.println(totalCnt);
 		int listSize=5;
 		int pageSize=5;
 		String pageStr=com.goodjob.page.module.PageModule.makePage("review.do", totalCnt, listSize, pageSize, cp);
 		
-		
-		
-		List<ReviewDTO> list = reviewDao.reviewList();
+		List<ReviewDTO> list = reviewDao.reviewList(cp, listSize, keyword);
 		Map map =new HashMap();
+		System.out.println("리스트사이즈"+list.size());
 		for(int i=0; i<list.size();i++) {
-			ResumeDTO dto =  reviewDao.reviewList2(list.get(i).getCom_name(),idx, cp, listSize);
+			ResumeDTO dto =  reviewDao.reviewList2(list.get(i).getCom_name(),idx, cp, listSize, keyword);
 			map.put(list.get(i).getCom_name(), dto);
+			System.out.println("dto"+dto);
+			System.out.println("리스트 투="+list.get(i).toString());
+			System.out.println("키워드=" +	keyword);
 		}
+		/////
+		Iterator<String> keys = map.keySet().iterator();
+
+        while( keys.hasNext() ){
+
+            String key = keys.next();
+
+            System.out.println( String.format("키 : %s, 값 : %s", key, map.get(key)) );
+
+        }
+        ////////
 		mav.addObject("pageStr", pageStr);
 		mav.addObject("map", map);
 		mav.addObject("list", list);
 		mav.setViewName("review/reviewList");
+		
 		
 		return mav;
 		
@@ -80,7 +105,7 @@ public class ReviewController {
 	}
 	/**나의 후기*/
 	@RequestMapping(value = "myReview.do", method = RequestMethod.GET)
-	public ModelAndView myReview(HttpSession session) {
+	public ModelAndView myReview(HttpSession session, @RequestParam(value="cp",defaultValue="1")int cp) {
 		ModelAndView mav = new ModelAndView();
 		Map map =new HashMap();
 		int idx =0 ;
@@ -88,25 +113,31 @@ public class ReviewController {
 			String msg = "로그인 후 이용바랍니다.";
 			String goUrl = "index.do";
 			mav.addObject("msg", msg);
-			mav.addObject("goUrl", "reviewList.do");
+			mav.addObject("goUrl", goUrl);
 			mav.setViewName("notice/noticeMsg");
 			return mav;
 		} else {
 			idx = (int) session.getAttribute("sidx");
 		}
-		
-		List<ReviewDTO> list = reviewDao.myReview(idx);
+		System.out.println("idx="+idx);
+		int listSize=5;
+		int pageSize=5;
+		List<ReviewDTO> list = reviewDao.myReview(idx, cp, listSize);
+		int totalCnt = reviewDao.myReviewTotalCnt(idx);
+		String pageStr=com.goodjob.page.module.PageModule.makePage("myReview.do", totalCnt, listSize, pageSize, cp);
+		System.out.println("리스트 사이즈 ="+list.size());
 		
 		for(int i=0; i<list.size();i++) {
-			ResumeDTO dto =  reviewDao.myReviewList(list.get(i).getCom_name());
-			dto.setWritedate(list.get(i).getWritedate());
-			dto.setAge(list.get(i).getReview_num());
-			map.put(list.get(i).getCom_name(), dto);
-			mav.addObject("review_num", list.get(i).getReview_num());
+			ResumeDTO dto =  reviewDao.myReviewList(list.get(i).getReview_num(), cp, listSize);
+			System.out.println("포문횟수"+i);
+			map.put(list.get(i).getReview_num(), dto);
 		}
 		mav.addObject("map", map);
+		mav.addObject("pageStr", pageStr);
 		mav.addObject("list", list);
 		mav.setViewName("review/myReview");
+		///////////////
+		///////
 		return mav;
 	}
 

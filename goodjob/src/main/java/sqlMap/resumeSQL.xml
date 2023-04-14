@@ -91,4 +91,10 @@
 	<update id="careerDelete" parameterType="Integer">
 		update career set status = '비활성' where idx = #{idx} and status ='활성'
 	</update>
+	<select id="getCareerResumeCount" parameterType="Integer" resultType="Integer">
+		  select count(resume_idx) from career where resume_idx = #{resume_idx} and status ='활성'
+	</select>
+	<update id="updateCareer_check" parameterType="Integer">
+		update resume set career_check = '경력' where member_idx = #{member_idx}
+	</update>
 </mapper>

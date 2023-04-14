@@ -4,8 +4,20 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.goodjob.review">
 	<select id="reviewList"
-		resultType="com.goodjob.review.model.ReviewDTO">
-		select com_name from review group by com_name
+		resultType="com.goodjob.review.model.ReviewDTO" parameterType="Map">
+
+		select * from
+		(select rownum as rnum,a.* from
+
+		(select com_name from review
+		where status ='활성'
+		<if test="keyword ==''"></if>
+		<if test="keyword !=''">
+			and com_name like '%${keyword}%' </if>
+		group by com_name
+		) a) b
+		where <![CDATA[rnum>=]]>#{start}
+		and rnum<![CDATA[<=]]>#{end}
 	</select>
 	<insert id="reviewWrite"
 		parameterType="com.goodjob.review.model.ReviewDTO">
@@ -18,62 +30,6 @@
 	</select>
 	<select id="reviewList2"
 		resultType="com.goodjob.resume.model.ResumeDTO" parameterType="map">
-	select * from
-	(select rownum as rnum,c.* from
-	(SELECT
-	com_name as name,
-	MAX(CASE WHEN rnum = 1 THEN keyword END) as
-	gender,
-	MAX(CASE WHEN rnum = 2 THEN keyword END) as addr,
-	MAX(CASE WHEN
-	rnum = 3 THEN keyword END) as detail_addr,
-	keyword_count as member_idx
-	FROM
-	(SELECT
-	rownum as rnum,
-	a.*,
-	(SELECT count(*) FROM review r WHERE
-	r.com_name = a.com_name and r.status='활성') as
-	keyword_count
-	FROM
-	(SELECT r.com_name,
-	k.content as keyword, COUNT(*) as cnt
-	FROM review r
-	INNER JOIN keyword k
-	ON k.idx = r.keyword
-	WHERE com_name = #{com_name}
-	GROUP BY r.com_name, r.status,
-	k.content
-	ORDER BY cnt DESC
-	) a
-	) b
-	WHERE rnum <![CDATA[<]]>=
-		3
-		GROUP BY com_name, keyword_count
-	
-		) c) d
-where <![CDATA[rnum>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
-	</select>
-	<select id="myReview"
-		resultType="com.goodjob.review.model.ReviewDTO"
-		parameterType="Integer">
-		select * from review where member_idx = #{member_idx}
-		and status='활성'
-	</select>
-	<update id="reviewDel" parameterType="Integer">
-		update review set status =
-		'미활성' where member_idx = #{member_idx} and review_num = #{review_num}
-	</update>
-	<select id="reviewTotalCnt" parameterType="String"
-		resultType="Integer">
-		select count(com_name) from 
-		(select com_name from 
-			review where status='활성'  
-			group by com_name)
-		<if test="com_name==''"></if>
-		<if test="com_name!=''">where com_name = #{com_name} </if>
-	</select>
-	<select id="myReviewList" resultType="com.goodjob.resume.model.ResumeDTO" parameterType="map">
 		SELECT
 		com_name as name,
 		MAX(CASE WHEN rnum = 1 THEN keyword END) as
@@ -86,8 +42,59 @@ where <![CDATA[rnum>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
 		(SELECT
 		rownum as rnum,
 		a.*,
-		(SELECT count(*) FROM review r WHERE
-		r.com_name = a.com_name) as
+		(SELECT count(*) FROM review r
+		WHERE
+		r.com_name = a.com_name and r.status='활성'
+		<if test="keyword ==''"></if>
+		<if test="keyword !=''"> and com_name like '%${keyword}%' </if>
+		) as
+		keyword_count
+		FROM
+		(SELECT r.com_name,
+		k.content as keyword, COUNT(*) as cnt
+		FROM review r
+		INNER JOIN keyword k
+		ON k.idx = r.keyword
+		WHERE com_name = #{com_name} and r.status ='활성'
+		GROUP BY r.com_name, r.status, k.content
+		ORDER BY cnt DESC
+		) a
+		) b
+		WHERE rnum <![CDATA[<]]>=
+		3
+		GROUP BY com_name, keyword_count
+		Having keyword_count <![CDATA[>]]>
+		0
+		
+
+	</select>
+	<select id="reviewTotalCnt" parameterType="String"
+		resultType="Integer">
+		select count(com_name) from
+		(select com_name from
+		review where status='활성'
+		group by com_name)
+		<if test="keyword ==''"></if>
+		<if test="keyword !=''">where com_name like '%${keyword}%' </if>
+	</select>
+	<select id="myReviewList"
+		resultType="com.goodjob.resume.model.ResumeDTO" parameterType="Map">
+		
+		SELECT
+		com_name as name,
+		MAX(CASE WHEN rnum = 1 THEN keyword END) as
+		gender,
+		MAX(CASE WHEN rnum = 2 THEN keyword END) as addr,
+		MAX(CASE WHEN
+		rnum = 3 THEN keyword END) as detail_addr,
+		keyword_count as member_idx
+		FROM
+		(SELECT
+		rownum as rnum,
+		a.*,
+		(SELECT count(*) FROM review r 
+		WHERE
+		r.com_name = a.com_name and r.status='활성') as
 		keyword_count 
 		FROM
 		(SELECT r.com_name,
@@ -95,21 +102,39 @@ where <![CDATA[rnum>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
 		FROM review r
 		INNER JOIN keyword k
 		ON k.idx = r.keyword
-		WHERE com_name = #{com_name}  
+		WHERE review_num = #{review_num} and r.status='활성'
 		GROUP BY r.com_name, r.status,
 		k.content
 		ORDER BY cnt DESC
 		) a
 		) b
-		WHERE rnum <![CDATA[<]]>=
+		WHERE
+		rnum <![CDATA[<]]>=
 		3
 		GROUP BY com_name, keyword_count
-
+		
 	</select>
-	<select id="myReview" resultType="com.goodjob.review.model.ReviewDTO" parameterType="Integer">
-		select * from review where member_idx = #{member_idx} and status='활성'
+	<select id="myReview"
+		resultType="com.goodjob.review.model.ReviewDTO"
+		parameterType="Map">
+		select * from
+		(select rownum as rnum,a.* from
+		(select review_num from review 
+		where member_idx  =  #{member_idx}
+		and status='활성' 
+		group by review_num 
+		) a) b
+		where <![CDATA[rnum>=]]>#{start}
+		and rnum<![CDATA[<=]]>#{end}
 	</select>
-		<update id="reviewDel" parameterType="Integer">
-		update review set status = '미활성' where member_idx = #{member_idx} and review_num = #{review_num}
+	<update id="reviewDel" parameterType="Integer">
+		update review set status =
+		'미활성' where member_idx = #{member_idx} and review_num = #{review_num}
 	</update>
+	<select id="myReviewTotalCnt" parameterType="Integer" resultType="Integer">
+		select count(com_name) from
+			(select com_name from
+			review where status='활성' and member_idx = #{member_idx}
+			group by com_name)
+	</select>
 </mapper>

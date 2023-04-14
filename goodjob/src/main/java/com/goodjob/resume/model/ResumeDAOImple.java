@@ -87,13 +87,22 @@ public class ResumeDAOImple implements ResumeDAO {
 	}
 	@Override
 	public int carrInsert(CareerDTO dto) {
-		// TODO Auto-generated method stub
 		int count= sqlMap.insert("careerWrite",dto);
 		return count;
 	}
 	@Override
 	public int careerDelete(int idx) {
 		int count=sqlMap.update("careerDelete", idx);
+		return count;
+	}
+	@Override
+	public int getCareerResumeCount(int resume_idx) {
+		int count = sqlMap.selectOne("getCareerResumeCount",resume_idx);
+		return count;
+	}
+	@Override
+	public int updateCareer_check(int member_idx) {
+		int count = sqlMap.update("updateCareer_check", member_idx);
 		return count;
 	}
 }

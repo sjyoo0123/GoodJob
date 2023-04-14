@@ -134,7 +134,7 @@
 				<tr>
 					<th>경력구분</th>
 					<td>
-						<input type="hidden" name="career_check" value="${dto.career_check }">
+						<input type="hidden" name="career_check" value="${dto.career_check }" required>
 					</td>
 				</tr>
 				<tr>
@@ -142,22 +142,23 @@
 					 <!-- style="display: none;" -->
 					<h5>나의 경력</h5>
 					<td><div id="carrer1">
+						<table id="career" >
 						<c:forEach var="list" items="${list}">
 								<input type="hidden" name="cidx" value="${list.idx}">
-							<table id="career" >
+							
 								<tr>
 									<th>회사명</th>
-									<td><input type="text" name="com_name" value="${list.com_name }" ></td>
+									<td><input type="text" name="com_name" value="${list.com_name }" required ></td>
 								</tr>
 								<tr>
 									<th>근무기간</th>
-									<td><input type="text" id="date" name="startday_s" value="${list.startday }">
+									<td><input type="date" id="date" name="startday_s" value="${list.startday }" required>
 									&nbsp;
-									<input type="text" id="date2" name="endday_s" value="${list.endday }"></td>
+									<input type="date" id="date2" name="endday_s" value="${list.endday }"required></td>
 								</tr>
 								<tr>
 									<th>담당업무</th>
-									<td><input type="text" name="part" value="${list.part }"></td>
+									<td><input type="text" name="part" value="${list.part }"required></td>
 								<tr>
 								<tr>
 									<th>서비스타입</th>
@@ -166,9 +167,9 @@
 										<option value="정직원">정직원</option>
 									</select></td>
 								<tr>
-							</table>
 							
 							</c:forEach>
+							</table>
 							<hr>
 									<div><input type="button" class = "chooga" value = "추가"></div>
 						</div></td>
@@ -291,7 +292,7 @@
 			<label> <input type="checkbox" name="check" value=1 ${dto.check == 1 ? "checked" : "" }>공개</label>
 			<label> <input type="checkbox" name="check" value=0  ${dto.check == 0 ? "checked" : "" }>비공개</label>
 		</div> 
-		<input type="submit" value="수정">
+		<input type="submit" value="수정"><input type="button" onclick = "location.href='index.do'" value="취소하기">
 	</form>
 	<script>
 	$.ajax({
@@ -438,9 +439,9 @@
 	});
 	$('.chooga').on('click',function(){
 		$("#career").append('<tr><th>회사명</th><td><input type="text" name="com_name"></td></tr>');
-		$("#career").append('<tr><th>근무기간</th><td><input type="text" id="date" name="startday_s" placeholder="시작일YYYY-MM-DD">&nbsp;<input type="text" id="date2" name="endday_s" placeholder="종료일YYYY-MM-DD"></td></tr>');
-		$("#career").append('<tr><th>담당업무</th><td><input type="text" name="service_type"><input type="hidden" name="cidx" value="0"></td></tr>');
-		$("#career").append('<tr><th>서비스타입</th><td><select name="part" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example"><option value="아르바이트">아르바이트</option><option value="정직원">정직원</option></select></td></tr>');
+		$("#career").append('<tr><th>근무기간</th><td><input type="date" id="date" name="startday_s" placeholder="시작일YYYY-MM-DD">&nbsp;<input type="date" id="date2" name="endday_s" placeholder="종료일YYYY-MM-DD"></td></tr>');
+		$("#career").append('<tr><th>담당업무</th><td><input type="text" name="part"><input type="hidden" name="cidx" value="0"></td></tr>');
+		$("#career").append('<tr><th>서비스타입</th><td><select name="service_type" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example"><option value="아르바이트">아르바이트</option><option value="정직원">정직원</option></select></td></tr>');
 	})
 	</script>
 </body>

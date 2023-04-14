@@ -42,10 +42,10 @@ public class ResumeController {
 
 	@Autowired
 	private NoticeDAO ndao;
-	
+
 	@Autowired
 	private OfferDAO odao;
-	
+
 	public ResumeController(MemberDAO memberDao) {
 		super();
 		this.memberDao = memberDao;
@@ -102,7 +102,7 @@ public class ResumeController {
 
 		}
 		String msg = result > 0 ? "이력서 작성 성공" : "이력서 작성 실패";
-		String goUrl = "norMyPage/norMyPage";
+		String goUrl = "norMyPage.do";
 		mav.addObject("msg", msg);
 		mav.addObject("goUrl", goUrl);
 
@@ -158,15 +158,24 @@ public class ResumeController {
 	@RequestMapping(value = "resumeUpdate.do", method = RequestMethod.GET)
 	public ModelAndView resumeUpdateForm(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-
 		int idx = 0;
-			idx = (int) session.getAttribute("sidx");
+		idx = (int) session.getAttribute("sidx");
 		ResumeDTO rto = resumeDao.resumeDown(idx);
-//		if (rto.getCareer_check().equals("경력")) {
+		if (rto.getCareer_check().equals("경력")) {
 			int ridx = rto.getIdx();
 			List<CareerDTO> list = resumeDao.resumeCarrerDown(ridx);
 			mav.addObject("list", list);
-//		}
+		}
+		ResumeDTO getridx = resumeDao.resumeDown(idx);
+		int careerResumeCount = resumeDao.getCareerResumeCount(getridx.getIdx()); // 내 resume_idx 검색했어 있는지 없는지 확인을 하여
+			System.out.println(careerResumeCount);																		// (이력서 확인을 할떄)
+		if (careerResumeCount > 0) {
+			resumeDao.updateCareer_check(getridx.getIdx());
+			int ridx = rto.getIdx();
+			List<CareerDTO> list = resumeDao.resumeCarrerDown(ridx);
+			mav.addObject("list", list);
+		} else{
+		}
 		mav.addObject("dto", rto);
 		mav.setViewName("resume/resumeUpdate");
 		return mav;
@@ -181,6 +190,7 @@ public class ResumeController {
 		int result = 0;
 		ResumeDTO getridx = resumeDao.resumeDown(midx);
 
+		///
 		if (dto.getCareer_check().equals("신입")) {
 			result = resumeDao.resumeUpdate(dto);
 			for (int i = 0; i < com_name.length; i++) {
@@ -231,22 +241,23 @@ public class ResumeController {
 	/** 이력서 컨텐츠 */
 	@RequestMapping("/resumeContent.do")
 
-	public ModelAndView resumeContent(@RequestParam(value="idx")int ridx,HttpSession session) {
+	public ModelAndView resumeContent(@RequestParam(value = "idx") int ridx, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		ResumeDTO rto = resumeDao.resumeContent(ridx);
-		int ridx2 =  rto.getIdx();
-		int normalidx=rto.getMember_idx();
-		String scategory_resume = session.getAttribute("scategory") != null ? (String) session.getAttribute("scategory") : "";
+		int ridx2 = rto.getIdx();
+		int normalidx = rto.getMember_idx();
+		String scategory_resume = session.getAttribute("scategory") != null ? (String) session.getAttribute("scategory")
+				: "";
 		int sidx_resume = session.getAttribute("sidx") != null ? (int) session.getAttribute("sidx") : 0;
-		int ofcount=0;
-		if(scategory_resume.equals("기업")) {
-			Map map=new HashMap();
+		int ofcount = 0;
+		if (scategory_resume.equals("기업")) {
+			Map map = new HashMap();
 			map.put("com_idx", sidx_resume);
 			map.put("nor_idx", normalidx);
-			ofcount=odao.offerCount(map);
+			ofcount = odao.offerCount(map);
 		}
 		mav.addObject("offCount", ofcount);
-		NormalMemberDTO normaldto=normalmemberDao.getNorMember(normalidx);
+		NormalMemberDTO normaldto = normalmemberDao.getNorMember(normalidx);
 		String yy = "";
 		if (rto.getH_workday().charAt(0) == '1') {
 			yy += "월";
@@ -294,6 +305,7 @@ public class ResumeController {
 		List<CareerDTO> list = resumeDao.resumeCarrerDown(ridx);
 		mav.addObject("list", list);
 		///////////
+
 		mav.setViewName("resume/careerDel");
 		return mav;
 	}
@@ -304,13 +316,18 @@ public class ResumeController {
 		ModelAndView mav = new ModelAndView();
 		System.out.println(cidx);
 		int result = resumeDao.careerDelete(cidx);
-		mav.setViewName("resume/resumeUpdate");
+		String msg = result>0? "삭제완료":"삭제 실패";
+		String goUrl = "careerDel.do";
+		mav.addObject("msg", msg);
+		mav.addObject("goUrl", goUrl);
+		mav.setViewName("notice/noticeMsg");
 		return mav;
 	}
-	@RequestMapping(value="/comNoticeSubject.do",method=RequestMethod.POST)
+
+	@RequestMapping(value = "/comNoticeSubject.do", method = RequestMethod.POST)
 	@ResponseBody
-	public List<NoticeDTO> comNoticeSubject(@RequestParam("idx")int idx){
-		List<NoticeDTO> data=ndao.comNoticeSubject(idx);
+	public List<NoticeDTO> comNoticeSubject(@RequestParam("idx") int idx) {
+		List<NoticeDTO> data = ndao.comNoticeSubject(idx);
 		return data;
 	}
 

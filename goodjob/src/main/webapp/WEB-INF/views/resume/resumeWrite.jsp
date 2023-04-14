@@ -457,8 +457,8 @@
 	$('.chooga').on('click',function(){
 		$("#career").append('<tr><th>회사명</th><td><input type="text" name="com_name"></td></tr>');
 		$("#career").append('<tr><th>근무기간</th><td><input type="text" id="date" name="startday_s" placeholder="근무시작일">&nbsp;<input type="text" id="date2" name="endday_s" placeholder="근무종료일"></td></tr>');
-		$("#career").append('<tr><th>담당업무</th><td><input type="text" name="service_type"></td></tr>');
-		$("#career").append('<tr><th>서비스타입</th><td><select name="part" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example"><option value="아르바이트">아르바이트</option><option value="정직원">정직원</option></select></td></tr>');
+		$("#career").append('<tr><th>담당업무</th><td><input type="text" name="part"></td></tr>');
+		$("#career").append('<tr><th>서비스타입</th><td><select name="service_type" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example"><option value="아르바이트">아르바이트</option><option value="정직원">정직원</option></select></td></tr>');
 	})
 	
 	</script>

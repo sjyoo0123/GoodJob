@@ -19,4 +19,6 @@ public interface ResumeDAO {
 	public int careerUpdate(CareerDTO dto);
 	public int carrInsert(CareerDTO dto);
 	public int careerDelete(int idx);
+	public int getCareerResumeCount(int resume_idx);
+	public int updateCareer_check(int member_idx);
 }
