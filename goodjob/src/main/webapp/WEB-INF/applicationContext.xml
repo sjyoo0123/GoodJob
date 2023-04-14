@@ -118,4 +118,7 @@
 	<bean id="injaeDao" class="com.goodjob.injaelist.model.InjaeListDAOImple">
 		<property name="sqlMap" ref="sqlSessionTemplate"></property>
 	</bean>
+	<bean id="plan_used_upDao" class="com.goodjob.plan_used_up.model.Plan_Used_UpDAOImple">
+		<property name="sqlMap" ref="sqlSessionTemplate"></property>
+	</bean>
 </beans>

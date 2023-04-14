@@ -6,7 +6,9 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.goodjob.apply.model.ApplyDAO;
@@ -79,6 +81,12 @@ public class ApplyController {
 		mav.addObject("lists", list);
 		mav.setViewName("apply/apNorList");
 		return mav; 
+	}
+	@RequestMapping(value="/applyCheck.do",method=RequestMethod.POST)
+	@ResponseBody
+	public int applyCheck(int idx) {
+		int count=adao.applyCheck(idx);
+		return count;
 	}
 	
 }

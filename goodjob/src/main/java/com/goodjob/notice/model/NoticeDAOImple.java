@@ -258,4 +258,9 @@ public int manNoticeCnt() {
 		return list;
 
 	}
+	@Override
+	public int refUp(int idx) {
+		int count=sqlMap.update("refUp",idx);
+		return count;
+	}
 }

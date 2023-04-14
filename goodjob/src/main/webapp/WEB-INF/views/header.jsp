@@ -51,6 +51,7 @@ header .nav li {
 	padding-top: 10px;
 	width: 130px;
 	height: 40px;
+	cursor: pointer;
 }
 .menu_title:hover{
 	background: #1a4369;
@@ -153,11 +154,7 @@ a:hover {
 					</div>
 					<div class="col-2">
 						<a href="injaeListForm.do" class=""><label class="menu_title">인재정보</label></a>
-						<ul class="nav position-absolute">
-							<li class="col-12"><a href="#"><label class="menu_title">지역별</label></a></li>
-							<li class="col-12"><a href="#"><label class="menu_title">업종별</label></a></li>
-							<li class="col-12"><a href="#"><label class="menu_title">기간별</label></a></li>
-						</ul>
+
 					</div>
 					<div class="col-2">
 						<a href="review.do" class=""><label class="menu_title">후기게시판</label></a>
@@ -167,7 +164,7 @@ a:hover {
 						</ul>
 					</div>
 					<div class="col-2">
-						<a href="#" class=""><label class="menu_title">job도우미</label></a>
+						<a href="jobHelperTong.do" class=""><label class="menu_title">job도우미</label></a>
 						<ul class="nav position-absolute">
 							<li class="col-12"><a href="jobHelperTong.do"><label class="menu_title">급여통계</label></a></li>
 							<li class="col-12"><a href="helperCalForm.do"><label class="menu_title">계산기</label></a></li>

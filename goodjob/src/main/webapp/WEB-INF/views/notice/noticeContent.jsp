@@ -37,7 +37,7 @@
 	<%@include file="/WEB-INF/views/header.jsp"%>
 	<c:if test="${scategory == '기업' && sidx==dto.com_idx }">
 <div class="btn-group btn-group-lg" role="group" aria-label="Large button group">
-<button class="btn btn-outline-dark" ><span>수정</span></button>
+<button class="btn btn-outline-dark" onclick="location.href='noticeUpdate.do?idx=${dto.idx}'"><span>수정</span></button>
 <button class="btn btn-outline-dark"><span>삭제</span></button>
 </div>
 </c:if>
@@ -126,7 +126,12 @@
 	<td>${startendtime}</td>
 </tr>
 </table>
-<button><span>통계페이지로</span></button>
+<button class="btn btn-primary btn-icon-split btn-lg" onclick="window.open('jobHelperTong.do')">
+    <span class="icon text-white-50">
+        <i class="bi bi-bar-chart-line-fill"></i>
+    </span>
+    <span class="text">통계페이지 열기</span>
+</button>
 </div>
 </div>
 <hr class="my-4">
