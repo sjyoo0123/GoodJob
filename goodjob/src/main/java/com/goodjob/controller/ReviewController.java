@@ -26,10 +26,11 @@ public class ReviewController {
 	
 	/**키워드 리스트 조회*/
 	@RequestMapping(value = "/review.do", method = RequestMethod.GET)
-	public ModelAndView reivewListForm(HttpSession session, @RequestParam(value="cp",defaultValue="1")int cp) {
+	public ModelAndView reivewListForm(HttpSession session, @RequestParam(value="cp",defaultValue="1")int cp, 
+			@RequestParam(value = "com_name", defaultValue = "")String keyword) {
 		ModelAndView mav = new ModelAndView();
 		int idx = (int) session.getAttribute("sidx");
-		int totalCnt=reviewDao.reviewTotalCnt(idx);
+		int totalCnt=reviewDao.reviewTotalCnt(keyword);
 		System.out.println(totalCnt);
 		int listSize=5;
 		int pageSize=5;

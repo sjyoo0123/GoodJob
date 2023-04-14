@@ -50,6 +50,7 @@
 	WHERE rnum <![CDATA[<]]>=
 		3
 		GROUP BY com_name, keyword_count
+	
 		) c) d
 where <![CDATA[rnum>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
 	</select>
@@ -63,9 +64,14 @@ where <![CDATA[rnum>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
 		update review set status =
 		'미활성' where member_idx = #{member_idx} and review_num = #{review_num}
 	</update>
-	<select id="reviewTotalCnt" parameterType="Integer"
+	<select id="reviewTotalCnt" parameterType="String"
 		resultType="Integer">
-		select MAX(review_num) as review_num from review where status='활성'
+		select count(com_name) from 
+		(select com_name from 
+			review where status='활성'  
+			group by com_name)
+		<if test="com_name==''"></if>
+		<if test="com_name!=''">where com_name = #{com_name} </if>
 	</select>
 	<select id="myReviewList" resultType="com.goodjob.resume.model.ResumeDTO" parameterType="map">
 		SELECT
@@ -98,5 +104,7 @@ where <![CDATA[rnum>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
 		WHERE rnum <![CDATA[<]]>=
 		3
 		GROUP BY com_name, keyword_count
+		
+		
 	</select> 
 </mapper>

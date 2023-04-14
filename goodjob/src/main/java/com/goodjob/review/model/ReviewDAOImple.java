@@ -93,8 +93,8 @@ public class ReviewDAOImple implements ReviewDAO {
 		return count;
 	}
 	@Override
-	public int reviewTotalCnt(int member_idx) {
-		int count = sqlMap.selectOne("reviewTotalCnt", member_idx);
+	public int reviewTotalCnt(String com_name) {
+		int count = sqlMap.selectOne("reviewTotalCnt", com_name);
 		return count;
 	}
 	@Override

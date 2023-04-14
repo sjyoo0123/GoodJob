@@ -20,7 +20,7 @@ public interface ReviewDAO {
 	
 	public int reviewDel(int member_idx, int review_num);
 	
-	public int reviewTotalCnt(int member_idx);
+	public int reviewTotalCnt( String com_name);
 	
 	public ResumeDTO myReviewList(String com_name);
 	
