@@ -29,6 +29,7 @@
 	<%@include file="/WEB-INF/views/header.jsp"%>
 		<section>
 			<article>
+			<h1><i class="bi bi-megaphone-fill"></i>신고 관리</h1>
 				<div class="form-check form-check-inline">
 					<input type="radio" class="btn-check" name="options" id="normal" autocomplete="off" value="개인" >
 					<label class="btn btn-outline-primary" for="normal">일반회원</label>

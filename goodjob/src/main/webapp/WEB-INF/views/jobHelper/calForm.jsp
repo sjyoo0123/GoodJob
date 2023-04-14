@@ -39,6 +39,7 @@ input[type=number] {
 		<%@include file="/WEB-INF/views/header.jsp"%>
 		<section>
 			<article>
+			<h1><i class="bi bi-calculator"></i>계산기</h1>
 				<div class="btn-group" role="group"
 					aria-label="Basic radio toggle button group">
 					<input type="radio" class="btn-check" name="btnradio" id="paycal"

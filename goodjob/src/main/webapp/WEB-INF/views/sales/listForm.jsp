@@ -30,6 +30,7 @@
 	<%@include file="/WEB-INF/views/header.jsp"%>
 		<section>
 			<article>
+			<h1><i class="bi bi-card-list"></i>매출현황</h1>
 				<div class="card" id="rangecard">
 			    	<div class="card-body">
 						시작일
