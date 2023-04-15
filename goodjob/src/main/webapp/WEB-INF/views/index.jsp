@@ -35,19 +35,19 @@ min-height: 150px;
 max-height: 150px;
 }
 /*호버하면 크기 1.05배 박스쉐도우*/
-.d{
+.dcard{
    box-shadow: 0px 0px 0px grey;
    transition: box-shadow 0.5s ease-in-out, transform 0.5s ease-in-out;
 }
-.srd:hover{
+.dcard:hover{
    box-shadow:  10px 10px 10px grey;
    transform: scale(1.05);
 }
 /*호버하면 박스쉐도우*/
-.ard{
+.gcard{
 box-shadow: 0px 0px 0px grey;
 }
-.ard:hover{
+.gcard:hover{
  box-shadow:  10px 10px 10px grey;
 }
 
@@ -57,16 +57,16 @@ box-shadow: 0px 0px 0px grey;
 <body>
 	<div class="container">
 		<%@include file="header.jsp"%>
-		<section class="mt-5 pt-3">
-			<article>
+		<section class="mt-5 pt-5">
+			<article class="mt-3">
 				<div class="row banner">
 					<div class="card col-2 offset-1">
 						<ul class="list-group list-group-flush gongji">
 							<c:if test="${empty gList }">
 								<li>등록된 공지가 없습니다</li>
 							</c:if>
-							<c:forEach var="gdto" items="${gList }">
-								<li class="list-group-item">${gdto.idx}${gto.subject }</li>
+							<c:forEach var="gongdto" items="${gList }">
+								<li class="list-group-item"><a href="userGongJiContent.do?idx=${gongdto.idx }">${gongdto.subject }</a></li>
 							</c:forEach>
 						</ul>
 					</div>
@@ -99,35 +99,56 @@ box-shadow: 0px 0px 0px grey;
 							</button>
 						</div>
 					</div>
-					<div class="card col-2 menu"></div>
+					<div class="card col-2 menu">
+					<ul class="list-group list-group-flush">
+					<c:if test="${logCategory eq nor}">
+					<li class="list-group-item"><a href="updateMember.do">내정보수정</a></li>
+					<li class="list-group-item"><a href=".do"></a></li>
+					<li class="list-group-item"><a href=".do"></a></li>
+					<li class="list-group-item"><a href=".do"></a></li>
+					</c:if>
+					<c:if test="${logCategory eq com}">
+					<li class="list-group-item"><a href="updateMember.do">내정보수정</a></li>
+					<li class="list-group-item"><a href=".do"></a></li>
+					<li class="list-group-item"><a href=".do"></a></li>
+					<li class="list-group-item"><a href=".do"></a></li>
+					</c:if>
+					<c:if test="${logCategory eq man}">
+					<li class="list-group-item"><a href="manBlackListSingoList.do">신고관리</a></li>
+					<li class="list-group-item"><a href="manFAQList.do">FAQ관리</a></li>
+					<li class="list-group-item"><a href="manOneList.do">작성된문의</a></li>
+					<li class="list-group-item"><a href="manGongJiList.do">공지관리</a></li>
+					</c:if>
+					</ul>
+					</div>
 				</div>
 				<div class="cardgroup col-10 offset-1 mt-3">
 				
 				<!-- die -->
-				<div class="row mb-5 row-cols-4 g-4">
+				<div class="row mb-5  row-cols-4 g-4">
 				<c:forEach var="dDto" items="${dieList}">
 				<div class="col">
-				<div class="card dcard">
-  				<a href="noticeContent.do?idx=${dDto.IDX}"><img src="${dDto.FILE}" class="card-img-top" alt="..."></a>
+				<div class="card dcard border-info">
+  				<a href="noticeContent.do?idx=${dDto.IDX}"><img src="${dDto.FILE}" class="card-img-top" alt="${dDto.SUBJECT}"></a>
   				<div class="card-body">
-  				  <p class="card-text">${dDto.COM_NAME}</p>
-  				  <p class="card-text"><a href="noticeContent.do?idx=${dDto.IDX}">${dDto.SUBJECT}</a></p>
-  				  <p class="card-text">${dDto.LOCAL1}${dDto.LOCAL2}</p>
-				</div>
+  				  <div class="fs-6 col-6">${dDto.COM_NAME}</div>
+  				  <div class="fs-5"><a href="noticeContent.do?idx=${dDto.IDX}">${dDto.SUBJECT}</a></div>
+  				  <div class="fs-6 ">${dDto.LOCAL1} ${dDto.LOCAL2}</div>
  				 </div>
+				</div>
 				</div>
 				</c:forEach>
 				</div>
 				<!-- gold -->
-				<div class="row mb-5 row-cols-4 g-4">
+				<div class="row mb-5  row-cols-4 g-4">
 				<c:forEach var="gDto" items="${goldList}">
-				<div class="col gcard">
-				<div class="card">
-  				<a href="noticeContent.do?idx=${gDto.IDX}"><img src="${gDto.FILE}" class="card-img-top" alt="..."></a>
+				<div class="col">
+				<div class="card gcard">
+  				<a href="noticeContent.do?idx=${gDto.IDX}"><img src="${gDto.FILE}" class="card-img-top" alt="${gDto.SUBJECT}"></a>
   				<div class="card-body">
-  				  <p class="card-text">${gDto.COM_NAME}</p>
-  				  <p class="card-text"><a href="noticeContent.do?idx=${gDto.IDX}">${gDto.SUBJECT}</a></p>
-  				  <p class="card-text">${gDto.LOCAL1}${gDto.LOCAL2}</p>
+  				  <div class="fs-6 col-6">${gDto.COM_NAME}</div>
+  				  <div class="fs-5"><a href="noticeContent.do?idx=${gDto.IDX}">${gDto.SUBJECT}</a></div>
+  				  <div class="fs-6 ">${gDto.LOCAL1} ${gDto.LOCAL2}</div>
  				 </div>
 				</div>
 				</div>
@@ -137,7 +158,7 @@ box-shadow: 0px 0px 0px grey;
 				<div class="row mb-5  row-cols-4 g-4">
 				<c:forEach var="sDto" items="${silList}">
 				<div class="col">
-				<div class="card scard border-info">
+				<div class="card scard">
   				<a href="noticeContent.do?idx=${sDto.IDX}"><img src="${sDto.FILE}" class="card-img-top" alt="${sDto.SUBJECT}"></a>
   				<div class="card-body">
   				  <div class="fs-6 col-6">${sDto.COM_NAME}</div>
