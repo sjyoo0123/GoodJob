@@ -37,30 +37,46 @@
 </head>
 <body>
 	<div class="container">
-	<%@include file="/WEB-INF/views/header.jsp"%>
-	<c:if test="${empty dto }">등록된 글이 없습니다</c:if>
+		<%@include file="/WEB-INF/views/header.jsp"%>
 		<div class="row">
 			<div class="col-5 offset-1 mb-4">
 				<div class="card bg-secondary bg-opacity-10">
 					<div class="card-body">
 						<h2 class="card-title">내 정보</h2>
 						<h5>${dto.name }</h5>
-						<h5>${dto.gender }  ${dto.age }</h5>
+						<h5>${nto.status }/ ${nto.review_num}세</h5>
 						<h5>${dto.tel }</h5>
 						<h5>${dto.addr }</h5>
-						<input type ="button" value="수정" onclick="#">
+						<input type="button" value="수정" onclick="#">
 					</div>
 				</div>
-				<br>
-				<a onclick = "location.href = 'resumeUpdate.do'"><div class="card bg-secondary bg-opacity-10">
-					<div class="card-body">
-						<h2 class="card-title">내 이력서</h2>
-						<br>
-						<h5>${dto.subject }</h5>
-						<br>
-						<h5>${dto.writedate }</h5>
-					</div>
-				</div></a>
+				<br> <a onclick="location.href = '#'"><div class="card bg-secondary bg-opacity-10">
+						<div class="card-body">
+							<h2 class="card-title">내 이력서</h2>
+							<br>
+							<h5>${rto.subject }</h5>
+							<br>
+							<h5>${rto.writedate }</h5>
+							<!-- 이력서를 쓰지않았으면 작성 버튼이 나오고 작성을 하였으면 다운로드, 수정, 경력사항제거 버튼만 나오게 -->
+							<c:choose>
+							<c:when test="${empty rto.member_idx}">
+								<div><input type ="button" onclick="location.href='writeForm.do'" value ="이력서 작성"></div>
+							</c:when>
+							<c:otherwise>
+							<div>
+								<input type="button" value="다운로드"
+									onclick="location.href='resumeDown.do'">
+							</div>
+							<span><input type="button" class="" value="경력사항제거"
+								onclick="careerDelete()"></span>
+							<div>
+								<input type="button" value="수정"
+									onclick="location.href='resumeUpdate.do'">
+							</div>
+							</c:otherwise>
+							</c:choose>
+						</div>
+					</div></a>
 			</div>
 			<div class="col-5 mb-4">
 				<div class="card bg-secondary bg-opacity-10">
@@ -71,28 +87,43 @@
 						<br>
 						<div class="row">
 							<div class="col-sm-12">
-								<a href ="apNorList.do"><h5>신청한 아르바이트</h5></a>
-								<h6>1</h6>
-								<h6>2</h6>
-								<h6>3</h6>
-								<h6>4</h6>
-								<h6>5</h6>
+								<a href="apNorList.do"><h5>신청한 아르바이트</h5></a>
+								<c:forEach var="list" items="${alist }">
+									<c:url var="contentUrl" value="noticeContent.do">
+										<c:param name="idx">${list.idx}</c:param>
+									</c:url>
+									<h6>
+										<a href="${contentUrl}">${list.subject }</a>
+									</h6>
+								</c:forEach>
 							</div>
 							<br>
 							<div class="col-sm-12">
 								<a href="ofNorList.do"><h5>받은 제안</h5></a>
-								<h6>1</h6>
-								<h6>2</h6>
-								<h6>3</h6>
-								<h6>4</h6>
-								<h6>5</h6>
+								<c:forEach var="list" items="${olist }">
+									<c:url var="contentUrl" value="noticeContent.do">
+										<c:param name="idx">${list.idx}</c:param>
+									</c:url>
+									<h6>
+										<a href="${contentUrl}">${list.subject }</a>
+									</h6>
+								</c:forEach>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	<%@include file="/WEB-INF/views/footer.jsp"%>
+		<%@include file="/WEB-INF/views/footer.jsp"%>
 	</div>
+	<script>
+	function careerDelete() {
+		var url = "careerDel.do";
+		var name = "careerDel";
+		var option = "width=500, heigt = 500, top=500, left =200";
+		window.open(url, name, option);
+
+	}
+	</script>
 </body>
 </html>

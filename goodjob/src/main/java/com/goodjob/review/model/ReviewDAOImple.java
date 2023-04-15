@@ -1,6 +1,7 @@
 package com.goodjob.review.model;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -27,20 +28,43 @@ public class ReviewDAOImple implements ReviewDAO {
 		this.sqlMap = sqlMap;
 	}
 
-	
 	@Override
-	public List<ReviewDTO> reviewList() {
-		List<ReviewDTO> dto = sqlMap.selectList("reviewList");
+	public List<ReviewDTO> reviewList(int cp,int ls, String keyword) {
+		Map map = new HashMap();
+		int start = (cp - 1) * ls + 1;
+		int end = cp * ls;
+		map.put("start", start);
+		map.put("end", end);
+		map.put("keyword", keyword);
+		List<ReviewDTO> dto = sqlMap.selectList("reviewList", map);
 		return dto;
 	}
 
 	@Override
-	public ResumeDTO reviewList2(String com_name) {
-		ResumeDTO dto= sqlMap.selectOne("reviewList2" , com_name);
+	public ResumeDTO reviewList2(String com_name, int member_idx, int cp,int ls, String keyword) {
+		Map map = new HashMap();
+		int start = (cp - 1) * ls + 1;
+		int end = cp * ls;
+		map.put("start", start);
+		map.put("end", end);
+		map.put("member_idx", member_idx);
+		map.put("com_name", com_name);
+		map.put("keyword", keyword);
 		
+		ResumeDTO dto = sqlMap.selectOne("reviewList2", map);
 		
-		
-		
+		////
+		Iterator<String> keys = map.keySet().iterator();
+		System.out.println("-----");
+        while( keys.hasNext() ){
+
+            String key = keys.next();
+
+            System.out.println( String.format("키 : %s, 값 : %s", key, map.get(key)) );
+
+        }
+        System.out.println("-----");
+		///
 		return dto;
 
 	}
@@ -67,24 +91,59 @@ public class ReviewDAOImple implements ReviewDAO {
 		int count = sqlMap.selectOne("reviewSetReviewNum");
 		return count;
 	}
-	
-	@Override //인재정보
+
+	@Override // 인재정보
 	public List<ReviewDTO> injaeList() {
 		List<ReviewDTO> list = sqlMap.selectList("injaeList");
 		return list;
 	}
-	/**나의 후기*/
+
+	/** 나의 후기 */
 	@Override
-	public List<ReviewDTO> myReview(int member_idx) {
-		List<ReviewDTO> list = sqlMap.selectList("myReview" , member_idx);
+	public List<ReviewDTO> myReview(int member_idx,int cp,int ls) {
+		
+		Map map = new HashMap();
+		int start = (cp - 1) * ls + 1;
+		int end = cp * ls;
+		map.put("start", start);
+		map.put("end", end);
+		map.put("member_idx", member_idx);
+		
+		List<ReviewDTO> list = sqlMap.selectList("myReview", map);
 		return list;
 	}
-	@Override	//리뷰 삭제
+
+	@Override // 리뷰 삭제
 	public int reviewDel(int member_idx, int review_num) {
 		Map map = new HashMap();
 		map.put("member_idx", member_idx);
 		map.put("review_num", review_num);
-		int count =sqlMap.update("reviewDel", map);
+		int count = sqlMap.update("reviewDel", map);
 		return count;
+	}
+	@Override
+	public int reviewTotalCnt(String com_name) {
+		int count = sqlMap.selectOne("reviewTotalCnt", com_name);
+		return count;
+	}
+	
+	@Override //나의 후기 리스트
+	public ResumeDTO myReviewList(int review_num, int cp,int ls) {
+		Map map = new HashMap();
+		int start = (cp - 1) * ls + 1;
+		int end = cp * ls;
+		map.put("start", start);
+		map.put("end", end);
+		map.put("review_num", review_num);
+		ResumeDTO dto = sqlMap.selectOne("myReviewList", map);
+		return dto;
+	}
+	
+	@Override
+	public int myReviewTotalCnt(int idx) {
+		System.out.println(idx);
+		int total = sqlMap.selectOne("myReviewTotalCnt", idx);
+		System.out.println(idx);
+		return total;
 	}
 }

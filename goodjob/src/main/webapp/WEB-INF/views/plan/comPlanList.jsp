@@ -29,21 +29,26 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 </head>
 <body>
+		<div class="container">
+		<%@include file="/WEB-INF/views/header.jsp"%>
+	<article>
+			<div class="row">
 	<h1>내요금제</h1>
 			<hr class="my-4">
-	<article>
-		<div class="btn-group btn-group-lg" role="group"
+		<div class="btn-group btn-group-lg col-4" role="group"
 			aria-label="Large button group">
-			<button class="btn btn-outline-dark">
+			<button class="btn btn-<c:if test="${plan_type!='VIP'}">outline-</c:if>dark" onclick="location.href='comPlanList.do?plan_type=VIP'">
 				<span>VIP</span>
 			</button>
-			<button class="btn btn-outline-dark">
+			<button class="btn btn-<c:if test="${plan_type!='UP'}">outline-</c:if>dark" onclick="location.href='comPlanList.do?plan_type=UP'">
 				<span>UP</span>
 			</button>
 			<button class="btn btn-outline-dark">
 				<span>이용내역</span>
 			</button>
 		</div>
+				<div class="col-5"></div>
+						<div class="col-3">
 		<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
 			<div class="input-group">
 				<input type="text"
@@ -55,41 +60,43 @@
 				</button>
 			</div>
 		</form>
+			</div>
+					</div>
 		<hr class="my-4">
-<div class="container px-0 px-lg-1">
-<div class="row gx-2 gx-lg-3 justify-content-center">
-	<div class="col-md-11 col-lg-9 col-xl-8">
+<div class="container">
+<div class="row">
+	<div class="col-12">
 		<table class="table table-hover">
 			<thead>
 				<tr>
 					<th>요금제종류</th>
-					<th>요금기간</th>
 					<th>요금제명</th>
-					<th>등급</th>
+					<c:if test="${plan_type=='VIP'}"><th>요금기간</th></c:if>
+					<th><c:if test="${plan_type=='VIP'}">등급</c:if><c:if test="${plan_type=='UP'}">남은횟수</c:if></th>
 					<th>비고</th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:if test="${empty list}">
 					<tr>
-						<td colspan="5" align="center">등록된 게시물이 없습니다.</td>
+						<td colspan="<c:if test="${plan_type=='VIP'}">5</c:if><c:if test="${plan_type=='UP'}">4</c:if>" align="center">등록된 게시물이 없습니다.</td>
 					</tr>
 				</c:if>
 				<c:forEach var="dto" items="${list}">
 					<tr>
 						<td>${dto.gender}</td>
-						<td>${dto.writedate}~${dto.deadline}<br>(잔여일:${dto.com_idx}일)</td>
 						<td>${dto.subject}</td>
-						<td>${dto.grade}</td>
+						<c:if test="${plan_type=='VIP'}"><td>${dto.writedate}~${dto.deadline}<br>(잔여일:${dto.com_idx}일)</td></c:if>
+						<td><c:if test="${plan_type=='VIP'}">${dto.grade}</c:if><c:if test="${plan_type=='UP'}">${dto.com_idx}</c:if></td>
 						<td><button type="button" class="btn btn-primary btn-lg" onclick="location.href='planInfo.do'">
-								<span>연장</span>
+								<span><c:if test="${plan_type=='VIP'}">연장</c:if><c:if test="${plan_type=='UP'}">추가</c:if></span>
 							</button></td>
 					</tr>
 				</c:forEach>
 			</tbody>
 			<tfoot>
 				<tr>
-					<td colspan="4" align="center">${pageStr}</td>
+					<td colspan="<c:if test="${plan_type=='VIP'}">4</c:if><c:if test="${plan_type=='UP'}">3</c:if>" align="center">${pageStr}</td>
 					<td><button class="btn btn-primary btn-icon-split btn-lg" onclick="location.href='planInfo.do'">
     <span class="icon text-white-50">
         <i class="bi bi-cart4"></i>
@@ -104,5 +111,7 @@
 		</div>
 		</div>
 	</article>
+			<%@include file="/WEB-INF/views/footer.jsp"%>
+</div>
 </body>
 </html>

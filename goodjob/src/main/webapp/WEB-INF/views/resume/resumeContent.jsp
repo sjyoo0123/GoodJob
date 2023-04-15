@@ -73,6 +73,8 @@
 	<%@include file="/WEB-INF/views/header.jsp"%>
 	<h1>이력서</h1>
 	<hr>
+	<div class = "container">
+<%@include file="/WEB-INF/views/header.jsp"%>
 	<div>
 	<c:if test="${sessionScope.scategory=='기업'}">
 	<c:if test="${offCount==0}">
@@ -226,37 +228,41 @@ function offerSubmit(){
 
 			<tr>
 				<th>경력구분</th>
-				<td>${dto.career_check }</td>
+				<td><h6>&nbsp; &nbsp;${dto.career_check }</h6></td>
 			</tr>
 			<tr>
 				<th></th>
-				<c:if test="${dto.career_check =='경력' }" >
-				<div id="carrer1">
-					<table>
-						<h5>나의 경력</h5>
-						<tr>
-							<th>회사명</th>
-							<td>${cto.com_name }</td>
-						</tr>
-						<tr>
-							<th>근무기간</th>
-							<td><span>${cto.startday } </span> ~ <span>${cto.endday }</span></td>
-						</tr>
-						<tr>
-							<th>담당업무</th>
-							<td>${cto.part }></td>
-						<tr>
-						<tr>
-							<th>서비스타입</th>
-							<td>${cto.service_type }</td>
-						<tr>
-					</table>
-				</div>
-				</c:if>
+				<td><div id="carrer1">
+						<c:choose>
+							<c:when test="${dto.career_check == '신입' }"></c:when>
+							<c:otherwise>
+								<c:forEach var="list" items="${list }">
+									<h5>나의 경력</h5>
+									<table>
+										<tr>
+											<th>회사명</th>
+											<td>${list.com_name }</td>
+										</tr>
+										<tr>
+											<th>근무기간</th>
+											<td><span>${list.startday } </span> ~ <span>${list.endday }</span></td>
+										</tr>
+										<tr>
+											<th>담당업무</th>
+											<td>${list.part }</td>
+										<tr>
+										<tr>
+											<th>서비스타입</th>
+											<td>${list.service_type }</td>
+										<tr>
+									</table>
+									<hr>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
+					</div></td>
 			</tr>
-
 			<hr>
-
 		</table>
 
 		<h2>희망근무조건</h2>
@@ -295,10 +301,12 @@ function offerSubmit(){
 	</div>
 
 	<hr>
-
+	
 	<div>
 		<h2>자기소개서</h2>
 		<textarea rows="30" cols="50" name="content">${dto.content }</textarea>
 	</div>
+	<%@include file="/WEB-INF/views/footer.jsp"%>
+</div>
 </body>
 </html>
