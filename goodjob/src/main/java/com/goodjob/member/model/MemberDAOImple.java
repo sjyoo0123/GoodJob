@@ -37,7 +37,7 @@ public class MemberDAOImple implements MemberDAO {
 	synchronized public int memberJoin(MemberDTO dto) {
 		// TODO Auto-generated method stub
 		int idCheck = idCheck(dto.getId());
-		int emailCheck=emailCheck(dto.getEmail())==null?0:1;
+		int emailCheck=emailCheck(dto.getEmail());
 		
 		if (idCheck == 0) {
 			if(emailCheck==0) {
@@ -77,37 +77,17 @@ public class MemberDAOImple implements MemberDAO {
 	}
 
 	@Override
-	public int memberUpdate(Object dto) {
+	public int memberUpdate(MemberDTO dto) {
 		// TODO Auto-generated method stub
-		Map<String, String> map = new HashMap<String, String>();
-		if (dto instanceof NormalMemberDTO) {
-			NormalMemberDTO norDto = (NormalMemberDTO) dto;
-			paseMap(map, norDto.getPwd(), norDto.getTel(), norDto.getIdx() + "", norDto.getAddr());
-			map.put("qurey", "birth='" + norDto.getBirth() + "' , gender='" + norDto.getGender() + "'");
-		} else if (dto instanceof CompanyMemberDTO) {
-			CompanyMemberDTO comDto = (CompanyMemberDTO) dto;
-			paseMap(map, comDto.getPwd(), comDto.getTel(), comDto.getIdx() + "", comDto.getAddr());
-			map.put("qurey", "com_name='" + comDto.getName() + "' , com_num= '" + comDto.getCom_num()
-					+ "' ,detail_addr='" + comDto.getDetail_addr() + "'");
-		} else {
-			return -1;
-		}
-		return sqlMap.update("memberUpdate", map);
+		return sqlMap.update("memberUpdate", dto);
 	}@Override
-	public MemberDTO emailCheck(String email) {
+	public int emailCheck(String email) {
 		return sqlMap.selectOne("emailCheck",email);
 	}@Override
 	public int idCheck(String id) {
 		return sqlMap.selectOne("idCheck",id);
 	}
 
-	public Map<String, String> paseMap(Map<String, String> map, String pwd, String tel, String idx, String addr) {
-		map.put("idx", idx);
-		map.put("pwd", pwd);
-		map.put("tel", tel);
-		map.put("addr", addr);
-		return map;
-	}
 	
 	@Override
 	public MemberDTO resumeWriteForm() {
