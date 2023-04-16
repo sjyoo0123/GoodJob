@@ -19,6 +19,21 @@
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 </head>
+<script type="text/javascript">
+   var s_status='${sessionScope.status}';
+   var s_category='${sessionScope.scategory}';
+   var check_category='관리자';
+   if( s_status==''){
+      window.alert('로그인이 필요합니다');
+      location.href='login.do';
+   }else if(s_status=='블랙'){
+      window.alert('차단된 회원입니다');
+      location.href='index.do';
+   }else if(s_category!=check_category){
+      window.alert(check_category+'만 이용 가능한 페이지입니다');
+      location.href='index.do';
+   }
+</script>
 <body>
 	<div class="container">
 		<%@include file="/WEB-INF/views/header.jsp" %>

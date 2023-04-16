@@ -35,7 +35,7 @@ select[disabled] {
 <c:set var="url" value="comUpdate.do"></c:set>
 </c:if>
 		<section>
-			<article>
+			<article class="mt-5 pt-5">
 				<form action="${url}" method="post">
 				<div class="row">
 					<h2 class="col-12 text-center">개인정보수정</h2>
@@ -95,7 +95,6 @@ select[disabled] {
 					<button type="button" class="btn btn-light input" value="birth">변경</button>
 					</div>
 					</div>
-					<input type="hidden" name="nor_idx" value="${dto.idx}">
 					</c:if>
 					
 					<div class="col-6 offset-3 mb-5">
@@ -141,7 +140,7 @@ select[disabled] {
 						<label for="com_birth" class="form-label">설립일</label>
 						<input type="date" id="com_birth" value="${dto.com_birth}" readonly="readonly" class="form-control">
 						</div>
-					</c:if><div class="col-6 offset-3">
+					</c:if><div class="col-6 offset-3 text-center mb-5">
 					<button type="submit" class="btn btn-outline-primary">등록</button>
 					</div>
 					</div>

@@ -30,16 +30,8 @@
 <body>
 	<h1>보낸 제안</h1>
 	<article>
-		<h1>${subject}</h1>
-		<div class="btn-group btn-group-lg" role="group"
-			aria-label="Large button group">
-			<button class="btn btn-outline-dark">
-				<span>수정</span>
-			</button>
-			<button class="btn btn-outline-dark">
-				<span>삭제</span>
-			</button>
-		</div>
+	<div class = "container">
+<%@include file="/WEB-INF/views/header.jsp"%>
 		<form>
 			<div class="input-group mb-3">
 				<input type="text" name="searchNotice" class="form-control"
@@ -104,6 +96,9 @@
 			</tfoot>
 		</table>
 	</article>
+	
+<%@include file="/WEB-INF/views/footer.jsp"%>
+</div>
 </body>
 <script>
 $(document).ready(function() {
