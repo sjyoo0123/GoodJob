@@ -18,40 +18,58 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <title>Good Job</title>
 </head>
+<style>
+.button, .page {
+	text-align: center;
+}
+</style>
 <body>
 	<div class="container">
 		<%@include file="/WEB-INF/views/header.jsp"%>
 		<section>
 			<article>
 				<form name="search" action="review.do">
-					<input type="text" name="keyword" size="30"> 
-					<input type="submit" value="검색"> 
-					<input type="button" value="후기 작성 하기" onclick="location.href='reviewWrite.do'">
-					<input type="button" value="내 알바 후기" onclick="location.href='myReview.do'">
+					<div class="button">
+						<input type="text" name="keyword" size="30">
+						<button type="submit" class="btn btn-outline-secondary">검색</button>
+						<button type="button" class="btn btn-outline-secondary"
+							onclick="location.href='reviewWrite.do'">후기 작성 하기</button>
+						<button type="button" class="btn btn-outline-secondary"
+							onclick="location.href='myReview.do'">내 알바 후기</button>
+					</div>
 				</form>
 			</article>
 			<article>
+				<br>
+				<c:if test="${empty list}">
+					<p>등록된 글이 없습니다</p>
+				</c:if>
 
-				<table>
-					<c:if test="${empty list}">
-						<tr>
-							<td>등록된 글이 없습니다</td>
-						</tr>
-					</c:if>
-					<tr>
 
-						<div border :1px solid gold>
-							<td><c:forEach var="map" items="${map}">
-									<div> ${map.value.name }</div>
-									<div>리뷰${map.value.member_idx }</div>
-									<div> ${map.value.addr } ${map.value.gender }
-										${map.value.detail_addr }</div>
-										<hr>
-								</c:forEach></td>
-						</div>
-					<tr>
-				</table>
-				<div>${pageStr }</div>
+				<div class="container text-center">
+					<div class="row">
+						<c:forEach var="map" items="${map}">
+							<div class="col-md-6 card ">
+								<div>${map.value.name }</div>
+								<div>리뷰 ${map.value.member_idx }개</div>
+								<div>
+									<button>${map.value.gender }</button>
+									&nbsp;
+									<c:if test="${not empty map.value.addr }">
+										<button>${map.value.addr }</button>&nbsp;</c:if>
+									 <c:if
+								test="${not empty map.value.detail_addr }">
+								<button>${map.value.detail_addr }</button>&nbsp;</c:if>
+								</div>
+							</div>
+						</c:forEach>
+					</div>
+				</div>
+
+
+
+
+				<div class="page">${pageStr }</div>
 			</article>
 		</section>
 		<%@include file="/WEB-INF/views/footer.jsp"%>
