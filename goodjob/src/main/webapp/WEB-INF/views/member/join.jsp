@@ -5,7 +5,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script>${msg}</script>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -67,7 +66,7 @@
 	<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.1.0/kakao.min.js"
   integrity="sha384-dpu02ieKC6NUeKFoGMOKz6102CLEWi9+5RQjWSV0ikYSFFd8M3Wp2reIcquJOemx" crossorigin="anonymous"></script>
 <script>
-  Kakao.init('d67c0e8efbe506e6ef450c637bab0204'); // 사용하려는 앱의 JavaScript 키 입력
+  Kakao.init('d67c0e8efbe506e6ef450c637bab0204'); 
 </script>
 	<script>
 	function loginWithKakao() {
@@ -212,7 +211,7 @@
 		let telDiv=$('<div>').addClass('form-floating').append(telInput, telLabel);
 		let telColDiv=$('<div>').addClass('col-10 col-md-4 offset-md-4 offset-2').append(telDiv);
 		//submit
-		let submit =$('<button>').attr({'type':'submit'}).text('가입');
+		let submit =$('<button>').attr({'type':'submit','class':'btn btn-outline-primary'}).text('가입');
 		let submitCol=$('<div>').addClass('col-10 col-md-4 offset-md-4 offset-2').append(submit);
 		//addr
 		let mAddrColDiv=$('<div>').attr({class:'col-10 col-md-4 offset-md-4 offset-2'});
