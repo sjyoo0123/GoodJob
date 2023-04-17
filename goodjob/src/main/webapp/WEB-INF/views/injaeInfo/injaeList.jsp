@@ -33,7 +33,7 @@
 						<div class="col-6">
 						<div class="input-group">
 							<select name="job" class="keyword1 form-select" id="fjob"></select> 
-							<input type="button" value="직종 검색 " onclick="getList()" class="btn btn-outline-primary">
+							<input type="button" value="직종 검색 " onclick="getListVar()" class="btn btn-outline-primary">
 						</div>
 						</div>
 							<div id="sjob" class="mt-1"></div>
@@ -44,7 +44,7 @@
 						<div class="col-6">
 						<div class="input-group">
 							<select name="locals" class="keyword2 form-select" id="keyword"></select>
-							 <input type="button" value="지역 검색" onclick="getList()" class="btn btn-outline-primary">
+							 <input type="button" value="지역 검색" onclick="getListVar()" class="btn btn-outline-primary">
 						</div>
 						</div>
 						</div>
@@ -100,12 +100,17 @@ $('#local').change(function(){
 	  $('#localcard').removeClass('d-none');
 	 
 })
+var sort=0;
+function getListVar(){
+	sort=$('.btn-check:checked').val();
+	getList()
+}
 function getList(){
 	$('#my-div').empty();
 	$.ajax({
 	      url:'injaeListGet.do',
 	      type:'post',
-	      data:{"sort":$('.btn-check:checked').val(),"cp":$('#cp').val(),"keyword":$('.btn-check:checked').val()>1?$('.keyword2').val():$('input[name=job]:checked').val()},//전송데이터
+	      data:{"sort":sort,"cp":$('#cp').val(),"keyword":$('.btn-check:checked').val()>1?$('.keyword2').val():$('input[name=job]:checked').val()},//전송데이터
 	      dataType:'json'
 	      //전송받을타입 json으로 선언하면 json으로 파싱안해도됨
 	   }).done((data)=>{
