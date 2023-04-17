@@ -41,4 +41,10 @@
 	and totalfile.category='banner'order by ref asc
 
  	</select>
+ 	<update id="manBannerUpdate" parameterType="Map">
+ 		update banner set
+ 		subject=#{subject},
+ 		link=#{link}
+ 		where idx=#{idx}
+ 	</update>
  </mapper>
