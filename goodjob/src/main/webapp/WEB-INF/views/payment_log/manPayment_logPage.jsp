@@ -15,15 +15,15 @@
 var IMP = window.IMP; // 생략 가능
 IMP.init("imp82514218"); // 예: imp00000000a
 	
-function requestPay(pg= '테스트 PG.INIpayTest') {
-    let planType = ''; // 변수 초기화
+function requestPay(pg= '테스트 PG.TC0ONETIME') {
+    let planType = ''; // 변수 초기화 inisis
     if ('${planDto.plan_type}' === 'VIP') {
         planType = 'VIP';
     } else if ('${planDto.plan_type}' === 'UP') {
         planType = 'UP';
     }
-    IMP.request_pay({
-      pg: "inicis.{INIpayTest}",
+    IMP.request_pay({ 
+      pg: "kakaopay.{TC0ONETIME}", //inicis
       pay_method: "card",
       merchant_uid: ${str},   // 주문번호
       name: '${planDto.plan_name}',

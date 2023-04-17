@@ -69,7 +69,7 @@
 								<input type="hidden" value="${dto.idx }" name="idx">
 								<input type="hidden" value="${dto.file_idx }" name="fileidx">
 								<input type="hidden" value="banner" name="category">
-								<input type="submit" value="수정하기">
+								<input type="submit" value="수정하기" class="btn btn-primary">
 							</td>
 						</tr>
 						</tfoot>
