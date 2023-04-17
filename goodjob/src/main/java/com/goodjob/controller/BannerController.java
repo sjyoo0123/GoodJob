@@ -169,9 +169,13 @@ public class BannerController {
 		dto2.setIdx(file_idx);
 		dto2.setCategory(category);
 
+		Map<String, Object> map= new HashMap<String, Object>();
 		
-	
-		int count=bannerDao.manBannerAdd(dto);
+		map.put("link", dto.getLink());
+		map.put("subject", dto.getSubject());
+		map.put("idx", idx);
+		System.out.println(map.toString());
+		int count=bannerDao.manBannerUpdate(map);
 		int count2=totalFileDao.manFileUpdate(dto2);
 	
 		

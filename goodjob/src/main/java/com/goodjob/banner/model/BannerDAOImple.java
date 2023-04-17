@@ -82,4 +82,14 @@ public class BannerDAOImple implements BannerDAO {
 		List<Banner_totalFileDTO>list =sqlMap.selectList("mainBanner");
 		return list;
 	}
+	
+	@Override
+	public int manBannerUpdate(Map<String, Object> map) {
+
+		
+		
+		int result=sqlMap.update("manBannerUpdate", map);
+		
+		return result;
+	}
 }
