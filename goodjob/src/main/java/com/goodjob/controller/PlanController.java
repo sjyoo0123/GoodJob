@@ -42,40 +42,53 @@ public class PlanController {
 	@RequestMapping(value="/manPlanAdd.do", method = RequestMethod.POST )
 	public ModelAndView manPlanAdd(
 			@RequestParam("plan_name")String plan_name,
-			@RequestParam("plan_price")String plan_price,
+			@RequestParam("plan_price")int plan_price,
 			@RequestParam("plan_type")String plan_type,
-			@RequestParam("vip_floor")String vip_floor,
-			@RequestParam("up_count")int up_count,
-			@RequestParam("plan_period")int plan_period,
-			Plan_UpDTO dto,Plan_VipDTO dto2
+			@RequestParam(value="vip_floor")String vip_floor,
+			@RequestParam(value="up_count", defaultValue = "0")int up_count,
+			@RequestParam("plan_period")int plan_period
+		
 			) {
 		
-		Map map=new HashMap();	
+		
 		
 		ModelAndView mav=new ModelAndView();
 		
-		if(plan_type.equals("up요금제")) {
+		if(plan_type.equals("UP")) {
+			System.out.println(1);
+			Plan_UpDTO dto=new Plan_UpDTO();
+			dto.setPlan_name(plan_name);
+			dto.setPlan_price(plan_price);
+			dto.setPlan_type(plan_type);
+			Map<String, Object> map=new HashMap<String, Object>();	
 			
 			map.put("count", up_count);
-			
 			int count=plan_UpDao.manPlanAdd(dto);
-			if(count<0) {
-				mav.addObject("msg", "up요금제 추가 실패");	
-			}else {
+		
+			if(count>0) {
 				int count2=plan_UpDao.manPlanUpAdd(map);	
-				mav.addObject("msg", "up요금제 추가 성공");
+				mav.addObject("msg", "up요금제 추가 성공");	
+			}else {
+				mav.addObject("msg", "up요금제 추가 실패");
 			}
-		}else {
+		}else if(plan_type.equals("VIP")){
+			System.out.println(1);
+			Map<String, Object> map=new HashMap<String, Object>();	
+			Plan_VipDTO dto=new Plan_VipDTO();
+			dto.setPlan_name(plan_name);
+			dto.setPlan_price(plan_price);
+			dto.setPlan_type(plan_type);
 			
 			map.put("plan_period", plan_period);
 			map.put("vip_floor", vip_floor);
 			
-			int count=plan_VipDao.manPlanAdd(dto2);
-			if(count<0) {
-				mav.addObject("msg", "vip요금제 추가 실패");
-			}else {
+			int count=plan_VipDao.manPlanAdd(dto);
+			if(count>0) {
 				int count2=plan_VipDao.manPlanVipAdd(map);
-				mav.addObject("msg", "vip요금제 추가 성공");	
+				mav.addObject("msg", "vip요금제 추가 성공");
+				
+			}else {
+				mav.addObject("msg", "vip요금제 추가 실패");
 			}
 		}
 		mav.addObject("goUrl", "manPlanPage.do");

@@ -106,6 +106,8 @@ a:hover {
 						<ul class="dropdown-menu">
 							<li><a class="dropdown-item" href="manNoticeStatusPage.do">공고관리</a></li>
 							<li><a class="dropdown-item" href="manReviewPage.do">키워드관리</a></li>
+							<li><a class="dropdown-item" href="manGongjiList.do">공지관리</a></li>
+							<li><a class="dropdown-item" href="manBlackListSingoList.do">신고관리</a></li>
 							<li><a class="dropdown-item" href="manBlackList.do">블랙리스트</a></li>
 							<li><a class="dropdown-item" href="manBannerPage.do">배너관리</a></li>
 							<li><a class="dropdown-item" href="manPlanPage.do">요금제관리</a></li>

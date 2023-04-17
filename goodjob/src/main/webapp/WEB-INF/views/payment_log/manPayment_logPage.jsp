@@ -27,7 +27,7 @@ function requestPay(pg= '테스트 PG.INIpayTest') {
       pay_method: "card",
       merchant_uid: ${str},   // 주문번호
       name: '${planDto.plan_name}',
-      amount: 100,                         // 숫자 타입 나중에
+      amount: ${planDto.plan_price},                         // 숫자 타입 나중에
       buyer_email: '${dto.email}',
       buyer_name: '${dto.name}',
       buyer_tel: '${dto.tel}',
@@ -101,7 +101,7 @@ function requestPay(pg= '테스트 PG.INIpayTest') {
 				</table>
 				<div class="row">
 					<div class="offset-sm-8 col-sm-3">
-						<input type="button" value="결제하기" onclick="requestPay()" id="button">
+						<input type="button" value="결제하기" onclick="requestPay()" id="button" class="btn btn-primary">
 					</div>
 				</div>
 			</article>

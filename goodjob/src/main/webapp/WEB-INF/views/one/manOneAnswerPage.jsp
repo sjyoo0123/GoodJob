@@ -50,7 +50,7 @@
 				<tr>
 					<td align="right">
 						<input type="hidden" value="${dto.idx }" name="idx">
-						<input type="submit" value="답변하기" >
+						<input type="submit" value="답변하기" class="btn btn-primary">
 					</td>
 				</tr>
 

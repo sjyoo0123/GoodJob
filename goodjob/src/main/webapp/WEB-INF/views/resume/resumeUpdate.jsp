@@ -1,6 +1,7 @@
- <%@ page language="java" contentType="text/html; charset=UTF-8"
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -66,233 +67,291 @@
 .addrtest1 {
 	width: 400px;
 }
+
+h1 {
+	text-align: center;
+}
 </style>
 </head>
 <body>
 	<h1>이력서 수정</h1>
-	<form id="resumeUpdate" name="resumeUpdate" action="resumeUpdate.do" method="post">
-	<input type="hidden" name="idx" value="${dto.idx}">
-		<hr>
-		<div>
-			<table>
-			<c:if test="${empty dto }">
-				<tr>
-					<th></th>
-					<td>등록된 정보가 없습니다</td>
-				</tr>
-			</c:if>
-				<tr>
-					<th> 이름 / 성별  / 나이 </th>
-					<td>${dto.name}/${dto.gender} / ${dto.age}</td>
-				</tr>
-				<tr>
-					<th>주소</th>
-					<td><span>${dto.addr }</span></td> 
-				</tr>
-				<tr>			
-					<th>상세주소</th>
-					<td><input type="text" name="detail_addr"  value="${dto.detail_addr }"></td>
-				</tr>
-				<tr>
-					<th>이메일</th>
-					<td>${dto.email }</td>
-				</tr>
-				<tr>
-					<th>tel</th>
-					<td>${dto.tel }</td>
-				</tr>
-				<tr>
-			<hr>
-					<th><h2>이력서제목</h2></th>
-					<td>
-						<div><input type="text" name="subject" class="form-control form-control-lg" value=${dto.subject }></div>
-					</td>
-				</tr>
-				<div><input type="hidden" name="member_idx" value="${dto.member_idx}"> </div>
-				<tr>
-					<th>학력</th>
-					<td>
-  					<select name="grade" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
-    					<option value="초등학교 졸업" ${dto.grade == "초등학교 졸업" ? "selected" : ""}>초등학교 졸업</option>
-   						 <option value="중학교 졸업" ${dto.grade == "중학교 졸업" ? "selected" : ""}>중학교 졸업</option>
-   						 <option value="고등학교 졸업" ${dto.grade == "고등학교 졸업" ? "selected" : ""}>고등학교 졸업</option>
-  						  <option value="대학교 졸업" ${dto.grade == "대학교 졸업" ? "selected" : ""}>대학교 졸업</option>
-   						 <option value="학력무관" ${dto.grade == "학력무관" ? "selected" : ""}>학력무관</option>
- 					 </select>
-					</td>
-				</tr>
-
-			</table>
-		</div>
-
-		<hr>
-
-		<div>
-			<h2>경력사항</h2>
-			<table>
-
-				<tr>
-					<th>경력구분</th>
-					<td>
-						<input type="hidden" name="career_check" value="${dto.career_check }" required>
-					</td>
-				</tr>
-				<tr>
-					<th></th>
-					 <!-- style="display: none;" -->
-					<h5>나의 경력</h5>
-					<td><div id="carrer1">
-						<table id="career" >
-						<c:forEach var="list" items="${list}">
-								<input type="hidden" name="cidx" value="${list.idx}">
-							
-								<tr>
-									<th>회사명</th>
-									<td><input type="text" name="com_name" value="${list.com_name }" required ></td>
-								</tr>
-								<tr>
-									<th>근무기간</th>
-									<td><input type="date" id="date" name="startday_s" value="${list.startday }" required>
-									&nbsp;
-									<input type="date" id="date2" name="endday_s" value="${list.endday }"required></td>
-								</tr>
-								<tr>
-									<th>담당업무</th>
-									<td><input type="text" name="part" value="${list.part }"required></td>
-								<tr>
-								<tr>
-									<th>서비스타입</th>
-									<td><select name="service_type" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" }">
-										<option value="아르바이트">아르바이트</option>
-										<option value="정직원">정직원</option>
-									</select></td>
-								<tr>
-							
-							</c:forEach>
-							</table>
-							<hr>
-									<div><input type="button" class = "chooga" value = "추가"></div>
-						</div></td>
-				</tr>
-
-				<hr>
-
-			</table>
-
-			<h2>희망근무조건</h2>
-			<table>
-
-				<tr>
-					<th>희망 근무지</th>
-					<div class="addr input-group">
-									<select class="h_local1" size="3" name="h_local1">
-										<option selected >${dto.h_local1 }</option>
-									</select> <select class="h_local2" size="3" name="h_local2">
-										<option selected>${dto.h_local2 }</option>
-									</select>
-						<div class="lAddr"></div>
-					</div>
-				</tr>
-				<tr>
-					<th>직종</th>
-					<td><input type="button" value="직종" onclick="show()">
-					<input type="text" value="${dto.job }" name="job" id="job" readonly ></td>
-				</tr>
-
-
-				<tr>
-					<th>근무기간</th>
-					<td>
-   					 <input type="radio" name="h_period" value="하루" class="btn-check" id="h_period" autocomplete="off"  
-   					 ${dto.h_period == "하루" ? "checked" : ""}>
-    				 <label class="btn btn-outline-primary" for="h_period">하루</label> 
-   					 <input type="radio" name="h_period" value="일주일이하" class="btn-check" id="h_period1" autocomplete="off"  
-   					 ${dto.h_period == "일주일이하" ? "checked" : ""}>
-   					 <label class="btn btn-outline-primary" for="h_period1">일주일이하</label> 
- 					 <input type="radio" name="h_period" value="1주일~1개월" class="btn-check" id="h_period2" autocomplete="off"  
-  					 ${dto.h_period == "1주일~1개월" ? "checked" : ""}>
-  					 <label class="btn btn-outline-primary" for="h_period2">1주일~1개월</label> 
-    				 <input type="radio" name="h_period" value="1개월~3개월" class="btn-check" id="h_period3" autocomplete="off"  
-    				 ${dto.h_period == "1개월~3개월" ? "checked" : ""}>
-    				 <label class="btn btn-outline-primary" for="h_period3">1개월~3개월</label> 
-    				 <input type="radio" name="h_period" value="3개월~6개월" class="btn-check" id="h_period4" autocomplete="off"  
-    				 ${dto.h_period == "3개월~6개월" ? "checked" : ""}>
-    				 <label class="btn btn-outline-primary" for="h_period4">3개월~6개월</label>
-   					 <input type="radio" name="h_period" value="6개월~1년" class="btn-check" id="h_period5" autocomplete="off"  
-   					 ${dto.h_period == "6개월~1년" ? "checked" : ""}>
-   					 <label class="btn btn-outline-primary" for="h_period5">6개월~1년</label> 
- 					 <input type="radio" name="h_period" value="1년이상" class="btn-check" id="h_period6" autocomplete="off"  
-   					 ${dto.h_period == "1년이상" ? "checked" : ""}>
-   					 <label class="btn btn-outline-primary" for="h_period6">1년이상</label>
-  					 <input type="radio" name="h_period" value="추후협의" class="btn-check" id="h_period7" autocomplete="off"  
-   					 ${dto.h_period == "추후협의" ? "checked" : ""}>
-					 </td>
-				</tr>
-				<tr>
-					<th>근무요일</th>
-					<td>
-						<input type="radio" value="요일지정" class="btn-check" id="h_workday" name="h_workday" autocomplete="off" checked> 
-						<label class="btn btn-outline-primary" for="h_workday">요일지정</label>
-					</td>
-				</tr>
-				<tr>
-					<th></th>
-					<td><div id="checkh_h_workday" style="display: none;">
-							<input type="checkbox" name="checkboxh_h_workday" value="mon" class="btn-check" id="mon">
-							<label class="btn btn-outline-dark" for="mon">월</label> 
-							<input type="checkbox" name="checkboxh_h_workday" value="thu" class="btn-check" id="tue">
-							<label class="btn btn-outline-dark" for="tue">화</label>
-							<input type="checkbox" name="checkboxh_h_workday" value="wed" class="btn-check" id="wed">
-							<label class="btn btn-outline-dark" for="wed">수</label> 
-							<input type="checkbox" name="checkboxh_h_workday" value="thu" class="btn-check" id="thu">
-							<label class="btn btn-outline-dark" for="thu">목</label> 
-							<input type="checkbox" name="checkboxh_h_workday" value="fri"class="btn-check" id="fri">
-							<label class="btn btn-outline-dark" for="fri">금</label> 
-							<input type="checkbox" name="checkboxh_h_workday" value="sat"class="btn-check" id="sat">
-							<label class="btn btn-outline-dark" for="sat">토</label> 
-							<input type="checkbox" name="checkboxh_h_workday" value="sun" class="btn-check" id="sun">
-							<label class="btn btn-outline-dark" for="sun">일</label>
-						    <input type="checkbox" name="checkboxh_h_workday" value="moo" class="btn-check" id="moo">
-							<label class="btn btn-outline-dark" for="moo">무관</label>
-						</div></td>
-				</tr>
-				<tr>
-					<th>희망하는 근무시간</th>
-					<td><select name="h_worktime" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
-							<option value="오전">오전</option>
-							<option value="오후">오후</option>
-							<option value="무관">무관</option>
-					</select></td>
+	<form id="resumeUpdate" name="resumeUpdate" action="resumeUpdate.do"
+		method="post">
+		<input type="hidden" name="idx" value="${dto.idx}">
+		<div class="my-4"></div>
+		<div class="card bg-primary bg-opacity-10 col-6 offset-3">
+			<div class="card-body">
+				<table>
+					<c:if test="${empty dto }">
+						<tr>
+							<th></th>
+							<td>등록된 정보가 없습니다</td>
+						</tr>
+					</c:if>
+					<tr>
+						<th>이름 / 성별 / 나이</th>
+						<td>${dto.name}/${dto.gender}/${dto.age}</td>
 					</tr>
-				<tr>
-					<th>급여</th>
-					<td><input type="radio" value="시급" class="btn-check" id="h_pay_category" 
-					  	name="h_pay_category"  autocomplete="off" } checked>
-						<label 	class="btn btn-outline-primary" for="h_pay_category" >시급</label> 
-						
-						<input type="radio" value="월급" class="btn-check" id="h_pay_category1" 
-						name="h_pay_category" autocomplete="off" }>
-						<label class="btn btn-outline-primary" for="h_pay_category1">월급</label>
-						<br>
-						<input type="text" name="h_pay" value="${dto.h_pay }">원 
-						<div id="week_h_worktime" style="display: none;">1주 근무시간
-						<input type="number" name="h_worktime" value="0"></div></td>
-				</tr>
-			</table>
+					<tr>
+						<th>주소</th>
+						<td><span>${dto.addr }</span></td>
+					</tr>
+					<tr>
+						<th>상세주소</th>
+						<td><input type="text" name="detail_addr"
+							value="${dto.detail_addr }"></td>
+					</tr>
+					<tr>
+						<th>이메일</th>
+						<td>${dto.email }</td>
+					</tr>
+					<tr>
+						<th>tel</th>
+						<td>${dto.tel }</td>
+					</tr>
+					<tr>
+						<th><h2>이력서제목</h2></th>
+						<td>
+							<div>
+								<input type="text" name="subject"
+									class="form-control form-control-lg" value=${dto.subject }>
+							</div>
+						</td>
+					</tr>
+					<div>
+						<input type="hidden" name="member_idx" value="${dto.member_idx}">
+					</div>
+					<tr>
+						<th>학력</th>
+						<td><select name="grade"
+							class="form-select form-select-lg mb-3"
+							aria-label=".form-select-lg example">
+								<option value="초등학교 졸업"
+									${dto.grade == "초등학교 졸업" ? "selected" : ""}>초등학교 졸업</option>
+								<option value="중학교 졸업"
+									${dto.grade == "중학교 졸업" ? "selected" : ""}>중학교 졸업</option>
+								<option value="고등학교 졸업"
+									${dto.grade == "고등학교 졸업" ? "selected" : ""}>고등학교 졸업</option>
+								<option value="대학교 졸업"
+									${dto.grade == "대학교 졸업" ? "selected" : ""}>대학교 졸업</option>
+								<option value="학력무관" ${dto.grade == "학력무관" ? "selected" : ""}>학력무관</option>
+						</select></td>
+					</tr>
+
+				</table>
+			</div>
 		</div>
 
-		<hr>
+		<div class="my-4"></div>
+		<div class="card bg-primary bg-opacity-10 col-6 offset-3">
+			<div class="card-body">
+				<h2>경력사항</h2>
+				<table>
+					<tr>
+						<th>경력구분</th>
+						<td><input type="hidden" name="career_check"
+							value="${dto.career_check }" required></td>
+					</tr>
+					<tr>
+						<th></th>
+						<td><div id="carrer1">
+								<table id="career">
+									<c:forEach var="list" items="${list}">
+										<input type="hidden" name="cidx" value="${list.idx}">
 
-		 <div>
+										<tr>
+											<th>회사명</th>
+											<td><input type="text" name="com_name"
+												value="${list.com_name }" required></td>
+										</tr>
+										<tr>
+											<th>근무기간</th>
+											<td><input type="date" id="date" name="startday_s"
+												value="${list.startday }" required> &nbsp; <input
+												type="date" id="date2" name="endday_s"
+												value="${list.endday }" required></td>
+										</tr>
+										<tr>
+											<th>담당업무</th>
+											<td><input type="text" name="part" value="${list.part }"
+												required></td>
+										<tr>
+										<tr>
+											<th>서비스타입</th>
+											<td><select name="service_type"
+												class="form-select form-select-lg mb-3"
+												aria-label=".form-select-lg example"}">
+													<option value="아르바이트">아르바이트</option>
+													<option value="정직원">정직원</option>
+											</select></td>
+										<tr>
+									</c:forEach>
+								</table>
+								<hr>
+								<div>
+									<input type="button" class="chooga" value="추가">
+								</div>
+							</div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div class="my-4"></div>
+		<div class="card bg-primary bg-opacity-10 col-6 offset-3">
+			<div class="card-body">
+				<h2>희망근무조건</h2>
+				<table>
+
+					<tr>
+						<th>희망 근무지</th>
+						<td><div class="addr input-group">
+								<select class="h_local1" size="3" name="h_local1">
+									<option selected>${dto.h_local1 }</option>
+								</select> <select class="h_local2" size="3" name="h_local2">
+									<option selected>${dto.h_local2 }</option>
+								</select>
+								<div class="lAddr"></div>
+							</div></td>
+					</tr>
+					<tr>
+						<th>직종</th>
+						<td><input type="button" value="직종" onclick="show()">
+							<input type="text" value="${dto.job }" name="job" id="job"
+							readonly></td>
+					</tr>
+
+
+					<tr>
+						<th>근무기간</th>
+						<td><input type="radio" name="h_period" value="하루"
+							class="btn-check" id="h_period" autocomplete="off"
+							${dto.h_period == "하루" ? "checked" : ""}> <label
+							class="btn btn-outline-primary" for="h_period">하루</label> <input
+							type="radio" name="h_period" value="일주일이하" class="btn-check"
+							id="h_period1" autocomplete="off"
+							${dto.h_period == "일주일이하" ? "checked" : ""}> <label
+							class="btn btn-outline-primary" for="h_period1">일주일이하</label> <input
+							type="radio" name="h_period" value="1주일~1개월" class="btn-check"
+							id="h_period2" autocomplete="off"
+							${dto.h_period == "1주일~1개월" ? "checked" : ""}> <label
+							class="btn btn-outline-primary" for="h_period2">1주일~1개월</label> <input
+							type="radio" name="h_period" value="1개월~3개월" class="btn-check"
+							id="h_period3" autocomplete="off"
+							${dto.h_period == "1개월~3개월" ? "checked" : ""}> <label
+							class="btn btn-outline-primary" for="h_period3">1개월~3개월</label> <input
+							type="radio" name="h_period" value="3개월~6개월" class="btn-check"
+							id="h_period4" autocomplete="off"
+							${dto.h_period == "3개월~6개월" ? "checked" : ""}> <label
+							class="btn btn-outline-primary" for="h_period4">3개월~6개월</label> <input
+							type="radio" name="h_period" value="6개월~1년" class="btn-check"
+							id="h_period5" autocomplete="off"
+							${dto.h_period == "6개월~1년" ? "checked" : ""}> <label
+							class="btn btn-outline-primary" for="h_period5">6개월~1년</label> <input
+							type="radio" name="h_period" value="1년이상" class="btn-check"
+							id="h_period6" autocomplete="off"
+							${dto.h_period == "1년이상" ? "checked" : ""}> <label
+							class="btn btn-outline-primary" for="h_period6">1년이상</label> <input
+							type="radio" name="h_period" value="추후협의" class="btn-check"
+							id="h_period7" autocomplete="off"
+							${dto.h_period == "추후협의" ? "checked" : ""}></td>
+					</tr>
+					<tr>
+						<th>근무요일</th>
+						<td><input type="radio" value="요일지정" class="btn-check"
+							id="h_workday" name="h_workday" autocomplete="off" checked>
+							<label class="btn btn-outline-primary" for="h_workday">요일지정</label>
+						</td>
+					</tr>
+					<tr>
+						<th></th>
+						<td><div id="checkh_h_workday" style="display: none;">
+								<input type="checkbox" name="checkboxh_h_workday" value="mon"
+									class="btn-check" id="mon"> <label
+									class="btn btn-outline-dark" for="mon">월</label> <input
+									type="checkbox" name="checkboxh_h_workday" value="thu"
+									class="btn-check" id="tue"> <label
+									class="btn btn-outline-dark" for="tue">화</label> <input
+									type="checkbox" name="checkboxh_h_workday" value="wed"
+									class="btn-check" id="wed"> <label
+									class="btn btn-outline-dark" for="wed">수</label> <input
+									type="checkbox" name="checkboxh_h_workday" value="thu"
+									class="btn-check" id="thu"> <label
+									class="btn btn-outline-dark" for="thu">목</label> <input
+									type="checkbox" name="checkboxh_h_workday" value="fri"
+									class="btn-check" id="fri"> <label
+									class="btn btn-outline-dark" for="fri">금</label> <input
+									type="checkbox" name="checkboxh_h_workday" value="sat"
+									class="btn-check" id="sat"> <label
+									class="btn btn-outline-dark" for="sat">토</label> <input
+									type="checkbox" name="checkboxh_h_workday" value="sun"
+									class="btn-check" id="sun"> <label
+									class="btn btn-outline-dark" for="sun">일</label> <input
+									type="checkbox" name="checkboxh_h_workday" value="moo"
+									class="btn-check" id="moo"> <label
+									class="btn btn-outline-dark" for="moo">무관</label>
+							</div></td>
+					</tr>
+					<tr>
+						<th>희망하는 근무시간</th>
+						<td><select name="h_worktime"
+							class="form-select form-select-lg mb-3"
+							aria-label=".form-select-lg example">
+								<option value="오전">오전</option>
+								<option value="오후">오후</option>
+								<option value="무관">무관</option>
+						</select></td>
+					</tr>
+					<tr>
+						<th>급여</th>
+						<td><input type="radio" value="시급" class="btn-check"
+							id="h_pay_category" name="h_pay_category" autocomplete="off"
+							} checked> <label class="btn btn-outline-primary"
+							for="h_pay_category">시급</label> <input type="radio" value="월급"
+							class="btn-check" id="h_pay_category1" name="h_pay_category"
+							autocomplete="off"}> <label
+							class="btn btn-outline-primary" for="h_pay_category1">월급</label>
+							<br> <input type="text" name="h_pay" value="${dto.h_pay }">원
+							<div id="week_h_worktime" style="display: none;">
+								1주 근무시간 <input type="number" name="h_worktime" value="0">
+							</div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+
+		<div class="my-4"></div>
+		<div class="card bg-primary bg-opacity-10 col-6 offset-3">
 			<h2>자기소개서</h2>
-			<textarea rows="30" cols="50" name="content">${dto.content }</textarea>
+			<div class="card-body">
+				<textarea rows="30" cols="50" name="content">${dto.content }</textarea>
+			</div>
 		</div>
-		<div>
+		<div class="my-4"></div>
+		<div class="card bg-primary bg-opacity-10 col-6 offset-3">
 			<h2>공개여부</h2>
-			<label> <input type="checkbox" name="check" value=1 ${dto.check == 1 ? "checked" : "" }>공개</label>
-			<label> <input type="checkbox" name="check" value=0  ${dto.check == 0 ? "checked" : "" }>비공개</label>
-		</div> 
-		<input type="submit" value="수정"><input type="button" onclick = "location.href='index.do'" value="취소하기">
+			<div class="card-body">
+				<label> <input type="checkbox" name="check" value=1
+					${dto.check == 1 ? "checked" : "" }>공개
+				</label> <label> <input type="checkbox" name="check" value=0
+					${dto.check == 0 ? "checked" : "" }>비공개
+				</label>
+			</div>
+		</div>
+		
+		<!-- <div class="my-4"></div>
+		<div class="card bg-primary col-3 offset-3">
+			<input type="submit" value="수정">
+		</div> -->
+
+		<button type="submit"
+			class="btn btn-primary btn-icon-split btn-lg col-6 offset-3" id="buttonsubmit">
+			<span class="icon text-white-50"> <i class="bi bi-check-lg"></i>
+			</span> <span class="text">수정</span>
+		</button>
+ 
+
+
+
 	</form>
 	<script>
 	$.ajax({
@@ -335,7 +394,7 @@
 	});
 	$(document).ready(function() {
 		$('#checkh_h_workday').show();
-		$('input[name="h_workday"]').change(function() {
+		$('input[name="checkh_h_workday"]').change(function() {
 			if ($(this).val() == '요일지정') {
 				$('#checkh_h_workday').show();
 			} else {
@@ -393,7 +452,7 @@
 	  });
 	});
 	$(document).ready(function() {
-		  $('input[type="submit"]').click(function() {
+		  $('button[type="submit"]').click(function() {
 		    var selectedDays = '';
 		    $('input[name="checkboxh_h_workday"]').each(function() {
 		      if($(this).is(':checked')) {

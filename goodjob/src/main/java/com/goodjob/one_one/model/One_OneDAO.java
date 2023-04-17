@@ -12,7 +12,7 @@ public interface One_OneDAO {
 	
 	public int manOneAnswer(One_OneDTO dto);
 	
-	public List<One_OneDTO> manOneSearch(int cp, int ls, String search);
+	public List<One_OneDTO> manOneSearch(Map map);
 
 	
 	public List<One_OneDTO> userOneList(int idx,int cp,int ls);
@@ -23,4 +23,6 @@ public interface One_OneDAO {
 	
 	public int userOneReWrite(One_OneDTO dto);
 	public int userOneTotalCnt(int idx);
+	
+	public int manOneSearchCnt(Map map);
 }

@@ -27,10 +27,10 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d67c0e8efbe506e6ef450c637bab0204&libraries=services"></script>
-<title>공고작성</title>
+<title>공고수정</title>
 <script>
 function openjoblist(){
-	window.open('joblist.do','joblist','width=900,height=700');
+	window.open('joblist.do','joblist','width=900,height=400');
 }
 $(document).ready(function() {
 	$('#minmaxage').show();
@@ -119,15 +119,13 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
-	<h1>공고 등록</h1>
 	<form action="noticeUpdate.do" method="post" id="writeForm" enctype="multipart/form-data">
-<h1>요금제<input type="text" name="plan_idx" value="1"></h1>
-<h1>기업idx<input type="text" name="com_idx" value="7"></h1>
-<h1>writedate</h1><input type="text" name="writedate" value="${dto.writedate}">
-<h1>deadline<input type="text" name="deadline" value="${dto.deadline}"></h1>
-<h1>status<input type="text" name="status" value="${dto.status}"></h1>
-<h1>nidx<input type="text" name="idx" value="${dto.idx}"></h1>
+<input type="hidden" name="com_idx" value="${dto.com_idx}">
+<input type="hidden" name="writedate" value="${dto.writedate}">
+<input type="hidden" name="idx" value="${dto.idx}">
 	<div class="container px-4 px-lg-5">
+	  	<%@include file="/WEB-INF/views/header.jsp"%>
+	<h1>공고 수정</h1>
 	<div class="row gx-4 gx-lg-5 justify-content-center">
 	<div class="col-md-12 col-lg-9 col-xl-8">
 		<div class="card bg-primary bg-opacity-10">
@@ -141,11 +139,12 @@ $(document).ready(function() {
 		<div class="card bg-primary bg-opacity-10">
 						<div class="card-body">
 			<h2 class="card-title">모집조건</h2>
+			<div class="row">
 			<table>
 				<tr>
 					<th>성별</th>
 					<td><select name="gender"
-						class="form-select form-select-lg mb-3"
+						class="form-select form-select-lg mb-3 w-50"
 						aria-label=".form-select-lg example">
 							<option value="남자" <c:if test="${dto.gender=='남자'}">checked</c:if>>남자</option>
 							<option value="여자" <c:if test="${dto.gender=='여자'}">checked</c:if>>여자</option>
@@ -163,14 +162,15 @@ $(document).ready(function() {
 				<tr>
 					<th></th>
 					<td><div id="minmaxage" style="display: none;">
-							연령최소<input type="number" name="min_age" value="<c:if test="${dto.min_age==0}">0</c:if><c:if test="${dto.min_age!=0}">${dto.min_age}</c:if>"> ~ 연령최대<input
-								type="number" name="max_age" value="<c:if test="${dto.max_age==0}">0</c:if><c:if test="${dto.max_age!=0}">${dto.max_age}</c:if>">
-						</div></td>
+					<div class="row">
+							연령최소<input type="number" class="form-control w-25" name="min_age" value="<c:if test="${dto.min_age==0}">0</c:if><c:if test="${dto.min_age!=0}">${dto.min_age}</c:if>"> ~ 연령최대<input
+								type="number" class="form-control w-25" name="max_age" value="<c:if test="${dto.max_age==0}">0</c:if><c:if test="${dto.max_age!=0}">${dto.max_age}</c:if>">
+						</div></div></td>
 				</tr>
 				<tr>
 					<th>학력</th>
 					<td><select name="grade"
-						class="form-select form-select-lg mb-3"
+						class="form-select form-select-lg mb-3 w-50"
 						aria-label=".form-select-lg example">
 							<option value="중졸" <c:if test="${dto.grade=='중졸'}">selected</c:if>>중졸이상</option>
 							<option value="고졸" <c:if test="${dto.grade=='고졸'}">selected</c:if>>고졸이상</option>
@@ -181,12 +181,16 @@ $(document).ready(function() {
 				</tr>
 				<tr>
 					<th>직종</th>
-					<td><input type="button" value="직종" onclick="openjoblist()"><input type="text" value="${dto.job}" name="job" id="job" readonly></td>
+					<td><div class="input-group mb-3  w-50">
+					<button class="btn btn-primary" type="button" id="button-addon1" onclick="openjoblist()">
+					직종선택</button>
+					<input type="text" value="${dto.job}" class="form-control" name="job" id="job" readonly required>
+					</div></td>
 				</tr>
 				<tr>
 					<th>근무형태</th>
 					<td><select name="service_type"
-						class="form-select form-select-lg mb-3"
+						class="form-select form-select-lg mb-3 w-50"
 						aria-label=".form-select-lg example">
 							<option value="아르바이트" <c:if test="${dto.service_type=='아르바이트'}">selected</c:if>>아르바이트</option>
 							<option value="정규직" <c:if test="${dto.service_type=='정규직'}">selected</c:if>>정규직</option>
@@ -194,9 +198,10 @@ $(document).ready(function() {
 				</tr>
 				<tr>
 					<th>모집인원</th>
-					<td><input type="text" name="recruit" value="${dto.recruit}"></td>
+					<td><input type="text" name="recruit" value="${dto.recruit}" class="form-control w-50" required></td>
 				</tr>
 			</table>
+			</div>
 		</div>
 		</div>
 		<hr class="my-4">
@@ -267,7 +272,7 @@ $(document).ready(function() {
 								type="checkbox" name="checkboxworkday" value="moo"
 								class="btn-check" id="moo"><label
 								class="btn btn-outline-dark" for="moo">무관</label>
-						</div><input type="text" id="workday" name="workday" value="${dto.workday}"></td>
+						</div><input type="hidden" id="workday" name="workday" value="${dto.workday}"></td>
 				</tr>
 				<tr>
 					<th>근무시간</th>
@@ -303,8 +308,8 @@ $(document).ready(function() {
 						for="pay_category1">월급</label> <input
 						type="radio" value="협의" class="btn-check" id="pay_category2" name="pay_category"
 						autocomplete="off" <c:if test="${dto.pay_category=='협의'}">checked</c:if>><label class="btn btn-outline-primary"
-						for="pay_category2">협의</label><br><div id="hourworktime" style="display: none;"><input type="text" name="pay_hour" value="<c:if test="${dto.pay_category=='시급'}">${dto.pay_hour}</c:if><c:if test="${dto.pay_category!='시급'}">0</c:if>">원</div>
-						 <div id="weekworktime" style="display: none;"><input type="text" name="pay_hour1" value="<c:if test="${dto.pay_category=='월급'}">${dto.pay_hour}</c:if><c:if test="${dto.pay_category!='월급'}">0</c:if>">원 1주 근무시간<input type="number" name="worktime" value="0"></div></td>
+						for="pay_category2">협의</label><br><div id="hourworktime" style="display: none;"><input type="text" class="form-control inline w-50" name="pay_hour" value="<c:if test="${dto.pay_category=='시급'}">${dto.pay_hour}</c:if><c:if test="${dto.pay_category!='시급'}">0</c:if>">원</div>
+						 <div id="weekworktime" style="display: none;"><input type="text" class="form-control inline w-50" name="pay_hour1" value="<c:if test="${dto.pay_category=='월급'}">${dto.pay_hour}</c:if><c:if test="${dto.pay_category!='월급'}">0</c:if>">원 1주 근무시간<input type="number" name="worktime" value="0"></div></td>
 				</tr>
 			</table>
 		</div>
@@ -317,8 +322,10 @@ $(document).ready(function() {
 				<table>
 					<tr>
 						<th>근무지주소</th>
-						<td><input type="text" id="searchadd" readonly placeholder="주소 검색을 해주세요." value="${dto.local1} ${dto.local2} ${dto.local3}"> <input
-							type="button" onclick="sample5_execDaumPostcode()" value="주소 검색">
+						<td><div class="input-group mb-3  w-100">
+						<input type="text" id="searchadd" class="form-control" readonly placeholder="주소 검색을 해주세요."  value="${dto.local1} ${dto.local2} ${dto.local3}"> 
+						<button class="btn btn-primary" onclick="sample5_execDaumPostcode()">주소 검색</button>
+						</div>
 							<input type="hidden" name="x" id="x" value="${dto.x}">
 							<input type="hidden" name="y" id="y" value="${dto.y}">
 							<input type="hidden" id="sido" name="local1" value="${dto.local1}">
@@ -327,7 +334,7 @@ $(document).ready(function() {
 					</tr>
 					<tr>
 						<th>상세주소</th>
-						<td><input type="text" name="detail_addr" value="${dto.detail_addr}"></td>
+						<td><input type="text" name="detail_addr" value="${dto.detail_addr}" class="form-control w-100" required></td>
 					</tr>
 				</table>
 					<div id="map" style="width:100%;height:400px;margin-top:10px;display:none"></div>
@@ -399,7 +406,7 @@ $(document).ready(function() {
 			<table>
 				<tr>
 					<th>근무회사명</th>
-					<td><input type="text" name="com_name" value="${dto.com_name}"></td>
+					<td><input type="text" name="com_name" value="${dto.com_name}" class="form-control w-50"></td>
 				</tr>
 			</table>
 		</div>
@@ -409,20 +416,22 @@ $(document).ready(function() {
 		<div class="card bg-primary bg-opacity-10">
 								<div class="card-body">
 			<h2 class="card-title">담당자정보</h2>
+			<div class="row">
 			<table>
 				<tr>
 					<th>담당자명</th>
-					<td><input type="text" name="manager_name" value="${dto.manager_name}"></td>
+					<td><input type="text" class="form-control w-50" name="manager_name" value="${dto.manager_name}"></td>
 				</tr>
 				<tr>
 					<th>연락처</th>
-					<td><input type="text" name="manager_tel" value="${dto.manager_tel}"></td>
+					<td><input type="text" class="form-control w-50" name="manager_tel" value="${dto.manager_tel}"></td>
 				</tr>
 				<tr>
 					<th>이메일</th>
-					<td><input type="text" name="manager_email" value="${dto.manager_email}"></td>
+					<td><input type="text" class="form-control w-50" name="manager_email" value="${dto.manager_email}"></td>
 				</tr>
 			</table>
+			</div>
 		</div>
 		</div>
 		<hr class="my-4">
@@ -430,22 +439,90 @@ $(document).ready(function() {
 								<div class="card-body">
 			<h2 class="card-title">상세정보</h2>
 			<div class="mb-3">
-  <label for="formFileMultiple" class="form-label">파일 등록</label>
-  <input class="form-control" type="file" id="formFileMultiple" name="formFileMultiple" multiple>
+
+<div style="position: relative;">
+  <img id="preview" />
+  <span id="clear" style="display: none; position: absolute; top: 0; right: 0;">
+    <button type="button" class="btn btn-primary" onclick="clearFile()">X</button>
+  </span>
 </div>
-			<textarea rows="30" cols="50" name="content">${dto.content}</textarea>
+<input type="hidden" value="${filepath}" name="filepath" id="filepath">
+<input class="form-control" type="file" id="formFileMultiple" name="formFileMultiple" onchange="readURL(this);" multiple>
+  <c:if test="${filepath!=''||filepath!=null}"><span id="reset" style="display: none; position: relative; top: 10; left: 10;">
+    <button type="button" class="btn btn-primary" onclick="resetFile()">수정 전 파일로 초기화</button>
+  </span></c:if>
+<script>
+function readURL(input) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      var preview = document.getElementById('preview');
+      preview.src = e.target.result;
+      preview.width = 200;
+      preview.height = 150;
+      document.getElementById('clear').style.display = 'block';
+      document.getElementById('reset').style.display = 'block';
+    };
+    reader.readAsDataURL(input.files[0]);
+  } else {
+    clearFile();
+  }
+}
+
+function clearFile() {
+	  var preview = document.getElementById('preview');
+	  preview.src = '';
+	  preview.width = 0;
+	  preview.height = 0;
+	  document.getElementById('clear').style.display = 'none';
+	  document.getElementById('reset').style.display = 'none';
+	  var input = document.getElementById('formFileMultiple');
+	  input.value = null;
+	  // reset 버튼도 보이게 함
+	  document.getElementById('reset').style.display = 'block';
+	}
+
+
+function resetFile() {
+  var filepath = document.getElementById('filepath').value;
+  var preview = document.getElementById('preview');
+  preview.src = filepath;
+  preview.width = 200;
+  preview.height = 150;
+  document.getElementById('clear').style.display = 'block';
+  document.getElementById('reset').style.display = 'none';
+}
+
+window.onload = function() {
+  var filepath = document.getElementById('filepath').value;
+  var preview = document.getElementById('preview');
+  if (filepath !== "") {
+    preview.src = filepath;
+    preview.width = 200;
+    preview.height = 150;
+    document.getElementById('clear').style.display = 'block';
+  }
+  if (!preview.src || preview.src.indexOf('data:') !== 0) {
+    document.getElementById('reset').style.display = 'none';
+  }
+};
+</script>
+
+
+			<textarea rows="30" class="form-control" cols="50" name="content">${dto.content}</textarea>
+		</div>
 		</div>
 		<button type="submit" class="btn btn-primary btn-icon-split btn-lg">
     <span class="icon text-white-50">
         <i class="bi bi-check-lg"></i>
     </span>
-    <span class="text">공고 등록하기</span>
+    <span class="text">공고 수정하기</span>
 </button>
 		</div>
 		</div>
 		</div>
 		</div>
 	</form>
-
+	  	<%@include file="/WEB-INF/views/footer.jsp"%>
 </body>
 </html>
