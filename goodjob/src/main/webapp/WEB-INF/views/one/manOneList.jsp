@@ -23,6 +23,8 @@
 }
 </style>
 <body>
+<section>
+<article>
 	<div class="container">
 	<%@include file="/WEB-INF/views/header.jsp"%>
 		<div class="row">
@@ -30,25 +32,19 @@
 					<h2>일대일 문의</h2>
 				</div>
 		</div>
-		<div class="row">
-			<form name="manOneKindList" action="manOneKindList.do">
-				<div  class="col-sm-5">
-					<select name="kind">
-						<option value="전체">전체</option>
+				<div class="row">
+					<div  class="offset-sm-8 col-sm-4">
+					<form name="manOneeList" id="manOneList">
+					<select name="category" class="form-control">
 						<option value="개인">개인</option>
 						<option value="기업">기업</option>
 					</select>
-					<input type="submit" value="바꾸기">		
-			</div>
-			</form>
-		</div>
-				<div class="row">
-					<form name="manOneSearch" action="manOneSearch.do">
-						<div class="offset-sm-8 col-sm-4">
-							<input type="text" name="search" placeholder="제목을 입력하세요">
-							<input type="submit" value="검색하기">
-						</div>
+						<input type="text" name="search" placeholder="제목을 입력하세요" class="form-control">
+						<input type="button" id="submit" value="검색하기" class="btn btn-primary">
+						<input type="hidden" value="1" id="cp" name="cp">
+						<input type="hidden" name="bAjax" value="true">	
 					</form>
+					</div>
 				</div>
 				<hr>
 				<br>
@@ -88,13 +84,71 @@
 						</tr>
 					</c:forEach>
 				</tbody>
-				<tfoot>
-					<tr>
-						<td colspan="5" align="center">${pageStr }</td>
-					</tr>
-				</tfoot>
 			</table>
+			<div id="page">${page }</div>
 			<%@include file="/WEB-INF/views/footer.jsp" %>
 	</div>
+<script>
+$("#manOneList").on("keydown", function(e) {
+    if (e.keyCode == 13) {
+        stopSubmit(e);
+    }
+});
+ function stopSubmit(e) {
+        e.preventDefault();
+    }
+ $('#submit').click(function() {
+		$('#cp').attr({value:'1'});
+		page();
+	});
+	$(document).on('click','#page button',function(){
+		$('#cp').attr({value:$(this).val()});
+		page();
+	});
+	
+	function page() {
+		  var para = $('#manOneList').serialize();
+		  $.ajax({
+		    url: 'manOneList.do',
+		    data: para,
+		    dataType: 'json', 
+		    contentType: "application/json"
+		  }).done(function(data) {
+		    $('tbody').empty();
+		    var list = data.lists; // ${list}에 해당하는 값으로 대체해주세요.
+		    
+		    if (list.length == 0) { // 등록된 문의가 없을 경우
+		        var noListRow = $("<tr>")
+		            .append($("<td>")
+		                .attr("colspan", "5")
+		                .attr("align", "center")
+		                .text("등록된 문의가 없습니다."));
+		        $("#table").append(noListRow);
+		    } else { // 등록된 공고가 있을 경우
+		        $.each(list, function(index, dto) {
+		        	  var date = new Date(dto.writedate);
+			            var year = date.getFullYear();
+			            var month = ('0' + (date.getMonth() + 1)).slice(-2);
+			            var day = ('0' + date.getDate()).slice(-2);
+			            var formattedDate = year + '-' + month + '-' + day;
+			            
+		            var tr = $("<tr>")
+		                .append($("<td>").text(dto.idx))
+		                .append($("<td>").text(dto.subject))
+		                .append($("<td>").text(dto.com_name))
+		                .append($("<td>").text(dto.check))
+		                .append($("<td>").text(formattedDate));
+		          
+		            $("tbody").append(tr);
+		            
+		            
+		    $('#page').empty();
+		    $('#page').append(data.page);
+		  });
+		}})}
+	
+</script>
+</article>
+</section>
 </body>
 </html>

@@ -24,12 +24,12 @@
 	<div class="container">
 		<%@include file="/WEB-INF/views/header.jsp"%>
 		<section>
-			<article>
+			<article class="mt-5 pt-5">
 				<div class="row">
-				<h2 class="text-center">자주찾는질문</h2>
-					<div class="col-8 offset-2">
+				<h2 class="text-center pb-3">자주찾는질문</h2>
+					<div class="col-8 offset-2 pb-5">
 						<form id="seachFAQ">
-						<div class="col-6 offset-6 d-flex flex-wrap">
+						<div class="col-6 offset-6 d-flex flex-wrap pb-5">
 						<div class="col-4">
 							<select name="category" class="form-select">
 								<option disabled selected="selected">목록</option>

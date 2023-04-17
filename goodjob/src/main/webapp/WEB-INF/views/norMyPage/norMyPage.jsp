@@ -47,7 +47,7 @@
 						<h5>${nto.status }/ ${nto.review_num}세</h5>
 						<h5>${dto.tel }</h5>
 						<h5>${dto.addr }</h5>
-						<input type="button" value="수정" onclick="#">
+						<button type="button" class="btn btn-outline-primary" onclick="#">수정</button>
 					</div>
 				</div>
 				<br> <a onclick="location.href = '#'"><div class="card bg-secondary bg-opacity-10">
@@ -57,22 +57,14 @@
 							<h5>${rto.subject }</h5>
 							<br>
 							<h5>${rto.writedate }</h5>
-							<!-- 이력서를 쓰지않았으면 작성 버튼이 나오고 작성을 하였으면 다운로드, 수정, 경력사항제거 버튼만 나오게 -->
 							<c:choose>
 							<c:when test="${empty rto.member_idx}">
 								<div><input type ="button" onclick="location.href='writeForm.do'" value ="이력서 작성"></div>
 							</c:when>
 							<c:otherwise>
-							<div>
-								<input type="button" value="다운로드"
-									onclick="location.href='resumeDown.do'">
-							</div>
-							<span><input type="button" class="" value="경력사항제거"
-								onclick="careerDelete()"></span>
-							<div>
-								<input type="button" value="수정"
-									onclick="location.href='resumeUpdate.do'">
-							</div>
+							<button type="button" class="btn btn-outline-primary" onclick="location.href='resumeDown.do'">다운로드</button>
+							<button type="button" class="btn btn-outline-primary" onclick="careerDelete()">경력사항제거</button>
+							<button type="button" class="btn btn-outline-primary" onclick="location.href='resumeUpdate.do'">수정</button>
 							</c:otherwise>
 							</c:choose>
 						</div>
@@ -93,7 +85,7 @@
 										<c:param name="idx">${list.idx}</c:param>
 									</c:url>
 									<h6>
-										<a href="${contentUrl}">${list.subject }</a>
+										<a href="${contentUrl}">&nbsp;${list.subject }</a>
 									</h6>
 								</c:forEach>
 							</div>
@@ -105,7 +97,7 @@
 										<c:param name="idx">${list.idx}</c:param>
 									</c:url>
 									<h6>
-										<a href="${contentUrl}">${list.subject }</a>
+										<a href="${contentUrl}">&nbsp;${list.subject }</a>
 									</h6>
 								</c:forEach>
 							</div>

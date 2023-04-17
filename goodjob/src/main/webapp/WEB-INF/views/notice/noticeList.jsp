@@ -392,6 +392,7 @@ var para=$('#category').serialize();
 	            });
 	        }
 	    });
+	${query}
 	</script>
 </body>
 </html>

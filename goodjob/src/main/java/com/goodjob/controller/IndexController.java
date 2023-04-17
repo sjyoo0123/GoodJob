@@ -32,8 +32,6 @@ public class IndexController {
 		final int DIAMOND7=10;
 		final int DIAMOND15=11;
 		final int DIAMOND30=12;
-		List<Map<String,Object>>list=nDao.mainPlan(SILVER7,SILVER15,SILVER30);
-			System.out.println(list.toString());
 		mav.addObject("dieList",nDao.mainPlan(DIAMOND7,DIAMOND15,DIAMOND30));
 		mav.addObject("goldList",nDao.mainPlan(GOLD7,GOLD15,GOLD30));
 		mav.addObject("silList",nDao.mainPlan(SILVER7,SILVER15,SILVER30));

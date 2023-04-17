@@ -10,7 +10,9 @@
   	<select id="manOneList" parameterType="Map" resultType="com.goodjob.one_one.model.One_OneDTO"> 
   		select * from
   		(select rownum as rnum, a.* from 
-  		(select * from one_one  order by idx desc)a )b
+  		(select * from one_one  order by idx desc
+  		
+  		)a )b
   		where rnum <![CDATA[>=]]> #{start} and rnum <![CDATA[<=]]> #{end}
   	</select>
   	<select id="manOneContent"  resultType="com.goodjob.one_one.model.One_OneDTO">
@@ -52,9 +54,27 @@
   		select * from
   		(select rownum as rnum, a.* from
   		(select * from one_one 
-  		where subject like '%'||#{search}||'%'
-  		order by idx desc)a)b
+  		<if test="category == '개인'">
+  		where category = '개인'
+  		and subject like '%'||#{search}||'%'
+  		</if>
+  		<if test="category =='기업'">
+  		where category = '기업' 
+  		and subject like '%'||#{search}||'%'
+  		</if>
+  		order by idx asc)a)b
   		where rnum <![CDATA[>=]]>#{start} and rnum<![CDATA[<=]]> #{end}
   	</select>
-
+	<select id="manOneSearchCnt" resultType="Integer" parameterType="Map">
+	select count(*) from one_one
+	<if test="category == '개인'">
+	where	category = '개인'
+	and subject like '%'||#{search}||'%'
+	</if>
+	<if test="category =='기업'">
+	where	category = '기업'
+	and subject like '%'||#{search}||'%'
+	</if>
+	
+	</select>
   </mapper>

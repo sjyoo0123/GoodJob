@@ -75,7 +75,7 @@
 								</td>
 							</tr>	
 							<tr>
-								<td align="right"><input type="submit" value="수정하기"></td>
+								<td align="right"><input type="submit" value="수정하기" class="btn btn-primary"></td>
 							</tr>
 					</table>
 				</form>
