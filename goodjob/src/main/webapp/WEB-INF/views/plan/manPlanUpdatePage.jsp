@@ -43,7 +43,9 @@
 					<div class="row">
 						<div class="offset-sm-3 col-sm-6">
 							<div class="card">
-								<h3 class="card-title">up 요금제 수정하기</h3>
+								<div class="card-header">
+									up 요금제 수정하기
+								</div>
 								<table class="table">
 									<c:if test="${empty lists_up_update }">
 										<tr>
@@ -73,7 +75,9 @@
 					<div class="row">
 						<div class="offset-sm-3 col-sm-6">
 							<div class="card">
-								<h3 class="card-title">vip 요금제 수정하기</h3>
+								<div class="card-header">
+									vip 요금제 수정하기
+								</div>
 								<table class="table">
 									<c:if test="${empty lists_vip_update}">
 										<tr>

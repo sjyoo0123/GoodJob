@@ -473,7 +473,7 @@ public NoticeController() {
 		int listSize=5;
 		int totalCnt=ndao.manNoticeCnt();
 		
-		String pageStr=com.goodjob.page.module.PageModule.makePage("manNoticeAcceptPage.do", totalCnt, listSize, pageSize, cp);
+		String pageStr=com.goodjob.page.module.PageModule.makePage("manNoticeDelPage.do", totalCnt, listSize, pageSize, cp);
 		
 		List<NoticeDTO> lists=ndao.manNoticeDelList(cp, listSize);
 		

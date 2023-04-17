@@ -45,14 +45,14 @@
 							<tr>
 								<th>배너 이름 :  ${dto.subject }</th>
 								<th>배너 번호 : ${dto.idx }</th>
-								<th>배너 파일 :</th>
+								<th>배너 파일 </th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
 								<td>배너링크 : ${dto.link }</td>
 								<td>순번 : ${dto.ref }</td>
-								<td><img alt="이미지" src="${dto.file }" width="300" height="300"></td>
+								<td><img alt="이미지" src="/goodjob/bannerImg/${dto.file }" width="300" height="300"></td>
 							</tr>
 
 							<tr>
