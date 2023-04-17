@@ -32,7 +32,7 @@ public class ApplyController {
 		int pageSize=5;
 		
 		String pageStr=com.goodjob.page.module.PageModule.makePage("apComList.do", totalCnt, listSize, pageSize, cp);
-		List<ApplyDTO> lists=adao.apComList(nidx, cp, listSize);
+		List<NoticeDTO> lists=adao.apComList(nidx, cp, listSize);
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("pageStr", pageStr);
 		mav.addObject("lists", lists);
