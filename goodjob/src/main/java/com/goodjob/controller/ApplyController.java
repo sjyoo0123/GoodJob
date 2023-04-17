@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,25 +15,28 @@ import org.springframework.web.servlet.ModelAndView;
 import com.goodjob.apply.model.ApplyDAO;
 import com.goodjob.apply.model.ApplyDTO;
 import com.goodjob.normalmember.model.NormalMemberDTO;
+import com.goodjob.notice.model.NoticeDAO;
 import com.goodjob.notice.model.NoticeDTO;
 
 @Controller
 public class ApplyController {
+	@Autowired
 	private ApplyDAO adao;
-	
+	@Autowired
+	private NoticeDAO ndao;
 	public ApplyController(ApplyDAO adao) {
 		super();
 		this.adao = adao;
 	}
 
 	@RequestMapping("/apComList.do")
-	public ModelAndView apComListForm(@RequestParam(value="cp",defaultValue="1")int cp,@RequestParam(value="idx")int nidx,@RequestParam(value="subject")String subject,HttpSession session) {
+	public ModelAndView apComListForm(@RequestParam(value="cp",defaultValue="1")int cp,@RequestParam(value="idx")int nidx) {
 		int totalCnt=adao.applyTotalCnt(nidx);
 		int listSize=5;
 		int pageSize=5;
-		
 		String pageStr=com.goodjob.page.module.PageModule.makePage("apComList.do", totalCnt, listSize, pageSize, cp);
 		List<NoticeDTO> lists=adao.apComList(nidx, cp, listSize);
+		ApplyDTO subject=ndao.apNoticeSubject(nidx);
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("pageStr", pageStr);
 		mav.addObject("lists", lists);
