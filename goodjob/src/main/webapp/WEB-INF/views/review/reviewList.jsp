@@ -65,10 +65,6 @@
 						</c:forEach>
 					</div>
 				</div>
-
-
-
-
 				<div class="page">${pageStr }</div>
 			</article>
 		</section>

@@ -102,7 +102,6 @@ public class ReviewController {
 		} else {
 			idx = (int) session.getAttribute("sidx");
 		}
-		System.out.println("idx="+idx);
 		int listSize=5;
 		int pageSize=5;
 		List<ReviewDTO> list = reviewDao.myReview(idx, cp, listSize);

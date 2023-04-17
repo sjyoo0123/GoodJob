@@ -192,15 +192,13 @@
 															<option value="아르바이트">아르바이트</option>
 															<option value="정직원">정직원</option>
 													</select></td>
-													<div>
-														<input type="button" class="chooga" value="추가">
-													</div>
 												</tr>
 											</table>
+											<div>
+												<input type="button" class="chooga" value="추가">
+											</div>
 										</div></td>
 								</tr>
-
-
 							</table>
 						</div>
 					</div>
