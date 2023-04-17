@@ -1,7 +1,6 @@
 package com.goodjob.review.model;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -53,18 +52,6 @@ public class ReviewDAOImple implements ReviewDAO {
 		
 		ResumeDTO dto = sqlMap.selectOne("reviewList2", map);
 		
-		////
-		Iterator<String> keys = map.keySet().iterator();
-		System.out.println("-----");
-        while( keys.hasNext() ){
-
-            String key = keys.next();
-
-            System.out.println( String.format("키 : %s, 값 : %s", key, map.get(key)) );
-
-        }
-        System.out.println("-----");
-		///
 		return dto;
 
 	}
@@ -141,9 +128,7 @@ public class ReviewDAOImple implements ReviewDAO {
 	
 	@Override
 	public int myReviewTotalCnt(int idx) {
-		System.out.println(idx);
 		int total = sqlMap.selectOne("myReviewTotalCnt", idx);
-		System.out.println(idx);
 		return total;
 	}
 }

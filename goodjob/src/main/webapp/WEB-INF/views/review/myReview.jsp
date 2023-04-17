@@ -20,38 +20,43 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <title>Insert title here</title>
 </head>
+<style>
+.page {
+	text-align: center;
+}
+</style>
 <body>
 	<div class="container">
 		<%@include file="/WEB-INF/views/header.jsp"%>
 		<h1>나의 후기</h1>
-		<table border="1">
-			<tr>
-				<th>회사이름</th>
-				<th>후기</th>
-				<th>작성일</th>
-				<th></th>
-			</tr>
-			<c:forEach var="map" items="${map}">
-				<div>
+
+		<table class="table table-hover table-responsive-md">
+			<thead class= "table-light">
+				<tr>
+					<th scope="col">회사이름</th>
+					<th scope="col">후기</th>
+					<th scope="col">삭제버튼</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach var="map" items="${map}">
 					<tr>
-						<td>${map.value.name}</td>
+						<th scope="row">${map.value.name}</th>
 						<td><button>${map.value.gender}</button>&nbsp; <c:if
 								test="${not empty map.value.addr }">
 								<button>${map.value.addr }</button>&nbsp;</c:if> <c:if
 								test="${not empty map.value.detail_addr }">
-								<button>${map.value.detail_addr }</button>&nbsp;</c:if>
-						<td>${map.value.writedate }</td>
+								<button>${map.value.detail_addr }</button>&nbsp;</c:if></td>
 						<td><form method="POST" action="reviewDel.do">
 								<input type="hidden" name="ridx" value="${map.value.age}">
 								<input type="submit" value="삭제">
-
 							</form></td>
 					</tr>
-				</div>
-				<br>
-			</c:forEach>
+				</c:forEach>
+			</tbody>
 		</table>
-		<div>${pageStr }</div>
+
+		<div class="page">${pageStr }</div>
 
 		<%@include file="/WEB-INF/views/footer.jsp"%>
 	</div>

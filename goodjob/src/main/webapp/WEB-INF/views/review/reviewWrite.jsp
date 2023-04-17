@@ -18,38 +18,42 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <title>Insert title here</title>
 </head>
+<style>
+.button, .search {
+	text-align: center;
+	margin : 30px;
+}
+</style>
 <body>
 	<div class="container">
 		<%@include file="/WEB-INF/views/header.jsp"%>
 		<h2>후기 작성</h2>
 		<article>
 			<form name="reviewWrite" action="reviewWrite.do" method="post">
-				<input type="text" name="com_name" placeholder="회사이름을 적어주세요">
-				<table>
-					<c:if test="${empty dto}">
-						<tr>
-							<td>등록된 글이 없습니다</td>
-						</tr>
-					</c:if>
-
-					<c:forEach var="dto" items="${dto}">
-
-						<span> <input type="checkbox" name="keyword"
-							id="keyword${dto.idx}" onclick="show(this)" value="${dto.idx}">${dto.content }
-						</span>
-					</c:forEach>
-
-
-					<div class="input">
-						<!-- 삽입할 위치 -->
+				<input type="text" class="search" name="com_name" placeholder="회사이름을 적어주세요">
+				<c:if test="${empty dto}">
+					<tr>
+						<td>등록된 글이 없습니다</td>
+					</tr>
+				</c:if>
+				<div class="container text-center">
+					<div class="row">
+						<c:forEach var="dto" items="${dto}">
+							<div class="col-md-3 card ">
+								<span> <input type="checkbox" name="keyword"
+									id="keyword${dto.idx}" onclick="show(this)" value="${dto.idx}">${dto.content }
+								</span>
+							</div>
+						</c:forEach>
 					</div>
-
-
-					<div>
-						<input type="submit" value="작성" onclick="save(this)"> <input
-							type="button" value="취소" onclick="location.href='reviewList.do'">
-					</div>
-				</table>
+				</div>
+				<br>
+				<div class="button">
+					<button type="submit" class="btn btn-outline-secondary"
+						onclick="save(this)">작성</button>
+					<button type="button" class="btn btn-outline-secondary"
+						onclick="location.href='review.do'">취소</button>
+				</div>
 			</form>
 		</article>
 		<%@include file="/WEB-INF/views/footer.jsp"%>
