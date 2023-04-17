@@ -20,18 +20,16 @@
 	<select id="idCheck" parameterType="String" resultType="Integer">
 		select count(*) from member where id=#{id} and status='활성'
 	</select>
-	<select id="emailCheck" parameterType="String" resultType="com.goodjob.member.model.MemberDTO">
+	<select id="emailCheck" parameterType="String" resultType="Integer">
 	select * from member where email=#{email} and status='활성'
 	</select>
 	<update id="memberUpdate" parameterType="com.goodjob.member.model.MemberDTO">
 		UPDATE member
 		SET 
 		pwd = #{pwd} , tel=#{tel} , addr=#{addr}
-		WHERE idx = #{idx};
+		WHERE idx = #{idx}
 	</update>
-	<select id="resumeWriteForm" resultType="com.goodjob.member.model.MemberDTO">
-		select * from member where idx =1 and status = '활성' 
-	</select>
+	
 	<update id="updateStatus" parameterType="com.goodjob.member.model.MemberDTO">
 	update member set status = '활성' where idx=#{idx} and email=#{email} and status = '대기' 
 	</update>

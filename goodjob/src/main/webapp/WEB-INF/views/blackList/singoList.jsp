@@ -24,13 +24,14 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <title>Insert title here</title>
 </head>
-<body>
+<body onload="showtab();">
 	<div class="container">
 	<%@include file="/WEB-INF/views/header.jsp"%>
 		<section>
 			<article>
+			<h1><i class="bi bi-megaphone-fill"></i>신고 관리</h1>
 				<div class="form-check form-check-inline">
-					<input type="radio" class="btn-check" name="options" id="normal" autocomplete="off" value="개인" >
+					<input type="radio" class="btn-check" name="options" id="normal" autocomplete="off" value="개인" checked="checked">
 					<label class="btn btn-outline-primary" for="normal">일반회원</label>
 					<input type="radio" class="btn-check" name="options" id="company" value="기업" autocomplete="off">
 					<label class="btn btn-outline-primary" for="company">기업회원</label>

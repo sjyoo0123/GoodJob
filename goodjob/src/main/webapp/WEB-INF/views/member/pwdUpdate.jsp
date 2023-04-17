@@ -15,15 +15,21 @@
 	<div class="container">
 	 <%@include file="/WEB-INF/views/header.jsp"%> 
 		<section>
-			<article>
-			<h2>비밀번호 변경</h2>
+			<article class="mt-5 pt-5">
 				<form action="pwdUpdate.do" method="post">
+				<div class="row">
+			<h2 class="text-center mb-5">비밀번호 변경</h2>
+				<div class="col-4 offset-4">
 				<div class="form-floating">
- 			 <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+ 				 <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="pwd">
   				<label for="floatingPassword">비밀번호</label>
-					</div>
-					<input type="submit" value="변경">
+  				<div class="mt-3 text-end">
+					<input type="submit" value="변경" class="btn btn-outline-primary">
 					<input type="hidden" value="${idx}" name="idx">
+  				</div>
+					</div>
+				</div>
+				</div>
 				</form>
 			</article>
 		</section>

@@ -6,7 +6,6 @@ public class CareerDTO {
 
 	private int idx;
 	private int resume_idx;
-	private int h_job;
 	private Date startday;
 	private Date endday;
 	private String com_name;
@@ -18,12 +17,11 @@ public class CareerDTO {
 		super();
 	}
 	
-	public CareerDTO(int idx, int resume_idx, int h_job, Date startday, Date endday, String com_name, String part,
+	public CareerDTO(int idx, int resume_idx, Date startday, Date endday, String com_name, String part,
 			String service_type, String status) {
 		super();
 		this.idx = idx;
 		this.resume_idx = resume_idx;
-		this.h_job = h_job;
 		this.startday = startday;
 		this.endday = endday;
 		this.com_name = com_name;
@@ -45,14 +43,8 @@ public class CareerDTO {
 		this.resume_idx = resume_idx;
 	}
 	
-	public int getH_job() {
-		return h_job;
-	}
 
-	public void setH_job(int h_job) {
-		this.h_job = h_job;
-	}
-
+	
 	public Date getStartday() {
 		return startday;
 	}

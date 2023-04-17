@@ -30,22 +30,22 @@
 <div class="container">
 	<%@include file="/WEB-INF/views/header.jsp"%>
 		<section>
-			<article>
-			<div class="row">
-			<div class="col-3 fs-1 fw-blod">
+			<article class="mt-5 pt-5">
+			<div class="row pb-4">
+			<div class="col-3 fs-1 fw-blod offset-4">
 			${name}		
 			</div>
 			<c:if test="${status ne '활성'}">
-			<button type="button" class="btn btn-primary col-2" id="delbutton">삭제하기</button>
+			<button type="button" class="btn btn-outline-primary col-1" id="delbutton">삭제하기</button>
 			</c:if>
 			<c:if test="${status eq '활성'}">
-			<button type="button" class="btn btn-primary col-2" id="addbutton">블랙리스트 추가</button>
+			<button type="button" class="btn btn-outline-primary col-1" id="addbutton">블랙리스트 추가</button>
 			</c:if>
 			</div>
-			<div id="my-div">
+			<div id="my-div" class="col-6 offset-3">
 			</div>
 			<input type="hidden" id="cp" value="1">
-			<div id="page"></div>
+			<div id="page" class="mt-3"></div>
 			</article>
 		</section>
 	<%@include file="/WEB-INF/views/footer.jsp"%>
@@ -98,8 +98,8 @@ function ajaxgo(){
 				   $('<div>').addClass('col-5').appendTo(row).append(
 				     $('<p>').addClass('card-text').text(dto.name)
 				   );
-				   $('<div>').addClass('offset-3 col-4').appendTo(row).append(
-				     $('<a>').addClass('btn btn-primary').attr('href', '#').text('삭제').on('click', function() {deletefun(dto.idx);})
+				   $('<div>').addClass('offset-3 col-4 text-end').appendTo(row).append(
+				     $('<a>').addClass('btn btn-outline-primary').attr('href', '#').text('삭제').on('click', function() {deletefun(dto.idx);})
 				   );
 
 				   function formatDate(date) {

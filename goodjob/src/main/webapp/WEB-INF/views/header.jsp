@@ -41,29 +41,25 @@ header .nav li {
 	max-height: 0;
 	z-index: 1000 !important;
 }
-
-
 .menu_title{
 	border-radius: 5px;
-	background:white;
 	color:#1a4369;
 	padding-left: 20px;
 	padding-top: 10px;
 	width: 130px;
 	height: 40px;
+	cursor: pointer;
 }
 .menu_title:hover{
 	background: #1a4369;
 	color:#fff;
 }
 ul .col-12{
-	background: #1a4369;
 }
 .nav:hover li {
 	display: block;
 	max-height: none;
 	transition: all 10s;
-	background-color: white;
 }
 
 a {
@@ -96,9 +92,10 @@ a:hover {
 					<div class="btn-group">
 						<button type="button" class="btn btn-white dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">${logName }님</button>
 						<ul class="dropdown-menu">
-							<li><a class="dropdown-item" href="/company.do">마이페이지</a></li>
-							<li><a class="dropdown-item" href="#"></a></li>
-							<li><a class="dropdown-item" href="#"></a></li>
+							<li><a class="dropdown-item" href="company.do">마이페이지</a></li>
+							<li><a href="comPlanList.do" class="dropdown-item">나의 요금제</a></li>
+							<li><a href="noticeComList.do" class="dropdown-item">공고 현황</a></li>
+							<li><a href="ofComList.do" class="dropdown-item">제의 현황</a></li>
 							
 						</ul>
 					</div>
@@ -109,11 +106,10 @@ a:hover {
 						<ul class="dropdown-menu">
 							<li><a class="dropdown-item" href="manNoticeStatusPage.do">공고관리</a></li>
 							<li><a class="dropdown-item" href="manReviewPage.do">키워드관리</a></li>
-							<li><a class="dropdown-item" href="manBlackList.do">블랙리스트</a></li>
+							<li><a class="dropdown-item" href="manGongjiList.do">공지관리</a></li>
 							<li><a class="dropdown-item" href="manBlackListSingoList.do">신고관리</a></li>
-							<li><a class="dropdown-item" href="manOneList.do">작성된문의</a></li>
+							<li><a class="dropdown-item" href="manBlackList.do">블랙리스트</a></li>
 							<li><a class="dropdown-item" href="manBannerPage.do">배너관리</a></li>
-							<li><a class="dropdown-item" href="manFAQList.do">FAQ관리</a></li>
 							<li><a class="dropdown-item" href="manPlanPage.do">요금제관리</a></li>
 							<li><a class="dropdown-item" href="salesForm.do">매출통계</a></li>
 							<li><a class="dropdown-item" href="salesListForm.do">매출현황</a></li>							
@@ -153,11 +149,6 @@ a:hover {
 					</div>
 					<div class="col-2">
 						<a href="injaeListForm.do" class=""><label class="menu_title">인재정보</label></a>
-						<ul class="nav position-absolute">
-							<li class="col-12"><a href="#"><label class="menu_title">지역별</label></a></li>
-							<li class="col-12"><a href="#"><label class="menu_title">업종별</label></a></li>
-							<li class="col-12"><a href="#"><label class="menu_title">기간별</label></a></li>
-						</ul>
 					</div>
 					<div class="col-2">
 						<a href="review.do" class=""><label class="menu_title">후기게시판</label></a>
@@ -167,7 +158,7 @@ a:hover {
 						</ul>
 					</div>
 					<div class="col-2">
-						<a href="#" class=""><label class="menu_title">job도우미</label></a>
+						<a href="jobHelperTong.do" class=""><label class="menu_title">job도우미</label></a>
 						<ul class="nav position-absolute">
 							<li class="col-12"><a href="jobHelperTong.do"><label class="menu_title">급여통계</label></a></li>
 							<li class="col-12"><a href="helperCalForm.do"><label class="menu_title">계산기</label></a></li>

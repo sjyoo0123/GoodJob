@@ -9,6 +9,7 @@
 		select *
 		from resume
 		where "CHECK"=1 
+		and status='활성'
 		<if test="sort==0">
 		</if>
 		<if test="sort==1">
@@ -23,13 +24,15 @@
   <select id="injaeListTotalCnt" parameterType="map" resultType="Integer">
   	select count(*)
   	from resume
+  	where status='활성'
+  	and "CHECK"=1
   		<if test="sort==0">
 		</if>
 		<if test="sort==1">
-		where job=#{keyword}
+		and job=#{keyword}
 		</if>
 		<if test="sort==2">
-		where h_local1=#{keyword}
+		and h_local1=#{keyword}
 		</if>
   </select>
   </mapper>

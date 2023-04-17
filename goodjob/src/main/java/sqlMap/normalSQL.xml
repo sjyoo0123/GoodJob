@@ -14,6 +14,6 @@
 		member.idx=normalmember.member_idx and member.idx=#{idx}
 	</select>
 	<update id="norUpdate" parameterType="com.goodjob.normalmember.model.NormalMemberDTO">
-	update normalmember set birth=#{birth} ,gender=#{gender} where nor_idx=#{nor_idx}
+	update normalmember set birth=#{birth} ,gender=#{gender} where member_idx=#{member_idx}
 	</update>
 </mapper>

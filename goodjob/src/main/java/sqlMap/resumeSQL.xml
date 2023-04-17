@@ -6,7 +6,7 @@
 	<select id="resumeWriteForm" resultType="com.goodjob.member.model.MemberDTO" parameterType="Integer">
 		select * from member where idx = #{idx} and status = '활성' 
 	</select>
-	<select id="resumeWriteForm1" resultType="com.goodjob.review.model.ReviewDTO" parameterType="Integer">
+	<select id="resumeWriteFormasd" resultType="com.goodjob.review.model.ReviewDTO" parameterType="Integer">
 		select TRUNC((sysdate-birth)/365) as review_num, gender as status from member, normalmember where
 		member.idx=normalmember.member_idx and member.idx= #{idx}
 	</select>
@@ -29,20 +29,20 @@
 	<insert id="resumeWrite2"
 		parameterType="com.goodjob.career.model.CareerDTO">
 		insert into career values(career_idx.nextval,
-		#{resume_idx} , #{startday}, #{endday}
+		resume_idx.currval, #{startday}, #{endday}
 		,#{com_name},#{part},#{service_type},'활성')
 	</insert>
 	<select id="resumeDown"
 		resultType="com.goodjob.resume.model.ResumeDTO" parameterType="Integer" >
 		select * from resume where member_idx = #{idx} and status ='활성'
 	</select>
-	<select id="resumeContent"
-		resultType="com.goodjob.resume.model.ResumeDTO" parameterType="Integer" >
-		select * from resume where idx = #{idx} and status ='활성'
-	</select>
 	<select id="resumeCareerDown" 
 		resultType="com.goodjob.career.model.CareerDTO" parameterType="Integer" >
 		select * from career where resume_idx = #{idx} and status='활성'
+	</select>
+	<select id="resumeContent"
+		resultType="com.goodjob.resume.model.ResumeDTO" parameterType="Integer" >
+		select * from resume where idx = #{idx} and status ='활성'
 	</select>
 	<update id="resumeUpdate"
 		parameterType="com.goodjob.resume.model.ResumeDTO">
@@ -65,11 +65,11 @@
 		
 		"CHECK" = #{check}
 				
-		where member_idx = #{member_idx}
+		where idx = #{idx}
 	
 	</update>
 	<update id="careerUpdate"
-		parameterType="com.goodjob.resume.model.ResumeDTO">
+		parameterType="com.goodjob.career.model.CareerDTO">
 		update career 
 		set 
 		startday = #{startday}, 
@@ -78,9 +78,23 @@
 		part = #{part}, 
 		service_type= #{service_type} 
 		
-		where resume_idx = #{idx}
+		where idx = #{idx}
 	</update>
 	<select id="injaeList" resultType="com.goodjob.resume.model.ResumeDTO" >
 		select idx,  member_idx, name, age, gender, job from resume where "CHECK" = 1 and status = '활성'  order by idx
 	</select>
+	<insert id="careerWrite" parameterType="com.goodjob.career.model.CareerDTO">
+		insert into career values(career_idx.nextval,
+		#{resume_idx}, #{startday}, #{endday}
+		,#{com_name},#{part},#{service_type},'활성')
+	</insert>
+	<update id="careerDelete" parameterType="Integer">
+		update career set status = '비활성' where idx = #{idx} and status ='활성'
+	</update>
+	<select id="getCareerResumeCount" parameterType="Integer" resultType="Integer">
+		  select count(resume_idx) from career where resume_idx = #{resume_idx} and status ='활성'
+	</select>
+	<update id="updateCareer_check" parameterType="Integer">
+		update resume set career_check = '경력' where member_idx = #{member_idx}
+	</update>
 </mapper>

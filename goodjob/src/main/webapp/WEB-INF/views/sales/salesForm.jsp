@@ -34,15 +34,16 @@
 	<%@include file="/WEB-INF/views/header.jsp"%>
 		<section>
 			<article>
+			<h1><i class="bi bi-bar-chart-line-fill"></i>매출 통계</h1>
 			<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-				  <input type="radio" class="btn-check" name="btnradio" id="period" autocomplete="off">
+				  <input type="radio" class="btn-check" name="btnradio" id="period" autocomplete="off" checked="checked">
 				  <label class="btn btn-outline-primary" for="period">기간 매출</label>
 				
 				  <input type="radio" class="btn-check" name="btnradio" id="month" autocomplete="off">
 				  <label class="btn btn-outline-primary" for="month">월 매출</label>
 			</div>
 			<div id="my-div">
-			<div class="card d-none" id="rangecard">
+			<div class="card" id="rangecard">
 			      <div class="card-body">
 			        시작일
 			        <input type="date" name="date1" id="startdate">

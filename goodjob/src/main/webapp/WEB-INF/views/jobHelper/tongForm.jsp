@@ -17,15 +17,16 @@
 	<%@include file="/WEB-INF/views/header.jsp"%>
 		<section>
 			<article>
+			<h1><i class="bi bi-bar-chart-steps"></i>급여 통계</h1>
 			<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-				  <input type="radio" class="btn-check" name="btnradio" id="job" autocomplete="off">
+				  <input type="radio" class="btn-check" name="btnradio" id="job" autocomplete="off" checked="checked">
 				  <label class="btn btn-outline-primary" for="job">직종별</label>
 				
 				  <input type="radio" class="btn-check" name="btnradio" id="local" autocomplete="off">
 				  <label class="btn btn-outline-primary" for="local">지역별</label>
 			</div>
 			<div id="my-div">
-			<div class="card d-none" id="jobcard">
+			<div class="card" id="jobcard">
 			      <div class="card-body">
 			       <select name="job" id="jobs">
 			       <c:forEach var="jobs" items="${lists }">
