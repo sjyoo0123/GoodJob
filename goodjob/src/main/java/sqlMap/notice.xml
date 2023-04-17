@@ -103,7 +103,7 @@ update notice set status='비활성' where idx=#{idx}
 	select * from(
 	select rownum as rnum, a.* from(
 	select * from notice
-	order by idx asc
+	order by idx desc
 	)a
 	)b
 	where rnum<![CDATA[>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
