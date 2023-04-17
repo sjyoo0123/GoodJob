@@ -95,6 +95,7 @@ public class ComController {
 			ntotalCnt=ndao.noticeTotalCnt(idx,"활성");
 		}
 		CompanyMemberDTO cdto=ComDao.comInfo(idx);
+		session.setAttribute("com_name", cdto.getCom_name());
 		List<NoticeDTO> nlists=ndao.noticeComList(idx,1,5,"활성");
 		int ototalCnt=0;
 		if(odao.offerTotalCnt(idx)!=0) {

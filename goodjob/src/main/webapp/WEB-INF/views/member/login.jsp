@@ -102,8 +102,7 @@ min-height: 3rem;
 				</div>
 
 				<!-- pwd -->
-				<div class="modal fade" id="staticBackdropPwd"
-					data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+				<div class="modal fade" id="staticBackdropPwd" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
 					aria-labelledby="staticBackdropLabel" aria-hidden="true">
 					<div class="modal-dialog">
 						<div class="modal-content">
@@ -137,6 +136,25 @@ min-height: 3rem;
 						</div>
 					</div>
 				</div>
+				<div class="modal fade" id="staticBackdropAlert" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+					aria-labelledby="staticBackdropLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h1 class="modal-title fs-5" id="staticBackdropLabel">알림</h1>
+								<button type="button" class="btn-close" data-bs-dismiss="modal"
+									aria-label="Close"></button>
+							</div>
+							<div class="modal-body alertModal">
+							-
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary"
+									data-bs-dismiss="modal">닫기</button>
+							</div>
+						</div>
+					</div>
+				</div>
 			</article>
 		</section>
 		<%@include file="/WEB-INF/views/footer.jsp"%>
@@ -147,10 +165,12 @@ $('.findIdSubMit').on('click',function(){
 		url:'findId.do',
 		data:{email:$('#findIdAndEmail').val()},
 	}).done(function(data){
+			 $('#staticBackdropId').modal('hide');
+			 $('#staticBackdropAlert').modal('show');
 		if(data>0){
-			alert('고객님의 이메일로 아이디가 전송되었습니다');
+			$('.alertModal').text('고객님의 이메일로 아이디가 전송되었습니다');
 		}else{
-			alert('계정이 존재하지 않습니다');
+			$('.alertModal').text('계정이 존재하지 않습니다');
 			
 		}
 	})
@@ -161,10 +181,12 @@ $('.findPwdSubMit').on('click',function(){
 		url:'findPwd.do',
 		data:{id:$('#findPwdAndId').val(),email:$('#findPwdAndEmail').val()},
 	}).done(function(data){
+		 $('#staticBackdropPwd').modal('hide');
+		 $('#staticBackdropAlert').modal('show');
 		if(data>0){
-			alert('이메일로 전송된 url을 통해 비밀번호를 변경해주세요');
+			$('.alertModal').text('이메일을 통해 비밀번호를 변경해 주세요');
 		}else{
-			alert('계정이 존재하지 않습니다');
+			$('.alertModal').text('아이디 혹은 이메일을 확인해주세요');
 		}
 	})
 });
@@ -182,12 +204,12 @@ $('.com').click((e)=>{
     $('.com').attr('class','w-100 bg-primary com');
 });
 $('.login').submit(function(event) {
-    // 모든 입력 요소가 채워졌는지 확인
+  
     var filled = true;
     $(this).find('input').each(function() {
         if ($(this).val() === '') {
             filled = false;
-            return false; // each() 반복 중단
+            return false; 
         }
     });
     if (filled) {
@@ -198,7 +220,7 @@ $('.login').submit(function(event) {
         return false;
     }
 });
-
+${script}
 </script>
 </body>
 </html>

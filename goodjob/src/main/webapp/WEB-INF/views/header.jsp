@@ -41,11 +41,8 @@ header .nav li {
 	max-height: 0;
 	z-index: 1000 !important;
 }
-
-
 .menu_title{
 	border-radius: 5px;
-	background:white;
 	color:#1a4369;
 	padding-left: 20px;
 	padding-top: 10px;
@@ -58,13 +55,11 @@ header .nav li {
 	color:#fff;
 }
 ul .col-12{
-	background: #1a4369;
 }
 .nav:hover li {
 	display: block;
 	max-height: none;
 	transition: all 10s;
-	background-color: white;
 }
 
 a {
@@ -97,9 +92,10 @@ a:hover {
 					<div class="btn-group">
 						<button type="button" class="btn btn-white dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">${logName }님</button>
 						<ul class="dropdown-menu">
-							<li><a class="dropdown-item" href="/company.do">마이페이지</a></li>
-							<li><a class="dropdown-item" href="#"></a></li>
-							<li><a class="dropdown-item" href="#"></a></li>
+							<li><a class="dropdown-item" href="company.do">마이페이지</a></li>
+							<li><a href="comPlanList.do" class="dropdown-item">나의 요금제</a></li>
+							<li><a href="noticeComList.do" class="dropdown-item">공고 현황</a></li>
+							<li><a href="ofComList.do" class="dropdown-item">제의 현황</a></li>
 							
 						</ul>
 					</div>
@@ -110,11 +106,10 @@ a:hover {
 						<ul class="dropdown-menu">
 							<li><a class="dropdown-item" href="manNoticeStatusPage.do">공고관리</a></li>
 							<li><a class="dropdown-item" href="manReviewPage.do">키워드관리</a></li>
-							<li><a class="dropdown-item" href="manBlackList.do">블랙리스트</a></li>
+							<li><a class="dropdown-item" href="manGongjiList.do">공지관리</a></li>
 							<li><a class="dropdown-item" href="manBlackListSingoList.do">신고관리</a></li>
-							<li><a class="dropdown-item" href="manOneList.do">작성된문의</a></li>
+							<li><a class="dropdown-item" href="manBlackList.do">블랙리스트</a></li>
 							<li><a class="dropdown-item" href="manBannerPage.do">배너관리</a></li>
-							<li><a class="dropdown-item" href="manFAQList.do">FAQ관리</a></li>
 							<li><a class="dropdown-item" href="manPlanPage.do">요금제관리</a></li>
 							<li><a class="dropdown-item" href="salesForm.do">매출통계</a></li>
 							<li><a class="dropdown-item" href="salesListForm.do">매출현황</a></li>							
@@ -154,7 +149,6 @@ a:hover {
 					</div>
 					<div class="col-2">
 						<a href="injaeListForm.do" class=""><label class="menu_title">인재정보</label></a>
-
 					</div>
 					<div class="col-2">
 						<a href="review.do" class=""><label class="menu_title">후기게시판</label></a>

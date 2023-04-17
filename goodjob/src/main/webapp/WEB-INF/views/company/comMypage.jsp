@@ -25,7 +25,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-<title>Insert title here</title>
+<title>마이페이지</title>
 <style>
 .container-fluid {
   display: flex;
@@ -53,14 +53,23 @@ z-index: -1;
 position: relative;
 z-index: 1;
 }
+
 </style>
 </head>
 <body>
 	<div class="container" >
 	<%@include file="/WEB-INF/views/header.jsp"%>
 	<div class="row">
+	<div class="col-12">
+	<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="index.do">Home</a></li>
+    <li class="breadcrumb-item active" aria-current="page">마이페이지</li>
+  </ol>
+</nav>
+	</div>
 		<div class="col-sm-6 mb-4">
-		<div class="card bg-secondary bg-opacity-10">
+		<div class="card bg-primary bg-opacity-10">
 		<div class="card-body">
 			<h2 class="card-title">나의회사</h2>
 			<h3>${cdto.com_name}</h3>
@@ -68,8 +77,8 @@ z-index: 1;
 		</div>
 		</div>
 		<div class="col-sm-6 mb-4">
-		<div class="card-stats card bg-secondary bg-opacity-10">
-		<div class="card-icon"><i class="bi bi-ticket-fill" style="font-size: 6rem; color: gold;"></i></div>
+		<div class="card-stats card bg-primary bg-opacity-10">
+		<div class="card-icon"><i class="bi bi-ticket" style="font-size: 6rem; color: gold;"></i></div>
 		<div class="card-body">
 			<h2 class="card-title">
 				<a href="comPlanList.do">나의 요금제</a><br>
@@ -84,9 +93,9 @@ z-index: 1;
 		</div>
 		<br>
 		<div class="col-sm-6 mb-4">
-		<div class="card-stats card bg-secondary bg-opacity-10">
+		<div class="card-stats card bg-primary bg-opacity-10">
 		<div class="card-body">
-		<div class="card-icon"><i class="bi bi-clipboard-fill" style="font-size: 6rem; color: #1A4369;"></i></div>
+		<div class="card-icon"><i class="bi bi-clipboard" style="font-size: 6rem; color: #1A4369;"></i></div>
 			<h1 class="card-title">
 				<a href="noticeComList.do">공고 현황</a>
 			</h1>
@@ -102,7 +111,7 @@ z-index: 1;
 						<c:url var="contentUrl" value="noticeContent.do">
 							<c:param name="idx">${dto.idx}</c:param>
 						</c:url>
-							<h3><a href="${contentUrl}">${dto.subject}</a></h3>
+							<h3 class="text-truncate"><a href="${contentUrl}">${dto.subject}</a></h3>
 						</c:forEach>
 					</div>
 			</div>
@@ -110,9 +119,9 @@ z-index: 1;
 		</div>
 		</div>
 		<div class="col-sm-6 mb-4">
-		<div class="card-stats card bg-secondary bg-opacity-10">
+		<div class="card-stats card bg-primary bg-opacity-10">
 		<div class="card-body">
-				<div class="card-icon"><i class="bi bi-people-fill" style="font-size: 6rem; color: #52C640;"></i></div>
+				<div class="card-icon"><i class="bi bi-people" style="font-size: 6rem; color: #52C640;"></i></div>
 			<h1 class="card-title">
 				<a href="ofComList.do">제의 현황</a>
 			</h1>

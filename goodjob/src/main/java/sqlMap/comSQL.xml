@@ -22,7 +22,7 @@
 	<update id="comUpdate"
 		parameterType="com.goodjob.companymember.model.CompanyMemberDTO">
 		update companymember set
-		com_name=#{com_name} , detail_addr=#{detail_addr} where com_idx=#{com_idx}
+		com_name=#{com_name} , detail_addr=#{detail_addr} where member_idx=#{member_idx}
 	</update>
 	<select id="comInfo" parameterType="Integer"
 		resultType="com.goodjob.companymember.model.CompanyMemberDTO">

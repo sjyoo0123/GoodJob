@@ -33,6 +33,15 @@
 		<%@include file="/WEB-INF/views/header.jsp"%>
 	<article>
 			<div class="row">
+				<div class="col-12">
+	<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="index.do">Home</a></li>
+    <li class="breadcrumb-item"><a href="company.do">마이페이지</a></li>
+    <li class="breadcrumb-item active" aria-current="page">내 요금제</li>
+  </ol>
+</nav>
+	</div>
 	<h1>내요금제</h1>
 			<hr class="my-4">
 		<div class="btn-group btn-group-lg col-4" role="group"
