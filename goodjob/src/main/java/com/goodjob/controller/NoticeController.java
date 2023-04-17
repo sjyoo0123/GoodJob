@@ -321,7 +321,7 @@ public NoticeController() {
 		System.out.println(dto);
 		int result=ndao.noticeUpdate(dto);
 		Map map=new HashMap();
-		if(file!=null) {
+		if(!file.isEmpty()) {
 			String path ="/goodjob/notice"+"/"+file.getOriginalFilename();
 			String filest=file.getOriginalFilename();
 			map.put("file", path);
