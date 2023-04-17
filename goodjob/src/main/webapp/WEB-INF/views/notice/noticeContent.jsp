@@ -35,9 +35,14 @@
 <div class="container">
 
 	<%@include file="/WEB-INF/views/header.jsp"%>
+	<div class="row">
+	<div class="col-7"></div>
+	<div class="col-5">
 <div class="btn-group btn-group-lg" role="group" aria-label="Large button group">
-<button class="btn btn-outline-dark" onclick="location.href='noticeUpdate.do?idx=${dto.idx}'"><span>수정</span></button>
-<button class="btn btn-outline-dark"><span>삭제</span></button>
+<button class="btn btn-outline-dark" onclick="location.href='noticeUpdate.do?idx=${dto.idx}'"><span>공고 수정</span></button>
+<button class="btn btn-outline-dark" onclick="if (confirm('정말 삭제하시겠습니까?')) { location.href='noticeDel.do?idx=${dto.idx}' }"><span>공고 삭제</span></button>
+</div>
+</div>
 </div>
 <c:if test="${sidx!=dto.com_idx}">
 
@@ -62,13 +67,13 @@
 	<div class="container px-4 px-lg-5">
 	<div class="row gx-4 gx-lg-5 justify-content-center">
 	<div class="col-md-10 col-lg-8 col-xl-7">
-<h1>${dto.subject}</h1>
+<h1 class="fw-bold display-3">${dto.subject}</h1>
 <h6>${dto.writedate}</h6>
-<div class="row align-items-center">
-<div class="col-3"><i class="bi bi-cash" style="font-size: 6rem;"></i><br>${dto.pay_category}${dto.pay_hour}원</div>
+<div class="row align-items-center text-center">
+<div class="col-3"><i class="bi bi-cash" style="font-size: 6rem;"></i><br><c:if test="${dto.pay_category=='협의'}">협의</c:if><c:if test="${dto.pay_category!='협의'}">${dto.pay_category}${dto.pay_hour}</c:if></div>
 <div class="col-3"><i class="bi bi-calendar" style="font-size: 6rem;"></i><br>${yy}</div>
-<div class="col-3"><i class="bi bi-clock" style="font-size: 6rem;"></i><br>${startendtime}</div>
-<div class="col-3"><i class="bi bi-people-fill" style="font-size: 6rem;"></i><br>모집모집</div>
+<div class="col-3"><i class="bi bi-clock" style="font-size: 6rem;"></i><br><c:if test="${startendtime=='0:00 ~ 0:00'}">시간합의</c:if><c:if test="${startendtime!='0:00 ~ 0:00'}">${startendtime}</c:if></div>
+<div class="col-3"><i class="bi bi-people-fill" style="font-size: 6rem;"></i><br>${dto.service_type}</div>
 </div>
 <hr class="my-4">
 <div class="row">
@@ -102,7 +107,7 @@
 <table>
 <tr>
 	<th>급여</th>
-	<td>${dto.pay_category} ${dto.pay_hour}</td>
+	<td><c:if test="${dto.pay_category=='협의'}">협의</c:if><c:if test="${dto.pay_category!='협의'}"><h3 class="fw-bold display-5">${dto.pay_category}${dto.pay_hour}</h3></c:if></td>
 </tr>
 <tr>
 	<th>근무기간</th>
@@ -307,5 +312,6 @@ $('.singoing').on('click',()=>{
     });
 });
 </script>
+  	<%@include file="/WEB-INF/views/footer.jsp"%>
 </body>
 </html>

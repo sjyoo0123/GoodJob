@@ -80,11 +80,12 @@ public NoticeController() {
 		super();
 		this.ndao = ndao;
 	}
-
+	/*공고작성 폼*/
 	@RequestMapping(value="/noticeWrite.do")
 	public ModelAndView noticeWriteForm(HttpSession session) {
 		ModelAndView mav=new ModelAndView();
 		int idx=0;
+		String com_name_1="";
 		if(session.getAttribute("sidx")==null||session.getAttribute("sidx")=="") {
 			String msg="잘못된 접근입니다";
 			String goUrl="index.do";
@@ -94,12 +95,14 @@ public NoticeController() {
 			return mav;
 		}else {
 			idx=(int)session.getAttribute("sidx");
+			com_name_1 = session.getAttribute("com_name") != null ? (String) session.getAttribute("com_name") : "";
 		}
 		mav.addObject("idx", idx);
+		mav.addObject("com_name_1", com_name_1);
 		mav.setViewName("notice/noticeWrite");
 		return mav;
 	}
-	
+	/*공고작성 등록*/
 	@RequestMapping(value="/noticeWrite.do", method=RequestMethod.POST)
 	public ModelAndView noticeWriteSubmit(NoticeDTO dto,String workstarttime1,String workstarttime2,String workendtime1,String workendtime2,int pay_hour1,@RequestParam("formFileMultiple")MultipartFile file,HttpServletRequest req) {
 		ModelAndView mav=new ModelAndView();
@@ -132,6 +135,7 @@ public NoticeController() {
 		mav.setViewName("notice/noticeMsg");
 		return mav;
 	}
+	/*기업계정 내 공고 조회*/
 	@RequestMapping("/noticeComList.do")
 	public ModelAndView noticeComListForm(@RequestParam(value="cp",defaultValue="1")int cp,@RequestParam(value="status",defaultValue ="0")int status,HttpSession session) {
 		int idx=0;
@@ -164,6 +168,7 @@ public NoticeController() {
 		mav.setViewName("notice/noticeComList");
 		return mav;
 	}
+	/*공고컨텐츠 조회*/
 	@RequestMapping("/noticeContent.do")
 	public ModelAndView noticeContent(@RequestParam(value="idx")int nidx,HttpSession session, ApplyDTO ato) {
 		NoticeDTO dto=ndao.noticeContent(nidx);
@@ -196,7 +201,6 @@ public NoticeController() {
 		String startendtime=starttime+" ~ "+endtime;
 		int com_idx=dto.getCom_idx();
 		CompanyMemberDTO cdto=cdao.comInfo(com_idx);
-		System.out.println(cdto.toString());
 		ModelAndView mav=new ModelAndView();
 		int atoNum =  adao.apNorButtonHide(nidx, sidx);
 		String filepath=totalFileDao.noticeFile(nidx);
@@ -211,7 +215,7 @@ public NoticeController() {
 		mav.setViewName("notice/noticeContent");
 		return mav;
 	}
-
+	/*공고삭제*/
 	@RequestMapping("/noticeDel.do")
 	public ModelAndView noticeDel(@RequestParam(value="idx")int nidx) {
 		int count=ndao.noticeDel(nidx);
@@ -265,6 +269,7 @@ public NoticeController() {
 		}
 		return mav;
 	}
+	/*공고 수정 폼*/
 	@RequestMapping("/noticeUpdate.do")
 	public ModelAndView noticeUpdateForm(@RequestParam(value="idx")int nidx) {
 		ModelAndView mav=new ModelAndView();
@@ -273,6 +278,13 @@ public NoticeController() {
 		int workstarttime2 = dto.getStarttime()%100;
 		int workendtime1 = dto.getFinishtime()/100;
 		int workendtime2 = dto.getFinishtime()%100;
+		String filepath=null;
+		filepath=totalFileDao.noticeFile(nidx);
+		if(filepath!=null) {
+			mav.addObject("filepath", filepath);
+		}else {
+			mav.addObject("filepath", "");
+		}
 		mav.addObject("dto", dto);
 		mav.addObject("workstarttime1", workstarttime1);
 		mav.addObject("workstarttime2", workstarttime2);
@@ -281,8 +293,9 @@ public NoticeController() {
 		mav.setViewName("notice/noticeUpdate");
 		return mav;
 	}
+	/*공고 수정 등록*/
 	@RequestMapping(value="/noticeUpdate.do",method=RequestMethod.POST)
-	public ModelAndView noticeUpdateSubmit(NoticeDTO dto,String workstarttime1,String workstarttime2,String workendtime1,String workendtime2,int pay_hour1,@RequestParam("formFileMultiple")MultipartFile file,HttpServletRequest req) {
+	public ModelAndView noticeUpdateSubmit(NoticeDTO dto,String filepath,String workstarttime1,String workstarttime2,String workendtime1,String workendtime2,int pay_hour1,@RequestParam("formFileMultiple")MultipartFile file,HttpServletRequest req) {
 		ModelAndView mav=new ModelAndView();
 		String starttime=workstarttime1+workstarttime2;
 		dto.setStarttime(Integer.parseInt(starttime));
@@ -302,14 +315,14 @@ public NoticeController() {
 		int result=ndao.noticeUpdate(dto);
 		Map map=new HashMap();
 		if(file!=null) {
-		String path ="/goodjob/notice"+"/"+file.getOriginalFilename();
-		String filest=file.getOriginalFilename();
-		map.put("file", path);
-		map.put("category", "notice");
-		map.put("table_name", "notice");
-		map.put("table_idx", dto.getIdx());
-		int count=totalFileDao.noticeFileUpdate(map);
-		copyInto("notice", file, req);
+			String path ="/goodjob/notice"+"/"+file.getOriginalFilename();
+			String filest=file.getOriginalFilename();
+			map.put("file", path);
+			map.put("category", "notice");
+			map.put("table_name", "notice");
+			map.put("table_idx", dto.getIdx());
+			int count=totalFileDao.noticeFileUpdate(map);
+			copyInto("notice", file, req);
 		}
 		String msg=result>0?"수정완료":"수정실패";
 		mav.addObject("msg", msg);
@@ -518,19 +531,21 @@ public NoticeController() {
 		return mav;
 	}
 
-
+	/*vip요금제 사용여부 조회*/
 	@RequestMapping(value="/usedVipCount.do",method=RequestMethod.POST)
 	@ResponseBody
 	public int usedVipCount(int idx) {
 		int count=plandao.usedVipCount(idx);
 		return count;
 	}
+	/*vip요금제 사용내용*/
 	@RequestMapping(value="/usedVipCon.do",method=RequestMethod.POST)
 	@ResponseBody
 	public List<Plan_Used_VipDTO> usedVipCon(int idx) {
 		List<Plan_Used_VipDTO> list = plandao.usedVipCon(idx);
 		return list;
 	}
+	/*up요금제 공고 업*/
 	@RequestMapping(value="/refUp.do",method=RequestMethod.POST)
 	@ResponseBody
 	public int refUp(int idx) {
