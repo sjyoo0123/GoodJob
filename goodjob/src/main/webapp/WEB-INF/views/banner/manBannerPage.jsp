@@ -67,7 +67,7 @@
 						<tr>
 							<td>
 								<input type="hidden" value="banner" name="category">
-								<input type="submit" value="추가하기">
+								<input type="submit" value="추가하기" class="btn btn-primary">
 							</td>
 						</tr>
 						</tfoot>

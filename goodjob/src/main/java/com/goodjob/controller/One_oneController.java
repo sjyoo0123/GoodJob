@@ -33,26 +33,49 @@ public class One_oneController {
 	private TotalFileDAO fDao;
 	
 	//일대일문의 들어가기
-	@RequestMapping("/manOneList.do")
-	public ModelAndView manOneList(@RequestParam(value = "cp", defaultValue = "1")int cp) {
+	@RequestMapping(value="/manOneList.do",method = RequestMethod.GET)
+	public ModelAndView manOneList(@RequestParam(value = "cp", defaultValue = "1")int cp,
+			@RequestParam(value="bAjax", defaultValue = "false")boolean bAjax,
+			@RequestParam(value="category", defaultValue = "")String category,
+			@RequestParam(value="search", defaultValue = "")String search) {
 		
 		
 		
 		ModelAndView mav=new ModelAndView();
 		
-		int totalCnt=oneDao.manOneAllCnt();
+		int totalCnt=0;
 		int pazeSize=5;
 		int listSize=5;
-
-		List<One_OneDTO> lists=oneDao.manOneList(cp, listSize);
+		int start=(cp-1)*listSize+1;
+		int end=cp*listSize;
+		System.out.println(1);
+		List<One_OneDTO>lists=null;
 		
-		String pageStr=com.goodjob.page.module.PageModule.makePage("manOneList.do", totalCnt, listSize, pazeSize, cp);
+		if(category.length()==0 || search.length()==0) {
+			totalCnt=oneDao.manOneAllCnt();
+			lists=oneDao.manOneList(cp, listSize);	
+		}else {
+			
+			Map<String, Object> map= new HashMap<String, Object>();
+			map.put("category", category);
+			map.put("search", search);
+			map.put("start", start);
+			map.put("end", end);
+			totalCnt=oneDao.manOneSearchCnt(map);
+			lists=oneDao.manOneSearch(map);
+		}
 		
-		System.out.println(totalCnt);
-	
+		String page=AjaxPageModule.makePage(totalCnt, listSize, pazeSize, cp);
+		
 		mav.addObject("lists", lists);
-		mav.addObject("pageStr", pageStr);
-		mav.setViewName("one/manOneList");
+		mav.addObject("page", page);
+		System.out.println(page);
+		if(bAjax) {
+			mav.setViewName("goodjobJson");
+		}else {
+			mav.setViewName("one/manOneList");
+		}
+	
 		
 		return mav;
 		
@@ -192,7 +215,7 @@ public class One_oneController {
 	
 	
 	//일대일문의 검색하기
-	@RequestMapping("/manOneSearch.do")
+	/**@RequestMapping("/manOneSearch.do")
 	public ModelAndView manOneSearch(@RequestParam(value = "cp", defaultValue = "1")int cp
 			,@RequestParam (value = "search", required = false)String search) {
 		
@@ -214,7 +237,7 @@ public class One_oneController {
 		return mav;
 		
 		
-	}
+	}*/
 	@RequestMapping("userOneWrite.do")
 	public String userOneWriteForm() {
 		return "one/userOneWrite";

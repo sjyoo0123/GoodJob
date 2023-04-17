@@ -35,6 +35,8 @@
       location.href='index.do';
    }
 </script>
+<style>
+</style>
 <body>
 	<div class="container">
 		<%@include file="/WEB-INF/views/header.jsp" %>
@@ -49,10 +51,12 @@
 					<div class="offset-sm-3 col-sm-6">
 						<a href="manNoticeStatusPage.do">상태관리</a> | <a href="manNoticeAcceptPage.do">승인</a> | <a href="manNoticeDelPage.do">삭제</a>
 					</div>
+					<hr>
 					<div class="row">
-						<div class="offset-sm-7 col-sm-3">
+						<div class="offset-sm-7">
 							<form id="manNoticeStatusPage">
-							<select name="category">
+							<div class="col-sm-3">
+							<select name="category" class="form-control">
 								<option value="com_name">기업명</option>
 								<option value="subject">제목</option>
 								<option value="subjectContent">제목+내용</option>
@@ -61,7 +65,10 @@
 							<input type="button" id="submit" value="검색하기" class="btn btn-primary">
 							<input type="hidden" value="1" id="cp" name="cp">
 							<input type="hidden" name="bAjax" value="true">
+							</div>
+							
 							</form>
+							
 						</div>	
 					</div>
 					<table class="table">

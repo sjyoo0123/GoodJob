@@ -39,7 +39,7 @@
 				</div>
 				<div class="row">
 					<div class="offset-sm-3 col-sm-6">
-						<a href="manNoticeStatusPage.do">상태관리</a><a href="manNoticeAcceptPage.do">승인</a> | <a href="manNoticeDelPage.do">삭제</a>
+						<a href="manNoticeStatusPage.do">상태관리</a> | <a href="manNoticeAcceptPage.do">승인</a> | <a href="manNoticeDelPage.do">삭제</a>
 					</div>
 				</div>
 					<br>
@@ -68,7 +68,7 @@
 								<td>${dto.subject }</td>
 								<td>${dto.com_name }</td>
 								<td>${dto.pay_hour }</td>
-								<td><input type="button" value="삭제하기" onclick="location.href='manNoticeDel.do?idx=${dto.idx}'"></td>
+								<td><input type="button" value="삭제하기" onclick="location.href='manNoticeDel.do?idx=${dto.idx}'" class="btn btn-primary"></td>
 							</tr>
 						</c:forEach>
 					</tbody>
