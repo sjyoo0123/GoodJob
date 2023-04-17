@@ -99,7 +99,7 @@
 </tr>
 <tr>
 	<th>학력</th>
-	<td>${dto.grade}이상</td>
+	<td><c:if test="${dto.grade=='학력무관'}">${dto.grade}</c:if><c:if test="${dto.grade!='학력무관'}">${dto.grade}이상</c:if></td>
 </tr>
 <tr>
 	<th>직종</th>
@@ -128,7 +128,7 @@
 </tr>
 <tr>
 	<th>근무시간</th>
-	<td>${startendtime}</td>
+	<td><c:if test="${startendtime=='0:00 ~ 0:00'}">시간합의</c:if><c:if test="${startendtime!='0:00 ~ 0:00'}">${startendtime}</c:if></td>
 </tr>
 </table>
 <button class="btn btn-primary btn-icon-split btn-lg" onclick="window.open('jobHelperTong.do')">

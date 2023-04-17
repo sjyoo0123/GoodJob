@@ -108,10 +108,10 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
-	<form action="noticeWrite.do" method="post" id="writeForm" enctype="multipart/form-data">
-<input type="hidden" name="com_idx" value="${idx}" id="com_idx">
 	<div class="container px-4 px-lg-5">
   	<%@include file="/WEB-INF/views/header.jsp"%>
+	<form action="noticeWrite.do" method="post" id="writeForm" enctype="multipart/form-data">
+<input type="hidden" name="com_idx" value="${idx}" id="com_idx">
   	<div class="row">
 	<h1 align="center">공고 등록</h1>
 	<div class="row gx-4 gx-lg-5 justify-content-center">
@@ -164,7 +164,7 @@ $(document).ready(function() {
 							<option value="고졸">고졸이상</option>
 							<option value="초대졸">초대졸이상</option>
 							<option value="대졸">대졸이상</option>
-							<option value="학력">학력무관</option>
+							<option value="학력무관">학력무관</option>
 					</select></td>
 				</tr>
 				<tr>
@@ -262,7 +262,7 @@ $(document).ready(function() {
 								type="checkbox" name="checkboxworkday" value="moo"
 								class="btn-check" id="moo" checked><label
 								class="btn btn-outline-dark" for="moo">무관</label>
-						</div><input type="hidden" id="workday" name="workday"></td>
+						</div><input type="hidden" id="workday" name="workday" value="00000001"></td>
 				</tr>
 				<tr>
 					<th>근무시간</th>
@@ -448,7 +448,7 @@ function readURL(input) {
       preview.src = e.target.result;
       preview.width = 200;
       preview.height = 150;
-      document.getElementById('clear').style.display = 'block'; // show clear button
+      document.getElementById('clear').style.display = 'block';
     };
     reader.readAsDataURL(input.files[0]);
   } else {
@@ -459,11 +459,11 @@ function readURL(input) {
 function clearFile() {
 	  var input = document.getElementById('formFileMultiple');
 	  var preview = document.getElementById('preview');
-	  preview.src = ''; // clear preview image
-	  preview.width = 0; // hide preview image
+	  preview.src = '';
+	  preview.width = 0;
 	  preview.height = 0;
-	  document.getElementById('clear').style.display = 'none'; // hide clear button
-	  input.value = null; // clear selected files
+	  document.getElementById('clear').style.display = 'none';
+	  input.value = null;
 	}
 
 
@@ -480,7 +480,7 @@ function clearFile() {
 		<div class="card bg-primary bg-opacity-10">
 								<div class="card-body">
 			<h2 class="card-title" id="list-plan">요금제 정보</h2>
-			<input type="hidden" name="plan_idx" id="plan_idx"><div id="planUse"></div>
+			<input type="hidden" name="plan_idx" id="plan_idx" value="13"><div id="planUse"></div>
 		</div>
 		</div>
 		<button type="submit" class="btn btn-primary btn-icon-split btn-lg col-12">
@@ -492,8 +492,8 @@ function clearFile() {
 		</div>
 		</div>
 		</div>
-		</div>
 	</form>
+		</div>
 <script>
 $(document).ready(function() {
     $.ajax({
