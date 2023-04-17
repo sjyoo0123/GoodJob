@@ -50,8 +50,8 @@
 					<div class="row">
 						<c:forEach var="map" items="${map}">
 							<div class="col-md-6 card ">
-								<div>${map.value.name }</div>
-								<div>리뷰 ${map.value.member_idx }개</div>
+								<div><h3>${map.value.name }</h3></div>
+								<div><h5>리뷰 ${map.value.member_idx }개</h5></div>
 								<div>
 									<button>${map.value.gender }</button>
 									&nbsp;
