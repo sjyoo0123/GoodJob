@@ -95,7 +95,7 @@
 </tr>
 <tr>
 	<th>연령</th>
-	<td>${dto.min_age}~${dto.max_age}</td>
+	<td><c:if test="${dto.min_age==0&&dto.max_age==0}">나이무관</c:if><c:if test="${dto.max_age!=0}">${dto.min_age}~${dto.max_age}</c:if></td>
 </tr>
 <tr>
 	<th>학력</th>
@@ -103,7 +103,7 @@
 </tr>
 <tr>
 	<th>직종</th>
-	<td>@직종@</td>
+	<td>${dto.job}</td>
 </tr>
 <tr>
 	<th>모집인원</th>

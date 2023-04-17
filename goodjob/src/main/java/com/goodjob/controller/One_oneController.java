@@ -67,6 +67,7 @@ public class One_oneController {
 		
 		String page=AjaxPageModule.makePage(totalCnt, listSize, pazeSize, cp);
 		
+
 		mav.addObject("lists", lists);
 		mav.addObject("page", page);
 		System.out.println(page);
@@ -156,6 +157,12 @@ public class One_oneController {
 			@RequestParam(value="bAjax" ,defaultValue="false")boolean bAjax) {
 		ModelAndView mav=new ModelAndView();
 		Integer sIdx=session.getAttribute("sidx")!=null?(Integer)session.getAttribute("sidx"):0;
+		if(sIdx==0) {
+			mav.addObject("msg", "로그인후 이용 가능합니다");
+			mav.addObject("href", "location.href='login.do'");
+			mav.setViewName("alertModal");
+			return mav;
+		}
 		int totalCnt=oneDao.userOneTotalCnt(sIdx);
 		int pazeSize=5;
 		int listSize=10;

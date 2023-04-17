@@ -53,7 +53,23 @@ z-index: -1;
 position: relative;
 z-index: 1;
 }
+.planbg {
+	background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+	background-size: 100%;
+	animation: gradient 15s ease infinite;
+}
 
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
 </style>
 </head>
 <body>
@@ -77,13 +93,13 @@ z-index: 1;
 		</div>
 		</div>
 		<div class="col-sm-6 mb-4">
-		<div class="card-stats card bg-primary bg-opacity-10">
+		<div class="card-stats card <c:if test='${not empty vlists}'>planbg text-white</c:if><c:if test='${empty vlists}'>bg-primary bg-opacity-10</c:if>">
 		<div class="card-icon"><i class="bi bi-ticket" style="font-size: 6rem; color: gold;"></i></div>
 		<div class="card-body">
 			<h2 class="card-title">
 				<a href="comPlanList.do">나의 요금제</a><br>
 			</h2>
-			<h3><c:if test="${empty vlists}"><p>등록된 공고가 없습니다.</p></c:if>
+			<h3><c:if test="${empty vlists}"><p>무료 요금제</p></c:if>
 			<c:forEach var="dto" items="${vlists}">
 							<h3>${dto.subject}</h3>
 						</c:forEach>
@@ -103,7 +119,7 @@ z-index: 1;
 				<div class="col-sm-4">
 				<h4>진행중인 공고</h4>
 				<br>
-						<h1>${ntotalCnt}건</h1>
+						<h1 class="col-6 bg-primary bg-opacity-50"><c:if test="${ntotalCnt==null||nototalCnt==''}">0</c:if>${ntotalCnt}건</h1>
 					</div>
 					<div class="col-sm-8">
 						<c:if test="${empty nlists}"><p>등록된 공고가 없습니다.</p></c:if>
@@ -128,7 +144,7 @@ z-index: 1;
 			<div class="row">
 			<div class="col-sm-5">
 				<h4>진행중인 제의</h4>
-				<h1>${ototalCnt}건</h1>
+				<h1 class="col-5 bg-primary bg-opacity-50"><c:if test="${ototalCnt==null||ototalCnt==''}">0</c:if>${ototalCnt}건</h1>
 			</div>
 			<div class="col-sm-7">
 				<c:if test="${empty olists}"><p>등록된 공고가 없습니다.</p></c:if>
