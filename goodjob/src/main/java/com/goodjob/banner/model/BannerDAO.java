@@ -1,6 +1,7 @@
 package com.goodjob.banner.model;
 
 import java.util.List;
+import java.util.Map;
 
 public interface BannerDAO {
 
@@ -16,5 +17,7 @@ public interface BannerDAO {
 	
 	public int manBannerCount();
 	public List<Banner_totalFileDTO>mainBanner();
+	
+	public int manBannerUpdate(Map<String, Object> map);
 	
 }

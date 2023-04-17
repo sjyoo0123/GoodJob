@@ -65,7 +65,7 @@ public class BannerController {
 			int bannerData=0;
 			int fileData=0;
 
-			String fileStr="/goodjob/bannerImg/"+file;
+			String fileStr="/goodjob/bannerImg/"+file.getOriginalFilename();
 		
 			System.out.println(fileStr);
 			
@@ -161,7 +161,7 @@ public class BannerController {
 		
 		copyInto(category, file,req);
 		System.out.println(file.getOriginalFilename());
-		String fileStr="/goodjob/bannerImg/"+file;
+		String fileStr="/goodjob/bannerImg/"+file.getOriginalFilename();
 		System.out.println(fileStr);
 		TotalFileDTO dto2=new TotalFileDTO();
 		dto2.setFile(fileStr);
@@ -169,9 +169,13 @@ public class BannerController {
 		dto2.setIdx(file_idx);
 		dto2.setCategory(category);
 
+		Map<String, Object> map= new HashMap<String, Object>();
 		
-	
-		int count=bannerDao.manBannerAdd(dto);
+		map.put("link", dto.getLink());
+		map.put("subject", dto.getSubject());
+		map.put("idx", idx);
+		System.out.println(map.toString());
+		int count=bannerDao.manBannerUpdate(map);
 		int count2=totalFileDao.manFileUpdate(dto2);
 	
 		
