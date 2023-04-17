@@ -106,15 +106,6 @@ $(document).ready(function() {
 	});
 
 </script>
-<style>
-.sidenav {
-      position: fixed;
-      width: 200px;
-      height: 100%;
-      margin-left: -20px;
-      margin-top:-10px
-    }
-</style>
 </head>
 <body>
 	<form action="noticeWrite.do" method="post" id="writeForm" enctype="multipart/form-data">
@@ -122,21 +113,9 @@ $(document).ready(function() {
 	<div class="container px-4 px-lg-5">
   	<%@include file="/WEB-INF/views/header.jsp"%>
   	<div class="row">
-  	<nav class="col-sm-3 sidenav">
-  	<div id="write-list" class="list-group">
-      <a class="list-group-item list-group-item-action" href="#list-subject">공고제목</a>
-      <a class="list-group-item list-group-item-action" href="#list-mo">모집조건</a>
-      <a class="list-group-item list-group-item-action" href="#list-work">근무조건</a>
-      <a class="list-group-item list-group-item-action" href="#list-workaddr">근무지조건</a>
-      <a class="list-group-item list-group-item-action" href="#list-manager">담당자조건</a>
-      <a class="list-group-item list-group-item-action" href="#list-detail">상세정보</a>
-      <a class="list-group-item list-group-item-action" href="#list-plan">요금제정보</a>
-    </div>
-    </nav>
 	<h1 align="center">공고 등록</h1>
 	<div class="row gx-4 gx-lg-5 justify-content-center">
 	<div class="col-md-12 col-lg-9 col-xl-8">
-	<div data-bs-spy="scroll" data-bs-target="#write-list" data-bs-smooth-scroll="true" class="scrollspy-example" tabindex="0">
 		<div class="card bg-primary bg-opacity-10">
 				<div class="card-body">
 			<h2 class="card-title" id="list-subject">공고제목</h2>
@@ -156,6 +135,7 @@ $(document).ready(function() {
 						aria-label=".form-select-lg example">
 							<option value="남자">남자</option>
 							<option value="여자">여자</option>
+							<option value="무관">무관</option>
 					</select></td>
 				</tr>
 				<tr>
@@ -509,7 +489,6 @@ function clearFile() {
     </span>
     <span class="text">공고 등록하기</span>
 </button>
-		</div>
 		</div>
 		</div>
 		</div>
