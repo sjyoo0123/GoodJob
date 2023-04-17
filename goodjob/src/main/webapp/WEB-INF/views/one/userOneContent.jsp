@@ -17,10 +17,11 @@
 		<section>
 			<article>
 			<div class="row">
+			<div class="col-10 offset-1 mt-5 pt-5">
 					<c:if test="${empty dto}">
 				삭제된 게시글 입니다
 				</c:if>
-					${dto.subject}
+					<h2>제목:${dto.subject}</h2>
 					<c:forEach var="arr" items="${content}">
 						<c:if test="${arr.startsWith('답변:')}">
 							<div class="text-start col-12">${arr}</div>
@@ -38,6 +39,7 @@
 								type="submit" name="전송">
 						</form>
 					</c:if>
+				</div>
 				</div>
 			</article>
 		</section>

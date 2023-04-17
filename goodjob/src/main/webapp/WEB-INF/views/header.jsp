@@ -124,7 +124,7 @@ a:hover {
 				<a href="join.do">회원가입</a>
 			</c:if>
 		</div>
-		<a href="index.do" class="col-2"><img src="img/logo.png"
+		<a href="index.do" class="col-2"><img src="/goodjob/img/logo.png"
 			class="col-12"></a>
 		<div class="col-10">
 			<form action="" class="offset-2 col-8 mt-5 pb-3">

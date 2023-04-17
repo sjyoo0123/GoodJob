@@ -65,7 +65,7 @@ public class BannerController {
 			int bannerData=0;
 			int fileData=0;
 
-			String fileStr="/goodjob/bannerImg/"+file;
+			String fileStr="/goodjob/bannerImg/"+file.getOriginalFilename();
 		
 			System.out.println(fileStr);
 			
@@ -161,7 +161,7 @@ public class BannerController {
 		
 		copyInto(category, file,req);
 		System.out.println(file.getOriginalFilename());
-		String fileStr="/goodjob/bannerImg/"+file;
+		String fileStr="/goodjob/bannerImg/"+file.getOriginalFilename();
 		System.out.println(fileStr);
 		TotalFileDTO dto2=new TotalFileDTO();
 		dto2.setFile(fileStr);

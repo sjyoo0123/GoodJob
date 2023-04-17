@@ -34,6 +34,10 @@ max-width: max(100%);
 min-height: 150px;
 max-height: 150px;
 }
+.dcard,.gcard,.scard{
+max-height: 250px;
+min-height: 250px;
+}
 /*호버하면 크기 1.05배 박스쉐도우*/
 .dcard{
    box-shadow: 0px 0px 0px grey;
@@ -77,7 +81,7 @@ box-shadow: 0px 0px 0px grey;
 								<c:forEach var="bdto" items="${banner }" varStatus="status">
 								<c:if test="${status.first}">
 									<div class="carousel-item active">
-										<a href="${bdto.link }"><img src="${bdto.file }" class="w-100"  alt="${bdto.subject }"></a>
+										<a href="https://${bdto.link }"><img src="${bdto.file }" class="w-100"  alt="${bdto.subject }"></a>
 									</div>
 								</c:if>
 								<c:if test="${!(status.first)}">
@@ -132,7 +136,7 @@ box-shadow: 0px 0px 0px grey;
   				<a href="noticeContent.do?idx=${dDto.IDX}"><img src="${dDto.FILE}" class="card-img-top" alt="${dDto.SUBJECT}"></a>
   				<div class="card-body">
   				  <div class="fs-6 col-6">${dDto.COM_NAME}</div>
-  				  <div class="fs-5"><a href="noticeContent.do?idx=${dDto.IDX}">${dDto.SUBJECT}</a></div>
+  				  <div class="fs-5 text-nowrap overflow-hidden"><a href="noticeContent.do?idx=${dDto.IDX}">${dDto.SUBJECT}</a></div>
   				  <div class="fs-6 ">${dDto.LOCAL1} ${dDto.LOCAL2}</div>
  				 </div>
 				</div>
@@ -147,7 +151,7 @@ box-shadow: 0px 0px 0px grey;
   				<a href="noticeContent.do?idx=${gDto.IDX}"><img src="${gDto.FILE}" class="card-img-top" alt="${gDto.SUBJECT}"></a>
   				<div class="card-body">
   				  <div class="fs-6 col-6">${gDto.COM_NAME}</div>
-  				  <div class="fs-5"><a href="noticeContent.do?idx=${gDto.IDX}">${gDto.SUBJECT}</a></div>
+  				  <div class="fs-5 text-nowrap overflow-hidden"><a href="noticeContent.do?idx=${gDto.IDX}">${gDto.SUBJECT}</a></div>
   				  <div class="fs-6 ">${gDto.LOCAL1} ${gDto.LOCAL2}</div>
  				 </div>
 				</div>
@@ -162,7 +166,7 @@ box-shadow: 0px 0px 0px grey;
   				<a href="noticeContent.do?idx=${sDto.IDX}"><img src="${sDto.FILE}" class="card-img-top" alt="${sDto.SUBJECT}"></a>
   				<div class="card-body">
   				  <div class="fs-6 col-6">${sDto.COM_NAME}</div>
-  				  <div class="fs-5"><a href="noticeContent.do?idx=${sDto.IDX}">${sDto.SUBJECT}</a></div>
+  				  <div class="fs-5 text-nowrap overflow-hidden"><a href="noticeContent.do?idx=${sDto.IDX}">${sDto.SUBJECT}</a></div>
   				  <div class="fs-6 ">${sDto.LOCAL1} ${sDto.LOCAL2}</div>
  				 </div>
 				</div>
