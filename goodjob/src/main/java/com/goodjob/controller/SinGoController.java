@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,7 +35,6 @@ public class SinGoController {
 			HttpServletRequest req) {
 		int write=sgDao.sinGoWrite(dto);
 		bDao.manBlackListUpdateSingoCount(dto.getMember_idx());
-		
 		String fcategory="singo";
 		if(!file.isEmpty()) {
 			FileCopy fc=new FileCopy();

@@ -11,47 +11,58 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 	<title>Good Job</title>
+</head>
+<script type="text/javascript">
+   var s_status='${sessionScope.status}';
+   var s_category='${sessionScope.scategory}';
+   var check_category='관리자';
+   if( s_status==''){
+      window.alert('로그인이 필요합니다');
+      location.href='login.do';
+   }else if(s_status=='블랙'){
+      window.alert('차단된 회원입니다');
+      location.href='index.do';
+   }else if(s_category!=check_category){
+      window.alert(check_category+'만 이용 가능한 페이지입니다');
+      location.href='index.do';
+   }
+</script>
 <style>
-.container{
-	width: 960px;
+.h3{
+color: blue;
 }
 </style>
-</head>
 <body>
 	<div class="container">
 	<%@include file="/WEB-INF/views/header.jsp" %>
 		<div class="row">
 			<div class="offset-sm-3 col-sm-6">
-				<h3>FAQ 수정</h3>
+				<h3 align="center">FAQ 수정</h3>
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-sm-4">
+			<div class="col-sm-4" >
 				${dto.idx }번 FAQ 수정
 			</div>
 		</div>
 		<form name="manFAQUpdatePage" action="manFAQUpdatePage.do">
+			<table class="table">
+				<tr>
+					<td>회원 : ${dto.category }</td>
+				</tr>
+				<tr>
+					<Td>제목 : ${dto.subject }</Td>
+				</tr>
+				<Tr>
+					<tD>내용 : ${dto.content }</tD>
+				</Tr>
+			</table>
 			<div class="row">
-				<div class="col-sm-3">
-					회원 : ${dto.category }
-				</div>
+			<div class="col-sm-10"></div>
+			<div classs="col-sm-1">
+				<input type="hidden" value="${dto.idx }" name="idx">
+			<input type="submit" value="수정하기" class="btn btn-primary">
 			</div>
-			<div class="row">
-				<div class="col-sm-3">
-					제목 : ${dto.subject	 }
-				</div>
-			</div>
-			<div class="row">
-				<div class="offset-sm-3 col-sm-6">
-					내용 : ${dto.content }
-				</div>
-			</div>
-			<div class="row">
-				<div class="offset-sm-9 col-sm-3">
-				<input type="hidden" value="${dto.idx}" name="idx">
-					<input type="submit" value="수정하기">
-					
-				</div>
 			</div>
 		</form>
 		<%@include file="/WEB-INF/views/footer.jsp" %>

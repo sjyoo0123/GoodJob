@@ -27,7 +27,9 @@ public class FAQController {
 	//FAQ 메인페이지 들어가기
 	@RequestMapping("/manFAQList.do")
 	public ModelAndView manFAQList(@RequestParam(value = "cp",defaultValue = "1")int cp,
-			@RequestParam(value = "category",defaultValue = "전체")String category) {
+			@RequestParam(value = "category",defaultValue = "")String category
+			)
+			 {
 		
 		ModelAndView mav=new ModelAndView();
 		

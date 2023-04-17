@@ -10,6 +10,21 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 	<title>Good Job</title>
+<script type="text/javascript">
+   var s_status='${sessionScope.status}';
+   var s_category='${sessionScope.scategory}';
+   var check_category='관리자';
+   if( s_status==''){
+      window.alert('로그인이 필요합니다');
+      location.href='login.do';
+   }else if(s_status=='블랙'){
+      window.alert('차단된 회원입니다');
+      location.href='index.do';
+   }else if(s_category!=check_category){
+      window.alert(check_category+'만 이용 가능한 페이지입니다');
+      location.href='index.do';
+   }
+</script>
 <script>
 function Check(){
 	var category=document.getElementById("category");
@@ -34,45 +49,58 @@ function Check(){
 	
 	document.manFAQUpdate.submit();
 }
-</script>	
+
+</script>
+<style>
+#h3{
+color: blue;
+}
+
+
+</style>	
 </head>
 <body>
 	<div class="container">
 		<%@include file="/WEB-INF/views/header.jsp" %>
 		<div class="row">
 			<div class="offset-sm-3 col-sm-6">
-				<h3>FAQ 수정</h3>
+				<h3 align="center" id="h3">FAQ 수정</h3>
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-sm-4">
+			<div class="col-sm-4" id="div1">
 				${dto.idx }번 FAQ 수정
 			</div>
 		</div>
+		<hr>
+		<br>
 		<form name="manFAQUpdate" action="manFAQUpdate.do" method="post">
 			<div class="row">
 				<div class="col-sm-3">
 					회원 : 
-					<select name="category" id="category">
+					<select name="category" id="category" class="form-control">
 						<option value="개인">개인</option>
 						<option value="기업">기업</option>
 					</select>
 				</div>
 			</div>
+			<br>
 			<div class="row">
 				<div class="col-sm-3">
-					제목 : <input type="text" name="subject" value="${dto.subject	 }" id="subject">
+					제목 : <input type="text" name="subject" value="${dto.subject	 }" id="subject" class="form-control">
 				</div>
 			</div>
+			<br>
 			<div class="row">
-				<div class="offset-sm-3 col-sm-6">
-					내용 : <input type="text"	 value="${dto.content }" name="content" id="content">
+				<div class="col-sm-10">
+					내용 : <input type="text"	 value="${dto.content }" name="content" id="content" class="form-control">
 				</div>
 			</div>
+			<br>
 			<div class="row">
 				<div class="offset-sm-9 col-sm-3">
 					<input type="hidden" value="${dto.idx }" name="idx">
-					<input type="button" value="수정하기" onclick="Check();">
+					<input type="button" value="수정하기" onclick="Check();"  class="btn btn-primary">
 				</div>
 			</div>
 		</form>

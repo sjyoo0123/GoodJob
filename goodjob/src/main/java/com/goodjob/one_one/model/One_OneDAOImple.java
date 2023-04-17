@@ -64,16 +64,8 @@ public class One_OneDAOImple implements One_OneDAO {
 	}
 	
 	@Override
-	public List<One_OneDTO> manOneSearch(int cp, int ls, String search) {
-		
-		Map map=new HashMap();
-		int start=(cp-1)*ls+1;
-		int end=cp*ls;
-		search="";
-		map.put("start", start);
-		map.put("end", end);
-		map.put("search", search);
-		
+	public List<One_OneDTO> manOneSearch(Map map) {
+				
 		
 		List<One_OneDTO> lists=sqlMap.selectList("manOneSearch", map);
 		
@@ -111,5 +103,13 @@ public int userOneTotalCnt(int idx) {
 	// TODO Auto-generated method stub
 	return sqlMap.selectOne("userOneCnt",idx);
 }
+	@Override
+	public int manOneSearchCnt(Map map) {
+	
+		int result=sqlMap.selectOne("manOneSearchCnt");
+		result=result==0?1:result;
+		return result;
+	}
+	
 	
 }
