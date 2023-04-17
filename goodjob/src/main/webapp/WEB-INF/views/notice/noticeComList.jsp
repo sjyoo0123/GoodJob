@@ -6,7 +6,7 @@
 <head>
 
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>내 공고</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
@@ -34,6 +34,15 @@
 		<%@include file="/WEB-INF/views/header.jsp"%>
 			<hr class="my-4">
 	<div class="row">
+	<div class="col-12">
+	<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="index.do">Home</a></li>
+    <li class="breadcrumb-item"><a href="company.do">마이페이지</a></li>
+    <li class="breadcrumb-item active" aria-current="page">내 공고</li>
+  </ol>
+</nav>
+	</div>
 		<div class="btn-group btn-group-lg col-4" role="group"
 			aria-label="Large button group">
 			<button class="btn btn-<c:if test="${status1!='활성'}">outline-</c:if>dark" onclick="location.href='noticeComList.do?status=0'">
@@ -66,8 +75,8 @@
 <div class="container">
 <div class="row">
 	<div class="col-12">
-		<table class="table table-hover">
-			<thead>
+		<table class="table table-hover rounded text-center">
+			<thead class="bg-dark text-white">
 				<tr>
 					<th>게재기간</th>
 					<th>공고제목/기업명</th>
@@ -76,7 +85,7 @@
 					<th>비고</th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody class="bg-dark bg-opacity-10">
 				<c:if test="${empty lists}">
 					<tr>
 						<td colspan="5" align="center">등록된 게시물이 없습니다.</td>
@@ -88,7 +97,7 @@
 						<c:url var="contentUrl" value="noticeContent.do">
 							<c:param name="idx">${dto.idx}</c:param>
 						</c:url>
-						<td><a href="${contentUrl}">${dto.subject}</a><br>${dto.com_name}</td>
+						<td class="text-start text-truncate"><a href="${contentUrl}">${dto.subject}</a><br>${dto.com_name}</td>
 						<td>${dto.period}</td>
 						<td><button type="button"
 								class="btn btn-primary position-relative"
@@ -102,7 +111,7 @@
 
 							</button></td>
 						<td><button type="button" class="btn btn-primary btn-lg" id="refUpbtn" data-idx="${dto.idx}" data-com_idx="${dto.com_idx}" data-subject="${dto.subject}">
-								<span>UP</span>
+								<span><i class="bi bi-caret-up-fill"></i>UP</span>
 							</button></td>
 					</tr>
 				</c:forEach>
@@ -155,6 +164,7 @@ $(document).on("click", "#refUpbtn", function() {
 
 		</div>
 		</div>
+				<%@include file="/WEB-INF/views/footer.jsp"%>
 		</div>
 	</article>
 </body>
