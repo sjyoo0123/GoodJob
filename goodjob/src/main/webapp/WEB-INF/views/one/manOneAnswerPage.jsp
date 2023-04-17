@@ -44,7 +44,7 @@
 				</tr>
 				<tr>
 					<td>
-						<textarea cols="50" rows="20" name="content">${dto.content}&#10;---------------------------------------&#10;답변:</textarea>
+						<textarea cols="50" rows="20" name="content" style="resize: none">${dto.content}&#10;---------------------------------------&#10;답변:</textarea>
 					</td>
 				</tr>
 				<tr>

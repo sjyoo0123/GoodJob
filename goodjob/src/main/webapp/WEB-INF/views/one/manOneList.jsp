@@ -11,10 +11,22 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 </head>
+<script type="text/javascript">
+   var s_status='${sessionScope.status}';
+   var s_category='${sessionScope.scategory}';
+   var check_category='관리자';
+   if( s_status==''){
+      window.alert('로그인이 필요합니다');
+      location.href='login.do';
+   }else if(s_status=='블랙'){
+      window.alert('차단된 회원입니다');
+      location.href='index.do';
+   }else if(s_category!=check_category){
+      window.alert(check_category+'만 이용 가능한 페이지입니다');
+      location.href='index.do';
+   }
+</script>
 <style>
-.container{
-	width: 960px;
-}
 .btn-primary {
     color: #fff;
     background-color: #0d6efd;
@@ -27,20 +39,25 @@
 <article>
 	<div class="container">
 	<%@include file="/WEB-INF/views/header.jsp"%>
-		<div class="row">
-				<div class="offset-sm-3 col-sm-6">
+		<div class="text-left">
+				<div class="mx-auto">
 					<h2>일대일 문의</h2>
 				</div>
 		</div>
 				<div class="row">
 					<div  class="offset-sm-8 col-sm-4">
 					<form name="manOneeList" id="manOneList">
-					<select name="category" class="form-control">
-						<option value="개인">개인</option>
-						<option value="기업">기업</option>
-					</select>
-						<input type="text" name="search" placeholder="제목을 입력하세요" class="form-control">
-						<input type="button" id="submit" value="검색하기" class="btn btn-primary">
+					<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+					  <input type="radio" class="btn-check" name="category" id="btnradio1" autocomplete="off" checked value="개인">
+					  <label class="btn btn-outline-primary" for="btnradio1">개인</label>
+					
+					  <input type="radio" class="btn-check" name="category" id="btnradio2" autocomplete="off" value="기업">
+					  <label class="btn btn-outline-primary" for="btnradio2">기업</label>
+					</div>
+					<div class="input-group p-2">
+								<input type="text" name="search" class="form-control" placeholder="제목을 입력하세요">
+								<input type="button" id="submit" value="검색하기" class="btn btn-primary">
+								</div>
 						<input type="hidden" value="1" id="cp" name="cp">
 						<input type="hidden" name="bAjax" value="true">	
 					</form>
@@ -48,9 +65,9 @@
 				</div>
 				<hr>
 				<br>
-			<table class="table">
+			<table class="table table-hover">
 				<thead>
-					<tr>
+					<tr class="table-dark">
 						<th>No.</th>
 						<th>문의카테고리</th>
 						<th>문의제목</th>
