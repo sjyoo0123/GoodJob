@@ -140,9 +140,9 @@ a:hover {
 					<div class="col-2 offset-1">
 						<a href="noticeList.do"><label class="menu_title">공고정보</label></a>
 						<ul class="nav position-absolute">
-							<li class="col-12"><a href="#"><label class="menu_title">지역별</label></a></li>
-							<li class="col-12"><a href="#"><label class="menu_title">직종별</label></a></li>
-							<li class="col-12"><a href="#"><label class="menu_title">기간별</label></a></li>
+							<li class="col-12"><a href="noticeList.do?query=addr"><label class="menu_title">지역별</label></a></li>
+							<li class="col-12"><a href="noticeList.do?query=occupation"><label class="menu_title">직종별</label></a></li>
+							<li class="col-12"><a href="noticeList.do?query=weekday"><label class="menu_title">요일별</label></a></li>
 						</ul>
 					</div>
 					<div class="col-2">
@@ -167,7 +167,7 @@ a:hover {
 						<ul class="nav position-absolute">
 							<li class="col-12"><a href="userFAQList.do"><label class="menu_title">FAQ</label></a></li>
 							<li class="col-12"><a href="userGongJiList.do"><label class="menu_title">공지사항</label></a></li>
-							<li class="col-12"><a href="#"><label class="menu_title">1대1문의</label></a></li>
+							<li class="col-12"><a href="userOneList.do"><label class="menu_title">1대1문의</label></a></li>
 						</ul>
 					</div>
 				</div>

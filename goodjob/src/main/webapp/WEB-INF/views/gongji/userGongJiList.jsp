@@ -24,7 +24,7 @@
 	<div class="container">
 		<%@include file="/WEB-INF/views/header.jsp"%>
 		<section>
-			<article>
+			<article class="mt-5 pt-5">
 				<div class="row">
 					<div class="col-8 offset-2">
 						<h2 class="text-center">공지사항</h2>
@@ -103,7 +103,7 @@
 						  
 						    var tr = $('<tr>').append(
 						      $('<td>', {class: 'text-center', scope: 'row'}).text(dto.idx),
-						      $('<td>', {class: 'text-center'}).append($('<a>', {href: '#'}).text(dto.subject)
+						      $('<td>', {class: 'text-center'}).append($('<a>', {href: 'userGongJiContent.do?idx='+dto.idx}).text(dto.subject)
 						      ),
 						      $('<td>', {class: 'text-end'}).text(formattedDate)
 						    );
