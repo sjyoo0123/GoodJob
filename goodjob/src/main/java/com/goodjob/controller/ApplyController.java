@@ -69,14 +69,15 @@ public class ApplyController {
 		return mav;
 	}
 	@RequestMapping("/apNorList.do")
-	public ModelAndView apNorList(HttpSession session, @RequestParam(value="cp",defaultValue="1")int cp) {
+	public ModelAndView apNorList(HttpSession session, @RequestParam(value="cp",defaultValue="1")int cp,
+			@RequestParam(value = "keyword", defaultValue = "")String keyword) {
 		ModelAndView mav=new ModelAndView();
 		int idx = (int) session.getAttribute("sidx");
 		int totalCnt=adao.applyNorTotalCnt(idx);
 		int listSize=5;
 		int pageSize=5;
 		String pageStr=com.goodjob.page.module.PageModule.makePage("apNorList.do", totalCnt, listSize, pageSize, cp);
-		List<NoticeDTO> list = adao.apNorlist(idx, cp, listSize);
+		List<NoticeDTO> list = adao.apNorlist(idx, cp, listSize, keyword);
 		mav.addObject("pageStr", pageStr);
 		mav.addObject("lists", list);
 		mav.setViewName("apply/apNorList");

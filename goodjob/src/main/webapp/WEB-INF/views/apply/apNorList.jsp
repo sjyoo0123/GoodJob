@@ -28,13 +28,13 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 </head>
 <body>
-	<%@include file="/WEB-INF/views/header.jsp"%>
 	<div class="container">
+		<%@include file="/WEB-INF/views/header.jsp"%>
 		<article>
 			<h1>보낸 제안</h1>
 			<form>
 				<div class="input-group mb-3">
-					<input type="text" name="searchNotice" class="form-control"
+					<input type="text" name="keyword" class="form-control"
 						aria-describedby="button-addon2"><input type="submit"
 						value="검색" class="btn btn-outline-secondary" type="button"
 						id="button-addon2">
@@ -98,9 +98,9 @@
 				</tfoot>
 			</table>
 		</article>
+		<%@include file="/WEB-INF/views/footer.jsp"%>
 	</div>
 
-	<%@include file="/WEB-INF/views/footer.jsp"%>
 </body>
 <script>
 	$(document).ready(function() {

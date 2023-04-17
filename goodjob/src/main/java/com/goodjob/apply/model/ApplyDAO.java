@@ -11,7 +11,7 @@ public interface ApplyDAO {
 	public int apNorInsert(ApplyDTO dto);
 	public NormalMemberDTO apNorGet(int member_idx);
 	public int apNorButtonHide(int notice_idx, int member_idx);
-	public List<NoticeDTO>  apNorlist(int member_idx, int cp,int ls);
+	public List<NoticeDTO>  apNorlist(int member_idx, int cp,int ls, String keyword);
 	public int applyNorTotalCnt(int member_idx);
 	public int applyCheck(int idx);
 }

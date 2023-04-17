@@ -47,19 +47,22 @@
 
 
 				<div class="container text-center">
-					<div class="row">
+					<div class="row  offset-2">
 						<c:forEach var="map" items="${map}">
-							<div class="col-md-6 card ">
-								<div><h3>${map.value.name }</h3></div>
-								<div><h5>리뷰 ${map.value.member_idx }개</h5></div>
+							<div class="col-md-5 card">
 								<div>
-									<button>${map.value.gender }</button>
+									<h3>${map.value.name }</h3>
+								</div>
+								<div>
+									<h5>리뷰 ${map.value.member_idx }개</h5>
+								</div>
+								<div>
+									<button class="btn btn-outline-secondary btn-sm">${map.value.gender }</button>
 									&nbsp;
 									<c:if test="${not empty map.value.addr }">
-										<button>${map.value.addr }</button>&nbsp;</c:if>
-									 <c:if
-								test="${not empty map.value.detail_addr }">
-								<button>${map.value.detail_addr }</button>&nbsp;</c:if>
+										<button class="btn btn-outline-secondary btn-sm">${map.value.addr }</button>&nbsp;</c:if>
+									<c:if test="${not empty map.value.detail_addr }">
+										<button  class="btn btn-outline-secondary btn-sm">${map.value.detail_addr }</button>&nbsp;</c:if>
 								</div>
 							</div>
 						</c:forEach>
