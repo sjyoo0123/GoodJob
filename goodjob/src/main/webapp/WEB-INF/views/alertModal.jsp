@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
+<script>${stop}</script>
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,23 +16,19 @@
 	 <%@include file="/WEB-INF/views/header.jsp"%> 
 		<section>
 			<article>
-				<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
- 				 Launch static backdrop modal
-</button>
-
+			
 <!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="alert" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">알림</h1>
       </div>
       <div class="modal-body">
-        ...
+        ${msg}
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Understood</button>
+        <button type="button" class="btn btn-primary" id="close">닫기</button>
       </div>
     </div>
   </div>
@@ -42,7 +39,10 @@
 	</div>
 	<script>
 $(document).ready(function() {
-  $('#myModal').modal('show');
+  $('#alert').modal('show');
+});
+$('#close').on('click',function(){
+	${href}
 });
 </script>
 </body>

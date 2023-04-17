@@ -32,27 +32,16 @@
 <div class="container">
 		<%@include file="/WEB-INF/views/header.jsp"%>
 <div class="row">
-<h1>내가보낸제안</h1>
+	<div class="col-12">
+	<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="index.do">Home</a></li>
+    <li class="breadcrumb-item"><a href="company.do">마이페이지</a></li>
+    <li class="breadcrumb-item active" aria-current="page">내가보낸제안</li>
+  </ol>
+</nav>
+	</div>
 			<hr class="my-4">
-		<div class="btn-group btn-group-lg col-4" role="group"
-			aria-label="Large button group">
-			<button class="btn btn-outline-dark"><span>수정</span></button>
-			<button class="btn btn-outline-dark"><span>삭제</span></button>
-		</div>
-				<div class="col-5"></div>
-						<div class="col-3">
-		<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-			<div class="input-group">
-				<input type="text"
-					class="form-control bg-secondary bg-opacity-10 border-primary small"
-					placeholder="Search for..." aria-label="Search"
-					aria-describedby="basic-addon2" name="searchNotice">
-				<button class="btn btn-primary" type="submit">
-					<i class="bi bi-search"></i>
-				</button>
-			</div>
-		</form>
-			</div>
 					</div>
 
 <table class="table table-hover">
@@ -98,7 +87,12 @@
 			<td>${dto.pay_month}년(${dto.min_age}세)</td>
 			<td>${dto.gender}</td>
 			<td>${dto.period}</td>			
-			<td></td>
+			<td><button type="submit" class="btn btn-primary btn-icon-split btn-lg col-12" onclick="location.href='resumeContent.do?idx=${dto.idx}'">
+    <span class="icon text-white-50">
+        <i class="bi bi-check-lg"></i>
+    </span>
+    <span class="text">이력서</span>
+</button></td>
 		</tr>
 	</c:forEach>
 </tbody>

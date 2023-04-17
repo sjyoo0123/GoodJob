@@ -15,7 +15,9 @@
 		<%@include file="/WEB-INF/views/header.jsp"%>
 		<section>
 			<article>
-				<h1>인재 정보</h1>
+			<div class="col-8 offset-2">
+			
+				<h1 class="text-center mt-5 pt-5">인재 정보</h1>
 				<div class="btn-group" role="group"
 					aria-label="Basic radio toggle button group">
 					<input type="radio" class="btn-check" name="btnradio" id="all" value="0" autocomplete="off" checked="checked"> 
@@ -25,24 +27,33 @@
 					<input type="radio" class="btn-check" name="btnradio" id="local" value="2" autocomplete="off"> 
 					<label class="btn btn-outline-primary" for="local">지역별</label>
 				</div>
-				<div id="card-div">
+				<div id="card-div" class="mt-3 mb-3">
 					<div class="card d-none" id="jobcard">
 						<div class="card-body">
-							<select name="job" class="keyword1" id="fjob"></select> 
-							<div id="sjob"></div>
-							<input type="button" value="직종 검색 " onclick="getList()">
+						<div class="col-6">
+						<div class="input-group">
+							<select name="job" class="keyword1 form-select" id="fjob"></select> 
+							<input type="button" value="직종 검색 " onclick="getListVar()" class="btn btn-outline-primary">
+						</div>
+						</div>
+							<div id="sjob" class="mt-1"></div>
 						</div>
 					</div>
 					<div class="card d-none" id="localcard">
 						<div class="card-body">
-							<select name="locals" class="keyword2" id="keyword"></select> <input
-								type="button" value="지역 검색" onclick="getList()">
+						<div class="col-6">
+						<div class="input-group">
+							<select name="locals" class="keyword2 form-select" id="keyword"></select>
+							 <input type="button" value="지역 검색" onclick="getListVar()" class="btn btn-outline-primary">
+						</div>
+						</div>
 						</div>
 					</div>
 				</div>
-				<div id="my-div"></div>
+				<div id="my-div" class="row row-cols-2 g-4"></div>
 				<input type="hidden" id="cp" value="1">
-				<div id="page"></div>
+				<div id="page" class="mt-5"></div>
+				</div>
 			</article>
 		</section>
 		<%@include file="/WEB-INF/views/footer.jsp"%>
@@ -89,12 +100,17 @@ $('#local').change(function(){
 	  $('#localcard').removeClass('d-none');
 	 
 })
+var sort=0;
+function getListVar(){
+	sort=$('.btn-check:checked').val();
+	getList()
+}
 function getList(){
 	$('#my-div').empty();
 	$.ajax({
 	      url:'injaeListGet.do',
 	      type:'post',
-	      data:{"sort":$('.btn-check:checked').val(),"cp":$('#cp').val(),"keyword":$('.btn-check:checked').val()>1?$('.keyword2').val():$('input[name=job]:checked').val()},//전송데이터
+	      data:{"sort":sort,"cp":$('#cp').val(),"keyword":$('.btn-check:checked').val()>1?$('.keyword2').val():$('input[name=job]:checked').val()},//전송데이터
 	      dataType:'json'
 	      //전송받을타입 json으로 선언하면 json으로 파싱안해도됨
 	   }).done((data)=>{
@@ -103,7 +119,7 @@ function getList(){
 			   $('<div>').text('글이 없습니다').appendTo($('#my-div'));
 			 } else {
 			   data.lists.forEach(function(dto) {
-				   var card = $('<div>').addClass('card').appendTo($('#my-div'));
+				   var card = $('<div>').addClass('card border-info');
 				   var headerList = $('<ul>').addClass('nav nav-pills nav-fill card-header-pills');
 				   $('<li>').addClass('nav-item').appendTo(headerList).append(
 				     $('<p>').addClass('text-start').append(
@@ -117,9 +133,10 @@ function getList(){
 				   var body = $('<div>').addClass('card-body').appendTo(card);
 				   $('<h5>').addClass('card-title').text(dto.job).appendTo(body);
 				   var row = $('<div>').addClass('row').appendTo(body);
-				   $('<div>').addClass('col-5').appendTo(row).append(
+				   $('<div>').addClass('col-5').append(
 				     $('<p>').addClass('card-text').text(dto.gender)
-				   );
+				   ).appendTo(row);
+				   $('#my-div').append($('<div>').addClass('col').append(card));
 
 
 			  

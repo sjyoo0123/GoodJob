@@ -68,20 +68,20 @@ public class KakaoController {
 	    // Store user information in session or database
 
 	    System.out.println(email);
-	   MemberDTO dto= mdao.emailCheck(email);
-	   if(dto==null) {
+	 //  MemberDTO dto= mdao.emailCheck(email);
+	  // if(dto==null) {
 		    req.setAttribute("id",kakaoId);
 		    req.setAttribute("email",email);
 		    req.setAttribute("nickname", nickname);
 		    return "redirect:/kakaoJoin.do";
-	   }else {
-		   	session.setAttribute("sidx", dto.getIdx());
-			session.setAttribute("sname", dto.getName());
-			session.setAttribute("scategory", dto.getUser_category());
-			session.setAttribute("status", dto.getStatus());
-			return "redirect:/index.do";
+	//   }else {
+//		   	session.setAttribute("sidx", dto.getIdx());
+//			session.setAttribute("sname", dto.getName());
+//			session.setAttribute("scategory", dto.getUser_category());
+//			session.setAttribute("status", dto.getStatus());
+		//	return "redirect:/index.do";
 	   }
-	}
+	//}
 	@RequestMapping(value="/getToken.do",method = RequestMethod.POST)
 	public String login(String accessToken){
 		System.out.println(accessToken);

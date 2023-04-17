@@ -30,7 +30,7 @@
 <title>공고작성</title>
 <script>
 function openjoblist(){
-	window.open('joblist.do','joblist','width=900,height=700');
+	window.open('joblist.do','joblist','width=900,height=400');
 }
 $(document).ready(function() {
 	$('#minmaxage').show();
@@ -106,30 +106,53 @@ $(document).ready(function() {
 	});
 
 </script>
+<style>
+.sidenav {
+      position: fixed;
+      width: 200px;
+      height: 100%;
+      margin-left: -20px;
+      margin-top:-10px
+    }
+</style>
 </head>
 <body>
-	<h1>공고 등록</h1>
 	<form action="noticeWrite.do" method="post" id="writeForm" enctype="multipart/form-data">
-<h1>기업idx<input type="text" name="com_idx" value="${idx}" id="com_idx"></h1>
+<input type="hidden" name="com_idx" value="${idx}" id="com_idx">
 	<div class="container px-4 px-lg-5">
+  	<%@include file="/WEB-INF/views/header.jsp"%>
+  	<div class="row">
+  	<nav class="col-sm-3 sidenav">
+  	<div id="write-list" class="list-group">
+      <a class="list-group-item list-group-item-action" href="#list-subject">공고제목</a>
+      <a class="list-group-item list-group-item-action" href="#list-mo">모집조건</a>
+      <a class="list-group-item list-group-item-action" href="#list-work">근무조건</a>
+      <a class="list-group-item list-group-item-action" href="#list-workaddr">근무지조건</a>
+      <a class="list-group-item list-group-item-action" href="#list-manager">담당자조건</a>
+      <a class="list-group-item list-group-item-action" href="#list-detail">상세정보</a>
+      <a class="list-group-item list-group-item-action" href="#list-plan">요금제정보</a>
+    </div>
+    </nav>
+	<h1 align="center">공고 등록</h1>
 	<div class="row gx-4 gx-lg-5 justify-content-center">
 	<div class="col-md-12 col-lg-9 col-xl-8">
+	<div data-bs-spy="scroll" data-bs-target="#write-list" data-bs-smooth-scroll="true" class="scrollspy-example" tabindex="0">
 		<div class="card bg-primary bg-opacity-10">
 				<div class="card-body">
-			<h2 class="card-title">공고제목</h2>
-			<input type="text" name="subject"
-				class="form-control form-control-lg">
+			<h2 class="card-title" id="list-subject">공고제목</h2>
+			<input type="text" name="subject" class="form-control form-control-lg" required>
 		</div>
 		</div>
 		<hr class="my-4">
 		<div class="card bg-primary bg-opacity-10">
 						<div class="card-body">
-			<h2 class="card-title">모집조건</h2>
+			<h2 class="card-title" id="list-mo">모집조건</h2>
+			<div class="row">
 			<table>
 				<tr>
 					<th>성별</th>
 					<td><select name="gender"
-						class="form-select form-select-lg mb-3"
+						class="form-select form-select-lg mb-3 w-50"
 						aria-label=".form-select-lg example">
 							<option value="남자">남자</option>
 							<option value="여자">여자</option>
@@ -147,14 +170,15 @@ $(document).ready(function() {
 				<tr>
 					<th></th>
 					<td><div id="minmaxage" style="display: none;">
-							연령최소<input type="number" name="min_age" value="0"> ~ 연령최대<input
-								type="number" name="max_age" value="0">
-						</div></td>
+					<div class="row">
+							연령최소<input type="number" name="min_age" value="0" class="form-control w-25">~ 연령최대<input
+								type="number" name="max_age" value="0" class="form-control w-25">
+						</div></div></td>
 				</tr>
 				<tr>
 					<th>학력</th>
 					<td><select name="grade"
-						class="form-select form-select-lg mb-3"
+						class="form-select form-select-lg mb-3  w-50"
 						aria-label=".form-select-lg example">
 							<option value="중졸">중졸이상</option>
 							<option value="고졸">고졸이상</option>
@@ -165,12 +189,18 @@ $(document).ready(function() {
 				</tr>
 				<tr>
 					<th>직종</th>
-					<td><input type="button" value="직종" onclick="openjoblist()"><input type="text" value="직종" name="job" id="job" readonly></td>
+					<td>
+					<div class="input-group mb-3  w-50">
+					<button class="btn btn-primary" type="button" id="button-addon1" onclick="openjoblist()">
+					직종선택</button>
+					<input type="text" placeholder="직종을 선택해주세요" class="form-control" name="job" id="job" readonly required>
+					</div>
+					</td>
 				</tr>
 				<tr>
 					<th>근무형태</th>
 					<td><select name="service_type"
-						class="form-select form-select-lg mb-3"
+						class="form-select form-select-lg mb-3 w-50"
 						aria-label=".form-select-lg example">
 							<option value="아르바이트">아르바이트</option>
 							<option value="정규직">정규직</option>
@@ -178,15 +208,16 @@ $(document).ready(function() {
 				</tr>
 				<tr>
 					<th>모집인원</th>
-					<td><input type="text" name="recruit"></td>
+					<td><input type="text" name="recruit" class="form-control w-50" required></td>
 				</tr>
 			</table>
+		</div>
 		</div>
 		</div>
 		<hr class="my-4">
 		<div class="card bg-primary bg-opacity-10">
 								<div class="card-body">
-			<h2 class="card-title">근무조건</h2>
+			<h2 class="card-title" id="list-work">근무조건</h2>
 			<table>
 				<tr>
 					<th>근무기간</th>
@@ -251,7 +282,7 @@ $(document).ready(function() {
 								type="checkbox" name="checkboxworkday" value="moo"
 								class="btn-check" id="moo" checked><label
 								class="btn btn-outline-dark" for="moo">무관</label>
-						</div><input type="text" id="workday" name="workday"></td>
+						</div><input type="hidden" id="workday" name="workday"></td>
 				</tr>
 				<tr>
 					<th>근무시간</th>
@@ -287,7 +318,7 @@ $(document).ready(function() {
 						for="pay_category1">월급</label> <input
 						type="radio" value="협의" class="btn-check" id="pay_category2" name="pay_category"
 						autocomplete="off"><label class="btn btn-outline-primary"
-						for="pay_category2">협의</label><br><div id="hourworktime" style="display: none;"><input type="text" name="pay_hour" value="0">원</div> <div id="weekworktime" style="display: none;"><input type="text" name="pay_hour1" value="0">원 1주 근무시간<input type="number" name="worktime" value="0"></div></td>
+						for="pay_category2">협의</label><br><div id="hourworktime" style="display: none;"><input type="text" name="pay_hour" value="0" class="form-control inline w-50">원</div> <div id="weekworktime" style="display: none;"><input type="text" class="form-control inline w-50" name="pay_hour1" value="0">원 1주 근무시간<input type="number" name="worktime" value="0"></div></td>
 				</tr>
 			</table>
 		</div>
@@ -295,13 +326,15 @@ $(document).ready(function() {
 		<hr class="my-4">
 		<div class="card bg-primary bg-opacity-10">
 								<div class="card-body">
-			<h2 class="card-title">근무지정보</h2>
-			<div>
+			<h2 class="card-title" id="">근무지정보</h2>
+			<div class="row">
 				<table>
 					<tr>
 						<th>근무지주소</th>
-						<td><input type="text" id="searchadd" readonly placeholder="주소 검색을 해주세요."> <input
-							type="button" onclick="sample5_execDaumPostcode()" value="주소 검색">
+						<td><div class="input-group mb-3  w-75">
+						<input type="text" id="searchadd" class="form-control" readonly placeholder="주소 검색을 해주세요." required> 
+						<button class="btn btn-primary" onclick="sample5_execDaumPostcode()">주소 검색</button>
+						</div>
 							<input type="hidden" name="x" id="x">
 							<input type="hidden" name="y" id="y">
 							<input type="hidden" id="sido" name="local1">
@@ -310,10 +343,16 @@ $(document).ready(function() {
 					</tr>
 					<tr>
 						<th>상세주소</th>
-						<td><input type="text" name="detail_addr"></td>
+						<td><input type="text" name="detail_addr" class="form-control w-75" required>
+						</tr>
+						<tr>
+					<td colspan="2"><div id="map" style="width:100%;height:400px;margin-top:10px;display:none"></div></td>
 					</tr>
-				</table>
-					<div id="map" style="width:100%;height:400px;margin-top:10px;display:none"></div>
+				<tr>
+					<th>근무회사명</th>
+					<td><input type="text" class="form-control w-50" name="com_name" value="${com_name_1}" readonly></td>
+				</tr>
+			</table>
 				</div>
 				<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d67c0e8efbe506e6ef450c637bab0204&libraries=services"></script>
@@ -379,50 +418,88 @@ $(document).ready(function() {
         }).open();
     }
 </script>
-			<table>
-				<tr>
-					<th>근무회사명</th>
-					<td><input type="text" name="com_name"></td>
-				</tr>
-			</table>
 		</div>
 		</div>
 
 		<hr class="my-4">
 		<div class="card bg-primary bg-opacity-10">
 								<div class="card-body">
-			<h2 class="card-title">담당자정보</h2>
+			<h2 class="card-title" id="list-manager">담당자정보</h2>
+			<div class="row">
 			<table>
 				<tr>
 					<th>담당자명</th>
-					<td><input type="text" name="manager_name"></td>
+					<td><input type="text" class="form-control w-50" name="manager_name" required></td>
 				</tr>
 				<tr>
 					<th>연락처</th>
-					<td><input type="text" name="manager_tel"></td>
+					<td><input type="text" class="form-control w-50" name="manager_tel" required></td>
 				</tr>
 				<tr>
 					<th>이메일</th>
-					<td><input type="text" name="manager_email"></td>
+					<td><input type="text" class="form-control w-50" name="manager_email" required></td>
 				</tr>
 			</table>
+			</div>
 		</div>
 		</div>
 		<hr class="my-4">
 		<div class="card bg-primary bg-opacity-10">
 								<div class="card-body">
-			<h2 class="card-title">상세정보</h2>
+			<h2 class="card-title" id="list-detail">상세정보</h2>
 			<div class="mb-3">
-  <label for="formFileMultiple" class="form-label">파일 등록</label>
-  <input class="form-control" type="file" id="formFileMultiple" name="formFileMultiple" multiple>
 </div>
-			<textarea rows="30" cols="50" name="content"></textarea>
+
+<div style="position: relative;">
+  <img id="preview" />
+  <span id="clear" style="display: none; position: absolute; top: 0; right: 0;">
+    <button type="button" class="btn btn-primary" onclick="clearFile()">X</button>
+  </span>
+</div>
+
+<input class="form-control" type="file" id="formFileMultiple" name="formFileMultiple" onchange="readURL(this);" multiple><br>
+
+<script>
+function readURL(input) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      var preview = document.getElementById('preview');
+      preview.src = e.target.result;
+      preview.width = 200;
+      preview.height = 150;
+      document.getElementById('clear').style.display = 'block'; // show clear button
+    };
+    reader.readAsDataURL(input.files[0]);
+  } else {
+    clearFile();
+  }
+}
+
+function clearFile() {
+	  var input = document.getElementById('formFileMultiple');
+	  var preview = document.getElementById('preview');
+	  preview.src = ''; // clear preview image
+	  preview.width = 0; // hide preview image
+	  preview.height = 0;
+	  document.getElementById('clear').style.display = 'none'; // hide clear button
+	  input.value = null; // clear selected files
+	}
+
+
+
+</script>
+
+
+
+
+			<textarea rows="30" class="form-control" cols="50" name="content"></textarea>
 		</div>
 		</div>
 		<hr class="my-4">
 		<div class="card bg-primary bg-opacity-10">
 								<div class="card-body">
-			<h2 class="card-title">요금제 정보</h2>
+			<h2 class="card-title" id="list-plan">요금제 정보</h2>
 			<input type="hidden" name="plan_idx" id="plan_idx"><div id="planUse"></div>
 		</div>
 		</div>
@@ -432,6 +509,8 @@ $(document).ready(function() {
     </span>
     <span class="text">공고 등록하기</span>
 </button>
+		</div>
+		</div>
 		</div>
 		</div>
 		</div>
@@ -452,7 +531,7 @@ $(document).ready(function() {
                         method: "POST",
                         data: {idx: $('#com_idx').val()},
                         success: function(data2) {
-        					var select = $("<select>").addClass("form-control").attr("id", "planType");
+        					var select = $("<select>").addClass("form-select").attr("id", "planType");
         					select.append("<option selected disabled>요금제를 선택해주세요.</option>");
                         	for (var i = 0; i < data2.length; i++) {
                         		 var planEndDate = new Date(data2[i].plan_end);
@@ -472,5 +551,6 @@ $(document).ready(function() {
     });
 });
 </script>
+  	<%@include file="/WEB-INF/views/footer.jsp"%>
 </body>
 </html>
