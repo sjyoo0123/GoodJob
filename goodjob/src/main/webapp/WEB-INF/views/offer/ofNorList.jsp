@@ -28,9 +28,9 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 </head>
 <body>
-	<h1>제안 받은 제안</h1>
+	<%@include file="/WEB-INF/views/header.jsp"%>
 	<div class="container">
-		<%@include file="/WEB-INF/views/header.jsp"%>
+		<h1>받은 제안</h1>
 		<article>
 			<h1></h1>
 			<div class="btn-group btn-group-lg" role="group"
@@ -84,11 +84,10 @@
 							</svg></td>
 								</c:when>
 								<c:when test="${dto.ref==1}">
-									<tr class="table-active">
 										<td><svg xmlns="http://www.w3.org/2000/svg" width="30"
-												height="30" fill="currentColor" class="bi bi-envelope-open"
+												height="30" fill="currentColor" class="bi bi-envelope-open "
 												viewBox="0 0 16 16">
-								  <path
+								   <path
 													d="M8.47 1.318a1 1 0 0 0-.94 0l-6 3.2A1 1 0 0 0 1 5.4v.817l5.75 3.45L8 8.917l1.25.75L15 6.217V5.4a1 1 0 0 0-.53-.882l-6-3.2ZM15 7.383l-4.778 2.867L15 13.117V7.383Zm-.035 6.88L8 10.082l-6.965 4.18A1 1 0 0 0 2 15h12a1 1 0 0 0 .965-.738ZM1 13.116l4.778-2.867L1 7.383v5.734ZM7.059.435a2 2 0 0 1 1.882 0l6 3.2A2 2 0 0 1 16 5.4V14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V5.4a2 2 0 0 1 1.059-1.765l6-3.2Z" />
 							</svg></td>
 								</c:when>
@@ -103,8 +102,8 @@
 				</tfoot>
 			</table>
 		</article>
-		<%@include file="/WEB-INF/views/footer.jsp"%>
 	</div>
+	<%@include file="/WEB-INF/views/footer.jsp"%>
 </body>
 <script>
 	$(document).ready(function() {
