@@ -62,5 +62,11 @@ public class PlanComController {
 		int result=udao.comUpCountUse(idx);
 		return result;
 	}
+	@RequestMapping(value="/comUpCountCheck.do",method=RequestMethod.POST)
+	@ResponseBody
+	public int comUpCountCheck(int idx) {
+		int result=udao.comUpCountCheck(idx);
+		return result;
+	}
 
 }

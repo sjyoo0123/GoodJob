@@ -125,6 +125,7 @@ public NoticeController() {
 		}
 		int result=ndao.noticeWrite(dto);
 		Map map=new HashMap();
+		if(!file.isEmpty()) {
 		String path ="/goodjob/notice"+"/"+file.getOriginalFilename();
 		String filest=file.getOriginalFilename();
 		map.put("file", path);
@@ -132,6 +133,7 @@ public NoticeController() {
 		map.put("table_name", "notice");
 		int count=totalFileDao.manFileAdd(map);
 		copyInto("notice", file, req);
+		}
 		String msg=result>0?"작성완료":"작성실패";
 		mav.addObject("msg", msg);
 		mav.addObject("goUrl", "/goodjob/company.do");

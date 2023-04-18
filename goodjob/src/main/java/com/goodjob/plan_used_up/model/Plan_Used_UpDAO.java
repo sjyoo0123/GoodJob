@@ -12,5 +12,6 @@ public interface Plan_Used_UpDAO {
 	public List<NoticeDTO> comUsedUP(int idx, int cp, int ls);
 	public int manPlanUsedAdd(Map map);
 	public int manPlanUsedAdd_up(Map map);
+	public int comUpCountCheck(int idx);
 
 }

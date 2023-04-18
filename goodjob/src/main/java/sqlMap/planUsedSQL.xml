@@ -58,4 +58,7 @@ select * from
             order by plan_used.plan_used_idx desc) a) b
 		where <![CDATA[rnum>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
   </select>
+    <select id="comUpCountCheck" parameterType="Integer" resultType="Integer">
+  	select count(used_count) from used_up where member_idx=#{idx}
+  </select>
   </mapper>
