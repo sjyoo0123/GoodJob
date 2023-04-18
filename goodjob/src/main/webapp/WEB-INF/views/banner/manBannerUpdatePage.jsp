@@ -62,7 +62,7 @@
 							<tr>
 								<td>배너링크 : ${dto.link }</td>
 								<td>순번 : ${dto.ref }</td>
-								<td><img alt="이미지" src="/goodjob/bannerImg/${dto.file }" width="300" height="300"></td>
+								<td><img alt="이미지" src="${dto.file }" width="300" height="300"></td>
 							</tr>
 
 							<tr>

@@ -47,10 +47,10 @@
 						<h5>${nto.status }/ ${nto.review_num}세</h5>
 						<h5>${dto.tel }</h5>
 						<h5>${dto.addr }</h5>
-						<button type="button" class="btn btn-outline-primary" onclick="#">수정</button>
+						<button type="button" class="btn btn-outline-primary" onclick="location.href='updateMember.do'">수정</button>
 					</div>
 				</div>
-				<br> <a onclick="location.href = '#'"><div class="card bg-secondary bg-opacity-10">
+				<br> <div class="card bg-secondary bg-opacity-10">
 						<div class="card-body">
 							<h2 class="card-title">내 이력서</h2>
 							<br>
@@ -68,7 +68,7 @@
 							</c:otherwise>
 							</c:choose>
 						</div>
-					</div></a>
+					</div>
 			</div>
 			<div class="col-5 mb-4">
 				<div class="card bg-secondary bg-opacity-10">

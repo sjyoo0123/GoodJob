@@ -39,6 +39,7 @@
 				<div class="container text-center">
 					<div class="row">
 						<c:forEach var="dto" items="${dto}">
+
 							<div class="col-md-3 ">
 							<input type="checkbox" name="keyword" class ="checkbox-group btn-check"
 									id="keyword${dto.idx}" onclick="show(this)" value="${dto.idx}">

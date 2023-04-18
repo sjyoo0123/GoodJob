@@ -80,7 +80,7 @@ $('#all').change(function(){
 	      $(this).addClass('d-none');
 	    }
 	  });
-	 getListVar()
+	 getListVar();
 }) 
 $('#job').change(function(){
 	$('#card-div >div').each(function() {
@@ -103,7 +103,7 @@ $('#local').change(function(){
 var sort=0;
 function getListVar(){
 	sort=$('.btn-check:checked').val();
-	getList()
+	getList();
 }
 function getList(){
 	$('#my-div').empty();

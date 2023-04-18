@@ -34,6 +34,10 @@ max-width: max(100%);
 min-height: 150px;
 max-height: 150px;
 }
+.dcard,.gcard,.scard{
+max-height: 250px;
+min-height: 250px;
+}
 /*호버하면 크기 1.05배 박스쉐도우*/
 .dcard{
    box-shadow: 0px 0px 0px grey;
@@ -50,7 +54,6 @@ box-shadow: 0px 0px 0px grey;
 .gcard:hover{
  box-shadow:  10px 10px 10px grey;
 }
-
 </style>
 </head>
 
@@ -61,7 +64,7 @@ box-shadow: 0px 0px 0px grey;
 			<article class="mt-3">
 				<div class="row banner">
 					<div class="card col-2 offset-1">
-						<ul class="list-group list-group-flush gongji">
+						<ul class="list-group list-group-flush gongji text-nowrap overflow-hidden">
 							<c:if test="${empty gList }">
 								<li>등록된 공지가 없습니다</li>
 							</c:if>
@@ -77,7 +80,7 @@ box-shadow: 0px 0px 0px grey;
 								<c:forEach var="bdto" items="${banner }" varStatus="status">
 								<c:if test="${status.first}">
 									<div class="carousel-item active">
-										<a href="${bdto.link }"><img src="${bdto.file }" class="w-100"  alt="${bdto.subject }"></a>
+										<a href="https://${bdto.link }"><img src="${bdto.file }" class="w-100"  alt="${bdto.subject }"></a>
 									</div>
 								</c:if>
 								<c:if test="${!(status.first)}">
@@ -89,29 +92,33 @@ box-shadow: 0px 0px 0px grey;
 							</div>
 							<button class="carousel-control-prev" type="button"
 								data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-								<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+								<span class="carousel-control-prev-icon bg-black" aria-hidden="true"></span>
 								<span class="visually-hidden">Previous</span>
 							</button>
 							<button class="carousel-control-next" type="button"
 								data-bs-target="#carouselExampleControls" data-bs-slide="next">
-								<span class="carousel-control-next-icon" aria-hidden="true"></span>
+								<span class="carousel-control-next-icon bg-black" aria-hidden="true"></span>
 								<span class="visually-hidden">Next</span>
 							</button>
 						</div>
 					</div>
 					<div class="card col-2 menu">
-					<ul class="list-group list-group-flush">
+					<ul class="list-group list-group-flush text-center my-auto">
+					<c:if test="${logCategory eq null}">
+					<li class="list-group-item"><a href="login.do">로그인</a></li>
+					<li class="list-group-item"><a href="join.do">회원가입</a></li>
+					</c:if>
 					<c:if test="${logCategory eq nor}">
 					<li class="list-group-item"><a href="updateMember.do">내정보수정</a></li>
-					<li class="list-group-item"><a href=".do"></a></li>
-					<li class="list-group-item"><a href=".do"></a></li>
-					<li class="list-group-item"><a href=".do"></a></li>
+					<li class="list-group-item"><a href="resumeUpdate.do">이력서수정</a></li>
+					<li class="list-group-item"><a href="apNorList.do">지원내역</a></li>
+					<li class="list-group-item"><a href="userFAQList.do">고객센터</a></li>
 					</c:if>
 					<c:if test="${logCategory eq com}">
 					<li class="list-group-item"><a href="updateMember.do">내정보수정</a></li>
-					<li class="list-group-item"><a href=".do"></a></li>
-					<li class="list-group-item"><a href=".do"></a></li>
-					<li class="list-group-item"><a href=".do"></a></li>
+					<li class="list-group-item"><a href="#;" onclick="location.href='noticeWrite.do'">공고작성하기</a></li>
+					<li class="list-group-item"><a href="ofComList.do">지원한인재</a></li>
+					<li class="list-group-item"><a href="userFAQList.do">고객센터</a></li>
 					</c:if>
 					<c:if test="${logCategory eq man}">
 					<li class="list-group-item"><a href="manBlackListSingoList.do">신고관리</a></li>
@@ -132,7 +139,7 @@ box-shadow: 0px 0px 0px grey;
   				<a href="noticeContent.do?idx=${dDto.IDX}"><img src="${dDto.FILE}" class="card-img-top" alt="${dDto.SUBJECT}"></a>
   				<div class="card-body">
   				  <div class="fs-6 col-6">${dDto.COM_NAME}</div>
-  				  <div class="fs-5"><a href="noticeContent.do?idx=${dDto.IDX}">${dDto.SUBJECT}</a></div>
+  				  <div class="fs-5 text-nowrap overflow-hidden"><a href="noticeContent.do?idx=${dDto.IDX}">${dDto.SUBJECT}</a></div>
   				  <div class="fs-6 ">${dDto.LOCAL1} ${dDto.LOCAL2}</div>
  				 </div>
 				</div>
@@ -147,7 +154,7 @@ box-shadow: 0px 0px 0px grey;
   				<a href="noticeContent.do?idx=${gDto.IDX}"><img src="${gDto.FILE}" class="card-img-top" alt="${gDto.SUBJECT}"></a>
   				<div class="card-body">
   				  <div class="fs-6 col-6">${gDto.COM_NAME}</div>
-  				  <div class="fs-5"><a href="noticeContent.do?idx=${gDto.IDX}">${gDto.SUBJECT}</a></div>
+  				  <div class="fs-5 text-nowrap overflow-hidden"><a href="noticeContent.do?idx=${gDto.IDX}">${gDto.SUBJECT}</a></div>
   				  <div class="fs-6 ">${gDto.LOCAL1} ${gDto.LOCAL2}</div>
  				 </div>
 				</div>
@@ -162,7 +169,7 @@ box-shadow: 0px 0px 0px grey;
   				<a href="noticeContent.do?idx=${sDto.IDX}"><img src="${sDto.FILE}" class="card-img-top" alt="${sDto.SUBJECT}"></a>
   				<div class="card-body">
   				  <div class="fs-6 col-6">${sDto.COM_NAME}</div>
-  				  <div class="fs-5"><a href="noticeContent.do?idx=${sDto.IDX}">${sDto.SUBJECT}</a></div>
+  				  <div class="fs-5 text-nowrap overflow-hidden"><a href="noticeContent.do?idx=${sDto.IDX}">${sDto.SUBJECT}</a></div>
   				  <div class="fs-6 ">${sDto.LOCAL1} ${sDto.LOCAL2}</div>
  				 </div>
 				</div>

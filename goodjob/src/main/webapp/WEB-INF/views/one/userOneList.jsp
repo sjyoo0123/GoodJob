@@ -39,7 +39,7 @@
 						<tbody>
 							<c:if test="${empty list}">
 								<tr>
-									<td scope="row">작성된 문의가 없습니다</td>
+									<td scope="row" colspan="4">작성된 문의가 없습니다</td>
 								</tr>
 							</c:if>
 							<c:forEach var="dto" items="${list}">
@@ -58,6 +58,7 @@
 							</c:forEach>
 						</tbody>
 					</table>
+						<div class="text-end col-11 mb-5"><button type="button" class="btn btn-outline-primary write">문의</button></div>
 					<form id="category">
 						<input type="hidden" value="1" name="cp" id="cp"> <input
 							type="hidden" value="true" name="bAjax">
@@ -105,6 +106,9 @@ if (list==0) {
 			$('#page').append(data.page);
 		})
 	}
+	$('.write').click(()=>{
+		location.href='userOneWrite.do';
+	});
 	</script>
 </body>
 </html>
