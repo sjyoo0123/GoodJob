@@ -48,7 +48,7 @@ public class One_oneController {
 		int listSize=5;
 		int start=(cp-1)*listSize+1;
 		int end=cp*listSize;
-		System.out.println(1);
+		
 		List<One_OneDTO>lists=null;
 		
 		if(category.length()==0 || search.length()==0) {
@@ -70,7 +70,7 @@ public class One_oneController {
 
 		mav.addObject("lists", lists);
 		mav.addObject("page", page);
-		System.out.println(page);
+		
 		if(bAjax) {
 			mav.setViewName("goodjobJson");
 		}else {
