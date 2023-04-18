@@ -6,8 +6,8 @@
 	<insert id="comJoin"
 		parameterType="com.goodjob.companymember.model.CompanyMemberDTO">
 		insert into companymember
-		values(companymember_idx.nextval,#{id},#{pwd},#{com_name},#{name},#{com_num},#{email},#{addr},#{detail_addr},#{tel},#{com_birth},sysdate,0,'비활성')
-		values(normalmember_idx.nextval,#{member_idx},#{com_name},#{com_num},#{detail_addr},#{com_birth})
+		values(companymember_idx.nextval,#{member_idx},#{com_name},#{com_num},#{detail_addr},#{com_birth})
+		
 	</insert>
 	<select id="comIdDuplicateCheck" parameterType="String"
 		resultType="Integer">

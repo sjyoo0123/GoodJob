@@ -2,6 +2,7 @@ package com.goodjob.controller;
 
 import java.util.*;
 
+import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -55,7 +56,11 @@ public class BlackListController {
 	@RequestMapping(value = "/manBlackListContentForm.do")
 	public ModelAndView manBlackListContentForm(@RequestParam(value="idx")int idx,@RequestParam(value="status", defaultValue = "블랙")String status) {
 		ModelAndView mav=new ModelAndView();
-		String name=bdao.manBlackListGetName(idx);
+		String category=bdao.manBlackListComCheck(idx);
+		Map<String,Object> map=new HashMap<String,Object>();
+		map.put("category", category);
+		map.put("idx", idx);
+		String name=bdao.manBlackListGetName(map);
 		bdao.manBlackListSingoCheckUpdate(idx);
 		mav.addObject("name", name);
 		mav.addObject("status", status);

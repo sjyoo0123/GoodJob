@@ -6,7 +6,16 @@
   	<select id="manBlackListGet" parameterType="Map" resultType="com.goodjob.member.model.MemberDTO">
 		select * from
 		(select rownum as rnum, a.* from(
-		select * from member where status ='블랙' and user_category=#{category} order by idx desc)a )b
+		<if test="category=='개인'">
+		select * from member where status ='블랙' and user_category=#{category} order by idx desc
+		</if>
+		<if test="category=='기업'">
+		select m.idx,c.com_name as name,m.singo_count,m.joindate
+		from member m
+		inner join companymember c on m.idx=c.member_idx
+		where status ='블랙' and user_category=#{category} order by idx desc
+		</if>
+		)a )b
 		where rnum <![CDATA[>=]]>#{start} and rnum <![CDATA[<=]]>#{end}
 	</select>
 	<select id="manBlackListGetTotalCnt" parameterType="String" resultType="Integer">
@@ -30,13 +39,23 @@
 			)a )b
 		where rnum <![CDATA[>=]]>#{start} and rnum <![CDATA[<=]]>#{end}
 	</select>
-	<select id="manBlackListGetName" parameterType="Integer" resultType="String">
+	<select id="manBlackListGetName" parameterType="Map" resultType="String">
+		<if test="category=='기업'">
+		select 
+			com_name
+		from 
+			companymember
+		where 
+			member_idx=#{idx}
+		</if>
+		<if test="category=='개인'">
 		select 
 			name
 		from
 			member
 		where
 			idx=#{idx}
+		</if>
 	</select>
 	<select id="manBlackListContentTotalCnt" parameterType="Integer" resultType="Integer">
 		select count(*)
@@ -56,12 +75,23 @@
 	<select id="manBlackListSingoList" parameterType="map" resultType="com.goodjob.blacklist.model.BlackListDTO">
 		select * from
 			(select rownum as rnum, a.* from(
+			<if test="category=='개인'">
 			SELECT s.member_idx, m.name, MAX(m.singo_count)as singo_count, MAX(s.singo_date)as singo_date, MIN("CHECK")as "CHECK", MAX(m.status)as status
 			FROM singo s
 			INNER JOIN member m ON s.member_idx = m.idx
 			WHERE  m.status = '활성' and m.user_category=#{category}
 			GROUP BY s.member_idx, m.name
 			order by "CHECK" asc
+			</if>
+			<if test="category=='기업'">
+			SELECT s.member_idx, c.com_name as name, MAX(m.singo_count)as singo_count, MAX(s.singo_date)as singo_date, MIN("CHECK")as "CHECK", MAX(m.status)as status
+			FROM singo s
+			INNER JOIN member m ON s.member_idx = m.idx
+			inner join companymember c on m.idx=c.member_idx
+			WHERE  m.status = '활성' and m.user_category=#{category}
+			GROUP BY s.member_idx, c.com_name
+			order by "CHECK" asc
+			</if>
 				)a )b
 			where rnum <![CDATA[>=]]>#{start} and rnum <![CDATA[<=]]>#{end}
 	</select>
@@ -88,5 +118,9 @@
 		set	"CHECK"=1
 		where member_idx=#{idx}
 	</update>
-
+	<select id="manBlackListComCheck" parameterType="Integer" resultType="String">
+		select user_category
+		from member
+		where idx=#{idx}
+	</select>
   </mapper>

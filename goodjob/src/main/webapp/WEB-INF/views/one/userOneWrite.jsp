@@ -30,7 +30,7 @@
 			</script>
 		</c:if>
 		<section>
-			<article>
+			<article class="mt-5 pt-5">
 				<form action="userOneWrite.do" method="post"
 					enctype="multipart/form-data">
 					<div class="row">
@@ -46,7 +46,7 @@
 						</div>
 						<div class="form-floating mb-3 col-8 offset-2">
 							<input type="text" class="form-control" id="floatingInput"
-								name="email" placeholder="email"> <label
+								name="email" placeholder="email" value="${sessionScope.semail} "> <label
 								for="floatingInput">이메일</label>
 						</div>
 						<div class=" form-floating mb-3  col-8 offset-2">
@@ -54,9 +54,9 @@
 								class="form-control" type="file" id="formFile">
 						</div>
 						
-						<input type="hidden" name="normal_idx" value="${logIdx}">
+						<input type="hidden" name="member_idx" value="${logIdx}">
 						<input type="hidden" name="category" value="${logCategory}">
-						<input type="submit" name="작성완료">
+						<div class="col-8 offset-2"><input type="submit" name="작성완료" class="col-1 btn btn-outline-primary"></div>
 					</div>
 				</form>
 			</article>

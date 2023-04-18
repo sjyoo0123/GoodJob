@@ -30,13 +30,12 @@ public class SinGoController {
 	TotalFileDAO fDao;
 	@ResponseBody
 	@RequestMapping(value = "sinGo.do" , method = RequestMethod.POST)
-	public int sinGoWrite(SinGoDTO dto,
-			@RequestParam(value="file",defaultValue = "")MultipartFile file,
+	public int sinGoWrite(SinGoDTO dto,MultipartFile file,
 			HttpServletRequest req) {
 		int write=sgDao.sinGoWrite(dto);
 		bDao.manBlackListUpdateSingoCount(dto.getMember_idx());
 		String fcategory="singo";
-		if(!file.isEmpty()) {
+		if(file!=null) {
 			FileCopy fc=new FileCopy();
 			fc.copyInto(fcategory, file, req);
 			Map<String, String>map=new HashMap<String, String>();
