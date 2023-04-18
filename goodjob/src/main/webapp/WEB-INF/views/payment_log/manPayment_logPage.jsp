@@ -15,19 +15,19 @@
 var IMP = window.IMP; // 생략 가능
 IMP.init("imp82514218"); // 예: imp00000000a
 	
-function requestPay(pg= '테스트 PG.INIpayTest') {
-    let planType = ''; // 변수 초기화
+function requestPay(pg= '테스트 PG.TC0ONETIME') {
+    let planType = ''; // 변수 초기화 inisis
     if ('${planDto.plan_type}' === 'VIP') {
         planType = 'VIP';
     } else if ('${planDto.plan_type}' === 'UP') {
         planType = 'UP';
     }
-    IMP.request_pay({
-      pg: "inicis.{INIpayTest}",
+    IMP.request_pay({ 
+      pg: "kakaopay.{TC0ONETIME}", //inicis
       pay_method: "card",
       merchant_uid: ${str},   // 주문번호
       name: '${planDto.plan_name}',
-      amount: 100,                         // 숫자 타입 나중에
+      amount: ${planDto.plan_price},                         // 숫자 타입 나중에
       buyer_email: '${dto.email}',
       buyer_name: '${dto.name}',
       buyer_tel: '${dto.tel}',
@@ -73,14 +73,14 @@ function requestPay(pg= '테스트 PG.INIpayTest') {
 		<section>
 			<article>
 				<div class="row">
-					<div class="clo-sm-3">
+					<div class="col-sm-3">
 						<h3>결제</h3>
 					</div>
 				</div>
 				<br>
-				<table class="table">
+				<table class="table table-hover">
 					<thead>
-						<tr>
+						<tr class="table-dark">
 							<th>요금제 정보</th>
 							<th>타입</th>
 							<th>가격</th>
@@ -101,7 +101,7 @@ function requestPay(pg= '테스트 PG.INIpayTest') {
 				</table>
 				<div class="row">
 					<div class="offset-sm-8 col-sm-3">
-						<input type="button" value="결제하기" onclick="requestPay()" id="button">
+						<input type="button" value="결제하기" onclick="requestPay()" id="button" class="btn btn-primary">
 					</div>
 				</div>
 			</article>

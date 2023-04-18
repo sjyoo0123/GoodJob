@@ -28,15 +28,25 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 </head>
 <body>
+<div class="container">
 		<%@include file="/WEB-INF/views/header.jsp"%>
-<h1>지원자리스트페이지</h1>
+			<div class="col-12">
+	<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="index.do">Home</a></li>
+    <li class="breadcrumb-item"><a href="company.do">마이페이지</a></li>
+    <li class="breadcrumb-item"><a href="noticeComList.do">내 공고</a></li>
+    <li class="breadcrumb-item active" aria-current="page">지원자리스트</li>
+  </ol>
+</nav>
+	</div>
 <article>
-<h1>${subject}</h1>
-<div class="btn-group btn-group-lg" role="group" aria-label="Large button group">
-<button class="btn btn-outline-dark"><span>수정</span></button>
-<button class="btn btn-outline-dark"><span>삭제</span></button>
-</div>
+<h1 class="fw-bold display-3">${subject.status}</h1>
+<div class="row">
+<div class="col-9"></div><div class="col-3">
 <form><div class="input-group mb-3"><input type="text" name="searchNotice" class="form-control" aria-describedby="button-addon2"><input type="submit" value="검색"  class="btn btn-outline-secondary" type="button" id="button-addon2"></div></form>
+</div>
+</div>
 <table class="table table-hover">
 <thead>
 <tr>
@@ -100,5 +110,6 @@
 	</script>
 </article>
 		<%@include file="/WEB-INF/views/footer.jsp"%>
+		</div>
 </body>
 </html>

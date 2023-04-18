@@ -35,12 +35,17 @@
 <div class="container">
 
 	<%@include file="/WEB-INF/views/header.jsp"%>
+	<div class="row">
+	<div class="col-7"></div>
+	<div class="col-5">
 	<c:if test="${scategory == '기업' && sidx==dto.com_idx }">
 <div class="btn-group btn-group-lg" role="group" aria-label="Large button group">
-<button class="btn btn-outline-dark" onclick="location.href='noticeUpdate.do?idx=${dto.idx}'"><span>수정</span></button>
-<button class="btn btn-outline-dark"><span>삭제</span></button>
+<button class="btn btn-outline-dark" onclick="location.href='noticeUpdate.do?idx=${dto.idx}'"><span>공고 수정</span></button>
+<button class="btn btn-outline-dark" onclick="if (confirm('정말 삭제하시겠습니까?')) { location.href='noticeDel.do?idx=${dto.idx}' }"><span>공고 삭제</span></button>
 </div>
 </c:if>
+</div>
+</div>
 <c:if test="${sidx!=dto.com_idx}">
 
 <button class="btn btn-danger btn-icon-split btn-lg text-white-50" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
@@ -50,13 +55,16 @@
 
 </c:if>
 <c:choose>
-<c:when test="${scategory == '개인' }">
+<c:when test="${scategory == '개인' && resumeNum != 0  }">
 <c:if test="${atoNum == 0 }" >
-    <input type="button" value="지원하기" onclick="location.href='apNorInsert.do?notice_idx=${dto.idx}'">
+	<button type="button" class="btn btn-primary btn-lg" onclick="location.href='apNorInsert.do?notice_idx=${dto.idx}'">지원하기</button>
 </c:if>
- <c:if test="${atoNum != 0 }" >
-    <input type="button" value="이미 지원함" >
+ <c:if test="${atoNum != 0}" >
+ <button type="button" class="btn btn-primary btn-lg">이미 지원함</button>
  </c:if>
+ </c:when>
+ <c:when test="${resumeNum == 0 }">
+ 	<button type="button" class="btn btn-primary btn-lg">이력서 작성 후 지원 가능합니다</button>
  </c:when>
  <c:otherwise>
  	
@@ -71,13 +79,13 @@
 	<div class="container px-4 px-lg-5">
 	<div class="row gx-4 gx-lg-5 justify-content-center">
 	<div class="col-md-10 col-lg-8 col-xl-7">
-<h1>${dto.subject}</h1>
+<h1 class="fw-bold display-3">${dto.subject}</h1>
 <h6>${dto.writedate}</h6>
-<div class="row align-items-center">
-<div class="col-3"><i class="bi bi-cash" style="font-size: 6rem;"></i><br>${dto.pay_category}${dto.pay_hour}원</div>
+<div class="row align-items-center text-center">
+<div class="col-3"><i class="bi bi-cash" style="font-size: 6rem;"></i><br><c:if test="${dto.pay_category=='협의'}">협의</c:if><c:if test="${dto.pay_category!='협의'}">${dto.pay_category}${dto.pay_hour}</c:if></div>
 <div class="col-3"><i class="bi bi-calendar" style="font-size: 6rem;"></i><br>${yy}</div>
-<div class="col-3"><i class="bi bi-clock" style="font-size: 6rem;"></i><br>${startendtime}</div>
-<div class="col-3"><i class="bi bi-people-fill" style="font-size: 6rem;"></i><br>모집모집</div>
+<div class="col-3"><i class="bi bi-clock" style="font-size: 6rem;"></i><br><c:if test="${startendtime=='0:00 ~ 0:00'}">시간합의</c:if><c:if test="${startendtime!='0:00 ~ 0:00'}">${startendtime}</c:if></div>
+<div class="col-3"><i class="bi bi-people-fill" style="font-size: 6rem;"></i><br>${dto.service_type}</div>
 </div>
 <hr class="my-4">
 <div class="row">
@@ -90,15 +98,15 @@
 </tr>
 <tr>
 	<th>연령</th>
-	<td>${dto.min_age}~${dto.max_age}</td>
+	<td><c:if test="${dto.min_age==0&&dto.max_age==0}">나이무관</c:if><c:if test="${dto.max_age!=0}">${dto.min_age}~${dto.max_age}</c:if></td>
 </tr>
 <tr>
 	<th>학력</th>
-	<td>${dto.grade}이상</td>
+	<td><c:if test="${dto.grade=='학력무관'}">${dto.grade}</c:if><c:if test="${dto.grade!='학력무관'}">${dto.grade}이상</c:if></td>
 </tr>
 <tr>
 	<th>직종</th>
-	<td>@직종@</td>
+	<td>${dto.job}</td>
 </tr>
 <tr>
 	<th>모집인원</th>
@@ -111,7 +119,7 @@
 <table>
 <tr>
 	<th>급여</th>
-	<td>${dto.pay_category} ${dto.pay_hour}</td>
+	<td><c:if test="${dto.pay_category=='협의'}">협의</c:if><c:if test="${dto.pay_category!='협의'}"><h3 class="fw-bold display-5">${dto.pay_category}${dto.pay_hour}</h3></c:if></td>
 </tr>
 <tr>
 	<th>근무기간</th>
@@ -123,7 +131,7 @@
 </tr>
 <tr>
 	<th>근무시간</th>
-	<td>${startendtime}</td>
+	<td><c:if test="${startendtime=='0:00 ~ 0:00'}">시간합의</c:if><c:if test="${startendtime!='0:00 ~ 0:00'}">${startendtime}</c:if></td>
 </tr>
 </table>
 <button class="btn btn-primary btn-icon-split btn-lg" onclick="window.open('jobHelperTong.do')">
@@ -316,5 +324,6 @@ $('.singoing').on('click',()=>{
     });
 });
 </script>
+  	<%@include file="/WEB-INF/views/footer.jsp"%>
 </body>
 </html>

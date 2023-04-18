@@ -33,26 +33,50 @@ public class One_oneController {
 	private TotalFileDAO fDao;
 	
 	//일대일문의 들어가기
-	@RequestMapping("/manOneList.do")
-	public ModelAndView manOneList(@RequestParam(value = "cp", defaultValue = "1")int cp) {
+	@RequestMapping(value="/manOneList.do",method = RequestMethod.GET)
+	public ModelAndView manOneList(@RequestParam(value = "cp", defaultValue = "1")int cp,
+			@RequestParam(value="bAjax", defaultValue = "false")boolean bAjax,
+			@RequestParam(value="category", defaultValue = "")String category,
+			@RequestParam(value="search", defaultValue = "")String search) {
 		
 		
 		
 		ModelAndView mav=new ModelAndView();
 		
-		int totalCnt=oneDao.manOneAllCnt();
+		int totalCnt=0;
 		int pazeSize=5;
 		int listSize=5;
+		int start=(cp-1)*listSize+1;
+		int end=cp*listSize;
+		System.out.println(1);
+		List<One_OneDTO>lists=null;
+		
+		if(category.length()==0 || search.length()==0) {
+			totalCnt=oneDao.manOneAllCnt();
+			lists=oneDao.manOneList(cp, listSize);	
+		}else {
+			
+			Map<String, Object> map= new HashMap<String, Object>();
+			map.put("category", category);
+			map.put("search", search);
+			map.put("start", start);
+			map.put("end", end);
+			totalCnt=oneDao.manOneSearchCnt(map);
+			lists=oneDao.manOneSearch(map);
+		}
+		
+		String page=AjaxPageModule.makePage(totalCnt, listSize, pazeSize, cp);
+		
 
-		List<One_OneDTO> lists=oneDao.manOneList(cp, listSize);
-		
-		String pageStr=com.goodjob.page.module.PageModule.makePage("manOneList.do", totalCnt, listSize, pazeSize, cp);
-		
-		System.out.println(totalCnt);
-	
 		mav.addObject("lists", lists);
-		mav.addObject("pageStr", pageStr);
-		mav.setViewName("one/manOneList");
+		mav.addObject("page", page);
+		System.out.println(page);
+		if(bAjax) {
+			mav.setViewName("goodjobJson");
+		}else {
+			mav.setViewName("one/manOneList");
+		}
+	
 		
 		return mav;
 		
@@ -133,6 +157,12 @@ public class One_oneController {
 			@RequestParam(value="bAjax" ,defaultValue="false")boolean bAjax) {
 		ModelAndView mav=new ModelAndView();
 		Integer sIdx=session.getAttribute("sidx")!=null?(Integer)session.getAttribute("sidx"):0;
+		if(sIdx==0) {
+			mav.addObject("msg", "로그인후 이용 가능합니다");
+			mav.addObject("href", "location.href='login.do'");
+			mav.setViewName("alertModal");
+			return mav;
+		}
 		int totalCnt=oneDao.userOneTotalCnt(sIdx);
 		int pazeSize=5;
 		int listSize=10;
@@ -192,7 +222,7 @@ public class One_oneController {
 	
 	
 	//일대일문의 검색하기
-	@RequestMapping("/manOneSearch.do")
+	/**@RequestMapping("/manOneSearch.do")
 	public ModelAndView manOneSearch(@RequestParam(value = "cp", defaultValue = "1")int cp
 			,@RequestParam (value = "search", required = false)String search) {
 		
@@ -214,7 +244,7 @@ public class One_oneController {
 		return mav;
 		
 		
-	}
+	}*/
 	@RequestMapping("userOneWrite.do")
 	public String userOneWriteForm() {
 		return "one/userOneWrite";

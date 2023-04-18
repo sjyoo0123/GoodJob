@@ -42,13 +42,13 @@
 				</tr>
 				<tr>
 					<td>
-						<textarea cols="50" rows="20" readonly="readonly" name="content">${dto.content }</textarea>
+						<textarea cols="50" rows="20" readonly="readonly" name="content" style="resize: none">${dto.content }</textarea>
 					</td>
 				</tr>
 				<tr>
 					<td align="right">
 						<input type="hidden" value="${dto.idx}" name="idx">
-						<input type="submit" value="답변하기">
+						<input type="submit" value="답변하기" class="btn btn-primary">
 					</td>
 				</tr>
 			</table>

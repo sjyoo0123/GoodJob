@@ -1,5 +1,7 @@
 package com.goodjob.notice.model;
 import java.util.*;
+
+import com.goodjob.apply.model.ApplyDTO;
 public interface NoticeDAO {
 	public int noticeWrite(NoticeDTO dto);
 	public List<NoticeDTO> noticeComList(int idx,int cp,int ls,String status);
@@ -26,4 +28,5 @@ public interface NoticeDAO {
 	public int noticeUpdate(NoticeDTO dto);
 	public List<NoticeDTO> comNoticeSubject(int idx);
 	public int refUp(int idx);
+	public ApplyDTO apNoticeSubject(int idx);
 }

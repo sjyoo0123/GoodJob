@@ -18,11 +18,24 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+<script type="text/javascript">
+   var s_status='${sessionScope.status}';
+   var s_category='${sessionScope.scategory}';
+   var check_category='관리자';
+   if( s_status==''){
+      window.alert('로그인이 필요합니다');
+      location.href='login.do';
+   }else if(s_status=='블랙'){
+      window.alert('차단된 회원입니다');
+      location.href='index.do';
+   }else if(s_category!=check_category){
+      window.alert(check_category+'만 이용 가능한 페이지입니다');
+      location.href='index.do';
+   }
+</script>	
+<title>Good Job</title>
 </head>
 <style>
-.container {
-	width: 960px;
-}
 </style>
 <body>
 	<div class="container">
@@ -31,20 +44,25 @@
 			<article>
 					<div class="row">
 						<div class="col-sm-6 offset-sm-3">
-							<h2 align="center">요금제 관리</h2>
+							<h2 align="center"><i class="bi bi-coin"></i>요금제 관리</h2>
 						</div>
 					</div>
+					<br>
 					<div class="row">
-						<div class="offset-sm-3 col-sm-6" align="center">
+						<div class="offset-sm-2 col-sm-8" align="center">
 							<a href="manPlanPage.do">추가</a> | <a href="manPlanUpdatePage.do">수정</a>
 							| <a href="manPlanDelPage.do">삭제</a>
 						</div>
 					</div>
+					<br>
+					<br>
 					<form name="manPlanUpDel" action="manPlanUpDel.do" method="post">
 					<div class="row">
-						<div class="offset-sm-3 col-sm-6">
+						<div class="offset-sm-2 col-sm-8">
 							<div class="card">
-								<h3 class="card-title">up 요금제 삭제하기</h3>
+								<div class="card-header">
+									up 요금제 삭제하기
+								</div>
 								<table class="table">
 									<c:if test="${empty lists_up }">
 										<tr>
@@ -57,7 +75,7 @@
 											<td>요금제 이름 : ${dto.plan_name }</td>
 											<td>업 횟수 : ${dto.count }</td>
 											<td>요금제 가격 : ${dto.plan_price }</td>
-											<td><input type="submit" value="삭제하기"></td>
+											<td><input type="submit" value="삭제하기" class="btn btn-primary"></td>
 										</tr>
 									</c:forEach>
 								</table>
@@ -65,12 +83,18 @@
 						</div>
 					</div>
 					</form>
+					<br>
+					<br>
 					<hr>
+					<br>
+					<br>
 					<form name="manPlanVipDel" action="manPlanVipDel.do" method="post">
 					<div class="row">
-						<div class="offset-sm-3 col-sm-6">
+						<div class="offset-sm-2 col-sm-8">
 							<div class="card">
-								<h3 class="card-title">vip 요금제 삭제하기</h3>
+								<div class="card-header">
+									vip 요금제 삭제하기
+								</div>
 								<table class="table">
 									<c:if test="${empty lists_vip }">
 										<tr>
@@ -84,7 +108,7 @@
 											<td>요금제 등급 : ${dto.vip_floor }</td>
 											<td>요금제 가격 : ${dto.plan_price }</td>
 											<td>남은 기간 : ${dto.plan_period }</td>
-											<td><input type="submit" value="삭제하기"></td>
+											<td><input type="submit" value="삭제하기" class="btn btn-primary"></td>
 										</tr>
 									</c:forEach>
 								</table>

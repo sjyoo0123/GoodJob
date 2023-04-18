@@ -21,4 +21,5 @@ public interface ResumeDAO {
 	public int careerDelete(int idx);
 	public int getCareerResumeCount(int resume_idx);
 	public int updateCareer_check(int member_idx);
+	public int resumeCheck(int member_idx);
 }

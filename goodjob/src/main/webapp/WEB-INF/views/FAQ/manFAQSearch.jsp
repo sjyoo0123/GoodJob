@@ -11,6 +11,21 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 	<title>Good Job</title>
 </head>
+<script type="text/javascript">
+   var s_status='${sessionScope.status}';
+   var s_category='${sessionScope.scategory}';
+   var check_category='관리자';
+   if( s_status==''){
+      window.alert('로그인이 필요합니다');
+      location.href='login.do';
+   }else if(s_status=='블랙'){
+      window.alert('차단된 회원입니다');
+      location.href='index.do';
+   }else if(s_category!=check_category){
+      window.alert(check_category+'만 이용 가능한 페이지입니다');
+      location.href='index.do';
+   }
+</script>
 <style>
 .btn-primary {
     color: #fff;
@@ -46,26 +61,11 @@
 				 	</div>
 				 </div>
 				 <br>
-				 <div class="row">
-				 	<div class="col-sm-6">
-				
-				 		<table class="table">
-				 			<tr>
-				 				<td>
-				 				<select class="form-select" name="category" onchange="this.form.submit()">
-									  <option value="전체">전체</option>
-									  <option value="개인">개인</option>
-									  <option value="기업">기업</option>
-									</select>
-				 				</td>
-				 			</tr>
-				 		</table>
-				 	</div>
-				 </div>
 				 <br>
 				 	 <div class="row">
 				 	<div class="offset-sm-7 col-sm-5">
 				 		<form name="manFAQSearch" action="manFAQSearch.do" method="get">
+				 			<i class="bi bi-search"></i>
 				 			<input type="text" name="search" placeholder="제목을 검색해주세요" class="form-control">
 				 			<input type="submit" value="검색하기" class="btn btn-primary">
 				 		</form>
@@ -113,8 +113,42 @@
 				 </div>
 			</article>
 		</section>
-	
 <%@include file="/WEB-INF/views/footer.jsp" %>
+<script>
+function page(){
+	var para = $('manFAQList').serialize();
+	$.ajax({
+		url:'manFAQLIST.do',
+		data: para,
+		dataType: 'json',
+		contentType:"application/json"
+	}).done(function(data)){
+		$('tbody').empty();
+		var list = data.lists; //${list}에 해당하는 값으로 대체
+		
+		if(list.length == 0){
+			var noListRow = $("<tr>")
+            .append($("<td>")
+                .attr("colspan", "5")
+                .attr("align", "center")
+                .text("등록된 FAQ가 없습니다."));
+        $("#table").append(noListRow);
+    } else { // 등록된 공고가 있을 경우
+        $.each(list, function(index, dto) {
+       		
+            var statusTd = $("<td>").append(statusButton);
+            var tr = $("<tr>")
+                .append($("<td>").text(dto.subject))
+                .append($("<td>").text(dto.content))
+            $("tbody").append(tr);
+            
+       
+    $('#page').empty();
+    $('#page').append(data.page);
+  });
+}})}
+		
+</script>
 </div>
 </body>
 </html>

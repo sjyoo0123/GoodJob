@@ -65,13 +65,15 @@ public class BannerController {
 			int bannerData=0;
 			int fileData=0;
 
-			String filestr=file.getOriginalFilename();
+			String fileStr="/goodjob/bannerImg/"+file.getOriginalFilename();
 		
+			System.out.println(fileStr);
+			
 			TotalFileDTO dto2=new TotalFileDTO();
 			
 			Map map=new HashMap();
 			
-			map.put("file", filestr);
+			map.put("file", fileStr);
 			map.put("category", category);
 			map.put("table_name", "banner");
 			
@@ -90,7 +92,7 @@ public class BannerController {
 				ref=bannerDao.manBannerRef();
 				bannerData=bannerDao.manBannerAdd(dto);
 				int idx=dto.getIdx();
-				dto2.setFile("/goodjob/bannerImg/"+filestr);
+				dto2.setFile(fileStr);
 				dto2.setTable_idx(idx);
 				dto2.setCategory(category);
 				copyInto(category, file,req);
@@ -158,18 +160,22 @@ public class BannerController {
 		ModelAndView mav=new ModelAndView();
 		
 		copyInto(category, file,req);
-		
-		String filestr=file.getOriginalFilename();
-		
+		System.out.println(file.getOriginalFilename());
+		String fileStr="/goodjob/bannerImg/"+file.getOriginalFilename();
+		System.out.println(fileStr);
 		TotalFileDTO dto2=new TotalFileDTO();
-		dto2.setFile(filestr);
+		dto2.setFile(fileStr);
 		dto2.setTable_idx(idx);
 		dto2.setIdx(file_idx);
 		dto2.setCategory(category);
 
+		Map<String, Object> map= new HashMap<String, Object>();
 		
-	
-		int count=bannerDao.manBannerAdd(dto);
+		map.put("link", dto.getLink());
+		map.put("subject", dto.getSubject());
+		map.put("idx", idx);
+		System.out.println(map.toString());
+		int count=bannerDao.manBannerUpdate(map);
 		int count2=totalFileDao.manFileUpdate(dto2);
 	
 		

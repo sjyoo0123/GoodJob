@@ -10,6 +10,21 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 	<title>Good Job</title>
+<script type="text/javascript">
+   var s_status='${sessionScope.status}';
+   var s_category='${sessionScope.scategory}';
+   var check_category='관리자';
+   if( s_status==''){
+      window.alert('로그인이 필요합니다');
+      location.href='login.do';
+   }else if(s_status=='블랙'){
+      window.alert('차단된 회원입니다');
+      location.href='index.do';
+   }else if(s_category!=check_category){
+      window.alert(check_category+'만 이용 가능한 페이지입니다');
+      location.href='index.do';
+   }
+</script>	
 <style>
 </style>
 </head>
@@ -20,7 +35,7 @@
 		<div class="container">
 			<div class="row">
 					<div class="col-sm-6 offset-sm-3">
-						<h2 align="center">배너 관리</h2>
+						<h2 align="center"><i class="bi bi-images"></i>배너 관리</h2>
 					</div>
 				</div>
 				<div class="row">
@@ -29,30 +44,25 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-sm-4">
-						적용중인 배너
-					</div>
-				</div>
-				<div class="row">
-					<table class="table">
+					<table class="table table-hover">
 					<c:if test="${empty lists }">
-						<tr>
+						<tr class="table-dark">
 							<td align="center">등록된 배너가 없습니다.</td>
 						</tr>
 					</c:if>
 					<c:forEach var="dto" items="${lists }">
 						<thead>
-							<tr>
+							<tr class="table-dark">
 								<th>배너 이름 :  ${dto.subject }</th>
 								<th>배너 번호 : ${dto.idx }</th>
-								<th>배너 파일 :</th>
+								<th>배너 파일 </th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
 								<td>배너링크 : ${dto.link }</td>
 								<td>순번 : ${dto.ref }</td>
-								<td><img alt="이미지" src="${dto.file }" width="300" height="300"></td>
+								<td><img alt="이미지" src="/goodjob/bannerImg/${dto.file }" width="300" height="300"></td>
 							</tr>
 
 							<tr>

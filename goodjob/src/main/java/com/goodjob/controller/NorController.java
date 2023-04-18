@@ -49,8 +49,9 @@ public class NorController {
 		String addr = dto.getAddr();
 		String getAddr = addr.replaceAll(",", " ");
 		dto.setAddr(getAddr);
-		List<NoticeDTO> alist = applyDao.apNorlist(idx, 1, 5);
-		List<NoticeDTO> olist = offerDao.ofNorList(idx, 1, 5);
+		String keyword= "";
+		List<NoticeDTO> alist = applyDao.apNorlist(idx, 1, 5, keyword);
+		List<NoticeDTO> olist = offerDao.ofNorList(idx, 1, 5, keyword);
 		mav.addObject("alist", alist);
 		mav.addObject("olist", olist);
 		mav.addObject("nto", nto);

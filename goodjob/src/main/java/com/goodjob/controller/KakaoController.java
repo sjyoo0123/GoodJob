@@ -64,7 +64,7 @@ public class KakaoController {
 	    String kakaoId = rootNode.path("id").asText();
 	    String email = rootNode.path("kakao_account").path("email").asText();
 	    String nickname = rootNode.path("properties").path("nickname").asText();
-	    System.out.println(rootNode.toString());
+	  //  System.out.println(rootNode.toString());
 	    // Store user information in session or database
 
 	    System.out.println(email);

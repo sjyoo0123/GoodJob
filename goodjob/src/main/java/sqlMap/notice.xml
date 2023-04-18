@@ -5,7 +5,7 @@
   <mapper namespace="com.goodjob.notice">
 <insert id="noticeWrite" parameterType="com.goodjob.notice.model.NoticeDTO">
 insert into notice
-values(notice_idx.nextval,#{plan_idx},#{com_idx},#{subject},#{gender},#{min_age},#{max_age},#{grade},#{job},#{service_type},#{recruit},#{period},#{workday},#{starttime},#{finishtime},#{pay_category},#{pay_hour},#{pay_month},#{worktime},#{local1},#{local2},#{local3},#{detail_addr},#{x},#{y},#{com_name},#{manager_name},#{manager_tel},#{manager_email},#{content},sysdate,sysdate+30,(select max(ref) from notice)+1,'활성')
+values(notice_idx.nextval,#{plan_idx},#{com_idx},#{subject},#{gender},#{min_age},#{max_age},#{grade},#{job},#{service_type},#{recruit},#{period},#{workday},#{starttime},#{finishtime},#{pay_category},#{pay_hour},#{pay_month},#{worktime},#{local1},#{local2},#{local3},#{detail_addr},#{x},#{y},#{com_name},#{manager_name},#{manager_tel},#{manager_email},#{content},sysdate,sysdate+30,(select max(ref) from notice)+1,'대기')
 </insert>
 <select id="comNoticeList" parameterType="Map" resultType="com.goodjob.notice.model.NoticeDTO">
 select * from
@@ -20,7 +20,8 @@ notice.com_name,
 notice.com_idx,
 plan.plan_name period,
 COUNT(DISTINCT apply.idx) ref,
-COUNT(DISTINCT CASE WHEN apply."CHECK" = 0 THEN apply.idx END) recruit
+COUNT(DISTINCT CASE WHEN apply."CHECK" = 0 THEN apply.idx END) recruit,
+notice.ref ref2
 FROM
 notice
 INNER JOIN plan ON notice.plan_idx = plan.idx
@@ -35,9 +36,10 @@ notice.deadline,
 notice.subject,
 notice.com_name,
 notice.com_idx,
-plan.plan_name
+plan.plan_name,
+notice.ref
 ORDER BY
-notice.idx DESC
+notice.ref DESC
 ) a) b
 		where <![CDATA[rnum>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
 </select>
@@ -101,7 +103,7 @@ update notice set status='비활성' where idx=#{idx}
 	select * from(
 	select rownum as rnum, a.* from(
 	select * from notice
-	order by idx asc
+	order by idx desc
 	)a
 	)b
 	where rnum<![CDATA[>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
@@ -244,7 +246,7 @@ update notice set status='비활성' where idx=#{idx}
 	ORDER BY n.writedate ASC
 	</select>
 	<update id="noticeUpdate" parameterType="com.goodjob.notice.model.NoticeDTO">
-		update notice set subject=#{subject}, gender=#{gender}, min_age=#{min_age}, max_age=#{max_age}, grade=#{grade}, job=#{job}, service_type=#{service_type}, recruit=#{recruit}, period=#{period}, workday=#{workday}, starttime=#{starttime}, finishtime=#{finishtime}, pay_category=#{pay_category}, pay_hour=#{pay_hour}, pay_month=#{pay_month}, worktime=#{worktime}, local1=#{local1}, local2=#{local2}, local3=#{local3}, detail_addr=#{detail_addr}, x=#{x}, y=#{y}, com_name=#{com_name}, manager_name=#{manager_name}, manager_tel=#{manager_tel}, manager_email=#{manager_email}, content=#{content} where idx=#{idx}
+		update notice set subject=#{subject}, gender=#{gender}, min_age=#{min_age}, max_age=#{max_age}, grade=#{grade}, job=#{job}, service_type=#{service_type}, recruit=#{recruit}, period=#{period}, workday=#{workday}, starttime=#{starttime},status='대기', finishtime=#{finishtime}, pay_category=#{pay_category}, pay_hour=#{pay_hour}, pay_month=#{pay_month}, worktime=#{worktime}, local1=#{local1}, local2=#{local2}, local3=#{local3}, detail_addr=#{detail_addr}, x=#{x}, y=#{y}, com_name=#{com_name}, manager_name=#{manager_name}, manager_tel=#{manager_tel}, manager_email=#{manager_email}, content=#{content} where idx=#{idx}
 	</update>
 	<select id="comNoticeSubject" parameterType="Integer" resultType="com.goodjob.notice.model.NoticeDTO">
 		select idx,subject from notice where status='활성' and com_idx=#{idx} order by idx desc
@@ -252,4 +254,7 @@ update notice set status='비활성' where idx=#{idx}
 	<update id="refUp" parameterType="Integer">
 		update notice set ref=((select max(ref) from notice)+1) where idx=#{idx}
 	</update>
+	<select id="apNoticeSubject" parameterType="Integer" resultType="com.goodjob.apply.model.ApplyDTO">
+		select distinct(subject) status from notice where idx=#{idx}
+	</select>
   </mapper>

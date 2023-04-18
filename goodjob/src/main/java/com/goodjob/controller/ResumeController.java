@@ -98,10 +98,10 @@ public class ResumeController {
 						com_name[i], part[i], service_type[i], "");
 				list.add(temp);
 			}
-			resumeDao.resumeWrite2(dto, list);
+			result = resumeDao.resumeWrite2(dto, list);
 
 		}
-		String msg = result > 0 ? "이력서 작성 성공" : "이력서 작성 실패";
+		String msg = result > 0 ? "이력서 작성 성공" : "이력서 실패";
 		String goUrl = "norMyPage.do";
 		mav.addObject("msg", msg);
 		mav.addObject("goUrl", goUrl);

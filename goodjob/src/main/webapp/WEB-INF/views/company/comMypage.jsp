@@ -25,7 +25,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-<title>Insert title here</title>
+<title>마이페이지</title>
 <style>
 .container-fluid {
   display: flex;
@@ -53,14 +53,34 @@ z-index: -1;
 position: relative;
 z-index: 1;
 }
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
 </style>
 </head>
 <body>
 	<div class="container" >
 	<%@include file="/WEB-INF/views/header.jsp"%>
 	<div class="row">
+	<div class="col-12">
+	<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="index.do">Home</a></li>
+    <li class="breadcrumb-item active" aria-current="page">마이페이지</li>
+  </ol>
+</nav>
+	</div>
 		<div class="col-sm-6 mb-4">
-		<div class="card bg-secondary bg-opacity-10">
+		<div class="card bg-primary bg-opacity-10">
 		<div class="card-body">
 			<h2 class="card-title">나의회사</h2>
 			<h3>${cdto.com_name}</h3>
@@ -68,13 +88,16 @@ z-index: 1;
 		</div>
 		</div>
 		<div class="col-sm-6 mb-4">
-		<div class="card-stats card bg-secondary bg-opacity-10">
-		<div class="card-icon"><i class="bi bi-ticket-fill" style="font-size: 6rem; color: gold;"></i></div>
+		<div class="card-stats card <c:if test='${empty vlists}'>bg-primary bg-opacity-10</c:if>" <c:if test='${not empty vlists}'>style="background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            color:white;"</c:if>>
+		<div class="card-icon"><i class="bi bi-ticket" style="font-size: 6rem; color: gold;"></i></div>
 		<div class="card-body">
 			<h2 class="card-title">
 				<a href="comPlanList.do">나의 요금제</a><br>
 			</h2>
-			<h3><c:if test="${empty vlists}"><p>등록된 공고가 없습니다.</p></c:if>
+			<h3><c:if test="${empty vlists}"><p>무료 요금제</p></c:if>
 			<c:forEach var="dto" items="${vlists}">
 							<h3>${dto.subject}</h3>
 						</c:forEach>
@@ -84,9 +107,9 @@ z-index: 1;
 		</div>
 		<br>
 		<div class="col-sm-6 mb-4">
-		<div class="card-stats card bg-secondary bg-opacity-10">
+		<div class="card-stats card bg-primary bg-opacity-10">
 		<div class="card-body">
-		<div class="card-icon"><i class="bi bi-clipboard-fill" style="font-size: 6rem; color: #1A4369;"></i></div>
+		<div class="card-icon"><i class="bi bi-clipboard" style="font-size: 6rem; color: #1A4369;"></i></div>
 			<h1 class="card-title">
 				<a href="noticeComList.do">공고 현황</a>
 			</h1>
@@ -94,15 +117,15 @@ z-index: 1;
 				<div class="col-sm-4">
 				<h4>진행중인 공고</h4>
 				<br>
-						<h1>${ntotalCnt}건</h1>
+						<h1 class="col-6 bg-primary bg-opacity-50"><c:if test="${ntotalCnt==null||nototalCnt==''}">0</c:if>${ntotalCnt}건</h1>
 					</div>
-					<div class="col-sm-8">
+					<div class="col-sm-6">
 						<c:if test="${empty nlists}"><p>등록된 공고가 없습니다.</p></c:if>
 						<c:forEach var="dto" items="${nlists}">
 						<c:url var="contentUrl" value="noticeContent.do">
 							<c:param name="idx">${dto.idx}</c:param>
 						</c:url>
-							<h3><a href="${contentUrl}">${dto.subject}</a></h3>
+							<h3 class="text-truncate"><a href="${contentUrl}">${dto.subject}</a></h3>
 						</c:forEach>
 					</div>
 			</div>
@@ -110,16 +133,16 @@ z-index: 1;
 		</div>
 		</div>
 		<div class="col-sm-6 mb-4">
-		<div class="card-stats card bg-secondary bg-opacity-10">
+		<div class="card-stats card bg-primary bg-opacity-10">
 		<div class="card-body">
-				<div class="card-icon"><i class="bi bi-people-fill" style="font-size: 6rem; color: #52C640;"></i></div>
+				<div class="card-icon"><i class="bi bi-people" style="font-size: 6rem; color: #52C640;"></i></div>
 			<h1 class="card-title">
 				<a href="ofComList.do">제의 현황</a>
 			</h1>
 			<div class="row">
 			<div class="col-sm-5">
 				<h4>진행중인 제의</h4>
-				<h1>${ototalCnt}건</h1>
+				<h1 class="col-5 bg-primary bg-opacity-50"><c:if test="${ototalCnt==null||ototalCnt==''}">0</c:if>${ototalCnt}건</h1>
 			</div>
 			<div class="col-sm-7">
 				<c:if test="${empty olists}"><p>등록된 공고가 없습니다.</p></c:if>

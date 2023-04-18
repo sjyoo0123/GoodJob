@@ -47,13 +47,14 @@ public class OfferDAOImple implements OfferDAO {
 		return count;
 	}
 	@Override // 제안받은 개인
-	public List<NoticeDTO> ofNorList(int member_idx, int cp, int ls) {
+	public List<NoticeDTO> ofNorList(int member_idx, int cp, int ls, String keyword) {
 		int start = (cp - 1) * ls + 1;
 		int end = cp * ls;
 		Map map = new HashMap();
 		map.put("member_idx", member_idx);
 		map.put("start", start);
 		map.put("end", end);
+		map.put("keyword", keyword);
 		List<NoticeDTO> list = sqlMap.selectList("ofNorList", map);
 		return list;
 	}

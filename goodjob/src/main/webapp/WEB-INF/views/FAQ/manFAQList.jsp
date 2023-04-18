@@ -11,6 +11,21 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 	<title>Good Job</title>
 </head>
+<script type="text/javascript">
+   var s_status='${sessionScope.status}';
+   var s_category='${sessionScope.scategory}';
+   var check_category='관리자';
+   if( s_status==''){
+      window.alert('로그인이 필요합니다');
+      location.href='login.do';
+   }else if(s_status=='블랙'){
+      window.alert('차단된 회원입니다');
+      location.href='index.do';
+   }else if(s_category!=check_category){
+      window.alert(check_category+'만 이용 가능한 페이지입니다');
+      location.href='index.do';
+   }
+</script>
 <style>
 .btn-primary {
     color: #fff;
@@ -18,22 +33,6 @@
     border-color: #0d6efd;
     
 }
-.container{
-
-	width: 960px;
-}
-#back{
-	 color: #fff;
-    background-color: #0d6efd;
-    border-color: #0d6efd;
-
-}
-body a{
-
-	color: black;
-	
-}
-
 #td1{
 	text-align: center;
 	text-decoration: none;
@@ -51,41 +50,21 @@ body a{
 				 		<h3>FAQ</h3>
 				 	</div>
 				 </div>
-					
+				<br>
 				 <br>
-				 <div class="row">
-				 	<div class="col-sm-6">
-				 	<form name="manFAQList" action="manFAQList.do">
-				 		<table class="table">
-				 			<tr>
-				 				<td>
-				 				<select class="form-select" name="category"> 
-									  <option value="전체">전체</option>
-									  <option value="개인">개인</option>
-									  <option value="기업">기업</option>
-									</select>
-				 				</td>
-				 				<td>
-				 					<input type="submit" value="바꾸기">
-				 				</td>
-				 			</tr>
-				 		</table>
-				 		<input type="hidden" name="cp" id="cp" value="${cp }">
-				 	</form>
-				 	</div>
-				 </div>
 				 <div class="row">
 				 	<div class="offset-sm-7 col-sm-5">
 				 		<form name="manFAQSearch" action="manFAQSearch.do" method="post">
+				 			<i class="bi bi-search"></i>
 				 			<input type="text" name="search" placeholder="제목을 검색해주세요">
-				 			<input type="submit" value="검색하기">
+				 			<input type="submit" value="검색하기" class="btn btn-primary">
 				 		</form>
 				 	</div>
 				 </div>
 				 <br>
 				 <div class="row">
 						
-					 <table class="table">
+					 <table class="table table-hover">
 					 	<tbody>
 					 <c:if test="${empty lists }">
 					 	<tr>
@@ -96,8 +75,8 @@ body a{
 					 		<c:url var="contentUrl" value="manFAQContent.do">
 					 			<c:param name="idx" >${dto.idx}</c:param>
 					 		</c:url>
-					 		<tr>
-					 			<td align="center" id="back"><a href="${contentUrl }">${dto.subject }</a></td>
+					 		<tr class="table-info">
+					 			<td align="center" ><a href="${contentUrl }">${dto.subject }</a></td>
 					 		</tr>
 					 		<tr>
 					 			<td align="center">${dto.content }</td>

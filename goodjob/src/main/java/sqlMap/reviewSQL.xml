@@ -5,7 +5,6 @@
 <mapper namespace="com.goodjob.review">
 	<select id="reviewList"
 		resultType="com.goodjob.review.model.ReviewDTO" parameterType="Map">
-
 		select * from
 		(select rownum as rnum,a.* from
 
@@ -65,8 +64,6 @@
 		GROUP BY com_name, keyword_count
 		Having keyword_count <![CDATA[>]]>
 		0
-		
-
 	</select>
 	<select id="reviewTotalCnt" parameterType="String"
 		resultType="Integer">
@@ -79,7 +76,6 @@
 	</select>
 	<select id="myReviewList"
 		resultType="com.goodjob.resume.model.ResumeDTO" parameterType="Map">
-		
 		SELECT
 		com_name as name,
 		MAX(CASE WHEN rnum = 1 THEN keyword END) as
@@ -112,7 +108,6 @@
 		rnum <![CDATA[<]]>=
 		3
 		GROUP BY com_name, keyword_count
-		
 	</select>
 	<select id="myReview"
 		resultType="com.goodjob.review.model.ReviewDTO"
@@ -123,7 +118,7 @@
 		where member_idx  =  #{member_idx}
 		and status='활성' 
 		group by review_num 
-		) a) b
+		) a) b	
 		where <![CDATA[rnum>=]]>#{start}
 		and rnum<![CDATA[<=]]>#{end}
 	</select>

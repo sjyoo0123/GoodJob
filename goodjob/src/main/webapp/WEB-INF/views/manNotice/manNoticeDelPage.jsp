@@ -33,24 +33,20 @@
 		<section>
 			<article>
 				<div class="row">
-					<div class="offset-sm-3 col-sm-6">
-						<h3>공고 관리</h3>
+					<div class="mx-auto">
+						<h3><i class="bi bi-calendar-check"></i>공고 관리</h3>
 					</div>
 				</div>
 				<div class="row">
-					<div class="offset-sm-3 col-sm-6">
-						<a href="manNoticeStatusPage.do">상태관리</a><a href="manNoticeAcceptPage.do">승인</a> | <a href="manNoticeDelPage.do">삭제</a>
+					<div class="mx-auto">
+						<a href="manNoticeStatusPage.do">상태관리</a> | <a href="manNoticeAcceptPage.do">승인</a> | <a href="manNoticeDelPage.do">삭제</a>
 					</div>
 				</div>
 					<br>
-				<div class="row">
-					<div class="col-sm-4">
-						공고 삭제
-					</div>
-				</div>
-				<table class="table">
+				
+				<table class="table table-hover">
 					<thead>
-						<tr>
+						<tr class="table-dark">
 							<th>공고 이름</th>
 							<th>기업 이름</th>
 							<th>급여</th>
@@ -68,7 +64,7 @@
 								<td>${dto.subject }</td>
 								<td>${dto.com_name }</td>
 								<td>${dto.pay_hour }</td>
-								<td><input type="button" value="삭제하기" onclick="location.href='manNoticeDel.do?idx=${dto.idx}'"></td>
+								<td><input type="button" value="삭제하기" onclick="location.href='manNoticeDel.do?idx=${dto.idx}'" class="btn btn-primary"></td>
 							</tr>
 						</c:forEach>
 					</tbody>

@@ -19,6 +19,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+	<title>Good Job</title>
 </head>
 <script type="text/javascript">
    var s_status='${sessionScope.status}';
@@ -35,38 +36,54 @@
       location.href='index.do';
    }
 </script>
+<style>
+</style>
 <body>
 	<div class="container">
 		<%@include file="/WEB-INF/views/header.jsp" %>
 			<section>
 				<article>
 				<div class="row">
-					<div class="offset-sm-3 col-sm-6">
-						<h3>공고 관리</h3>
+					<div class="mx-auto">
+						<h3><i class="bi bi-calendar-check"></i>공고 관리</h3>
 					</div>
 				</div>
-				<div class="row">
-					<div class="offset-sm-3 col-sm-6">
-						<a href="manNoticeStatusPage.do">상태관리</a> | <a href="manNoticeAcceptPage.do">승인</a> | <a href="manNoticeDelPage.do">삭제</a>
-					</div>
 					<div class="row">
-						<div class="offset-sm-7 col-sm-3">
-							<form id="manNoticeStatusPage">
-							<select name="category">
-								<option value="com_name">기업명</option>
-								<option value="subject">제목</option>
-								<option value="subjectContent">제목+내용</option>
-							</select>
-							<input type="text" name="search" class="form-control">
-							<input type="button" id="submit" value="검색하기" class="btn btn-primary">
-							<input type="hidden" value="1" id="cp" name="cp">
-							<input type="hidden" name="bAjax" value="true">
+						<div class="mx-auto">
+							<a href="manNoticeStatusPage.do">상태관리</a> | <a href="manNoticeAcceptPage.do">승인</a> | <a href="manNoticeDelPage.do">삭제</a>
+						</div>
+						
+						<div class="row">
+							<div class="offset-sm-7">
+								<form id="manNoticeStatusPage">
+								<div class="col-sm-3">
+								<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+								  <input type="radio" class="btn-check" name="category" id="btnradio1" autocomplete="off" value="com_name">
+								  <label class="btn btn-outline-primary" for="btnradio1">기업명</label>
+								
+								  <input type="radio" class="btn-check" name="category" id="btnradio2" autocomplete="off" value="subject">
+								  <label class="btn btn-outline-primary" for="btnradio2">제목</label>
+								
+								  <input type="radio" class="btn-check" name="category" id="btnradio3" autocomplete="off" value="subjectContent">
+								  <label class="btn btn-outline-primary" for="btnradio3">제목+내용</label>
+								</div>
+								<div class="input-group p-2">
+								<input type="text" name="search" class="form-control">
+								<input type="button" id="submit" value="검색하기" class="btn btn-primary">
+								</div>
+								<input type="hidden" value="1" id="cp" name="cp">
+								<input type="hidden" name="bAjax" value="true">
+								</div>
+								
 							</form>
+							
 						</div>	
 					</div>
+					<br>
+					<br>
 					<table class="table">
 						<thead>
-							<tr>
+							<tr class="table-dark">
 								<th>공고 번호</th>
 								<th>공고 제목</th>
 								<th>기업 이름</th>
@@ -89,10 +106,10 @@
 									<td>${dto.com_name }</td>
 									<td>${dto.writedate }</td>
 									<c:if test="${dto.status.equals('활성') }">
-										<td><button type="button" value="${dto.idx }" class="check">비활성화하기</button></td>
+										<td><button type="button" value="${dto.idx }" class="check btn btn-primary">비활성화하기</button></td>
  									</c:if>
 									<c:if test="${dto.status.equals('비활성') }">
-										<td><button type="button" value="${dto.idx }" class="check">활성화하기</button></td>
+										<td><button type="button" value="${dto.idx }" class="check btn btn-primary">활성화하기</button></td>
 									</c:if>
 								</tr>
 							</c:forEach>
@@ -174,7 +191,7 @@
 		            var statusButton = $("<button>")
 		                .attr("type", "button")
 		                .val(dto.idx)
-		                .addClass("check")
+		                .addClass("check btn btn-primary")
 		                .text(dto.status === "활성" ? "비활성화하기" : "활성화하기");
 		            var statusTd = $("<td>").append(statusButton);
 		            var tr = $("<tr>")
@@ -182,7 +199,7 @@
 		                .append($("<td>").text(dto.subject))
 		                .append($("<td>").text(dto.com_name))
 		                .append($("<td>").text(formattedDate))
-		                .append(dto.status === "활성" ? statusTd : "");
+		                .append(dto.status === "활성" ? statusTd : "비활성화하기");
 		          
 		            $("tbody").append(tr);
 		            

@@ -30,7 +30,6 @@ public class GongJiController {
 		int listSize=10;
 		int start = (cp - 1) * listSize+1;
 		int end = cp * listSize;
-		System.out.println(1);
 		mav.addObject("list",gDao.userGongJiList(subject, start, end));
 		mav.addObject("page",AjaxPageModule.makePage(totalCnt, listSize, pageSize, cp));
 		if(bAjax) {

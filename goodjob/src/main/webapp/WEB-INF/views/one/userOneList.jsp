@@ -25,8 +25,9 @@
 		<%@include file="/WEB-INF/views/header.jsp"%>
 		<section>
 			<article>
-				<div class="row mt-5 pt-1">
-					<table class="table text-center">
+			<h2 class="mt-5 pt-5 text-center">작성한 문의내역</h2>
+				<div class="row">
+					<table class="table text-center mt-5 pt-1 pb-5 mb-5">
 						<thead>
 							<tr>
 								<th scope="col">번호</th>
@@ -85,30 +86,20 @@ var tbody = $('tbody');
 			tbody.children().remove();
 var list=data.list;
 if (list==0) {
-  var row = $('<tr>').append($('<td>').attr('colspan', 4).text('작성된 문의가 없습니다'));
-  tbody.append(row);
-} else {
-  list.forEach(function(dto) {
-    var row = $('<tr>');
-    $('<td>').text(dto.idx).appendTo(row);
-    $('<td>').text(dto.subject).appendTo(row);
-    
-    var date = new Date(dto.writedate);
-    var year = date.getFullYear();
-    var month = ('0' + (date.getMonth() + 1)).slice(-2);
-    var day = ('0' + date.getDate()).slice(-2);
-    var formattedDate = year + '-' + month + '-' + day;
-    
-    $('<td>').text(formattedDate).appendTo(row);
-    if(dto.check==1){
-    $('<td>').text('완료').appendTo(row);
-    }else{
-    $('<td>').text('대기').appendTo(row);
-    }
-    
-    tbody.append(row);
-  });
-}
+	  var row = $('<tr>').append($('<td>').attr('colspan', 4).text('작성된 문의가 없습니다'));
+	  tbody.append(row);
+	} else {
+	  $.each(list, function(i, dto) {
+	    var row = $('<tr>');
+	    $('<td>').text(dto.idx).appendTo(row);
+	    var subject = $('<td>').append($('<a>').attr('href', 'userOneContent.do?idx=' + dto.idx).text(dto.subject));
+	    subject.appendTo(row);
+	    $('<td>').text(dto.writedate).appendTo(row);
+	    var status = $('<td>').text(dto.check === 0 ? '대기' : '완료');
+	    status.appendTo(row);
+	    tbody.append(row);
+	  });
+	}
 			////////////////////////////////
 			$('#page').children().remove();
 			$('#page').append(data.page);
