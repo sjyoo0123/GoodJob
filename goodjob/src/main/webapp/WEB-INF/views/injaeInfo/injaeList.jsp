@@ -80,7 +80,7 @@ $('#all').change(function(){
 	      $(this).addClass('d-none');
 	    }
 	  });
-	 getList()
+	 getListVar()
 }) 
 $('#job').change(function(){
 	$('#card-div >div').each(function() {
