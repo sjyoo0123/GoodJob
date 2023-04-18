@@ -41,7 +41,7 @@
 </nav>
 	</div>
 <article>
-<h1 class="fw-bold display-3">${subject}</h1>
+<h1 class="fw-bold display-3">${subject.status}</h1>
 <div class="row">
 <div class="col-9"></div><div class="col-3">
 <form><div class="input-group mb-3"><input type="text" name="searchNotice" class="form-control" aria-describedby="button-addon2"><input type="submit" value="검색"  class="btn btn-outline-secondary" type="button" id="button-addon2"></div></form>
