@@ -22,7 +22,7 @@ public class Payment_LogDAOImple implements Payment_LogDAO {
 		LocalDate today = LocalDate.now();
 		DateTimeFormatter fom=DateTimeFormatter.BASIC_ISO_DATE;
 		String todaystr=today.format(fom);
-		System.out.println(todaystr);
+		
 		
 		Integer i=sqlMap.selectOne("paymentCallUid");
 		String str=i.toString();

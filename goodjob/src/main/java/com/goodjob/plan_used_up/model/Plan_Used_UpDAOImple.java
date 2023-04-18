@@ -70,4 +70,9 @@ public class Plan_Used_UpDAOImple implements Plan_Used_UpDAO {
 		return result;
 
 	}
+	@Override
+	public int comUpCountCheck(int idx) {
+		int count=sqlMap.selectOne("comUpCountCheck",idx);
+		return count;
+	}
 }

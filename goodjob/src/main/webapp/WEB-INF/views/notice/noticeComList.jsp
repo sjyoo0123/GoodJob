@@ -131,32 +131,44 @@ $(document).on("click", "#refUpbtn", function() {
   var idx = $(this).data("idx");
   var subject = $(this).data("subject");
   $.ajax({
-    url: "comUpCount.do",
+    url: "comUpCountCheck.do",
     type: "POST",
     data: {idx: com_idx},
     success: function(response) {
-      var count=response;
-      if (confirm('잔여 UP횟수: '+count+' 회'+'\n공고제목:'+subject +'\n게시물을 UP 하시겠습니까?')) {
-        $.ajax({
-          url: "refUp.do",
-          type: "POST",
-          data: {idx: idx},
-          success: function(response1) {
-            alert('UP 완료~');
-            $.ajax({
-              url: "comUpCountUse.do",
-              type: "POST",
-              data: {idx: com_idx},
-              success: function(response2) {
-                alert('\n잔여 UP횟수 : '+(count-1)+'회 남음');
-                setTimeout(function() {
-                  location.reload();
-                }, 1000); // 1초 대기 후 리로드
-              }
-            });
-          }
-        });
-      }
+      if(response==0){
+    	  alert('요금제 구매 후 이용가능합니다.');
+    	  location.href="planInfo.do";
+      }else{
+    	  $.ajax({
+    		    url: "comUpCount.do",
+    		    type: "POST",
+    		    data: {idx: com_idx},
+    		    success: function(response) {
+    		        if (confirm('잔여 UP횟수: '+count+' 회'+'\n공고제목:'+subject +'\n게시물을 UP 하시겠습니까?')) {
+    		            $.ajax({
+    		              url: "refUp.do",
+    		              type: "POST",
+    		              data: {idx: idx},
+    		              success: function(response1) {
+    		                alert('UP 완료~');
+    		                $.ajax({
+    		                  url: "comUpCountUse.do",
+    		                  type: "POST",
+    		                  data: {idx: com_idx},
+    		                  success: function(response2) {
+    		                    alert('\n잔여 UP횟수 : '+(count-1)+'회 남음');
+    		                    setTimeout(function() {
+    		                      location.reload();
+    		                    }, 1000); // 1초 대기 후 리로드
+    		                  }
+    		                });
+    		              }
+    		            });
+    		          }
+    		    }
+    		    });
+
+    }
     }
   });
 });

@@ -104,8 +104,8 @@ public class Payment_logController {
 		
 		Integer sidx=Session.getAttribute("sidx")==null?0:(Integer)Session.getAttribute("sidx");
 		String suc_check="";
-		System.out.println(sidx);
-		System.out.println(success.size());
+		
+		
 		
 		ObjectMapper objectMapper=new ObjectMapper();
 		
@@ -120,14 +120,14 @@ public class Payment_logController {
 			String merchant_uid = (String)map.get("merchant_uid");
 			String name=(String)map.get("name");
 			int price=(Integer)map.get("paid_amount");
-			System.out.println(map.get("custom_data").getClass().getName()+" "+ map.get("custom_data"));
+			
 			Integer paidAtSeconds = (Integer) map.get("paid_at");
 			long paidAtMillis = paidAtSeconds * 1000L;
 			Date date = new Date(paidAtMillis);
 			String customDate_s=(String)map.get("custom_data");
 			int customDate=Integer.parseInt(customDate_s);
 			
-			System.out.println(date);
+			
 		
 
 			
@@ -163,7 +163,7 @@ public class Payment_logController {
 			Map upMap=new HashMap();
 	
 			upMap.put("member_idx", sidx);
-			System.out.println(dto3.getCount());
+			
 			upMap.put("used_count", dto3.getCount());
 			
 			int result_up=plan_used_upDao.manPlanUsedAdd_up(upMap);
@@ -171,16 +171,16 @@ public class Payment_logController {
 			}else if(dto2.getPlan_type().equals("VIP")){
 			
 			Plan_VipDTO dto4=planVipDao.manPlanPayment_vip(customDate);
-			System.out.println("2");
+			
 			Map vipMap=new HashMap();
 			//int count3=plan_used_vipDao.manPlanUsedIdx_Currval();
 			
 			//vipMap.put("plan_used_idx_se", count3);
-			//System.out.println(count3);
+			
 			vipMap.put("member_idx", sidx);
 			vipMap.put("plan_end", dto4.getPlan_period());
 			vipMap.put("used_vip_floor", dto4.getVip_floor());
-			System.out.println("3");
+			
 			int result_vip=plan_used_vipDao.manPlanUsedAdd_vip(vipMap);
 			}
 		}
