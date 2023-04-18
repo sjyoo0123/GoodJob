@@ -70,12 +70,15 @@
 										</tr>
 									</c:if>
 									<c:forEach var="dto" items="${lists_up }">
-										<input type="hidden" name="idx" value="${dto.idx }">
+										
 										<tr>
 											<td>요금제 이름 : ${dto.plan_name }</td>
 											<td>업 횟수 : ${dto.count }</td>
 											<td>요금제 가격 : ${dto.plan_price }</td>
-											<td><input type="submit" value="삭제하기" class="btn btn-primary"></td>
+											<td>
+												<input type="hidden" name="idx" value="${dto.idx }">
+												<input type="submit" value="삭제하기" class="btn btn-primary">
+											</td>
 										</tr>
 									</c:forEach>
 								</table>
@@ -92,7 +95,7 @@
 					<div class="row">
 						<div class="offset-sm-2 col-sm-8">
 							<div class="card">
-								<div class="card-header">
+								<div class="card-header text-bg-dark">
 									vip 요금제 삭제하기
 								</div>
 								<table class="table">
@@ -102,13 +105,16 @@
 										</tr>
 									</c:if>
 									<c:forEach var="dto" items="${lists_vip }">
-										<input type="hidden" name="idx" value="${dto.idx }">
+										
 										<tr>
 											<td>요금제 이름 : ${dto.plan_name }</td>
 											<td>요금제 등급 : ${dto.vip_floor }</td>
 											<td>요금제 가격 : ${dto.plan_price }</td>
 											<td>남은 기간 : ${dto.plan_period }</td>
-											<td><input type="submit" value="삭제하기" class="btn btn-primary"></td>
+											<td>
+												<input type="submit" value="삭제하기" class="btn btn-primary">
+												<input type="hidden" name="idx" value="${dto.idx }">
+											</td>
 										</tr>
 									</c:forEach>
 								</table>
