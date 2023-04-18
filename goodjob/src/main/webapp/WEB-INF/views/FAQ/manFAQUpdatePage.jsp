@@ -52,10 +52,6 @@ function Check(){
 
 </script>
 <style>
-#h3{
-color: blue;
-}
-
 
 </style>	
 </head>
@@ -93,7 +89,7 @@ color: blue;
 			<br>
 			<div class="row">
 				<div class="col-sm-10">
-					내용 : <input type="text"	 value="${dto.content }" name="content" id="content" class="form-control">
+					내용 : <textarea class="form-control" rows="3"  name="content" id="content" style="resize: none;">${dto.content }</textarea>
 				</div>
 			</div>
 			<br>
