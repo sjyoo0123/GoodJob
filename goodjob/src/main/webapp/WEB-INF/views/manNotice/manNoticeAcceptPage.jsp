@@ -18,6 +18,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+	<title>Good Job</title>
 </head>
 <script type="text/javascript">
    var s_status='${sessionScope.status}';
@@ -40,26 +41,21 @@
 		<section>
 				<article>
 				<div class="row">
-					<div class="offset-sm-3 col-sm-6">
-						<h3>공고 관리</h3>
+					<div class="mx-auto">
+						<h3><i class="bi bi-calendar-check"></i>공고 관리</h3>
 					</div>
 				</div>
 				<div class="row">
-					<div class="offset-sm-3 col-sm-6">
+					<div class="mx-auto">
 						<a href="manNoticeStatusPage.do">상태관리</a> | <a href="manNoticeAcceptPage.do">승인</a> | <a href="manNoticeDelPage.do">삭제</a>
 					</div>
 					<br>
 					<br>
-				<div class="row">
-					<div class="col-sm-4">
-						<h3>승인 대기중인 공고</h3>
-					</div>
-				</div>
 				<br>
 				<br>
-					<table class="table">
+					<table class="table table-hover">
 						<thead>
-							<tr>
+							<tr class="table-dark">
 								<th>공고 이름</th>
 								<th>기업 이름</th>
 								<th>급여 </th>

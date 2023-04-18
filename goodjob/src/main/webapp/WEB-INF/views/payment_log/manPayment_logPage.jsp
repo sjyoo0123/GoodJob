@@ -73,14 +73,14 @@ function requestPay(pg= '테스트 PG.TC0ONETIME') {
 		<section>
 			<article>
 				<div class="row">
-					<div class="clo-sm-3">
+					<div class="col-sm-3">
 						<h3>결제</h3>
 					</div>
 				</div>
 				<br>
-				<table class="table">
+				<table class="table table-hover">
 					<thead>
-						<tr>
+						<tr class="table-dark">
 							<th>요금제 정보</th>
 							<th>타입</th>
 							<th>가격</th>
