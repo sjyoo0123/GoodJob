@@ -85,7 +85,7 @@
 <h1 class="fw-bold display-3">${dto.subject}</h1>
 <h6>${dto.writedate}</h6>
 <div class="row align-items-center text-center">
-<div class="col-3"><i class="bi bi-cash" style="font-size: 6rem;"></i><br><c:if test="${dto.pay_category=='협의'}">협의</c:if><c:if test="${dto.pay_category!='협의'}">${dto.pay_category}${dto.pay_hour}</c:if></div>
+<div class="col-3"><i class="bi bi-cash" style="font-size: 6rem;"></i><br><c:if test="${dto.pay_category=='협의'}">협의</c:if><c:if test="${dto.pay_category=='월급'}">${dto.pay_category}${dto.pay_month}원</c:if><c:if test="${dto.pay_category=='시급'}">${dto.pay_category}${dto.pay_hour}원</c:if></div>
 <div class="col-3"><i class="bi bi-calendar" style="font-size: 6rem;"></i><br>${yy}</div>
 <div class="col-3"><i class="bi bi-clock" style="font-size: 6rem;"></i><br><c:if test="${startendtime=='0:00 ~ 0:00'}">시간합의</c:if><c:if test="${startendtime!='0:00 ~ 0:00'}">${startendtime}</c:if></div>
 <div class="col-3"><i class="bi bi-people-fill" style="font-size: 6rem;"></i><br>${dto.service_type}</div>
@@ -122,7 +122,7 @@
 <table>
 <tr>
 	<th>급여</th>
-	<td><c:if test="${dto.pay_category=='협의'}">협의</c:if><c:if test="${dto.pay_category!='협의'}"><h3 class="fw-bold display-5">${dto.pay_category}${dto.pay_hour}</h3></c:if></td>
+	<td><c:if test="${dto.pay_category=='협의'}">협의</c:if><c:if test="${dto.pay_category=='월급'}"><h3 class="fw-bold display-5">${dto.pay_category}${dto.pay_month}원</h3></c:if><c:if test="${dto.pay_category=='시급'}"><h3 class="fw-bold display-5">${dto.pay_category}${dto.pay_hour}</h3></c:if></td>
 </tr>
 <tr>
 	<th>근무기간</th>

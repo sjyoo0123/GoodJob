@@ -28,7 +28,6 @@ INNER JOIN plan ON notice.plan_idx = plan.idx
 LEFT JOIN apply ON notice.idx = apply.notice_idx
 WHERE
 notice.com_idx = #{idx} and notice.status=#{status}
-AND notice.status = '활성'
 GROUP BY
 notice.idx,
 notice.writedate,
@@ -254,4 +253,7 @@ update notice set status='비활성' where idx=#{idx}
 	<update id="refUp" parameterType="Integer">
 		update notice set ref=((select max(ref) from notice)+1) where idx=#{idx}
 	</update>
+	<select id="apNoticeSubject" parameterType="Integer" resultType="com.goodjob.apply.model.ApplyDTO">
+		select distinct(subject) status from notice where idx=#{idx}
+	</select>
   </mapper>
