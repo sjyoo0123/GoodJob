@@ -56,7 +56,7 @@
 					</div>
 					<br>
 					<br>
-					<form name="manPlanUpDel" action="manPlanUpDel.do" method="post">
+
 					<div class="row">
 						<div class="offset-sm-2 col-sm-8">
 							<div class="card">
@@ -77,7 +77,7 @@
 											<td>요금제 가격 : ${dto.plan_price }</td>
 											<td>
 												<input type="hidden" name="idx" value="${dto.idx }">
-												<input type="submit" value="삭제하기" class="btn btn-primary">
+												<input type="button" value="삭제하기" class="btn btn-primary" onclick="location.href='manPlanUpDel.do?idx=${dto.idx}'">
 											</td>
 										</tr>
 									</c:forEach>
@@ -85,13 +85,12 @@
 							</div>
 						</div>
 					</div>
-					</form>
+
 					<br>
 					<br>
 					<hr>
 					<br>
 					<br>
-					<form name="manPlanVipDel" action="manPlanVipDel.do" method="post">
 					<div class="row">
 						<div class="offset-sm-2 col-sm-8">
 							<div class="card">
@@ -112,8 +111,8 @@
 											<td>요금제 가격 : ${dto.plan_price }</td>
 											<td>남은 기간 : ${dto.plan_period }</td>
 											<td>
-												<input type="submit" value="삭제하기" class="btn btn-primary">
 												<input type="hidden" name="idx" value="${dto.idx }">
+												<input type="submit" value="삭제하기" class="btn btn-primary" onclick="location.href='manPlanVipDel.do?idx=${dto.idx}'">												
 											</td>
 										</tr>
 									</c:forEach>
@@ -121,7 +120,6 @@
 							</div>
 						</div>
 					</div>
-					</form>
 			</article>
 		</section>
 		<%@include file="/WEB-INF/views/footer.jsp" %>
