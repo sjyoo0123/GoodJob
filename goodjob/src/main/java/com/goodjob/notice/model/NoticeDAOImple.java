@@ -96,6 +96,7 @@ public int manNoticeStatusCnt() {
 	
 	int count=sqlMap.selectOne("manNoticeStatusCnt");
 	
+		count=count==0?1:count;
 	return count;
 }
 @Override

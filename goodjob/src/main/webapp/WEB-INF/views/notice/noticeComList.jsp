@@ -76,7 +76,7 @@
 <div class="row">
 	<div class="col-12">
 		<table class="table table-hover rounded text-center">
-			<thead class="bg-dark text-white">
+			<thead class="bg-primary bg-opacity-50 text-white">
 				<tr>
 					<th>게재기간</th>
 					<th>공고제목/기업명</th>
@@ -85,7 +85,7 @@
 					<th>비고</th>
 				</tr>
 			</thead>
-			<tbody class="bg-dark bg-opacity-10">
+			<tbody class="bg-primary bg-opacity-10">
 				<c:if test="${empty lists}">
 					<tr>
 						<td colspan="5" align="center">등록된 게시물이 없습니다.</td>
@@ -101,7 +101,7 @@
 						<td>${dto.period}</td>
 						<td><button type="button"
 								class="btn btn-primary position-relative"
-								onclick="location.href='apComList.do?idx=${dto.idx}&subject=${dto.subject}'">
+								onclick="location.href='apComList.do?idx=${dto.idx}&subject=${java.net.URLEncoder.encode(dto.subject, 'UTF-8')}'">
 								${dto.ref}명
 								<c:if test="${dto.recruit!=0}">
 									<span

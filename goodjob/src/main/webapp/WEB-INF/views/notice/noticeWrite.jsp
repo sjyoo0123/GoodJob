@@ -106,37 +106,16 @@ $(document).ready(function() {
 	});
 
 </script>
-<style>
-.sidenav {
-      position: fixed;
-      width: 200px;
-      height: 100%;
-      margin-left: -20px;
-      margin-top:-10px
-    }
-</style>
 </head>
 <body>
-	<form action="noticeWrite.do" method="post" id="writeForm" enctype="multipart/form-data">
-<input type="hidden" name="com_idx" value="${idx}" id="com_idx">
 	<div class="container px-4 px-lg-5">
   	<%@include file="/WEB-INF/views/header.jsp"%>
+	<form action="noticeWrite.do" method="post" id="writeForm" enctype="multipart/form-data">
+<input type="hidden" name="com_idx" value="${idx}" id="com_idx">
   	<div class="row">
-  	<nav class="col-sm-3 sidenav">
-  	<div id="write-list" class="list-group">
-      <a class="list-group-item list-group-item-action" href="#list-subject">공고제목</a>
-      <a class="list-group-item list-group-item-action" href="#list-mo">모집조건</a>
-      <a class="list-group-item list-group-item-action" href="#list-work">근무조건</a>
-      <a class="list-group-item list-group-item-action" href="#list-workaddr">근무지조건</a>
-      <a class="list-group-item list-group-item-action" href="#list-manager">담당자조건</a>
-      <a class="list-group-item list-group-item-action" href="#list-detail">상세정보</a>
-      <a class="list-group-item list-group-item-action" href="#list-plan">요금제정보</a>
-    </div>
-    </nav>
 	<h1 align="center">공고 등록</h1>
 	<div class="row gx-4 gx-lg-5 justify-content-center">
 	<div class="col-md-12 col-lg-9 col-xl-8">
-	<div data-bs-spy="scroll" data-bs-target="#write-list" data-bs-smooth-scroll="true" class="scrollspy-example" tabindex="0">
 		<div class="card bg-primary bg-opacity-10">
 				<div class="card-body">
 			<h2 class="card-title" id="list-subject">공고제목</h2>
@@ -156,6 +135,7 @@ $(document).ready(function() {
 						aria-label=".form-select-lg example">
 							<option value="남자">남자</option>
 							<option value="여자">여자</option>
+							<option value="무관">무관</option>
 					</select></td>
 				</tr>
 				<tr>
@@ -184,7 +164,7 @@ $(document).ready(function() {
 							<option value="고졸">고졸이상</option>
 							<option value="초대졸">초대졸이상</option>
 							<option value="대졸">대졸이상</option>
-							<option value="학력">학력무관</option>
+							<option value="학력무관">학력무관</option>
 					</select></td>
 				</tr>
 				<tr>
@@ -282,7 +262,7 @@ $(document).ready(function() {
 								type="checkbox" name="checkboxworkday" value="moo"
 								class="btn-check" id="moo" checked><label
 								class="btn btn-outline-dark" for="moo">무관</label>
-						</div><input type="hidden" id="workday" name="workday"></td>
+						</div><input type="hidden" id="workday" name="workday" value="00000001"></td>
 				</tr>
 				<tr>
 					<th>근무시간</th>
@@ -468,7 +448,7 @@ function readURL(input) {
       preview.src = e.target.result;
       preview.width = 200;
       preview.height = 150;
-      document.getElementById('clear').style.display = 'block'; // show clear button
+      document.getElementById('clear').style.display = 'block';
     };
     reader.readAsDataURL(input.files[0]);
   } else {
@@ -479,11 +459,11 @@ function readURL(input) {
 function clearFile() {
 	  var input = document.getElementById('formFileMultiple');
 	  var preview = document.getElementById('preview');
-	  preview.src = ''; // clear preview image
-	  preview.width = 0; // hide preview image
+	  preview.src = '';
+	  preview.width = 0;
 	  preview.height = 0;
-	  document.getElementById('clear').style.display = 'none'; // hide clear button
-	  input.value = null; // clear selected files
+	  document.getElementById('clear').style.display = 'none';
+	  input.value = null;
 	}
 
 
@@ -500,7 +480,7 @@ function clearFile() {
 		<div class="card bg-primary bg-opacity-10">
 								<div class="card-body">
 			<h2 class="card-title" id="list-plan">요금제 정보</h2>
-			<input type="hidden" name="plan_idx" id="plan_idx"><div id="planUse"></div>
+			<input type="hidden" name="plan_idx" id="plan_idx" value="13"><div id="planUse"></div>
 		</div>
 		</div>
 		<button type="submit" class="btn btn-primary btn-icon-split btn-lg col-12">
@@ -512,9 +492,8 @@ function clearFile() {
 		</div>
 		</div>
 		</div>
-		</div>
-		</div>
 	</form>
+		</div>
 <script>
 $(document).ready(function() {
     $.ajax({

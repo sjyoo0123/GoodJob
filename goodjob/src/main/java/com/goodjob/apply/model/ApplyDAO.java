@@ -6,7 +6,7 @@ import com.goodjob.normalmember.model.NormalMemberDTO;
 import com.goodjob.notice.model.NoticeDTO;
 
 public interface ApplyDAO {
-	public List<ApplyDTO> apComList(int idx,int cp,int ls);
+	public List<NoticeDTO> apComList(int idx,int cp,int ls);
 	public int applyTotalCnt(int idx);
 	public int apNorInsert(ApplyDTO dto);
 	public NormalMemberDTO apNorGet(int member_idx);
