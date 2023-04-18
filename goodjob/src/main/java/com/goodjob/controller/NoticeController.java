@@ -28,6 +28,7 @@ import com.goodjob.notice.model.NoticeDAO;
 import com.goodjob.notice.model.NoticeDTO;
 import com.goodjob.plan_used_vip.model.Plan_Used_VipDAO;
 import com.goodjob.plan_used_vip.model.Plan_Used_VipDTO;
+import com.goodjob.resume.model.ResumeDAO;
 import com.goodjob.totalfile.model.TotalFileDAO;
 
 @Controller
@@ -43,6 +44,8 @@ public class NoticeController {
 	private ApplyDAO adao;
 	@Autowired
 	private Plan_Used_VipDAO plandao;
+	@Autowired
+	private ResumeDAO resumeDao;
 public TotalFileDAO getTotalFileDao() {
 		return totalFileDao;
 	}
@@ -156,7 +159,11 @@ public NoticeController() {
 		case 1: status1="대기"; break;
 		case 2: status1="비활성"; break;
 		}
-		int totalCnt=ndao.noticeTotalCnt(idx,status1);
+		int totalCnt=1;
+		int totalCnt1=ndao.noticeTotalCnt(idx,status1);
+		if(totalCnt1!=0) {
+			totalCnt=totalCnt1;
+		}
 		int listSize=5;
 		int pageSize=5;
 		
@@ -203,6 +210,8 @@ public NoticeController() {
 		CompanyMemberDTO cdto=cdao.comInfo(com_idx);
 		ModelAndView mav=new ModelAndView();
 		int atoNum =  adao.apNorButtonHide(nidx, sidx);
+		int resumeNum = resumeDao.resumeCheck(sidx); //이력서 없을 시 공고 지원 불가능
+		System.out.println(resumeNum);
 		String filepath=totalFileDao.noticeFile(nidx);
 		mav.addObject("filepath", filepath);
 		mav.addObject("cdto", cdto);
@@ -212,6 +221,7 @@ public NoticeController() {
 		mav.addObject("scategory", scategory);
 		mav.addObject("sidx", sidx);
 		mav.addObject("atoNum", atoNum);
+		mav.addObject("resumeNum", resumeNum);
 		mav.setViewName("notice/noticeContent");
 		return mav;
 	}
@@ -321,7 +331,7 @@ public NoticeController() {
 		System.out.println(dto);
 		int result=ndao.noticeUpdate(dto);
 		Map map=new HashMap();
-		if(file!=null) {
+		if(!file.isEmpty()) {
 			String path ="/goodjob/notice"+"/"+file.getOriginalFilename();
 			String filest=file.getOriginalFilename();
 			map.put("file", path);

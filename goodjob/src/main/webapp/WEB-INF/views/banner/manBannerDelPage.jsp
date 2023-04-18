@@ -19,6 +19,21 @@
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 <title>Good Job</title>
+<script type="text/javascript">
+   var s_status='${sessionScope.status}';
+   var s_category='${sessionScope.scategory}';
+   var check_category='관리자';
+   if( s_status==''){
+      window.alert('로그인이 필요합니다');
+      location.href='login.do';
+   }else if(s_status=='블랙'){
+      window.alert('차단된 회원입니다');
+      location.href='index.do';
+   }else if(s_category!=check_category){
+      window.alert(check_category+'만 이용 가능한 페이지입니다');
+      location.href='index.do';
+   }
+</script>
 </head>
 <body>
 	<div class="container">
@@ -27,7 +42,7 @@
 			<article>
 				<div class="row">
 					<div class="col-sm-6 offset-sm-3">
-						<h2 align="center">배너 관리</h2>
+						<h2 align="center"><i class="bi bi-images"></i>배너 관리</h2>
 					</div>
 				</div>
 				<div class="row">
@@ -39,7 +54,7 @@
 				</div>
 				<br>
 				<div class="row">적용중인 배너</div>
-				<table class="table">
+				<table class="table table-hover">
 					<c:if test="${empty lists }">
 						<tr>
 							<td align="center">등록된 배너가 없습니다.</td>
@@ -47,7 +62,7 @@
 					</c:if>
 					<c:forEach var="dto" items="${lists }">
 						<thead>
-							<tr>
+							<tr class="table-dark">
 								<th>배너 이름 : ${dto.subject }</th>
 								<th>배너 번호 : ${dto.idx }</th>
 								<th>배너 파일 :</th>

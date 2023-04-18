@@ -88,9 +88,9 @@ public class Plan_VipDAOImple implements Plan_VipDAO {
 		return list;
 	}
 	@Override
-	public List<Plan_VipDTO> planInfoVipPeriod(int period, String floor) {
+	public List<Plan_VipDTO> planInfoVipPeriod(int idx, String floor) {
 		Map map=new HashMap();
-		map.put("period", period);
+		map.put("idx", idx);
 		map.put("floor", floor);
 		List<Plan_VipDTO> list=sqlMap.selectList("planInfoVipPeriod",map);
 		return list;

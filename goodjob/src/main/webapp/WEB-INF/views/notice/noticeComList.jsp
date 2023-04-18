@@ -101,7 +101,7 @@
 						<td>${dto.period}</td>
 						<td><button type="button"
 								class="btn btn-primary position-relative"
-								onclick="location.href='apComList.do?idx=${dto.idx}&subject=${dto.subject}'">
+								onclick="location.href='apComList.do?idx=${dto.idx}'">
 								${dto.ref}명
 								<c:if test="${dto.recruit!=0}">
 									<span

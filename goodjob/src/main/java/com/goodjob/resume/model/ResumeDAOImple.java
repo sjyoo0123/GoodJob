@@ -105,4 +105,9 @@ public class ResumeDAOImple implements ResumeDAO {
 		int count = sqlMap.update("updateCareer_check", member_idx);
 		return count;
 	}
+	@Override //이력서가 없을시 공고 지원을 못하게 하기
+	public int resumeCheck(int member_idx) {
+		int total = sqlMap.selectOne("resumeCheck", member_idx);
+		return total;
+	}
 }

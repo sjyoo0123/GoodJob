@@ -109,10 +109,10 @@
 					<div class="col-11">
 						<h1>UP 요금제</h1>
 						<hr class="my-4">
-						<div class="card bg-Dark bg-opacity-10">
+						<div class="card bg-primary bg-opacity-10">
 							<div class="card-body">
 							<div class="row">
-							<input type="hidden" id="upIdx"><div id="up" class="col-5 fs-1"></div><div id="upCount" class="col-2"></div><div id="upPrice" class="col-3 fs-2"></div>
+							<input type="hidden" id="upIdx"><div id="upCount" class="col-7"></div><div id="upPrice" class="col-3 fs-2"></div>
 							<div class="col-2"><button class="btn btn-primary btn-icon-split btn-lg" onclick="BuyUp()">
     <span class="icon text-white-50">
         <i class="bi bi-cart4"></i>
@@ -127,10 +127,10 @@
 						<h1>VIP 요금제</h1>
 						<hr class="my-4">
 						<h2>실버등급</h2>
-						<div class="card bg-Dark bg-opacity-10">
+						<div class="card bg-primary bg-opacity-10">
 							<div class="card-body">
 							<div class="row">
-							<input type="hidden" id="s_vipIdx"><div id="s_vip" class="col-5 fs-1"></div><div id="s_vipPeriod" class="col-2"></div><div id="s_vipPrice" class="col-3 fs-2"></div>
+							<input type="hidden" id="s_vipIdx"><div id="s_vipPeriod" class="col-7"></div><div id="s_vipPrice" class="col-3 fs-2"></div>
 							<div class="col-2"><button class="btn btn-primary btn-icon-split btn-lg" onclick="Buys_vip()">
     <span class="icon text-white-50">
         <i class="bi bi-cart4"></i>
@@ -140,11 +140,11 @@
 							</div>
 							</div>
 						</div>
-						<h2>골드등급</h2>
-						<div class="card bg-secondary">
+						<div class="col-3 bg-dark text-center"><h2 class="gneonLamp fs-1">골드등급</h2></div>
+						<div class="card bg-primary bg-opacity-10">
 							<div class="card-body">
-							<div class="row gneonLamp">
-							<input type="hidden" id="g_vipIdx"><div id="g_vip" class="col-5 fs-1"></div><div id="g_vipPeriod" class="col-2"></div><div id="g_vipPrice" class="col-3 fs-2"></div>
+							<div class="row ">
+							<input type="hidden" id="g_vipIdx"><div id="g_vipPeriod" class="col-7"></div><div id="g_vipPrice" class="col-3 fs-2"></div>
 							<div class="col-2"><button class="btn btn-primary btn-icon-split btn-lg" onclick="Buyg_vip()">
     <span class="icon text-white-50">
         <i class="bi bi-cart4"></i>
@@ -154,11 +154,11 @@
 							</div>
 							</div>
 						</div>
-						<h2>다이아등급</h2>
-						<div class="card bg-secondary">
+						<div class="col-3 bg-dark text-center"><h2 class="neonLamp fs-1">다이아등급</h2></div>
+						<div class="card bg-primary bg-opacity-10">
 							<div class="card-body">
-							<div class="row neonLamp">
-							<input type="hidden" id="d_vipIdx"><div id="d_vip" class="col-5 fs-1"></div><div id="d_vipPeriod" class="col-2"></div><div id="d_vipPrice" class="col-3 fs-2"></div>
+							<div class="row">
+							<input type="hidden" id="d_vipIdx"><div id="d_vipPeriod" class="col-7"></div><div id="d_vipPrice" class="col-3 fs-2"></div>
 							<div class="col-2"><button class="btn btn-primary btn-icon-split btn-lg" onclick="Buyd_vip()">
     <span class="icon text-white-50">
         <i class="bi bi-cart4"></i>
@@ -181,11 +181,10 @@ $(document).ready(function() {
         method: "POST",
         success: function(data) {
             $("#upIdx").val(data[0].idx);
-            $("#up").append(data[0].plan_name);
             $("#upPrice").append(data[0].plan_price+"원");
-            $("#upCount").append("<h5>횟수</h5><select name='count'>");
+            $("#upCount").append("<select name='count' class='form-select fs-2'>");
             for (var i = 0; i < data.length; i++) {
-                $("#upCount select").append("<option value='"+data[i].count+"'>"+data[i].count+"</option>");
+                $("#upCount select").append("<option value='"+data[i].idx+"'>"+data[i].plan_name+'('+data[i].count+'회)'+"</option>");
             }
             $("#upCount").append("</select>");
             
@@ -194,13 +193,12 @@ $(document).ready(function() {
                 $.ajax({
                     url: "planInfoUp.do",
                     method: "POST",
-                    data: {count: count},
+                    data: {idx: count},
                     success: function(data2) {
                         $("#up").empty();
                         $("#upPrice").empty();
                         $("#upIdx").empty();
                         $("#upIdx").val(data2[0].idx);
-                        $("#up").append(data2[0].plan_name);
                         $("#upPrice").append(data2[0].plan_price+"원");
                     }
                 });
@@ -216,29 +214,26 @@ $(document).ready(function() {
         data: {floor: '실버'},
         success: function(data) {
             $("#s_vipIdx").val(data[0].idx);
-            $("#s_vip").append(data[0].plan_name);
             $("#s_vipPrice").append(data[0].plan_price+"원");
-            $("#s_vipPeriod").append("<h5>기간</h5><select name='s_period'>");
+            $("#s_vipPeriod").append("<select name='splan_idx' class='form-select fs-2'>");
             for (var i = 0; i < data.length; i++) {
-                $("#s_vipPeriod select").append("<option value='"+data[i].plan_period+"'>"+data[i].plan_period+"</option>");
+                $("#s_vipPeriod select").append("<option value='"+data[i].idx+"'>"+data[i].plan_name+'('+data[i].plan_period+'일)'+"</option>");
             }
             $("#s_vipPeriod").append("</select>");
             
             $("#s_vipPeriod select").change(function(e) {
-            	var s_period = $('select[name="s_period"]').val();
+            	var splan_idx = $('select[name="splan_idx"]').val();
                 $.ajax({
                     url: "planInfoVip.do",
                     method: "POST",
                     data: {
-                        period: s_period,
+                        idx: splan_idx,
                         floor: '실버'
                     },
                     success: function(data2) {
-                        $("#s_vip").empty();
                         $("#s_vipPrice").empty();
                         $("#s_vipIdx").empty();
                         $("#s_vipIdx").val(data2[0].idx);
-                        $("#s_vip").append(data2[0].plan_name);
                         $("#s_vipPrice").append(data2[0].plan_price+"원");
                     }
                 });
@@ -256,27 +251,25 @@ $(document).ready(function() {
             $("#g_vipIdx").val(data[0].idx);
             $("#g_vip").append(data[0].plan_name);
             $("#g_vipPrice").append(data[0].plan_price+"원");
-            $("#g_vipPeriod").append("<h5>기간</h5><select name='g_period'>");
+            $("#g_vipPeriod").append("<select name='g_plan_idx' class='form-select fs-2'>");
             for (var i = 0; i < data.length; i++) {
-                $("#g_vipPeriod select").append("<option value='"+data[i].plan_period+"'>"+data[i].plan_period+"</option>");
+                $("#g_vipPeriod select").append("<option value='"+data[i].idx+"'>"+data[i].plan_name+'('+data[i].plan_period+'일)'+"</option>");
             }
             $("#g_vipPeriod").append("</select>");
             
             $("#g_vipPeriod select").change(function(e) {
-            	var g_period = $('select[name="g_period"]').val();
+            	var g_plan_idx = $('select[name="g_plan_idx"]').val();
                 $.ajax({
                     url: "planInfoVip.do",
                     method: "POST",
                     data: {
-                        period: g_period,
+                        idx: g_plan_idx,
                         floor: '골드'
                     },
                     success: function(data2) {
-                        $("#g_vip").empty();
                         $("#g_vipPrice").empty();
                         $("#g_vipIdx").empty();
                         $("#g_vipIdx").val(data2[0].idx);
-                        $("#g_vip").append(data2[0].plan_name);
                         $("#g_vipPrice").append(data2[0].plan_price+"원");
                     }
                 });
@@ -294,27 +287,25 @@ $(document).ready(function() {
             $("#d_vipIdx").val(data[0].idx);
             $("#d_vip").append(data[0].plan_name);
             $("#d_vipPrice").append(data[0].plan_price+"원");
-            $("#d_vipPeriod").append("<h5>기간</h5><select name='d_period'>");
+            $("#d_vipPeriod").append("<select name='d_plan_idx' class='form-select fs-2'>");
             for (var i = 0; i < data.length; i++) {
-                $("#d_vipPeriod select").append("<option value='"+data[i].plan_period+"'>"+data[i].plan_period+"</option>");
+                $("#d_vipPeriod select").append("<option value='"+data[i].idx+"'>"+data[i].plan_name+'('+data[i].plan_period+'일)'+"</option>");
             }
             $("#d_vipPeriod").append("</select>");
             
             $("#d_vipPeriod select").change(function(e) {
-            	var d_period = $('select[name="d_period"]').val();
+            	var d_plan_idx = $('select[name="d_plan_idx"]').val();
                 $.ajax({
                     url: "planInfoVip.do",
                     method: "POST",
                     data: {
-                        period: d_period,
+                        idx: d_plan_idx,
                         floor: '다이아'
                     },
                     success: function(data2) {
-                        $("#d_vip").empty();
                         $("#d_vipPrice").empty();
                         $("#d_vipIdx").empty();
                         $("#d_vipIdx").val(data2[0].idx);
-                        $("#d_vip").append(data2[0].plan_name);
                         $("#d_vipPrice").append(data2[0].plan_price+"원");
                     }
                 });

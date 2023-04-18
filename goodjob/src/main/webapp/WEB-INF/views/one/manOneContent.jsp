@@ -42,7 +42,7 @@
 				</tr>
 				<tr>
 					<td>
-						<textarea cols="50" rows="20" readonly="readonly" name="content">${dto.content }</textarea>
+						<textarea cols="50" rows="20" readonly="readonly" name="content" style="resize: none">${dto.content }</textarea>
 					</td>
 				</tr>
 				<tr>

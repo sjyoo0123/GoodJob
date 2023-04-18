@@ -33,22 +33,6 @@
     border-color: #0d6efd;
     
 }
-.container{
-
-	width: 960px;
-}
-#back{
-	 color: #fff;
-    background-color: #0d6efd;
-    border-color: #0d6efd;
-
-}
-body a{
-
-	color: black;
-	
-}
-
 #td1{
 	text-align: center;
 	text-decoration: none;
@@ -80,7 +64,7 @@ body a{
 				 <br>
 				 <div class="row">
 						
-					 <table class="table">
+					 <table class="table table-hover">
 					 	<tbody>
 					 <c:if test="${empty lists }">
 					 	<tr>
@@ -91,8 +75,8 @@ body a{
 					 		<c:url var="contentUrl" value="manFAQContent.do">
 					 			<c:param name="idx" >${dto.idx}</c:param>
 					 		</c:url>
-					 		<tr>
-					 			<td align="center" id="back"><a href="${contentUrl }">${dto.subject }</a></td>
+					 		<tr class="table-info">
+					 			<td align="center" ><a href="${contentUrl }">${dto.subject }</a></td>
 					 		</tr>
 					 		<tr>
 					 			<td align="center">${dto.content }</td>

@@ -31,14 +31,14 @@ public class ApplyDAOImple implements ApplyDAO {
 	}
 
 	@Override
-	public List<ApplyDTO> apComList(int idx, int cp, int ls) {
+	public List<NoticeDTO> apComList(int idx, int cp, int ls) {
 		int start = (cp - 1) * ls + 1;
 		int end = cp * ls;
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put("start", start);
 		map.put("end", end);
 		map.put("idx", idx);
-		List<ApplyDTO> lists = sqlMap.selectList("apComList", map);
+		List<NoticeDTO> lists = sqlMap.selectList("apComList", map);
 		return lists;
 	}
 
@@ -69,13 +69,14 @@ public class ApplyDAOImple implements ApplyDAO {
 		return count;
 	}
 	@Override
-	public List<NoticeDTO> apNorlist(int member_idx, int cp,int ls) {
-		Map<String, Integer> map = new HashMap<String, Integer>();
+	public List<NoticeDTO> apNorlist(int member_idx, int cp,int ls, String keyword) {
+		Map map = new HashMap();
 		int start = (cp - 1) * ls + 1;
 		int end = cp * ls;
 		map.put("start", start);
 		map.put("end", end);
 		map.put("member_idx", member_idx);
+		map.put("keyword", keyword);
 		List<NoticeDTO> list = sqlMap.selectList("apNorList", map);
 		return list;
 	}

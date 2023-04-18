@@ -21,12 +21,14 @@ select count(*) from apply where notice_idx=#{idx} and status='활성'
  <select id="apNorButtonHide" resultType="Integer" parameterType="map">
  	select count(*) from apply where notice_idx = #{notice_idx} and member_idx = #{member_idx}
  </select>
-  <select id="apNorList" parameterType="Integer" resultType="com.goodjob.notice.model.NoticeDTO">
+  <select id="apNorList" parameterType="Map" resultType="com.goodjob.notice.model.NoticeDTO">
   select * from	
   (select rownum as rnum,a.* from
  	(select n.idx,n.subject, n.com_name, n.period, n.writedate, n.pay_hour , n.starttime, n.finishtime   ,a."CHECK" AS ref 
 	from notice n, apply a 
-	where n.idx = a.notice_idx and member_idx = #{member_idx} and a.status='활성' order by a."CHECK" asc, a.applydate desc) a) b
+	where n.idx = a.notice_idx and member_idx = #{member_idx} and a.status='활성' <if test="keyword ==''"></if>
+		<if test="keyword !=''">
+			and subject like '%${keyword}%' </if>order by a."CHECK" asc, a.applydate desc) a) b
 where <![CDATA[rnum>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
  </select>
  <select id="applyNorTotalCnt" parameterType="Integer" resultType="Integer">

@@ -92,8 +92,8 @@ public class Plan_UpDAOImple implements Plan_UpDAO {
 		return list;
 	}
 	@Override
-	public List<Plan_UpDTO> planInfoUpIdx(int count) {
-		List<Plan_UpDTO> list=sqlMap.selectList("planInfoUpIdx",count);
+	public List<Plan_UpDTO> planInfoUpIdx(int idx) {
+		List<Plan_UpDTO> list=sqlMap.selectList("planInfoUpIdx",idx);
 		return list;
 	}
 	
