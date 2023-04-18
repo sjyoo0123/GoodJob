@@ -40,8 +40,8 @@ public class BlackLIstDAOImple implements BlackListDAO {
 		return lists;
 	}
 	@Override
-	public String manBlackListGetName(int idx) {
-		String name=sqlMap.selectOne("manBlackListGetName", idx);
+	public String manBlackListGetName(Map map) {
+		String name=sqlMap.selectOne("manBlackListGetName", map);
 		return name;
 	}
 	@Override
@@ -86,5 +86,10 @@ public class BlackLIstDAOImple implements BlackListDAO {
 	public int manBlackListSingoCheckUpdate(int idx) {
 		int result=sqlMap.update("manBlackListSingoCheckUpdate",idx);
 		return result;
+	}
+	@Override
+	public String manBlackListComCheck(int idx) {
+		String category=sqlMap.selectOne("manBlackListComCheck", idx);
+		return category;
 	}
 }
