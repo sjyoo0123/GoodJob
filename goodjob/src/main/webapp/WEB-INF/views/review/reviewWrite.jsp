@@ -40,7 +40,7 @@
 					<div class="row">
 						<c:forEach var="dto" items="${dto}">
 							<div class="col-md-3 card ">
-								<span> <input type="checkbox" name="keyword"
+								<span> <input type="checkbox" name="keyword" class ="checkbox-group"
 									id="keyword${dto.idx}" onclick="show(this)" value="${dto.idx}">${dto.content }
 								</span>
 							</div>
@@ -60,26 +60,21 @@
 	</div>
 
 	<script>
-		function show(obj) {
-			let chkBoxIndex = document.getElementsByName("keyword").length + 1;
-			let chkCnt = 0;
-
-			for (var i = 1; i < chkBoxIndex; i++) {
-				if ($('#keyword' + i)[0].checked) {
-					chkCnt++;
-				}
-			}
-
-			if (chkCnt > 3) {
+	function show(obj){
+			let checkedCount = 0;
+				const checkboxes = document.querySelectorAll('.checkbox-group');	
+			checkboxes.forEach((checkbox) => {
+				  if (checkbox.checked) {
+				    checkedCount++;
+				  }
+				});
+			if (checkedCount > 3) {
 				alert("3개까지 체크할 수 있습니다.")
 				obj.checked = false;
 				return false;
 			}
 		}
-
-		function save(obj) {
-			debugger
-		}
+	
 	</script>
 
 	<script
