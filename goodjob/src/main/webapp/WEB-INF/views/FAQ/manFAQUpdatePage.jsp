@@ -59,10 +59,11 @@ function Check(){
 	<div class="container">
 		<%@include file="/WEB-INF/views/header.jsp" %>
 		<div class="row">
-			<div class="offset-sm-3 col-sm-6">
-				<h3 align="center" id="h3">FAQ 수정</h3>
+			<div class="col-3">
+				<h3 align="center" id="h3"><i class="bi bi-chat-dots"></i>FAQ 수정</h3>
 			</div>
 		</div>
+		<br>
 		<div class="row">
 			<div class="col-sm-4" id="div1">
 				${dto.idx }번 FAQ 수정

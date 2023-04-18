@@ -33,11 +33,10 @@
     border-color: #0d6efd;
     
 }
-#td1{
-	text-align: center;
-	text-decoration: none;
-	text-decoration-line : none;
-	
+.table{
+width: 800px;
+
+margin: auto;
 }
 </style>
 <body>
@@ -46,14 +45,15 @@
 		<section>
 			<article>
 				 <div class="row">
-				 	<div class="col-sm-3">
-				 		<h3>FAQ</h3>
+				 <div class="col-"></div>
+				 	<div class="col-3">
+				 		<h3 align="center"><i class="bi bi-chat-dots"></i>FAQ</h3>
 				 	</div>
 				 </div>
 				<br>
 				 <br>
 				 <div class="row">
-				 	<div class="offset-sm-7 col-sm-5">
+				 	<div class="offset-7 col-5">
 				 		<form name="manFAQSearch" action="manFAQSearch.do" method="post">
 				 			<i class="bi bi-search"></i>
 				 			<input type="text" name="search" placeholder="제목을 검색해주세요">
@@ -62,9 +62,8 @@
 				 	</div>
 				 </div>
 				 <br>
-				 <div class="row">
-						
-					 <table class="table table-hover">
+				 <div class="row">				
+					 <table class="table table-hover width">
 					 	<tbody>
 					 <c:if test="${empty lists }">
 					 	<tr>
@@ -76,14 +75,16 @@
 					 			<c:param name="idx" >${dto.idx}</c:param>
 					 		</c:url>
 					 		<tr class="table-info">
-					 			<td align="center" ><a href="${contentUrl }">${dto.subject }</a></td>
+					 			<th>제목 :</th>
+					 			<td ><a href="${contentUrl }">${dto.subject }</a></td>
 					 		</tr>
 					 		<tr>
-					 			<td align="center">${dto.content }</td>
+					 			<th>내용 :</th>
+					 			<td>${dto.content }</td>
 					 		</tr>
 					 		<tr>
 					 		
-					 			<td align="right">
+					 			<td align="right" colspan="2">
 					 			<input type="button" value="수정하기" class="btn btn-primary" onclick="location.href='manFAQUpdatePage.do?idx=${dto.idx}'">
 					 			<input type="button" value="삭제하기"  class="btn btn-primary" onclick="location.href='manFAQDel.do?idx=${dto.idx}'">
 					 			</td>
@@ -93,7 +94,7 @@
 						 </tbody>
 						 <tfoot>
 						 	<tr>
-						 		<td id="td1">${pageStr }</td>
+						 		<td id="td1" align="center" colspan="2">${pageStr }</td>
 						 	</tr>
 						 </tfoot>
 					 </table>

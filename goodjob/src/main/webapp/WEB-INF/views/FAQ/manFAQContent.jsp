@@ -31,22 +31,29 @@
 .h3{
 color: blue;
 }
+.table{
+width: 800px;
+margin: auto;
+}
 </style>
 <body>
 	<div class="container">
 	<%@include file="/WEB-INF/views/header.jsp" %>
 		<div class="row">
-			<div class="offset-sm-3 col-sm-6">
-				<h3 align="center">FAQ 수정</h3>
+			<div class="col-3">
+				<h3 align="center"><i class="bi bi-chat-dots"></i>FAQ 본문페이지</h3>
 			</div>
 		</div>
+		<br>
 		<div class="row">
 			<div class="col-sm-4" >
-				${dto.idx }번 FAQ 수정
+				${dto.idx }번 FAQ 
 			</div>
+			<hr>
+			<br>
 		</div>
 		<form name="manFAQUpdatePage" action="manFAQUpdatePage.do">
-			<table class="table">
+			<table class="table table-info table-bordered">
 				<tr>
 					<td>회원 : ${dto.category }</td>
 				</tr>
@@ -59,9 +66,9 @@ color: blue;
 			</table>
 			<div class="row">
 			<div class="col-sm-10"></div>
-			<div classs="col-sm-1">
+			<div class="col-sm-1" align="right">
 				<input type="hidden" value="${dto.idx }" name="idx">
-			<input type="submit" value="수정하기" class="btn btn-primary">
+			<input type="submit" value="수정하기" class="btn btn-primary" >
 			</div>
 			</div>
 		</form>

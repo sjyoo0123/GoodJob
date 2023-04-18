@@ -60,7 +60,7 @@
 					<div class="row">
 						<div class="offset-sm-2 col-sm-8">
 							<div class="card">
-								<div class="card-header">
+								<div class="card-header text-bg-dark">
 									up 요금제 삭제하기
 								</div>
 								<table class="table">
