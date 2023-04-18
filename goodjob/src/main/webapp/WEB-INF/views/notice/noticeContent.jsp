@@ -55,13 +55,16 @@
 
 </c:if>
 <c:choose>
-<c:when test="${scategory == '개인' }">
+<c:when test="${scategory == '개인' && resumeNum != 0  }">
 <c:if test="${atoNum == 0 }" >
-    <input type="button" value="지원하기" onclick="location.href='apNorInsert.do?notice_idx=${dto.idx}'">
+	<button type="button" class="btn btn-primary btn-lg" onclick="location.href='apNorInsert.do?notice_idx=${dto.idx}'">지원하기</button>
 </c:if>
- <c:if test="${atoNum != 0 }" >
-    <input type="button" value="이미 지원함" >
+ <c:if test="${atoNum != 0}" >
+ <button type="button" class="btn btn-primary btn-lg">이미 지원함</button>
  </c:if>
+ </c:when>
+ <c:when test="${resumeNum == 0 }">
+ 	<button type="button" class="btn btn-primary btn-lg">이력서 작성 후 지원 가능합니다</button>
  </c:when>
  <c:otherwise>
  	

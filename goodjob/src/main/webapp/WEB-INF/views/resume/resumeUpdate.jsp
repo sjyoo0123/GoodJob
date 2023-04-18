@@ -312,7 +312,7 @@ h1 {
 							class="btn btn-outline-primary" for="h_pay_category1">월급</label>
 							<br> <input type="text" name="h_pay" value="${dto.h_pay }">원
 							<div id="week_h_worktime" style="display: none;">
-								1주 근무시간 <input type="number" name="h_worktime" value="0">
+								1주 근무시간 <input type="number" name="h_worktimes" value="0">
 							</div></td>
 					</tr>
 				</table>

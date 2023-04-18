@@ -42,13 +42,13 @@
 				<c:forEach var="map" items="${map}">
 					<tr>
 						<th scope="row">${map.value.name}</th>
-						<td><button>${map.value.gender}</button>&nbsp; <c:if
+						<td><button class="btn btn-outline-secondary btn-sm">${map.value.gender}</button>&nbsp; <c:if
 								test="${not empty map.value.addr }">
-								<button>${map.value.addr }</button>&nbsp;</c:if> <c:if
+								<button class="btn btn-outline-secondary btn-sm">${map.value.addr }</button>&nbsp;</c:if> <c:if
 								test="${not empty map.value.detail_addr }">
-								<button>${map.value.detail_addr }</button>&nbsp;</c:if></td>
+								<button class="btn btn-outline-secondary btn-sm">${map.value.detail_addr }</button>&nbsp;</c:if></td>
 						<td><form method="POST" action="reviewDel.do">
-								<input type="hidden" name="ridx" value="${map.value.age}">
+								<input type="hidden" name="ridx" value="${map.key}">
 								<input type="submit" value="삭제">
 							</form></td>
 					</tr>
