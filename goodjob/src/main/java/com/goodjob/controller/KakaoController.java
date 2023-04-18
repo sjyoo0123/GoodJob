@@ -48,7 +48,7 @@ public class KakaoController {
 	    ObjectMapper objectMapper = new ObjectMapper();
 	    String accessToken = objectMapper.readTree(response.getBody()).get("access_token").asText();
 	    session.setAttribute("accessToken", accessToken);
-	    System.out.println(accessToken);
+	    
 
 	    // Get user information using access token
 	    String userInfoUrl = "https://kapi.kakao.com/v2/user/me";
@@ -64,10 +64,10 @@ public class KakaoController {
 	    String kakaoId = rootNode.path("id").asText();
 	    String email = rootNode.path("kakao_account").path("email").asText();
 	    String nickname = rootNode.path("properties").path("nickname").asText();
-	  //  System.out.println(rootNode.toString());
+	  //  
 	    // Store user information in session or database
 
-	    System.out.println(email);
+	    
 	 //  MemberDTO dto= mdao.emailCheck(email);
 	  // if(dto==null) {
 		    req.setAttribute("id",kakaoId);
@@ -84,7 +84,7 @@ public class KakaoController {
 	//}
 	@RequestMapping(value="/getToken.do",method = RequestMethod.POST)
 	public String login(String accessToken){
-		System.out.println(accessToken);
+		
 		return "index"; 
 	}
 }

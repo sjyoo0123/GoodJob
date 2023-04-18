@@ -14,7 +14,6 @@ public class FileCopy {
 		try {
 			byte bytes[] = file.getBytes();
 			File outfile = new File(path+"/" + file.getOriginalFilename());
-			System.out.println(outfile.getName());
 			FileOutputStream fos = new FileOutputStream(outfile);
 			fos.write(bytes);// 복사
 			fos.close();
