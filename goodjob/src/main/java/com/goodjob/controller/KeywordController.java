@@ -65,8 +65,6 @@ public class KeywordController {
 		
 		int count=keyworddao.manKeywordAdd(dto);
 		
-		System.out.println(dto.getContent());
-		
 		if(count>0) {
 			
 			mav.addObject("msg", "키워드 추가 성공!");

@@ -67,7 +67,6 @@ public class BannerController {
 
 			String fileStr="/goodjob/bannerImg/"+file.getOriginalFilename();
 		
-			System.out.println(fileStr);
 			
 			TotalFileDTO dto2=new TotalFileDTO();
 			
@@ -138,7 +137,7 @@ public class BannerController {
 		
 		Banner_totalFileDTO dto=bannerDao.manBannerUpdateContent(idx);
 	
-		System.out.println(dto.getFile_idx());
+		
 		
 		mav.addObject("dto", dto);
 		mav.setViewName("banner/manBannerUpdateContent");
@@ -160,9 +159,9 @@ public class BannerController {
 		ModelAndView mav=new ModelAndView();
 		
 		copyInto(category, file,req);
-		System.out.println(file.getOriginalFilename());
+		
 		String fileStr="/goodjob/bannerImg/"+file.getOriginalFilename();
-		System.out.println(fileStr);
+		
 		TotalFileDTO dto2=new TotalFileDTO();
 		dto2.setFile(fileStr);
 		dto2.setTable_idx(idx);
@@ -174,7 +173,7 @@ public class BannerController {
 		map.put("link", dto.getLink());
 		map.put("subject", dto.getSubject());
 		map.put("idx", idx);
-		System.out.println(map.toString());
+		
 		int count=bannerDao.manBannerUpdate(map);
 		int count2=totalFileDao.manFileUpdate(dto2);
 	
