@@ -63,9 +63,12 @@
  <button type="button" class="btn btn-primary btn-lg">이미 지원함</button>
  </c:if>
  </c:when>
+ <c:when test="${resumeNum == 0 &&  scategory =='기업'}">
+ </c:when>
  <c:when test="${resumeNum == 0 }">
  	<button type="button" class="btn btn-primary btn-lg">이력서 작성 후 지원 가능합니다</button>
  </c:when>
+ 	
  <c:otherwise>
  	
  </c:otherwise>

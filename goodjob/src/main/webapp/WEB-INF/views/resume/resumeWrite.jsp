@@ -210,14 +210,14 @@
 
 								<tr>
 									<th>희망 근무지</th>
-									<div class="addr input-group">
+									<td><div class="addr input-group">
 										<select class="h_local1" size="3" name="h_local1">
 											<option selected>시 도</option>
 										</select> <select class="h_local2" size="3" name="h_local2">
 											<option selected>시 구 군</option>
 										</select>
 										<div class="lAddr"></div>
-									</div>
+									</div></td>
 								</tr>
 								<tr>
 								<tr>
