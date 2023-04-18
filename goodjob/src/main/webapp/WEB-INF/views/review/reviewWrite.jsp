@@ -39,10 +39,10 @@
 				<div class="container text-center">
 					<div class="row">
 						<c:forEach var="dto" items="${dto}">
-							<div class="col-md-3 card ">
-								<span> <input type="checkbox" name="keyword"
+							<div class="col-3">
+								<input type="checkbox" name="keyword"
 									id="keyword${dto.idx}" onclick="show(this)" value="${dto.idx}">${dto.content }
-								</span>
+								
 							</div>
 						</c:forEach>
 					</div>

@@ -45,7 +45,8 @@ function requestPay(pg= '테스트 PG.TC0ONETIME') {
 
 	      }).done(function (data) {
 	        // 가맹점 서버 결제 API 성공시 로직
-	       	alert("결제에 성공하셨습니다.");	
+	       	alert("결제에 성공하셨습니다.");
+	        location.href="company.do"
 	      })
     	  console.log(rsp);
       } else {

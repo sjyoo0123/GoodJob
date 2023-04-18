@@ -73,6 +73,7 @@ public class MemberController {
 	@RequestMapping(value = "comJoin.do", method = RequestMethod.POST)
 	public ModelAndView comJoin(CompanyMemberDTO comDto, String birth_s) {
 		comDto.setCom_birth(Module.datePasing(birth_s));
+		System.out.println(comDto.toString());
 		ModelAndView mav = new ModelAndView();
 		MemberDTO memDto = new MemberDTO(0, comDto.getId(), comDto.getPwd(), comDto.getName(), comDto.getEmail(),
 				comDto.getTel(), comDto.getAddr(), null, 0, "기업", "대기");

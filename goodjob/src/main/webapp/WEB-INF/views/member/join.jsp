@@ -38,7 +38,8 @@
 				<div class="row text-center p-4 main">
 					<div class="col p-4">
 						<div class="card">
-							<img alt="123" src="img/main.jpg" class="card-img-top">
+						<!--<img alt="123" src="img/main.jpg" class="card-img-top">  -->
+							<i class="bi bi-person-fill-add col-12"></i>
 							<div class="card-body">
 								<button type="button"
 									class="btn btn-secondary btn-lg w-100 normal">개인 회원가입</button>
@@ -48,7 +49,8 @@
 					</div>
 					<div class="col p-4">
 						<div class="card">
-							<img alt="123" src="img/main.jpg" class="card-img-top">
+							<!-- <img alt="123" src="img/main.jpg" class="card-img-top"> -->
+							<i class="bi bi-building-add col-12"></i>
 							<div class="card-body">
 								<button type="button"
 									class="btn btn-secondary btn-lg w-100 company">기업 회원가입</button>
@@ -371,7 +373,7 @@
 				dateColDiv.append(dateDiv);
 			nameDiv.append(nameInput).append(nameLabel);
 			nameColDiv.append(nameDiv);
-			formRowDiv.append(iconDiv).append(idColDiv).append(idText).append(pwdColDiv).append(pwdText).append(comNameColDiv).append(nameColDiv).append(emailColDiv).append(telColDiv).append(comnumColDiv).append(mAddrColDiv).append(dAddrColDiv).append(dateColDiv).append(submitCol);
+			formRowDiv.append(iconDiv).append(idColDiv).append(idText).append(pwdColDiv).append(pwdText).append(comNameColDiv).append(nameColDiv).append(emailColDiv,emailText).append(telColDiv).append(comnumColDiv).append(mAddrColDiv).append(dAddrColDiv).append(dateColDiv).append(submitCol);
 			form.append(formRowDiv);
 			$('.main').append(form);
 			});

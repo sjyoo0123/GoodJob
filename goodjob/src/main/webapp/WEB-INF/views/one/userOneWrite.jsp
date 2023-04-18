@@ -56,7 +56,7 @@
 						
 						<input type="hidden" name="normal_idx" value="${logIdx}">
 						<input type="hidden" name="category" value="${logCategory}">
-						<input type="submit" name="작성완료">
+						<input type="submit" name="작성완료" class="col-1 btn btn-outline-primary">
 					</div>
 				</form>
 			</article>
