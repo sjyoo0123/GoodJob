@@ -45,7 +45,7 @@ margin: auto;
 		<section>
 			<article>
 				 <div class="row">
-				 <div class="col-"></div>
+				 
 				 	<div class="col-3">
 				 		<h3 align="center"><i class="bi bi-chat-dots"></i>FAQ</h3>
 				 	</div>
