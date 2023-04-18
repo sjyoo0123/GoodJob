@@ -156,7 +156,11 @@ public NoticeController() {
 		case 1: status1="대기"; break;
 		case 2: status1="비활성"; break;
 		}
-		int totalCnt=ndao.noticeTotalCnt(idx,status1);
+		int totalCnt=1;
+		int totalCnt1=ndao.noticeTotalCnt(idx,status1);
+		if(totalCnt1!=0) {
+			totalCnt=totalCnt1;
+		}
 		int listSize=5;
 		int pageSize=5;
 		
