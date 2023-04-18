@@ -49,6 +49,7 @@ $(document).ready(function() {
       $('#checkworkday').show();
     } else {
       $('#checkworkday').hide();
+	  $('#workday').val('00000001');
     }
   });
 });

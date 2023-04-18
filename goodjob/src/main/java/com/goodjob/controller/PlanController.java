@@ -274,10 +274,10 @@ public class PlanController {
 	
 	@RequestMapping(value="/planInfoUp.do",method=RequestMethod.POST)
 	@ResponseBody
-	public List<Plan_UpDTO> planInfoUp(@RequestParam(value="count",defaultValue ="0")int count){
+	public List<Plan_UpDTO> planInfoUp(@RequestParam(value="idx",defaultValue ="0")int idx){
 		List<Plan_UpDTO> data=null;
-		if(count!=0) {
-			data=plan_UpDao.planInfoUpIdx(count);
+		if(idx!=0) {
+			data=plan_UpDao.planInfoUpIdx(idx);
 		}else {
 			data=plan_UpDao.planInfoUp();
 		}
@@ -286,10 +286,10 @@ public class PlanController {
 	
 	@RequestMapping(value="/planInfoVip.do",method=RequestMethod.POST)
 	@ResponseBody
-	public List<Plan_VipDTO> planInfoVip(@RequestParam(value="period",defaultValue ="0")int period,@RequestParam(value="floor")String floor){
+	public List<Plan_VipDTO> planInfoVip(@RequestParam(value="idx",defaultValue ="0")int idx,@RequestParam(value="floor")String floor){
 		List<Plan_VipDTO> vipdata=null;
-		if(period!=0) {
-			vipdata=plan_VipDao.planInfoVipPeriod(period,floor);
+		if(idx!=0) {
+			vipdata=plan_VipDao.planInfoVipPeriod(idx,floor);
 		}else {
 			vipdata=plan_VipDao.planInfoVip(floor);
 		}

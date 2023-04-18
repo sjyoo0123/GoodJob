@@ -4,6 +4,8 @@ import java.util.*;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.goodjob.apply.model.ApplyDTO;
+
 public class NoticeDAOImple implements NoticeDAO {
 
 	private SqlSessionTemplate sqlMap;
@@ -263,5 +265,10 @@ public int manNoticeCnt() {
 	public int refUp(int idx) {
 		int count=sqlMap.update("refUp",idx);
 		return count;
+	}
+	@Override
+	public ApplyDTO apNoticeSubject(int idx) {
+		ApplyDTO subject=sqlMap.selectOne("apNoticeSubject",idx);
+		return subject;
 	}
 }

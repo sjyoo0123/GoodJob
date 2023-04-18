@@ -41,7 +41,7 @@
 </nav>
 	</div>
 <article>
-<h1 class="fw-bold display-3">${subject}</h1>
+<h1 class="fw-bold display-3">${subject.status}</h1>
 <div class="row">
 <div class="col-9"></div><div class="col-3">
 <form><div class="input-group mb-3"><input type="text" name="searchNotice" class="form-control" aria-describedby="button-addon2"><input type="submit" value="검색"  class="btn btn-outline-secondary" type="button" id="button-addon2"></div></form>
@@ -67,7 +67,7 @@
 	<c:forEach var="dto" items="${lists}">
 		<tr>
 			<td>${dto.writedate}</td>
-			<td><a href="resumeContent.do?idx=${dto.com_idx}" class="resume-link" data-max-age="${dto.max_age}">${dto.subject}</a></td>
+			<td><a class="resume-link" data-idx="${dto.com_idx}" data-max-age="${dto.max_age}">${dto.subject}</a></td>
 			<td>${dto.plan_idx}</td>
 			<td>${dto.gender}</td>
 			<td>${dto.local1}</td>			
@@ -95,13 +95,14 @@
 <script>
 	$(document).ready(function() {
 		  $('.resume-link').click(function(e) {
-		    var idx = $(this).data('max-age');
+		    var midx = $(this).data('max-age');
+		    var ridx = $(this).data('idx');
 		    $.ajax({
 		      url: 'applyCheck.do',
 		      type: 'POST',
-		      data: { idx: idx },
+		      data: { idx: midx },
 		      success: function(response) {
-		          window.location.href = "resumeContent.do?idx=" + idx;
+		          window.location.href = "resumeContent.do?idx=" + ridx;
 		      }
 		    });
 		  });
