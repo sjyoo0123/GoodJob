@@ -175,12 +175,14 @@ public class MemberController {
 	public ModelAndView norMalLogin(String id, String pwd, HttpServletRequest req, boolean save,
 			HttpServletResponse res) {
 		MemberDTO dto = memDao.login(id, pwd, "개인");
+		
 		return loginSession(dto, req, save, res);
 	}
 
 	@RequestMapping(value = "comLogin.do", method = RequestMethod.GET)
 	public ModelAndView comLogin(String id, String pwd, HttpServletRequest req, boolean save, HttpServletResponse res) {
 		MemberDTO dto = memDao.login(id, pwd, "기업");
+
 		return loginSession(dto, req, save, res);
 	}
 
@@ -213,7 +215,13 @@ public class MemberController {
 			session.setAttribute("sname", dto.getName());
 			session.setAttribute("scategory", dto.getUser_category());
 			session.setAttribute("status", dto.getStatus());
+			session.setAttribute("semail",dto.getEmail());
+			if(dto.getUser_category().equals("기업")) {
+				CompanyMemberDTO cdto=comDao.comInfo(dto.getIdx());
+				session.setAttribute("com_name", cdto.getCom_name());
+			}
 			mav.addObject("stop","location.href='index.do'");
+			
 		}
 		mav.setViewName("/alertModal");
 		return mav;

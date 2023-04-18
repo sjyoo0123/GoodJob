@@ -116,7 +116,7 @@ box-shadow: 0px 0px 0px grey;
 					</c:if>
 					<c:if test="${logCategory eq com}">
 					<li class="list-group-item"><a href="updateMember.do">내정보수정</a></li>
-					<li class="list-group-item"><a href="noticeWrite.do">공고작성하기</a></li>
+					<li class="list-group-item"><a href="#;" onclick="location.href='noticeWrite.do'">공고작성하기</a></li>
 					<li class="list-group-item"><a href="ofComList.do">지원한인재</a></li>
 					<li class="list-group-item"><a href="userFAQList.do">고객센터</a></li>
 					</c:if>

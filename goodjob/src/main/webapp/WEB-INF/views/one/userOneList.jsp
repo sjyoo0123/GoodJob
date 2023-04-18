@@ -39,7 +39,7 @@
 						<tbody>
 							<c:if test="${empty list}">
 								<tr>
-									<td scope="row">작성된 문의가 없습니다</td>
+									<td scope="row" colspan="4">작성된 문의가 없습니다</td>
 								</tr>
 							</c:if>
 							<c:forEach var="dto" items="${list}">

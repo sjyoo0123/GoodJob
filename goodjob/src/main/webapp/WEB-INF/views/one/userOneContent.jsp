@@ -17,26 +17,27 @@
 		<section>
 			<article>
 			<div class="row">
-			<div class="col-10 offset-1 mt-5 pt-5">
+			<div class="col-8 offset-2 mt-5 pt-5 text-center">
 					<c:if test="${empty dto}">
 				삭제된 게시글 입니다
 				</c:if>
-					<h2>제목:${dto.subject}</h2>
+					<h2>${dto.subject}</h2>
 					<c:forEach var="arr" items="${content}">
 						<c:if test="${arr.startsWith('답변:')}">
-							<div class="text-start col-12">${arr}</div>
+							<div class="col-12"><div class="col-3 mt-3 bg-danger bg-opacity-10">${arr}</div></div>
 						</c:if>
 						<c:if test="${arr.startsWith('질문:')}">
-							<div class="text-end col-12">${arr}</div>
+							<div class="col-12"><div class="offset-10 col-3 mt-3 bg-info bg-opacity-10">${arr}</div></div>
 						</c:if>
 					</c:forEach>
 					<c:if test="${dto.check ==1}">
-						<form action="userOneReWrite.do" method="post">
-							추가답변
-							<textarea rows="" cols="" name="plusContent"></textarea>
+						<form action="userOneReWrite.do" method="post" class="mt-5">
+							<div class="input-group">
+							<textarea rows="" cols="" name="plusContent" class="form-control"></textarea>
 							<input type="hidden" name="idx" value="${dto.idx}"> <input
 								type="hidden" name="content" value="${dto.content}"> <input
-								type="submit" name="전송">
+								type="submit" value="작성" class="btn btn-outline-primary">
+							</div>
 						</form>
 					</c:if>
 				</div>
