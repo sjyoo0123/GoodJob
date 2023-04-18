@@ -93,29 +93,33 @@ box-shadow: 0px 0px 0px grey;
 							</div>
 							<button class="carousel-control-prev" type="button"
 								data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-								<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+								<span class="carousel-control-prev-icon bg-black" aria-hidden="true"></span>
 								<span class="visually-hidden">Previous</span>
 							</button>
 							<button class="carousel-control-next" type="button"
 								data-bs-target="#carouselExampleControls" data-bs-slide="next">
-								<span class="carousel-control-next-icon" aria-hidden="true"></span>
+								<span class="carousel-control-next-icon bg-black" aria-hidden="true"></span>
 								<span class="visually-hidden">Next</span>
 							</button>
 						</div>
 					</div>
 					<div class="card col-2 menu">
-					<ul class="list-group list-group-flush">
+					<ul class="list-group list-group-flush text-center my-auto">
+					<c:if test="${logCategory eq null}">
+					<li class="list-group-item"><a href="login.do">로그인</a></li>
+					<li class="list-group-item"><a href="join.do">회원가입</a></li>
+					</c:if>
 					<c:if test="${logCategory eq nor}">
 					<li class="list-group-item"><a href="updateMember.do">내정보수정</a></li>
-					<li class="list-group-item"><a href=".do"></a></li>
-					<li class="list-group-item"><a href=".do"></a></li>
-					<li class="list-group-item"><a href=".do"></a></li>
+					<li class="list-group-item"><a href="resumeUpdate.do">이력서수정</a></li>
+					<li class="list-group-item"><a href="apNorList.do">지원내역</a></li>
+					<li class="list-group-item"><a href="userFAQList.do">고객센터</a></li>
 					</c:if>
 					<c:if test="${logCategory eq com}">
 					<li class="list-group-item"><a href="updateMember.do">내정보수정</a></li>
-					<li class="list-group-item"><a href=".do"></a></li>
-					<li class="list-group-item"><a href=".do"></a></li>
-					<li class="list-group-item"><a href=".do"></a></li>
+					<li class="list-group-item"><a href="noticeWrite.do">공고작성하기</a></li>
+					<li class="list-group-item"><a href="ofComList.do">지원한인재</a></li>
+					<li class="list-group-item"><a href="userFAQList.do">고객센터</a></li>
 					</c:if>
 					<c:if test="${logCategory eq man}">
 					<li class="list-group-item"><a href="manBlackListSingoList.do">신고관리</a></li>

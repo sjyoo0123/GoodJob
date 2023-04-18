@@ -32,7 +32,7 @@ public class MemberController {
 	private CompanyMemberDAO comDao;
 	@Autowired
 	private MemberDAO memDao;
-	private String hostName="http://localhost:9090/goodjob";
+	private String hostName="http://192.168.1.142:9090/goodjob";
 	
 	@RequestMapping(value = "join.do", method = RequestMethod.GET)
 	public String join() {
@@ -260,10 +260,10 @@ public class MemberController {
 	@RequestMapping("updateStatus.do")
 	public ModelAndView updateStatus(MemberDTO dto) {
 		ModelAndView mav=new ModelAndView();
-			String id=dto.getId()==null?"":dto.getId();
+		int idx=dto.getIdx()==0?0:dto.getIdx();
 			String email=dto.getEmail()==null?"":dto.getEmail();
 			String msg=null;
-			if(id.length()==0||email.length()==0) {
+			if(idx==0||email.length()==0) {
 				msg="잘못된 접근입니다";
 			}else {
 				msg=memDao.updateStatus(dto)>0?"인증 완료되었습니다":"만료된 인증입니다";

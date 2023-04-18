@@ -44,10 +44,7 @@
 									class="btn btn-secondary btn-lg w-100 normal">개인 회원가입</button>
 							</div>
 						</div>
-					<a id="kakao-login-btn" href="javascript:loginWithKakao()">
-  <img src="https://k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg" width="222"
-    alt="카카오 로그인 버튼" />
-</a>
+	
 					</div>
 					<div class="col p-4">
 						<div class="card">
