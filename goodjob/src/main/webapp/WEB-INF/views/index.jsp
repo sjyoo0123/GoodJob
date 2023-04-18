@@ -54,7 +54,6 @@ box-shadow: 0px 0px 0px grey;
 .gcard:hover{
  box-shadow:  10px 10px 10px grey;
 }
-
 </style>
 </head>
 
@@ -65,7 +64,7 @@ box-shadow: 0px 0px 0px grey;
 			<article class="mt-3">
 				<div class="row banner">
 					<div class="card col-2 offset-1">
-						<ul class="list-group list-group-flush gongji">
+						<ul class="list-group list-group-flush gongji text-nowrap overflow-hidden">
 							<c:if test="${empty gList }">
 								<li>등록된 공지가 없습니다</li>
 							</c:if>

@@ -8,12 +8,14 @@
 		FROM payment_log
 		where paydate between #{startdate} and #{enddate} and suc_check='성공'
 		GROUP BY TO_CHAR(paydate, 'MM-DD')
+		order by paydate
 	</select>
 	<select id="salesGetMonth" parameterType="map" resultType="com.goodjob.sales.model.SalesDTO">
 		SELECT SUM(price) as price,TO_CHAR(paydate, 'YY-MM') as paydate
 		FROM payment_log
 		where paydate between add_months(to_date(#{month1}, 'YYYY-MM'), -6) and to_date(#{month2}, 'YYYY-MM') and suc_check='성공'
 		GROUP BY TO_CHAR(paydate, 'YY-MM')
+		order by paydate
 	</select>
 	<select id="salesGetPayList" parameterType="map" resultType="com.goodjob.sales.model.SalesListDTO">
 		select * from

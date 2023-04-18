@@ -195,6 +195,13 @@ public class One_oneController {
 			map.put("table_name", fcategory);
 			fDao.manFileAdd(map);
 		}
+		if(idx>0) {
+			mav.addObject("msg","작성완료");
+		}else {
+			mav.addObject("msg","작성실패");
+		}
+		mav.addObject("href","location.href='userOneList.do';");
+		mav.setViewName("alertModal");
 		return mav;
 	}
 	@RequestMapping("userOneContent.do")

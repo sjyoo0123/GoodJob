@@ -125,31 +125,35 @@
 	    }
 	});
 	$(document).on('submit', 'form', function(event) {
-		if(idcheck&&pwdcheck&&email){
-	    var filled = true;
-	    $(this).find('input, select, textarea').each(function() {
-	        if ($(this).val() === ''||$(this).text()=== '' ) {
-	        	if($(this).is('select')){
-	        		if($(this).text() === '성별'||$(this).text() === '시 도'||$(this).text() === '시 구 군'||$(this).text() === '동 읍 면')
-	        			filled = false;
-		           		 return false; 
-	        	}
-	            filled = false;
-	            return false; 
+		if(idcheck && pwdcheck && emailcheck) {
+	        var filled = true;
+	        $(this).find('input, select, textarea').each(function() {
+	            if ($(this).val() === '') {
+	                if ($(this).is('select')) {
+	                    if ($(this).val() === null) {
+	                        filled = false;
+	                        return false;
+	                    }
+	                } else {
+	                    filled = false;
+	                    return false;
+	                }
+	            }
+	        });
+	        if (filled) {
+	            return true;
+	        } else {
+	            event.preventDefault();
+	            alert('모든 항목을 입력해주세요');
+	            return false;
 	        }
-	    });
-	    if (filled) {
-	        return true;
 	    } else {
 	        event.preventDefault();
-	        alert('모든 항목을 입력해주세요');
+	        alert('아이디, 비밀번호, 이메일 항목을 확인해주세요');
 	        return false;
 	    }
-		}else{
-			event.preventDefault();
-			alert('아이디,비밀번호,이메일 항목을 확인해주세요')
-		}
 	});
+	
 	$(document).on('focusout', '#floatingInputEmail', function() {
 		  var emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 		  var email = $(this).val();
@@ -195,7 +199,7 @@
 		let nameColDiv=$('<div>').attr({class:'col-10 col-md-4 offset-md-4 offset-2'});
 		//com_name
 		let comNameInput = $('<input>').attr({type:'text',id:'floatingInputcomName',placeholder:'id',class:'form-control',name:'com_name'});
-		let comNameLabel=$('<label>').attr({for:'floatingInputcomName'}).text('대표자명');
+		let comNameLabel=$('<label>').attr({for:'floatingInputcomName'}).text('기업명');
 		let comNameDiv=$('<div>').attr({class:'form-floating'}).append(comNameInput,comNameLabel);
 		let comNameColDiv=$('<div>').attr({class:'col-10 col-md-4 offset-md-4 offset-2'}).append(comNameDiv);
 		//email
@@ -341,7 +345,7 @@
 			let main = $('.main').children().detach();
 			let form =$('<form>').attr({action :'comJoin.do',method:'post',class:'form-floating'});
 			let formRowDiv=$('<div>').attr({class:'row g-3'});
-			let nameLabel=$('<label>').attr({for:'floatingInputName'}).text('기업이름');
+			let nameLabel=$('<label>').attr({for:'floatingInputName'}).text('대표자명');
 			//사업자번호
 			let comnumInput = $('<input>').attr({type:'text',id:'floatingInputNum',placeholder:'comnum',class:'form-control',name:'com_num'});
 			let comnumLabel=$('<label>').attr({for:'floatingInputNum'}).text('사업자번호');
