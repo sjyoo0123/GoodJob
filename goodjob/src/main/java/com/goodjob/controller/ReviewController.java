@@ -113,7 +113,6 @@ public class ReviewController {
 			map.put(list.get(i).getReview_num(), dto);
 			System.out.println(list.get(i).getReview_num()); 
 		}
-		System.out.println(map.values());
 		mav.addObject("map", map);
 		mav.addObject("pageStr", pageStr);
 		mav.addObject("list", list);
@@ -128,9 +127,6 @@ public class ReviewController {
 		int idx =0;
 		idx = (int) session.getAttribute("sidx");
 		int result = reviewDao.reviewDel(idx, ridx);
-		System.out.println("idx="+idx);
-		System.out.println("ridx="+ridx);
-		System.out.println("result="+result);
 		String msg = result>0 ? "삭제완료":"삭제실패";
 		String goUrl = "myReview.do";
 		mav.addObject("msg", msg);
