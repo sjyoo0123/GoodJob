@@ -55,7 +55,7 @@ public class BannerDAOImple implements BannerDAO {
 	public Banner_totalFileDTO manBannerUpdateContent(int idx) {
 		
 		Banner_totalFileDTO dto=sqlMap.selectOne("manBannerUpdateContent", idx);
-		System.out.println(dto);
+		
 		
 		return dto;
 		

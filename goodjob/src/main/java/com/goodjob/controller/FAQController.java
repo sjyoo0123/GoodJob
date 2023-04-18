@@ -50,7 +50,7 @@ public class FAQController {
 		mav.addObject("pageStr", pageStr);
 		mav.addObject("cp", cp);
 		mav.setViewName("FAQ/manFAQList");
-		System.out.println(totalCnt);
+		
 		
 		return mav;
 	}
@@ -61,7 +61,7 @@ public class FAQController {
 			@RequestParam(value = "category", defaultValue = "") String category,
 			@RequestParam(value="bAjax", defaultValue = "false")boolean bAjax,
 			HttpSession session) {
-		System.out.println(bAjax);
+		
 		ModelAndView mav = new ModelAndView();
 		 String scategory = session.getAttribute("scategory") != null ? (String) session.getAttribute("scategory") : "";
 		    if (category.equals("") && !scategory.equals("")) {
@@ -75,7 +75,7 @@ public class FAQController {
 		mav.addObject("list", faqDao.userSearchFAQ(start, end, search, category));
 		mav.addObject("page", AjaxPageModule.makePage(totalCnt, listSize, pageSize, cp));
 		if(bAjax) {
-			System.out.println(1);
+			
 			mav.setViewName("goodjobJson");
 		}else {
 			
@@ -113,8 +113,7 @@ public class FAQController {
 		mav.addObject("msg", msg);
 		mav.setViewName("FAQ/manFAQMsg");
 	
-		System.out.println(dto.toString());
-		System.out.println(count);
+		
 		return mav;
 	}
 	//FAQ 본문 들어가기

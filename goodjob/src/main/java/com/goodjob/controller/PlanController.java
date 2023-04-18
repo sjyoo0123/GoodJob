@@ -55,7 +55,6 @@ public class PlanController {
 		ModelAndView mav=new ModelAndView();
 		
 		if(plan_type.equals("UP")) {
-			System.out.println(1);
 			Plan_UpDTO dto=new Plan_UpDTO();
 			dto.setPlan_name(plan_name);
 			dto.setPlan_price(plan_price);
@@ -72,7 +71,6 @@ public class PlanController {
 				mav.addObject("msg", "up요금제 추가 실패");
 			}
 		}else if(plan_type.equals("VIP")){
-			System.out.println(1);
 			Map<String, Object> map=new HashMap<String, Object>();	
 			Plan_VipDTO dto=new Plan_VipDTO();
 			dto.setPlan_name(plan_name);
@@ -249,8 +247,6 @@ public class PlanController {
 		
 		int count2=plan_UpDao.manPlanUpUpdate_b(dto);
 		
-		System.out.println(count);
-		System.out.println(count2);
 		if(count>0 && count2>0) {
 			mav.addObject("msg", "up요금제 수정 완료");
 			mav.addObject("goUrl", "manPlanUpdatePage.do");
