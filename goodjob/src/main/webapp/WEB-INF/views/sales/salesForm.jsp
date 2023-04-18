@@ -160,7 +160,7 @@ function monthSearch(){
    	var jsonData = JSON.parse(listdata.lists);
        var data = new google.visualization.DataTable();
        data.addColumn('string', 'date');
-       data.addColumn('number', 'Price');
+       data.addColumn('number', 'price');
        for(var i=0; i<jsonData.length; i++) {
          var date = jsonData[i].date;
          data.addRow([date, jsonData[i].price]);
