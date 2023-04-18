@@ -107,7 +107,7 @@ public NoticeController() {
 	}
 	/*공고작성 등록*/
 	@RequestMapping(value="/noticeWrite.do", method=RequestMethod.POST)
-	public ModelAndView noticeWriteSubmit(NoticeDTO dto,String workstarttime1,String workstarttime2,String workendtime1,String workendtime2,int pay_hour1,@RequestParam("formFileMultiple")MultipartFile file,HttpServletRequest req) {
+	public ModelAndView noticeWriteSubmit(NoticeDTO dto,String workstarttime1,String workstarttime2,String workendtime1,String workendtime2,int pay_hour1,int worktime,@RequestParam("formFileMultiple")MultipartFile file,HttpServletRequest req) {
 		ModelAndView mav=new ModelAndView();
 		String starttime=workstarttime1+workstarttime2;
 		dto.setStarttime(Integer.parseInt(starttime));
@@ -117,9 +117,9 @@ public NoticeController() {
 			int pay_month=(dto.getFinishtime()-dto.getStarttime())*dto.getPay_hour();
 			dto.setPay_month(pay_month);
 		}else if(dto.getPay_category().equals("월급")) {
-			dto.setPay_hour(pay_hour1);
-			int pay_month=(dto.getFinishtime()-dto.getStarttime())*dto.getPay_hour()*dto.getWorktime();
-			dto.setPay_month(pay_month);
+			int pay_month=(pay_hour1/4)/worktime;
+			dto.setPay_hour(pay_month);
+			dto.setPay_month(pay_hour1);
 		}else if(dto.getPay_category().equals("협의")) {
 			dto.setPay_month(0);
 		}
