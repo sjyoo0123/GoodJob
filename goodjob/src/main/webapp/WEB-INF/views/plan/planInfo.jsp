@@ -184,7 +184,7 @@ $(document).ready(function() {
             $("#upPrice").append(data[0].plan_price+"원");
             $("#upCount").append("<select name='count' class='form-select fs-2'>");
             for (var i = 0; i < data.length; i++) {
-                $("#upCount select").append("<option value='"+data[i].idx+"'>"+data[i].plan_name+"</option>");
+                $("#upCount select").append("<option value='"+data[i].idx+"'>"+data[i].plan_name+'('+data[i].count+'회)'+"</option>");
             }
             $("#upCount").append("</select>");
             
@@ -217,7 +217,7 @@ $(document).ready(function() {
             $("#s_vipPrice").append(data[0].plan_price+"원");
             $("#s_vipPeriod").append("<select name='splan_idx' class='form-select fs-2'>");
             for (var i = 0; i < data.length; i++) {
-                $("#s_vipPeriod select").append("<option value='"+data[i].idx+"'>"+data[i].plan_name+"</option>");
+                $("#s_vipPeriod select").append("<option value='"+data[i].idx+"'>"+data[i].plan_name+'('+data[i].plan_period+'일)'+"</option>");
             }
             $("#s_vipPeriod").append("</select>");
             
@@ -253,7 +253,7 @@ $(document).ready(function() {
             $("#g_vipPrice").append(data[0].plan_price+"원");
             $("#g_vipPeriod").append("<select name='g_plan_idx' class='form-select fs-2'>");
             for (var i = 0; i < data.length; i++) {
-                $("#g_vipPeriod select").append("<option value='"+data[i].idx+"'>"+data[i].plan_name+"</option>");
+                $("#g_vipPeriod select").append("<option value='"+data[i].idx+"'>"+data[i].plan_name+'('+data[i].plan_period+'일)'+"</option>");
             }
             $("#g_vipPeriod").append("</select>");
             
@@ -289,7 +289,7 @@ $(document).ready(function() {
             $("#d_vipPrice").append(data[0].plan_price+"원");
             $("#d_vipPeriod").append("<select name='d_plan_idx' class='form-select fs-2'>");
             for (var i = 0; i < data.length; i++) {
-                $("#d_vipPeriod select").append("<option value='"+data[i].idx+"'>"+data[i].plan_name+"</option>");
+                $("#d_vipPeriod select").append("<option value='"+data[i].idx+"'>"+data[i].plan_name+'('+data[i].plan_period+'일)'+"</option>");
             }
             $("#d_vipPeriod").append("</select>");
             

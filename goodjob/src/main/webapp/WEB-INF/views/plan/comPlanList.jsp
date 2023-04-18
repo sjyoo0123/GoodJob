@@ -52,9 +52,6 @@
 			<button class="btn btn-<c:if test="${plan_type!='UP'}">outline-</c:if>dark" onclick="location.href='comPlanList.do?plan_type=UP'">
 				<span>UP</span>
 			</button>
-			<button class="btn btn-outline-dark">
-				<span>이용내역</span>
-			</button>
 		</div>
 				<div class="col-5"></div>
 						<div class="col-3">
