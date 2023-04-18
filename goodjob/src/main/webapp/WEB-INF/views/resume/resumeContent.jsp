@@ -73,7 +73,6 @@
 	<h1>이력서</h1>
 	<hr>
 	<div class="container">
-		<%@include file="/WEB-INF/views/header.jsp"%>
 		<div>
 			<c:if test="${sessionScope.scategory=='기업'}">
 				<c:if test="${offCount==0}">
@@ -292,7 +291,6 @@
 								</c:choose>
 							</div></td>
 					</tr>
-
 				</table>
 			</div>
 		</div>

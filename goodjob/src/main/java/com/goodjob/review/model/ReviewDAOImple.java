@@ -131,4 +131,5 @@ public class ReviewDAOImple implements ReviewDAO {
 		int total = sqlMap.selectOne("myReviewTotalCnt", idx);
 		return total;
 	}
+	
 }
