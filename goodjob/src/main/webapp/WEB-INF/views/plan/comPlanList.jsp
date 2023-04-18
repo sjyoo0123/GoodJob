@@ -30,7 +30,7 @@
 <script type="text/javascript">
    var s_status='${sessionScope.status}';
    var s_category='${sessionScope.scategory}';
-   var check_category='관리자';
+   var check_category='기업';
    if( s_status==''){
       window.alert('로그인이 필요합니다');
       location.href='login.do';
