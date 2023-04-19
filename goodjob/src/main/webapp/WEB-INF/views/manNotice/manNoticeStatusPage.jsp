@@ -200,6 +200,7 @@
 		                .append($("<td>").text(dto.com_name))
 		                .append($("<td>").text(formattedDate))
 		                .append(statusTd);
+
 		          
 		            $("tbody").append(tr);
 		            
