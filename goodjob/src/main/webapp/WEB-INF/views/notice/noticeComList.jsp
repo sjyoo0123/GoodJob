@@ -144,6 +144,7 @@ $(document).on("click", "#refUpbtn", function() {
     		    type: "POST",
     		    data: {idx: com_idx},
     		    success: function(response) {
+    		    	var count=response;
     		        if (confirm('잔여 UP횟수: '+count+' 회'+'\n공고제목:'+subject +'\n게시물을 UP 하시겠습니까?')) {
     		            $.ajax({
     		              url: "refUp.do",
