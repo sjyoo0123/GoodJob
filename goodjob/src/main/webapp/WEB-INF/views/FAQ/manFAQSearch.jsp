@@ -105,6 +105,7 @@ margin: auto;
              </div>
          </article>
       </section>
+
 <%@include file="/WEB-INF/views/footer.jsp" %>
 <script>
 function page(){

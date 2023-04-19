@@ -124,5 +124,6 @@
       </section>
       <%@include file="/WEB-INF/views/footer.jsp" %>
    </div>
+
 </body>
 </html>

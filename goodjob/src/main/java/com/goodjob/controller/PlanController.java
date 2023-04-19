@@ -117,7 +117,7 @@ public class PlanController {
 	}
 
 	/**up 요금제 삭제하기(비활성화 처리)*/
-	@RequestMapping("/manPlanUpDel.do")
+	@RequestMapping(value= "/manPlanUpDel.do", method = RequestMethod.GET)
 	public ModelAndView manPlanUpDel(
 			@RequestParam("idx")int idx) {
 		
@@ -141,7 +141,7 @@ public class PlanController {
 	}
 	
 	/**vip 요금제 삭제하기(비활성화 처리)*/
-	@RequestMapping("/manPlanVipDel.do")
+	@RequestMapping(value= "/manPlanVipDel.do", method = RequestMethod.GET)
 	public ModelAndView manPlanVipDel(
 			@RequestParam("idx")int idx) {
 		
