@@ -97,7 +97,7 @@
 						<c:url var="contentUrl" value="noticeContent.do">
 							<c:param name="idx">${dto.idx}</c:param>
 						</c:url>
-						<td class="text-start text-truncate"><a href="${contentUrl}">${dto.subject}</a><br>${dto.com_name}</td>
+						<td class="text-start text-truncate"><c:if test="${status1=='활성'}"><a href="${contentUrl}">${dto.subject}</a></c:if><c:if test="${status1!='활성'}">${dto.subject}</c:if><br>${dto.com_name}</td>
 						<td>${dto.period}</td>
 						<td><button type="button"
 								class="btn btn-primary position-relative"

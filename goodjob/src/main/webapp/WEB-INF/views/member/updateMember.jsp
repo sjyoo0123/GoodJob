@@ -54,7 +54,7 @@ select[disabled] {
 					</div>
 					
 					<div class="col-6 offset-3 mb-5">
-					<label for="name" class="form-label"><c:if test="${logCategory eq nor}">이름</c:if><c:if test="${logCategory eq com}">기업명</c:if></label>
+					<label for="name" class="form-label"><c:if test="${logCategory eq nor}">이름</c:if><c:if test="${logCategory eq com}">대표자명</c:if></label>
 					<div class="input-group">
 					<input type="text" value="${dto.name}" readonly="readonly" id="name" class="form-control" placeholder="name" name="name">
 					<button type="button" class="input btn btn-light" value="name">변경</button>
@@ -123,7 +123,7 @@ select[disabled] {
 					</div>
 					
 					<div class="col-6 offset-3 mb-5">
-					<label for="com_name" class="form-label">대표자명</label>
+					<label for="com_name" class="form-label">기업명</label>
 					<div class="input-group">
 						<input type="text" name="com_name" id="com_name" readonly="readonly" class="form-control" value="${dto.com_name}">
 					<button type="button" class="input btn btn-light" value="com_name">변경</button>

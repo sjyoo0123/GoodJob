@@ -20,9 +20,9 @@
 				<c:if test="${empty dto}">
 				<div class="col-8 offset-2">존재하지않는 게시글 입니다</div>
 				</c:if>
-				<div class="col-8 offset-2 text-center fs-2 mt-5">제목${dto.subject}</div>
+				<div class="col-8 offset-2 text-center fs-2 mt-5">${dto.subject}</div>
 				<div class="col-1">${dto.writedate}</div>
-				<div class="col-8 offset-2">${dto.content}</div>
+				<div class="col-8 offset-2 mt-5">${dto.content}</div>
 			
 			</div>
 			</article>

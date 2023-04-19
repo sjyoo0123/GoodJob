@@ -30,9 +30,7 @@
 						<h2 class="text-center">공지사항</h2>
 						<form id="gongji">
 							<input type="hidden" name="cp" value="1" id="cp"> <input
-								type="hidden" name="bAjax" value="true"> <input
-								type="text" name="subject">
-							<button type="button" id="submit" class="search">검색</button>
+								type="hidden" name="bAjax" value="true"> 
 						</form>
 						<table class="table table-border">
 							<thead>

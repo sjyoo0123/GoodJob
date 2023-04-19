@@ -81,9 +81,10 @@ a:hover {
 					<div class="btn-group">
 						<button type="button" class="btn btn-white dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">${logName }님</button>
 						<ul class="dropdown-menu">
-							<li><a class="dropdown-item" href="#"></a></li>
-							<li><a class="dropdown-item" href="#"></a></li>
-							<li><a class="dropdown-item" href="#"></a></li>
+							<li><a class="dropdown-item" href="norMyPage.do">마이페이지</a></li>
+							<li><a class="dropdown-item" href="myReview.do">나의후기</a></li>
+							<li><a class="dropdown-item" href="apNorList.do">지원한 공고</a></li>
+							<li><a class="dropdown-item" href="ofNorList.do">제안된 공고</a></li>
 							
 						</ul>
 					</div>
@@ -109,7 +110,7 @@ a:hover {
 							<li><a class="dropdown-item" href="manGongjiList.do">공지관리</a></li>
 							<li><a class="dropdown-item" href="manBlackListSingoList.do">신고관리</a></li>
 							<li><a class="dropdown-item" href="manBlackList.do">블랙리스트</a></li>
-							<li><a class="dropdown-item" href="manBannerPage.do">배너관리</a></li>
+							<li><a class="dropdown-item" href="manBannerUpdatePage.do">배너관리</a></li>
 							<li><a class="dropdown-item" href="manPlanPage.do">요금제관리</a></li>
 							<li><a class="dropdown-item" href="salesForm.do">매출통계</a></li>
 							<li><a class="dropdown-item" href="salesListForm.do">매출현황</a></li>							
@@ -124,7 +125,7 @@ a:hover {
 				<a href="join.do">회원가입</a>
 			</c:if>
 		</div>
-		<a href="index.do" class="col-2"><img src="img/logo.png"
+		<a href="index.do" class="col-2"><img src="/goodjob/img/logo.png"
 			class="col-12"></a>
 		<div class="col-10">
 			<form action="" class="offset-2 col-8 mt-5 pb-3">
@@ -154,7 +155,7 @@ a:hover {
 						<a href="review.do" class=""><label class="menu_title">후기게시판</label></a>
 						<ul class="nav position-absolute">
 							<li class="col-12"><a href="review.do"><label class="menu_title">키워드게시판</label></a></li>
-							<li class="col-12"><a href="#"><label class="menu_title">나의후기</label></a></li>
+							<li class="col-12"><a href="myReview.do"><label class="menu_title">나의후기</label></a></li>
 						</ul>
 					</div>
 					<div class="col-2">
