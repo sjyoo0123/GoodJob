@@ -64,12 +64,12 @@ box-shadow: 0px 0px 0px grey;
 			<article class="mt-3">
 				<div class="row banner">
 					<div class="card col-2 offset-1">
-						<ul class="list-group list-group-flush gongji text-nowrap overflow-hidden">
+						<ul class="list-group list-group-flush gongji">
 							<c:if test="${empty gList }">
 								<li>등록된 공지가 없습니다</li>
 							</c:if>
 							<c:forEach var="gongdto" items="${gList }">
-								<li class="list-group-item"><a href="userGongJiContent.do?idx=${gongdto.idx }">${gongdto.subject }</a></li>
+								<li class="list-group-item text-truncate"><a href="userGongJiContent.do?idx=${gongdto.idx }">${gongdto.subject }</a></li>
 							</c:forEach>
 						</ul>
 					</div>
@@ -110,7 +110,6 @@ box-shadow: 0px 0px 0px grey;
 					</c:if>
 					<c:if test="${logCategory eq nor}">
 					<li class="list-group-item"><a href="updateMember.do">내정보수정</a></li>
-					<li class="list-group-item"><a href="resumeUpdate.do">이력서수정</a></li>
 					<li class="list-group-item"><a href="apNorList.do">지원내역</a></li>
 					<li class="list-group-item"><a href="userFAQList.do">고객센터</a></li>
 					</c:if>
@@ -139,7 +138,7 @@ box-shadow: 0px 0px 0px grey;
   				<a href="noticeContent.do?idx=${dDto.IDX}"><img src="${dDto.FILE}" class="card-img-top" alt="${dDto.SUBJECT}"></a>
   				<div class="card-body">
   				  <div class="fs-6 col-6">${dDto.COM_NAME}</div>
-  				  <div class="fs-5 text-nowrap overflow-hidden"><a href="noticeContent.do?idx=${dDto.IDX}">${dDto.SUBJECT}</a></div>
+  				  <div class="fs-5 text-truncate"><a href="noticeContent.do?idx=${dDto.IDX}">${dDto.SUBJECT}</a></div>
   				  <div class="fs-6 ">${dDto.LOCAL1} ${dDto.LOCAL2}</div>
  				 </div>
 				</div>
@@ -154,7 +153,7 @@ box-shadow: 0px 0px 0px grey;
   				<a href="noticeContent.do?idx=${gDto.IDX}"><img src="${gDto.FILE}" class="card-img-top" alt="${gDto.SUBJECT}"></a>
   				<div class="card-body">
   				  <div class="fs-6 col-6">${gDto.COM_NAME}</div>
-  				  <div class="fs-5 text-nowrap overflow-hidden"><a href="noticeContent.do?idx=${gDto.IDX}">${gDto.SUBJECT}</a></div>
+  				  <div class="fs-5 text-truncate"><a href="noticeContent.do?idx=${gDto.IDX}">${gDto.SUBJECT}</a></div>
   				  <div class="fs-6 ">${gDto.LOCAL1} ${gDto.LOCAL2}</div>
  				 </div>
 				</div>
@@ -169,7 +168,7 @@ box-shadow: 0px 0px 0px grey;
   				<a href="noticeContent.do?idx=${sDto.IDX}"><img src="${sDto.FILE}" class="card-img-top" alt="${sDto.SUBJECT}"></a>
   				<div class="card-body">
   				  <div class="fs-6 col-6">${sDto.COM_NAME}</div>
-  				  <div class="fs-5 text-nowrap overflow-hidden"><a href="noticeContent.do?idx=${sDto.IDX}">${sDto.SUBJECT}</a></div>
+  				  <div class="fs-5 text-truncate"><a href="noticeContent.do?idx=${sDto.IDX}">${sDto.SUBJECT}</a></div>
   				  <div class="fs-6 ">${sDto.LOCAL1} ${sDto.LOCAL2}</div>
  				 </div>
 				</div>

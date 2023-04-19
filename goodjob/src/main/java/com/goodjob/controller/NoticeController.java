@@ -252,17 +252,17 @@ public NoticeController() {
 		if (listworkday.length==0) {
 			workday = new StringBuffer("________");
 		} else {
-			workday = new StringBuffer("00000000");
+			workday = new StringBuffer("________");
 			for (int i = 0; i < listworkday.length; i++) {
 				switch (listworkday[i]) {
-				case "월": workday.setCharAt(0, '_'); break;
-				case "화": workday.setCharAt(1, '_'); break;
-				case "수": workday.setCharAt(2, '_'); break;
-				case "목": workday.setCharAt(3, '_'); break;
-				case "금": workday.setCharAt(4, '_'); break;
-				case "토": workday.setCharAt(5, '_'); break;
-				case "일": workday.setCharAt(6, '_'); break;
-				case "무관": workday.setCharAt(7, '_'); break;
+				case "월": workday.setCharAt(0, '1'); break;
+				case "화": workday.setCharAt(1, '1'); break;
+				case "수": workday.setCharAt(2, '1'); break;
+				case "목": workday.setCharAt(3, '1'); break;
+				case "금": workday.setCharAt(4, '1'); break;
+				case "토": workday.setCharAt(5, '1'); break;
+				case "일": workday.setCharAt(6, '1'); break;
+				case "무관": workday.setCharAt(7, '1'); break;
 				}
 			}
 		}

@@ -199,7 +199,8 @@
 		                .append($("<td>").text(dto.subject))
 		                .append($("<td>").text(dto.com_name))
 		                .append($("<td>").text(formattedDate))
-		                .append(dto.status === "활성" ? statusTd : statusTd );
+		                .append(statusTd);
+
 		          
 		            $("tbody").append(tr);
 		            
