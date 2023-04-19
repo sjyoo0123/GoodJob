@@ -272,7 +272,6 @@ ${dto.content}
 		<option selected disabled="disabled">카테고리</option>
 		<option>거짓 공고</option>
 		<option>부적절한 단어사용</option>
-		<option>도영님</option>
 		</select>
        
        

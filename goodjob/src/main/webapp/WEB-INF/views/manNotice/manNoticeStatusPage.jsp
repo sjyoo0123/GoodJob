@@ -199,7 +199,7 @@
 		                .append($("<td>").text(dto.subject))
 		                .append($("<td>").text(dto.com_name))
 		                .append($("<td>").text(formattedDate))
-		                .append(dto.status === "활성" ? statusTd : "비활성화하기");
+		                .append(statusTd);
 		          
 		            $("tbody").append(tr);
 		            

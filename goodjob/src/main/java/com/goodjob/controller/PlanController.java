@@ -133,7 +133,7 @@ public class PlanController {
 		}
 		
 		
-		mav.addObject("goUrl", "manPlanDelPage");
+		mav.addObject("goUrl", "manPlanDelPage.do");
 		
 		mav.setViewName("plan/manPlanMsg");
 		
@@ -155,7 +155,7 @@ public class PlanController {
 			mav.addObject("msg", "삭제에 실패하셨습니다");
 		}
 		
-		mav.addObject("goUrl", "manPlanDelPage");
+		mav.addObject("goUrl", "manPlanDelPage.do");
 	
 		mav.setViewName("plan/manPlanMsg");
 		
